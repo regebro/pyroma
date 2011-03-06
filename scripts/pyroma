@@ -9,7 +9,7 @@ argument = sys.argv[1]
 
 if os.path.isdir(argument):
     print('========')
-    print('Checking')
+    print('Checking ' + argument)
     print('========')
     data = packagedata.get_data(os.path.abspath(argument))
     rating = ratings.rate(data)
@@ -29,7 +29,8 @@ for problem in rating[1]:
     # that we know how wide the terminal is and nice word-breaks, so that's
     # for later.
     print(problem)
-print('========')
+if rating[1]:
+    print('========')
 print('Final rating: ' + str(rating[0]) + '/10')
 print(ratings.LEVELS[rating[0]])
 print('========')
