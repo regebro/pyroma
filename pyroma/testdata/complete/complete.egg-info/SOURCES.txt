@@ -1,0 +1,10 @@
+README.txt
+setup.cfg
+setup.py
+complete/__init__.py
+complete/tests.py
+complete.egg-info/PKG-INFO
+complete.egg-info/SOURCES.txt
+complete.egg-info/dependency_links.txt
+complete.egg-info/top_level.txt
+complete.egg-info/zip-safe

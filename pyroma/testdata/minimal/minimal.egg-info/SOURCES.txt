@@ -1,0 +1,9 @@
+setup.cfg
+setup.py
+minimal/__init__.py
+minimal.egg-info/PKG-INFO
+minimal.egg-info/SOURCES.txt
+minimal.egg-info/dependency_links.txt
+minimal.egg-info/entry_points.txt
+minimal.egg-info/not-zip-safe
+minimal.egg-info/top_level.txt
