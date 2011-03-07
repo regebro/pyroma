@@ -83,7 +83,6 @@ class DistroDataTest(unittest.TestCase):
 
         for filename in os.listdir(directory):
             if filename.startswith('complete'):
-                print filename, "OK"
                 data = distributiondata.get_data(os.path.join(directory,
                                                               filename))
                 self.assertEqual(data, COMPLETE)
