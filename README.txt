@@ -1,17 +1,18 @@
 pyroma
 ======
 
-Pyroma is a product aimed at giving a rating of how well a package complies
-with the best practices of Python packaging, as well as a list of issues
-that could be improved.
+Pyroma rhymes with aroma, and is a product aimed at giving a rating of how well
+a Python project complies with the best practices of the Python packaging
+ecosystem, primarily PyPI, pip, Distribute etc, as well as a list of issues that
+could be improved.
 
-The aim of this is both to help people make a package that is nice and usable,
-but also to improve the quality of Python packages, making it easier and more
-enjoyable to use the vast array of third.party modules for Python.
+The aim of this is both to help people make a project that is nice and usable,
+but also to improve the quality of Python third-party software, making it easier
+and more enjoyable to use the vast array of available modules for Python.
 
 It's written so that there are a library with methods to call from Python, as
 well as a script, also called pyroma.
 
-It can be run on a package directory before making a release, or on a
+It can be run on a project directory before making a release, or on a
 distribution before uploading it to the CheeseShop, or you can give it a package
 name on CheeseShop.
