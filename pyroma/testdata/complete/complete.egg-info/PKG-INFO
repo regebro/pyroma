@@ -33,4 +33,4 @@ Keywords: pypi quality example
 Platform: UNKNOWN
 Classifier: Development Status :: 6 - Mature
 Classifier: Operating System :: OS Independent
-Classifier: Programming Language :: Python
+Classifier: Programming Language :: Python :: 2.6

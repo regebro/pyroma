@@ -30,7 +30,7 @@ LEVELS = ["I don't think that's really cheese",
 
 # All modules in stdlib. No attempt to differentiate between different
 # versions is made at the moment, but this test is made here rather than in
-# the packagedata.py so that it is possible to extend the test to differentiate
+# the projectdata.py so that it is possible to extend the test to differentiate
 # on Python version if so desired.
 STDLIB = set([
 '_abcoll', 'abc', 'aifc', 'antigravity', 'anydbm', 'argparse', 'ast', 
@@ -214,7 +214,7 @@ class Dependencies(BaseTest):
     
     def test(self, data):
         declared_dependencies = data.get('install_requires', []) + \
-                                data.get('test_requires', []) + \
+                                data.get('tests_require', []) + \
                                 data.get('setup_requires', [])
         for r in data.get('extras_require', {}).values():
             declared_dependencies.extend(r)
