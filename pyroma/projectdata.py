@@ -1,3 +1,5 @@
+# Extracts information from a project that has a distutils setup.py file.
+
 import os
 import re
 import sys

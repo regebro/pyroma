@@ -1,50 +1,41 @@
 import unittest
 import os
-from pyroma.packagedata import get_data
+from pyroma import projectdata, distributiondata
 from pyroma.ratings import rate
 from pkg_resources import resource_filename, resource_string
 
-class PackageDataTest(unittest.TestCase):
-    
-    def test_complete(self):
-        directory = resource_filename(
-            __name__, os.path.join('testdata', 'complete'))
-        long_description = resource_string(
-            __name__, os.path.join('testdata', 'complete', 'README.txt'))
-        
-        data = get_data(directory)
-        target = {'name': 'complete',
-                  'version': '1.0',
-                  'description': 'This is a test package for pyroma.',
-                  'long_description': long_description,
-                  'classifiers': ['Development Status :: 6 - Mature',
-                                  'Operating System :: OS Independent',
-                                  'Programming Language :: Python :: 2.6',],
-                  'keywords': 'pypi quality example',
-                  'author': 'Lennart Regebro',
-                  'author_email': 'regebro@gmail.com',
-                  'url': 'http://colliberty.com',
-                  'license': 'MIT',
-                  'packages': ['complete'],
-                  'install_requires': ['setuptools', 'external1'],
-                  'test_requires': ['external2'], 
-                  'setup_requires': ['external3'],
-                  'extras_require': dict(test=['external4','external5']),                          
-                  'include_package_data': True,
-                  'zip_safe': True,
-                  'test_suite': "complete",
-                  '_imports': set(['unittest', 'external5', 'external2',
-                                   'external3', 'external1', 'external4',]
-                                  ),
-                  }
-        self.assertEqual(data, target)
+COMPLETE = {'name': 'complete',
+            'version': '1.0',
+            'description': 'This is a test package for pyroma.',
+            'long_description': resource_string(
+                __name__, os.path.join('testdata', 'complete', 'README.txt')),
+            'classifiers': ['Development Status :: 6 - Mature',
+                            'Operating System :: OS Independent',
+                            'Programming Language :: Python :: 2.6',],
+            'keywords': 'pypi quality example',
+            'author': 'Lennart Regebro',
+            'author_email': 'regebro@gmail.com',
+            'url': 'http://colliberty.com',
+            'license': 'MIT',
+            'packages': ['complete'],
+            'install_requires': ['external1', 'external2'],
+            'tests_require': ['external3'], 
+            'setup_requires': ['setuptools', ],
+            'extras_require': dict(test=['external4','external5']),                          
+            'include_package_data': True,
+            'zip_safe': True,
+            'test_suite': "complete",
+            '_imports': set(['unittest', 'external5', 'external2',
+                             'external3', 'external1', 'external4',]
+                            ),
+            }
 
 class RatingsTest(unittest.TestCase):
     
     def test_complete(self):
         directory = resource_filename(
             __name__, os.path.join('testdata', 'complete'))
-        data = get_data(directory)
+        data = projectdata.get_data(directory)
         rating = rate(data)
         
         # Should have a perfect score
@@ -53,7 +44,7 @@ class RatingsTest(unittest.TestCase):
     def test_minimal(self):
         directory = resource_filename(
             __name__, os.path.join('testdata', 'minimal'))
-        data = get_data(directory)
+        data = projectdata.get_data(directory)
         rating = rate(data)
         
         # Should have a perfect score
@@ -71,3 +62,29 @@ class RatingsTest(unittest.TestCase):
             "Setuptools and Distribute support running tests. By specifying a test suite, it's easy to find and run tests both for automated tools and humans.",
             'You did not declare the following dependencies: external1',
         ]))
+
+
+class ProjectDataTest(unittest.TestCase):
+    
+    def test_complete(self):
+        directory = resource_filename(
+            __name__, os.path.join('testdata', 'complete'))
+        
+        data = projectdata.get_data(directory)
+        self.assertEqual(data, COMPLETE)
+
+
+class DistroDataTest(unittest.TestCase):
+    
+    def test_complete(self):
+        
+        directory = resource_filename(
+            __name__, os.path.join('testdata', 'distributions'))
+
+        for filename in os.listdir(directory):
+            if filename.startswith('complete'):
+                print filename, "OK"
+                data = distributiondata.get_data(os.path.join(directory,
+                                                              filename))
+                self.assertEqual(data, COMPLETE)
+
