@@ -37,7 +37,6 @@ In all cases the output is similar:
     Cottage Cheese
     ------------------------------
 
-    
 TODO
 ----
 
