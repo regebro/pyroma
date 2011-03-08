@@ -37,6 +37,23 @@ In all cases the output is similar:
     Cottage Cheese
     ------------------------------
 
+    
+TODO
+----
+
+ * Figure out why the long_description doesn't render to HTML properly.
+
+ * Add a test for that.
+ 
+ * Figure out how to stop ast from failing on perfectly valid code.
+ 
+ * Discuss whether to check for missing imports at all, since so many
+   packages seem to break this. 
+ 
+ * More verification tests?
+ 
+ * More unit tests! Many more unit tests!!! And mock PyPI instead of using it.
+
 Credits
 -------
 
