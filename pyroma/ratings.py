@@ -228,12 +228,12 @@ class Dependencies(BaseTest):
         if not declared_dependencies: 
             # No dependencies declared. If it *has* dependencies, this is 
             # bad form and gives a lot of minus.
-            weight = 200
+            self.weight = 200
         else:
             # It has declared dependencies, perhaps it forgot to add new ones,
             # perhaps some dependencies are optional. We give it less weight
             # because they may be optional:
-            weight = 50
+            self.weight = 50
 
         # Add the packages in the module to the declared dependencies.
         declared_dependencies.extend(data['packages'])       

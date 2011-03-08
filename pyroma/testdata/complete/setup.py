@@ -22,5 +22,5 @@ setup(name='complete',
       setup_requires=['setuptools'],
       extras_require=dict(test=['external4','external5']),
       zip_safe=True,
-      test_suite="complete"
+      test_suite="complete",
       )

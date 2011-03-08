@@ -3,34 +3,39 @@ import sys
 import os
 from pyroma import projectdata, distributiondata, pypidata, ratings
 
+if len(sys.argv) < 2:
+    print "Usage: pyroma <project directory|file|project name>"
+    sys.exit(1)
+    
 argument = sys.argv[1]
 
-# Is the argument a path?
-
-print('========')
+print('-'*30)
 print('Checking ' + argument)
-print('========')
 
 if os.path.isdir(argument):
     data = projectdata.get_data(os.path.abspath(argument))
+    print('Found ' + data['name'])
     rating = ratings.rate(data)
 
 elif os.path.isfile(argument):
     data = distributiondata.get_data(os.path.abspath(argument))
+    print('Found ' + data['name'])
     rating = ratings.rate(data)
     
 else:
     # Its probably a package name
     data = pypidata.get_data(argument)
+    print('Found ' + data['name'])
     rating = ratings.rate(data)
     
+print('-'*30)
 for problem in rating[1]:
     # XXX It would be nice with a * pointlist instead, but that requires
     # that we know how wide the terminal is and nice word-breaks, so that's
     # for later.
     print(problem)
 if rating[1]:
-    print('========')
+    print('-'*30)
 print('Final rating: ' + str(rating[0]) + '/10')
 print(ratings.LEVELS[rating[0]])
-print('========')
+print('-'*30)

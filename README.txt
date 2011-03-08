@@ -16,7 +16,16 @@ well as a script, also called pyroma.
 It can be run on a project directory before making a release:
 
     $ pyroma .
-
+    ------------------------------
+    Checking .
+    Found pyroma
+    ------------------------------
+    Did you forget to declare the following dependencies?: setup
+    ------------------------------
+    Final rating: 9/10
+    Cottage Cheese
+    ------------------------------
+    
 On a distribution before uploading it to the CheeseShop:
 
     $ pyroma pyroma-1.0.tar.gz

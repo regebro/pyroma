@@ -95,7 +95,3 @@ class DistroDataTest(unittest.TestCase):
                                                               filename))
                 self.assertEqual(data, COMPLETE)
 
-                
-#class PyPIDataTest(unittest.TestCase):
-# XXX Mock PyPI and do these tests properly.
-
