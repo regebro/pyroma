@@ -250,22 +250,33 @@ class Dependencies(BaseTest):
         undeclared = ', '.join(self._undeclared)
         return "Did you forget to declare the following dependencies?: " + undeclared
 
+class PackageDocs(BaseTest):
+    weight = 0 # Just a recommendation
+    
+    def test(self, data):
+        return data.get('_packages_docs')
 
+    def message(self):
+        return "The site packages.python.org is a nice place to put your "\
+               "documentation that makes it easy to find, and relieves you of "\
+               "hosting it. You should consider using it."
+    
 ALL_TESTS = [
-    Name(), 
-    Version(), 
-    Description(), 
-    LongDescription(), 
-    Classifiers(), 
-    PythonVersion(), 
+    Name(),
+    Version(),
+    Description(),
+    LongDescription(),
+    Classifiers(),
+    PythonVersion(),
     Keywords(),
-    Author(), 
-    AuthorEmail(), 
-    Url(), 
-    License(), 
-    ZipSafe(), 
-    TestSuite(), 
-    Dependencies(), 
+    Author(),
+    AuthorEmail(),
+    Url(),
+    License(),
+    ZipSafe(),
+    TestSuite(),
+    Dependencies(),
+    PackageDocs(),
 ]
 
 def rate(data):
