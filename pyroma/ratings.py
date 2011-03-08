@@ -32,6 +32,7 @@ LEVELS = ["I don't think that's really cheese",
 # versions is made at the moment, but this test is made here rather than in
 # the projectdata.py so that it is possible to extend the test to differentiate
 # on Python version if so desired.
+# __main__ is not strictly a part of stdlib, but it's importable...
 STDLIB = set([
 '_abcoll', 'abc', 'aifc', 'antigravity', 'anydbm', 'argparse', 'ast', 
 'asynchat', 'asyncore', 'atexit', 'audiodev', 'base64', 'BaseHTTPServer', 
@@ -65,7 +66,8 @@ STDLIB = set([
 'uuid', 'uu', 'warnings', 'wave', 'weakref', '_weakrefset', 'webbrowser', 
 'whichdb', 'xdrlib', 'xmllib', 'xmlrpclib', 'zipfile', 'dl', 'zipimport', 
 'logging', 'lib2to3', 'distutils', 'multiprocessing', 'imp', 'email',
-'bdist_egg', 'time', 'operator', 'array', 'marshal', 'cStringIO', ])
+'bdist_egg', 'time', 'operator', 'array', 'marshal', 'cStringIO', 'datetime',
+'__main__'])
 
 # Some packages will install other modules. This is bad form, but it happens.
 # If you install setuptools you also get a 'pkg_resources' module, for example.
@@ -172,7 +174,7 @@ class PythonVersion(BaseTest):
         
         
 class Keywords(FieldTest):    
-    weight = 50
+    weight = 20
     field = 'keywords'
 
 class Author(FieldTest):    
