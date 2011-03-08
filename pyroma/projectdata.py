@@ -57,7 +57,17 @@ class SetupMonkey(object):
         os.chdir(self._old_path)
 
 def _find_imports(path):
-    for node in ast.walk(ast.parse(open(path, 'rt').read())):
+    # The ast module is buggy when it comes to handling comments and 
+    # whitespace at the end of files. Whitespace we can strip:
+    data = open(path, 'rt').read().strip()
+    try:
+        rootnode = ast.parse(data, filename=path)
+    except SyntaxError, e:
+        print "Warning could not parse a Python file. This is probably not your fault:"
+        print "Failed at:", ' '.join(str(x) for x in e.args[1])
+        raise StopIteration
+    
+    for node in ast.walk(rootnode):
         if isinstance(node, ast.Import):
             for name in node.names:
                 dependency = name.name
