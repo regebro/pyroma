@@ -3,6 +3,7 @@
 import os
 import re
 import sys
+import ast
 from collections import defaultdict
 
 IMPORTS = re.compile('^import (.*)$|^from (.*?) import .*$', re.MULTILINE)
@@ -56,24 +57,22 @@ class SetupMonkey(object):
         os.chdir(self._old_path)
 
 def _find_imports(path):
-    contents = open(path, 'rt').read()
-    for match in IMPORTS.findall(contents):
-        for modules in match:
-            if not modules:
-                # Shortcut for the common '' case.
-                continue
-            # Handle import foo as bar
-            if 'as' in modules:
-                modules, ignore = modules.split('as', 1)
-            # "import sys, os" needs a split into "sys", "os":
-            modules = [x.strip() for x in modules.split(',')]
-            for module in modules:
-                # If modules are like "foo.bar" only "foo" is relevant.
-                if '.' in module:
-                    module, ignore = module.split('.')
-                yield module
+    for node in ast.walk(ast.parse(open(path, 'rt').read())):
+        if isinstance(node, ast.Import):
+            for name in node.names:
+                dependency = name.name
+        elif isinstance(node, ast.ImportFrom):
+            dependency = node.module
+        else:
+            continue
 
-def _find_py_files(path):
+        if '.' in dependency:
+            # Only the first name is relevant
+            yield dependency.split('.')[0]
+        else:
+            yield dependency
+    
+def _find_py_modules(path):
     """Find all python files in the package in 'path'"""
     files = os.listdir(path)
     if '__init__.py' not in files:
@@ -82,9 +81,13 @@ def _find_py_files(path):
     for filename in files:
         filepath = os.path.join(path, filename)
         if filename.endswith('.py'):
-            yield filepath
+            # Yield the module name and the file path to the module.
+            if filename == '__init__.py':
+                yield filepath.split(os.path.sep)[-2], filepath
+            else:
+                yield os.path.splitext(filename)[0], filepath
         elif os.path.isdir(filepath):
-            for x in _find_py_files(filepath):
+            for x in _find_py_modules(filepath):
                     yield x
     
 def get_data(path):
@@ -103,10 +106,14 @@ def get_data(path):
         
     # Find all dependencies:
     imports = set()
+    modules_in_package = set()
     for package in metadata['packages']:
-        for filepath in _find_py_files(os.path.join(path, package)):
+        if '.' in package:
+            package = package.replace('.', os.path.sep)
+        for module, filepath in _find_py_modules(os.path.join(path, package)):
+            modules_in_package.add(module)
             imports.update(list(_find_imports(filepath)))
                 
-    metadata['_imports'] = imports
+    metadata['_imports'] = imports - modules_in_package
     return metadata
     

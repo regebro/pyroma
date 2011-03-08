@@ -1,6 +1,6 @@
 import unittest
 import os
-from pyroma import projectdata, distributiondata
+from pyroma import projectdata, distributiondata, pypidata
 from pyroma.ratings import rate
 from pkg_resources import resource_filename, resource_string
 
@@ -47,7 +47,6 @@ class RatingsTest(unittest.TestCase):
         data = projectdata.get_data(directory)
         rating = rate(data)
         
-        # Should have a perfect score
         self.assertEqual(rating, (1, [
             'The packages description should be longer than 10 characters', 
             'The packages long_description is quite short', 
@@ -60,9 +59,18 @@ class RatingsTest(unittest.TestCase):
             'Your package does not have license data', 
             "It's not specified if this package is zip_safe or not, which is usually an oversight. You should specify it, as it defaults to True, which you probably do not want.",
             "Setuptools and Distribute support running tests. By specifying a test suite, it's easy to find and run tests both for automated tools and humans.",
-            'You did not declare the following dependencies: external1',
+            'Did you forget to declare the following dependencies?: external1',
         ]))
 
+    def test_distribute(self):
+        # XXX: Mock PyPI
+        data = pypidata.get_data('distribute')
+        rating = rate(data)
+        
+        self.assertEqual(rating, (9, [   
+            'You should specify what Python versions you support', 
+            'Did you forget to declare the following dependencies?: win32com, Pyrex',
+        ]))
 
 class ProjectDataTest(unittest.TestCase):
     
@@ -86,4 +94,8 @@ class DistroDataTest(unittest.TestCase):
                 data = distributiondata.get_data(os.path.join(directory,
                                                               filename))
                 self.assertEqual(data, COMPLETE)
+
+                
+#class PyPIDataTest(unittest.TestCase):
+# XXX Mock PyPI and do these tests properly.
 
