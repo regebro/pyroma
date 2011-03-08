@@ -63,8 +63,10 @@ def _find_imports(path):
     try:
         rootnode = ast.parse(data, filename=path)
     except SyntaxError, e:
-        print "Warning could not parse a Python file. This is probably not your fault:"
-        print "Failed at:", ' '.join(str(x) for x in e.args[1])
+        print "Warning could not parse a Python file. This is probably not your fault"
+        print "File:", e.args[1][0]
+        print "Line:", e.args[1][1]
+        print "Code:", e.args[1][3]
         raise StopIteration
     
     for node in ast.walk(rootnode):
