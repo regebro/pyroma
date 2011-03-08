@@ -7,7 +7,7 @@ setup(name='pyroma',
       version=version,
       description="Tests the quality of Python modules",
       long_description=open("README.txt").read() + "\n" +
-                       open(os.path.join("docs", "HISTORY.txt")).read(),
+                       open("HISTORY.txt").read(),
       # Get more strings from
       # http://pypi.python.org/pypi?:action=list_classifiers
       classifiers=[
