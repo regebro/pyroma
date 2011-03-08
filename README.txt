@@ -16,15 +16,6 @@ well as a script, also called pyroma.
 It can be run on a project directory before making a release:
 
     $ pyroma .
-    ------------------------------
-    Checking .
-    Found pyroma
-    ------------------------------
-    Did you forget to declare the following dependencies?: setup
-    ------------------------------
-    Final rating: 9/10
-    Cottage Cheese
-    ------------------------------
     
 On a distribution before uploading it to the CheeseShop:
 
@@ -34,6 +25,17 @@ Or you can give it a package name on CheeseShop:
 
     $ pyroma pyroma
 
+In all cases the output is similar:
+
+    ------------------------------
+    Checking .
+    Found pyroma
+    ------------------------------
+    Did you forget to declare the following dependencies?: setup
+    ------------------------------
+    Final rating: 9/10
+    Cottage Cheese
+    ------------------------------
 
 Credits
 -------
