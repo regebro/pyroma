@@ -32,7 +32,8 @@ class SetupMonkey(object):
             self._setuptools_setup = None
 
         self._old_path = os.path.abspath(os.curdir)
-        sys.path.remove(self._old_path)
+        if self._old_path in sys.path:
+            sys.path.remove(self._old_path)
         os.chdir(self._path)
         
         if self._path not in sys.path:
