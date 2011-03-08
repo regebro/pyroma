@@ -67,8 +67,8 @@ class RatingsTest(unittest.TestCase):
         data = pypidata.get_data('distribute')
         rating = rate(data)
         
-        self.assertEqual(rating, (9, [   
-            'You should specify what Python versions you support', 
+        self.assertEqual(rating, (7, [
+            'The classifiers should specify what minor versions of Python you support as well as what major version',
             'Did you forget to declare the following dependencies?: win32com, Pyrex',
         ]))
 
