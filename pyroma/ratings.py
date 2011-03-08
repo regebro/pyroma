@@ -9,7 +9,7 @@
 #     fatal:    If set to True, the failure of this test will cause the 
 #               package to achieve the rating of 1, which is minimum
 #     weight:   The relative importance of the test.
-#               If the test has required set to True this is ignored.
+#               If the test has fatal set to True this is ignored.
 #
 # Tests have two methods:
 #     test(data): Performs the test on the given data. Returns True for pass
@@ -76,7 +76,6 @@ ALIASES = {'setuptools': ['pkg_resources'],
 
 class BaseTest(object):
     fatal = False
-    weight = 0
     
 class FieldTest(BaseTest):
     """Tests that a specific field is in the data and is not empty or False"""
@@ -88,12 +87,10 @@ class FieldTest(BaseTest):
         return ("Your package does not have %s data" % self.field) + (self.fatal and '!' or '')
 
 class Name(FieldTest):
-    
     fatal = True
     field = 'name'
 
-class Version(FieldTest):
-    
+class Version(FieldTest):    
     fatal = True
     field = 'version'
         
@@ -123,27 +120,21 @@ class LongDescription(BaseTest):
         return 'The packages long_description is quite short'
 
 class Classifiers(FieldTest):
-    
     weight = 100
     field = 'classifiers'
 
 class PythonVersion(BaseTest):
-    
-    weight = None # This has several levels of failure.
-    
+
     def test(self, data):
         self._major_version_specified = False
-        self.weight = 100
         
         classifiers = data.get('classifiers', [])
         for classifier in classifiers:
-            # There are at least some classifiers:
-            self.weight = 25
             parts = [p.strip() for p in classifier.split('::')]
             if parts[0] == 'Programming Language' and parts[1] == 'Python':
                 if len(parts) == 2:
                     # Specified Python, but no version.
-                    return False
+                    continue
                 version = parts[2]
                 try:
                     float(version)
@@ -155,15 +146,21 @@ class PythonVersion(BaseTest):
                 except ValueError:
                     # It's a valid float, but not a valid int. Hence it's 
                     # something like "2.7" or "3.3" but not just "2" or "3".
-                    # This is a good specification
+                    # This is a good specification, and we only need one.
+                    # Set weight to 100 and finish.
                     self.weight = 100
                     return True
+                
                 # It's a valid int, meaning it specified "2" or "3".
-                # That's not good enough.
-                self._major_version_specified = False
-                self.weight = 50
-                    
-        # None of the specifications where any good.
+                self._major_version_specified = True
+
+        # There was some sort of failure:
+        if self._major_version_specified:
+            # Python 2 or 3 was specified but no more detail than that:
+            self.weight = 25
+        else:
+            # No Python version specified at all:
+            self.weight = 100
         return False
 
     def message(self):
@@ -224,7 +221,7 @@ class Dependencies(BaseTest):
                                 data.get('setup_requires', [])
         for r in data.get('extras_require', {}).values():
             declared_dependencies.extend(r)
-            
+
         if not declared_dependencies: 
             # No dependencies declared. If it *has* dependencies, this is 
             # bad form and gives a lot of minus.
@@ -295,7 +292,8 @@ def rate(data):
             if test.fatal:
                 fatality = True
         elif res is True:
-            good += test.weight
+            if not test.fatal:
+                good += test.weight
     # If res is None, it's ignored. 
     if fatality:
         # A fatal tests failed. That means we give a 0 rating:
