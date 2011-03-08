@@ -13,6 +13,21 @@ and more enjoyable to use the vast array of available modules for Python.
 It's written so that there are a library with methods to call from Python, as
 well as a script, also called pyroma.
 
-It can be run on a project directory before making a release, or on a
-distribution before uploading it to the CheeseShop, or you can give it a package
-name on CheeseShop.
+It can be run on a project directory before making a release:
+
+    $ pyroma .
+
+On a distribution before uploading it to the CheeseShop:
+
+    $ pyroma pyroma-1.0.tar.gz
+
+Or you can give it a package name on CheeseShop:
+
+    $ pyroma pyroma
+
+
+Credits
+-------
+
+The project was created by Lennart Regebro, regebro@gmail.com
+The name "Pyroma" was coined by Wichert Akkerman, wichert@wiggy.net
