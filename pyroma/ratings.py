@@ -63,7 +63,9 @@ STDLIB = set([
 'tokenize', 'token', 'traceback', 'trace', 'tty', 'types', 'unittest', 
 'urllib2', 'urllib', 'urlparse', 'UserDict', 'UserList', 'user', 'UserString', 
 'uuid', 'uu', 'warnings', 'wave', 'weakref', '_weakrefset', 'webbrowser', 
-'whichdb', 'xdrlib', 'xmllib', 'xmlrpclib', 'zipfile'])
+'whichdb', 'xdrlib', 'xmllib', 'xmlrpclib', 'zipfile', 'dl', 'zipimport', 
+'logging', 'lib2to3', 'distutils', 'multiprocessing', 'imp', 'email',
+'bdist_egg', 'time', 'operator', 'array', 'marshal', 'cStringIO', ])
 
 # Some packages will install other modules. This is bad form, but it happens.
 # If you install setuptools you also get a 'pkg_resources' module, for example.
@@ -210,29 +212,41 @@ class TestSuite(FieldTest):
                "both for automated tools and humans."
 
 class Dependencies(BaseTest):
-    weight = 100
     
     def test(self, data):
+        if data.get('_source_download') is False:
+            # Could not download source from PyPI. Skip this.
+            return None
         declared_dependencies = data.get('install_requires', []) + \
                                 data.get('tests_require', []) + \
                                 data.get('setup_requires', [])
         for r in data.get('extras_require', {}).values():
             declared_dependencies.extend(r)
             
+        if not declared_dependencies: 
+            # No dependencies declared. If it *has* dependencies, this is 
+            # bad form and gives a lot of minus.
+            weight = 200
+        else:
+            # It has declared dependencies, perhaps it forgot to add new ones,
+            # perhaps some dependencies are optional. We give it less weight
+            # because they may be optional:
+            weight = 50
+
+        # Add the packages in the module to the declared dependencies.
+        declared_dependencies.extend(data['packages'])       
+
         # Update the declared with aliases:
         for d in declared_dependencies:
             declared_dependencies.extend(ALIASES.get(d, []))
             
-        # Add the packages in the module to the declared dependencies.
-        declared_dependencies.extend(data['packages'])
-        
         dependencies = data['_imports'] - STDLIB
         self._undeclared = dependencies - set(declared_dependencies)
         return not bool(self._undeclared)
         
     def message(self):
         undeclared = ', '.join(self._undeclared)
-        return "You did not declare the following dependencies: " + undeclared
+        return "Did you forget to declare the following dependencies?: " + undeclared
 
 
 ALL_TESTS = [
