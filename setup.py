@@ -5,7 +5,7 @@ version = '0.9.2dev'
 
 setup(name='pyroma',
       version=version,
-      description="Tests the quality of Python modules",
+      description="Test your projects packaging friendlyness",
       long_description=open("README.txt").read() + "\n" +
                        open("HISTORY.txt").read(),
       # Get more strings from
