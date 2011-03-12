@@ -59,7 +59,6 @@ class RatingsTest(unittest.TestCase):
             'Your package does not have license data', 
             "It's not specified if this package is zip_safe or not, which is usually an oversight. You should specify it, as it defaults to True, which you probably do not want.",
             "Setuptools and Distribute support running tests. By specifying a test suite, it's easy to find and run tests both for automated tools and humans.",
-            'Did you forget to declare the following dependencies?: external1',
         ]))
 
     def test_distribute(self):
@@ -67,9 +66,8 @@ class RatingsTest(unittest.TestCase):
         data = pypidata.get_data('distribute')
         rating = rate(data)
         
-        self.assertEqual(rating, (7, [
+        self.assertEqual(rating, (9, [
             'The classifiers should specify what minor versions of Python you support as well as what major version',
-            'Did you forget to declare the following dependencies?: win32com, Pyrex',
         ]))
 
 class ProjectDataTest(unittest.TestCase):
