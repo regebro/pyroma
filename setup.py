@@ -24,6 +24,7 @@ setup(name='pyroma',
       zip_safe=False,
       install_requires=[
           'setuptools',
+          'docutils',
           # -*- Extra requirements: -*-
       ],
       test_suite='pyroma',

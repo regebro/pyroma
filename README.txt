@@ -25,7 +25,7 @@ Or you can give it a package name on CheeseShop:
 
     $ pyroma pyroma
 
-In all cases the output is similar:
+In all cases the output is similar::
 
     ------------------------------
     Checking .

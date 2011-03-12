@@ -16,6 +16,9 @@
 #                 False for fail and None for not applicable (meaning it will
 #                 not be counted).
 
+from docutils.core import publish_parts
+from docutils.utils import SystemMessage
+
 LEVELS = ["I don't think that's really cheese",
           "Vieux Bologne",
           "Limburger",
@@ -257,6 +260,24 @@ class PackageDocs(BaseTest):
         return "The site packages.python.org is a nice place to put your "\
                "documentation that makes it easy to find, and relieves you of "\
                "hosting it. You should consider using it."
+
+class ValidREST(BaseTest):
+    
+    weight = 50
+    
+    def test(self, data):
+        source = data['long_description']
+        try:
+            parts = publish_parts(source=source, writer_name='html4css1')
+        except SystemMessage, e:
+            import pdb;pdb.set_trace()
+            self._message = e.args[0].strip()
+            return False
+        
+        return True
+    
+    def message(self):
+        return 'Your long_description is not valid ReST: ' + self._message
     
 ALL_TESTS = [
     Name(),
@@ -272,8 +293,9 @@ ALL_TESTS = [
     License(),
     ZipSafe(),
     TestSuite(),
-    Dependencies(),
+    #Dependencies(),
     PackageDocs(),
+    ValidREST(),
 ]
 
 def rate(data):
