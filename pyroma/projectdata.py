@@ -116,30 +116,31 @@ def get_data(path):
             del sys.modules['setup']
         except ImportError:
             return {}
-        
-    # Find all dependencies:
-    imports = set()
-    modules_in_package = set()
-    packages = metadata['packages']
+
+    # This didn't work well enough, maybe remove?
+    ## Find all dependencies:
+    #imports = set()
+    #modules_in_package = set()
+    #packages = metadata['packages']
     
-    # Remove namespace packages, for example):
-    for package in sorted(metadata['packages'], key=lambda x: -len(x)):
-        if '.' in package:
-            parent = package.rsplit('.', 1)[0]
-            if parent in packages:
-                packages.remove(package)
+    ## Remove namespace packages, for example):
+    #for package in sorted(metadata['packages'], key=lambda x: -len(x)):
+        #if '.' in package:
+            #parent = package.rsplit('.', 1)[0]
+            #if parent in packages:
+                #packages.remove(package)
     
-    for package in packages:
-        if '.' in package:
-            package = package.replace('.', os.path.sep)
-        package_dirs = metadata.get('package_dir', {'':''})
-        package_dir = package_dirs.get(package, package_dirs[''])
+    #for package in packages:
+        #if '.' in package:
+            #package = package.replace('.', os.path.sep)
+        #package_dirs = metadata.get('package_dir', {'':''})
+        #package_dir = package_dirs.get(package, package_dirs[''])
             
-        for module, filepath in _find_py_modules(
-            os.path.join(path, package_dir, package)):
-            modules_in_package.add(module)
-            imports.update(list(_find_imports(filepath)))
+        #for module, filepath in _find_py_modules(
+            #os.path.join(path, package_dir, package)):
+            #modules_in_package.add(module)
+            #imports.update(list(_find_imports(filepath)))
                 
-    metadata['_imports'] = imports - modules_in_package
+    #metadata['_imports'] = imports - modules_in_package
     return metadata
     
