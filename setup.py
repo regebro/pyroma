@@ -1,7 +1,7 @@
 from setuptools import setup, find_packages
 import os
 
-version = '0.9.2dev'
+version = '0.9.2'
 
 setup(name='pyroma',
       version=version,
