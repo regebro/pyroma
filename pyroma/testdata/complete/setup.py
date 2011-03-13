@@ -5,8 +5,8 @@ version = '1.0'
 
 setup(name='complete',
       version=version,
-      description="This is a test package for pyroma.",
-      long_description=open("README.txt").read(),
+      description='This is a test package for pyroma.',
+      long_description=open('README.txt', 'rt').read(),
       classifiers=['Development Status :: 6 - Mature',
                    'Operating System :: OS Independent',
                    'Programming Language :: Python :: 2.6',],
@@ -22,5 +22,5 @@ setup(name='complete',
       setup_requires=['setuptools'],
       extras_require=dict(test=['external4','external5']),
       zip_safe=True,
-      test_suite="complete",
+      test_suite='complete',
       )

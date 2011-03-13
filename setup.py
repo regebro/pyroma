@@ -6,12 +6,14 @@ version = '0.9.2dev'
 setup(name='pyroma',
       version=version,
       description="Test your projects packaging friendlyness",
-      long_description=open("README.txt").read() + "\n" +
-                       open("HISTORY.txt").read(),
+      long_description=open("README.txt", 'rt').read() + "\n" +
+                       open("HISTORY.txt", 'rt').read(),
       # Get more strings from
       # http://pypi.python.org/pypi?:action=list_classifiers
       classifiers=[
         "Programming Language :: Python :: 2.6",
+        "Programming Language :: Python :: 2.7",
+        "Programming Language :: Python :: 3.1",
         ],
       keywords='pypi quality testing',
       author='Lennart Regebro',
@@ -28,4 +30,5 @@ setup(name='pyroma',
           # -*- Extra requirements: -*-
       ],
       test_suite='pyroma',
+      use_2to3=True,
       )

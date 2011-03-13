@@ -3,7 +3,7 @@
 import os
 import re
 import sys
-import ast
+#import ast
 from collections import defaultdict
 
 IMPORTS = re.compile('^import (.*)$|^from (.*?) import .*$', re.MULTILINE)

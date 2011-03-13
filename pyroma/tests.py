@@ -4,11 +4,15 @@ from pyroma import projectdata, distributiondata, pypidata
 from pyroma.ratings import rate
 from pkg_resources import resource_filename, resource_string
 
+long_description = resource_string(
+    __name__, os.path.join('testdata', 'complete', 'README.txt'))
+if not isinstance(long_description, str):
+    long_description = long_description.decode()
+
 COMPLETE = {'name': 'complete',
             'version': '1.0',
             'description': 'This is a test package for pyroma.',
-            'long_description': resource_string(
-                __name__, os.path.join('testdata', 'complete', 'README.txt')),
+            'long_description': long_description,
             'classifiers': ['Development Status :: 6 - Mature',
                             'Operating System :: OS Independent',
                             'Programming Language :: Python :: 2.6',],
