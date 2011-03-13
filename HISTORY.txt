@@ -4,7 +4,11 @@ Changelog
 0.9.2 (unreleased)
 ------------------
 
-- Nothing changed yet.
+- Commented out the dependency test, it was too unreliable.
+
+- Fixed the ReST.
+
+- Python 3 support.
 
 
 0.9.1 (2011-03-08)
