@@ -25,9 +25,9 @@ COMPLETE = {'name': 'complete',
             'include_package_data': True,
             'zip_safe': True,
             'test_suite': "complete",
-            '_imports': set(['unittest', 'external5', 'external2',
-                             'external3', 'external1', 'external4',]
-                            ),
+            #'_imports': set(['unittest', 'external5', 'external2',
+                             #'external3', 'external1', 'external4',]
+                            #),
             }
 
 class RatingsTest(unittest.TestCase):
