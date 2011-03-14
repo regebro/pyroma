@@ -4,7 +4,7 @@ import os
 from pyroma import projectdata, distributiondata, pypidata, ratings
 
 if len(sys.argv) < 2:
-    print "Usage: pyroma <project directory|file|project name>"
+    print("Usage: pyroma <project directory|file|project name>")
     sys.exit(1)
     
 argument = sys.argv[1]
