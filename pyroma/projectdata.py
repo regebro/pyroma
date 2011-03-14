@@ -37,7 +37,7 @@ class SetupMonkey(object):
         os.chdir(self._path)
         
         if self._path not in sys.path:
-            sys.path.append(self._path)
+            sys.path.insert(0, self._path)
             self._path_appended = True
         else:    
             self._path_appended = False
