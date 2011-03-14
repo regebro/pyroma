@@ -222,7 +222,7 @@ class Dependencies(BaseTest):
         declared_dependencies = data.get('install_requires', []) + \
                                 data.get('tests_require', []) + \
                                 data.get('setup_requires', [])
-        for r in data.get('extras_require', {}).values():
+        for r in data.get('extras_require', {}).itervalues():
             declared_dependencies.extend(r)
 
         if not declared_dependencies: 
@@ -309,10 +309,11 @@ def rate(data):
     for test in ALL_TESTS:
         res = test.test(data)
         if res is False:
-            bad += test.weight
-            fails.append(test.message())
             if test.fatal:
                 fatality = True
+            else:
+                bad += test.weight
+                fails.append(test.message())
         elif res is True:
             if not test.fatal:
                 good += test.weight
