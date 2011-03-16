@@ -1,6 +1,9 @@
 import unittest
 import os
 import xmlrpclib
+import urlparse
+import urllib
+import sys
 
 from pyroma import projectdata, distributiondata, pypidata
 from pyroma.ratings import rate
@@ -37,10 +40,35 @@ COMPLETE = {'name': 'complete',
             }
 
 
-_RECORD = True # Set this to true, and it will use the real 
+class FakeResponse(object):
+    def __init__(self, responsecode, filename=None):
+        self.filename = filename
+        if sys.version > '2.5':
+            # 2.5 and lower doesn't have the code attribute.
+            # The test should fail on Python 2.5.
+            self.code = responsecode
+            
+    def read(self):
+        return open(self.filename, 'rb').read()
 
-real_server_proxy = xmlrpclib.ServerProxy
-    
+def urlopenstub(url):
+    filename = [x for x in url.split('/') if x][-1]
+    if url.startswith('http://packages.python.org/'):
+        # Faking the docs:
+        if filename in ('distribute',):
+            return FakeResponse(200)
+        else:
+            # This package doesn't have docs on packages.python.org:
+            return FakeResponse(404)
+                
+    if url.startswith('http://pypi.python.org/'):
+        # Faking PyPI
+        filename = resource_filename(
+            __name__, os.path.join('testdata', 'distributions', filename))
+        return FakeResponse(200, filename)
+        
+    raise ValueError("Don't know how to stub " + url)
+
 class ProxyStub(object):
     def __init__(self, dataname, real_class, developmode):        
         filename = resource_filename(
@@ -119,10 +147,14 @@ class RatingsTest(unittest.TestCase):
         ]))
 
     def test_distribute(self):
+        real_urlopen = urllib.urlopen
+        real_server_proxy = xmlrpclib.ServerProxy
         try:
             xmlrpclib.ServerProxy = ProxyStub('distributedata.py',
                                               xmlrpclib.ServerProxy,
                                               False)
+            
+            urllib.urlopen = urlopenstub
             
             data = pypidata.get_data('distribute')
             rating = rate(data)
@@ -132,6 +164,7 @@ class RatingsTest(unittest.TestCase):
             ]))
         finally:
             xmlrpclib.ServerProxy = real_server_proxy
+            urllib.urlopen = real_urlopen
         
 class ProjectDataTest(unittest.TestCase):
     
