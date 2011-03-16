@@ -213,43 +213,6 @@ class TestSuite(FieldTest):
                "specifying a test suite, it's easy to find and run tests "\
                "both for automated tools and humans."
 
-class Dependencies(BaseTest):
-    
-    def test(self, data):
-        if data.get('_source_download') is False:
-            # Could not download source from PyPI. Skip this.
-            return None
-        declared_dependencies = data.get('install_requires', []) + \
-                                data.get('tests_require', []) + \
-                                data.get('setup_requires', [])
-        for r in data.get('extras_require', {}).itervalues():
-            declared_dependencies.extend(r)
-
-        if not declared_dependencies: 
-            # No dependencies declared. If it *has* dependencies, this is 
-            # bad form and gives a lot of minus.
-            self.weight = 200
-        else:
-            # It has declared dependencies, perhaps it forgot to add new ones,
-            # perhaps some dependencies are optional. We give it less weight
-            # because they may be optional:
-            self.weight = 50
-
-        # Add the packages in the module to the declared dependencies.
-        declared_dependencies.extend(data['packages'])       
-
-        # Update the declared with aliases:
-        for d in declared_dependencies:
-            declared_dependencies.extend(ALIASES.get(d, []))
-            
-        dependencies = data['_imports'] - STDLIB
-        self._undeclared = dependencies - set(declared_dependencies)
-        return not bool(self._undeclared)
-        
-    def message(self):
-        undeclared = ', '.join(self._undeclared)
-        return "Did you forget to declare the following dependencies?: " + undeclared
-
 class PackageDocs(BaseTest):
     weight = 0 # Just a recommendation
     
@@ -293,7 +256,6 @@ ALL_TESTS = [
     License(),
     ZipSafe(),
     TestSuite(),
-    #Dependencies(),
     PackageDocs(),
     ValidREST(),
 ]
