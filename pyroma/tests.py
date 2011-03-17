@@ -33,6 +33,7 @@ COMPLETE = {'name': 'complete',
             'include_package_data': True,
             'zip_safe': True,
             'test_suite': "complete",
+            '_testresult': 'Success',
             }
 
 
@@ -120,7 +121,7 @@ class ProxyStub(object):
         
 class RatingsTest(unittest.TestCase):
     
-    def test_complete(self):
+    def test_complete1(self):
         directory = resource_filename(
             __name__, os.path.join('testdata', 'complete'))
         data = projectdata.get_data(directory)
@@ -147,6 +148,7 @@ class RatingsTest(unittest.TestCase):
             'Your package does not have license data.', 
             "It's not specified if this package is zip_safe or not, which is usually an oversight. You should specify it, as it defaults to True, which you probably do not want.",
             "Setuptools and Distribute support running tests. By specifying a test suite, it's easy to find and run tests both for automated tools and humans.",
+            'This package is not set up to run tests.',
         ]))
 
     def test_distribute(self):
@@ -164,6 +166,7 @@ class RatingsTest(unittest.TestCase):
             
             self.assertEqual(rating, (9, [
                 'The classifiers should specify what minor versions of Python you support as well as what major version.',
+                "This project doesn't support this version of Python; tests not run.",
                 'You should have three or more owners of the project on PyPI.'
             ]))
         finally:
@@ -172,20 +175,18 @@ class RatingsTest(unittest.TestCase):
         
 class ProjectDataTest(unittest.TestCase):
     
-    def test_complete(self):
+    def test_complete2(self):
         directory = resource_filename(
             __name__, os.path.join('testdata', 'complete'))
         
         data = projectdata.get_data(directory)
         # The path is dynamic, and needs not be tested anyway:
-        del data['_path']
         self.assertEqual(data, COMPLETE)
 
 
 class DistroDataTest(unittest.TestCase):
     
-    def test_complete(self):
-        
+    def test_complete3(self):
         directory = resource_filename(
             __name__, os.path.join('testdata', 'distributions'))
 
@@ -193,6 +194,4 @@ class DistroDataTest(unittest.TestCase):
             if filename.startswith('complete'):
                 data = distributiondata.get_data(os.path.join(directory,
                                                               filename))
-                # The path is dynamic, and needs not be tested anyway:
-                del data['_path']
                 self.assertEqual(data, COMPLETE)
