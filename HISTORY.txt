@@ -1,7 +1,7 @@
 Changelog
 =========
 
-0.9.3 (unreleased)
+0.9.3 (2011-03-17)
 ------------------
 
 - It's now using a ProxyStub for the PyPI xmlrpclib during tests.
@@ -9,7 +9,7 @@ Changelog
 - Removed the Dependency rating.
 
 - Added a rating that runs tests, to see if they run. This will also take
-  care of checkingf or dependencies.
+  care of checking for dependencies.
 
 
 0.9.2 (2011-03-13)
