@@ -56,7 +56,7 @@ class SetupMonkey(object):
         sys.path.append(self._old_path)
         
         os.chdir(self._old_path)
-    
+            
 def get_data(path):
     """
     Returns data from a package directory. 
@@ -64,12 +64,10 @@ def get_data(path):
     """
     # Run the imported setup to get the metadata.
     with SetupMonkey(path) as sm:
-        try:
-            import setup
-            metadata = sm.get_data()
-            del sys.modules['setup']
-        except ImportError:
-            return {}
+        import setup
+        metadata = sm.get_data()
+        del sys.modules['setup']
 
+    metadata['_path'] = path
     return metadata
     

@@ -27,16 +27,12 @@ COMPLETE = {'name': 'complete',
             'url': 'http://colliberty.com',
             'license': 'MIT',
             'packages': ['complete'],
-            'install_requires': ['external1', 'external2'],
-            'tests_require': ['external3'], 
-            'setup_requires': ['setuptools', ],
-            'extras_require': dict(test=['external4','external5']),                          
+            'install_requires': ['zope.event'],
+            'tests_require': ['six'],
+            'setup_requires': ['setuptools'],
             'include_package_data': True,
             'zip_safe': True,
             'test_suite': "complete",
-            #'_imports': set(['unittest', 'external5', 'external2',
-                             #'external3', 'external1', 'external4',]
-                            #),
             }
 
 
@@ -173,6 +169,8 @@ class ProjectDataTest(unittest.TestCase):
             __name__, os.path.join('testdata', 'complete'))
         
         data = projectdata.get_data(directory)
+        # The path is dynamic, and needs not be tested anyway:
+        del data['_path']
         self.assertEqual(data, COMPLETE)
 
 
@@ -187,5 +185,6 @@ class DistroDataTest(unittest.TestCase):
             if filename.startswith('complete'):
                 data = distributiondata.get_data(os.path.join(directory,
                                                               filename))
+                # The path is dynamic, and needs not be tested anyway:
+                del data['_path']
                 self.assertEqual(data, COMPLETE)
-
