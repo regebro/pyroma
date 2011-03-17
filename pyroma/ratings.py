@@ -16,6 +16,7 @@
 #                 False for fail and None for not applicable (meaning it will
 #                 not be counted).
 
+import sys, os
 from docutils.core import publish_parts
 from docutils.utils import SystemMessage
 
@@ -212,6 +213,76 @@ class TestSuite(FieldTest):
         return "Setuptools and Distribute support running tests. By "\
                "specifying a test suite, it's easy to find and run tests "\
                "both for automated tools and humans."
+    
+class RunnableTests(BaseTest):
+    
+    weight = 100
+
+    def _specified_versions(self, data):
+        classifiers = data.get('classifiers', [])
+        for classifier in classifiers:
+            parts = [p.strip() for p in classifier.split('::')]
+            if parts[0] == 'Programming Language' and parts[1] == 'Python':
+                if len(parts) == 2:
+                    # Specified Python, but no version.
+                    continue
+                version = parts[2]
+                try:
+                    int(version)
+                    # This is just specifying 2 or 3, not which version
+                    continue
+                except ValueError:
+                    pass
+                try:
+                    float(version)
+                    # This version is good!
+                    yield version
+                except ValueError:
+                    # Not a proper Python version
+                    continue
+    
+    def test(self, data):
+        # See if we can run the tests.
+        if not TestSuite().test(data):
+            self._cause = "NoTests"
+            return None
+
+        use_python = None
+        this_version = sys.version[:3]
+        versions = list(self._specified_versions(data))
+        if this_version in versions:
+            sys.path.insert(0, data['_path'])
+            os.chdir(data['_path'])
+            try:
+                sys.argv = ['setup.py', '-q', 'test']
+                import setup
+                del sys.modules['setup']
+            except SystemExit, e:
+                if e.args[0]:
+                    # Failure
+                    self._cause = "Failure"
+                    return False
+                # Success!
+            finally:
+                sys.path.pop(0)
+            
+            return True
+        
+        self._cause = "WrongPython"
+        return None
+        
+    def message(self):
+        if self._cause == 'Failure':
+            self.weight = 100
+            return "The test suite failed!"
+        if self._cause == 'WrongPython':
+            self.weight = 0
+            return "This project doesn't support this version of Python."
+        if self._cause == 'NoTests':
+            self.weight = 0
+            return "This package is not set up to run tests."
+        self.fatal = True
+        return "Uknown error, this is likely a Pyroma bug."
 
 class PackageDocs(BaseTest):
     weight = 0 # Just a recommendation
@@ -256,6 +327,7 @@ ALL_TESTS = [
     License(),
     ZipSafe(),
     TestSuite(),
+    RunnableTests(),
     PackageDocs(),
     ValidREST(),
 ]

@@ -1,5 +1,5 @@
 import unittest
-
+import six
 
 class PackageDataTest(unittest.TestCase):
     
