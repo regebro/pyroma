@@ -32,52 +32,6 @@ LEVELS = ["I don't think that's really cheese",
           "Cottage Cheese",
           "Your cheese is so fresh most people think it's a cream: Mascarpone"]
 
-# All modules in stdlib. No attempt to differentiate between different
-# versions is made at the moment, but this test is made here rather than in
-# the projectdata.py so that it is possible to extend the test to differentiate
-# on Python version if so desired.
-# __main__ is not strictly a part of stdlib, but it's importable...
-STDLIB = set([
-'_abcoll', 'abc', 'aifc', 'antigravity', 'anydbm', 'argparse', 'ast', 
-'asynchat', 'asyncore', 'atexit', 'audiodev', 'base64', 'BaseHTTPServer', 
-'Bastion', 'bdb', 'binhex', 'bisect', 'calendar', 'CGIHTTPServer', 'cgi', 
-'cgitb', 'chunk', 'cmd', 'codecs', 'codeop', 'code', 'collections', 'colorsys',
-'commands', 'compileall', 'ConfigParser', 'contextlib', 'cookielib', 'Cookie',
-'copy', 'copy_reg', 'cProfile', 'csv', 'dbhash', 'decimal', 'difflib',
-'dircache', 'dis', 'doctest', 'DocXMLRPCServer', 'dumbdbm', 'dummy_threading',
-'dummy_thread', 'filecmp', 'fileinput', 'fnmatch', 'formatter', 'fpformat',
-'fractions', 'ftplib', 'functools', '__future__', 'genericpath', 'getopt',
-'getpass', 'gettext', 'glob', 'gzip', 'hashlib', 'heapq', 'hmac',
-'htmlentitydefs', 'htmllib', 'HTMLParser', 'httplib', 'ihooks', 'imaplib',
-'imghdr', 'imputil', 'inspect', 'io', 'keyword', 'linecache', 'locale',
-'_LWPCookieJar', 'macpath', 'macurl2path', 'mailbox', 'mailcap', 'markupbase',
-'md5', 'mhlib', 'mimetools', 'mimetypes', 'MimeWriter', 'mimify',
-'modulefinder', '_MozillaCookieJar', 'multifile', 'mutex', 'netrc', 'new',
-'nntplib', 'ntpath', 'nturl2path', 'numbers', 'opcode', 'optparse',
-'os2emxpath', 'os', 'pdb', 'pickle', 'pickletools', 'pipes', 'pkgutil', 
-'platform', 'plistlib', 'popen2', 'poplib', 'posixfile', 'posixpath', 'pprint',
-'profile', 'pstats', 'pty', 'pyclbr', 'py_compile', 'pydoc', '_pyio', 'Queue',
-'quopri', 'random', 'repr', 're', 'rexec', 'rfc822', 'rlcompleter',
-'robotparser', 'runpy', 'sched', 'sets', 'sgmllib', 'sha', 'shelve', 'shlex',
-'shutil', 'SimpleHTTPServer', 'SimpleXMLRPCServer', 'site', 'smtpd', 'smtplib',
-'sndhdr', 'socket', 'SocketServer', 'sre_compile', 'sre_constants', 'sre_parse',
-'sre', 'ssl', 'stat', 'statvfs', 'StringIO', 'stringold', 'stringprep', 
-'string', '_strptime', 'struct', 'subprocess', 'sunaudio', 'sunau', 'symbol', 
-'symtable', 'sys', 'sysconfig', 'tabnanny', 'tarfile', 'telnetlib', 'tempfile',
-'textwrap', 'this', '_threading_local', 'threading', 'timeit', 'toaiff', 
-'tokenize', 'token', 'traceback', 'trace', 'tty', 'types', 'unittest', 
-'urllib2', 'urllib', 'urlparse', 'UserDict', 'UserList', 'user', 'UserString', 
-'uuid', 'uu', 'warnings', 'wave', 'weakref', '_weakrefset', 'webbrowser', 
-'whichdb', 'xdrlib', 'xmllib', 'xmlrpclib', 'zipfile', 'dl', 'zipimport', 
-'logging', 'lib2to3', 'distutils', 'multiprocessing', 'imp', 'email',
-'bdist_egg', 'time', 'operator', 'array', 'marshal', 'cStringIO', 'datetime',
-'__main__'])
-
-# Some packages will install other modules. This is bad form, but it happens.
-# If you install setuptools you also get a 'pkg_resources' module, for example.
-ALIASES = {'setuptools': ['pkg_resources'],
-           }
-
 class BaseTest(object):
     fatal = False
     
@@ -216,73 +170,32 @@ class TestSuite(FieldTest):
     
 class RunnableTests(BaseTest):
     
-    weight = 100
-
-    def _specified_versions(self, data):
-        classifiers = data.get('classifiers', [])
-        for classifier in classifiers:
-            parts = [p.strip() for p in classifier.split('::')]
-            if parts[0] == 'Programming Language' and parts[1] == 'Python':
-                if len(parts) == 2:
-                    # Specified Python, but no version.
-                    continue
-                version = parts[2]
-                try:
-                    int(version)
-                    # This is just specifying 2 or 3, not which version
-                    continue
-                except ValueError:
-                    pass
-                try:
-                    float(version)
-                    # This version is good!
-                    yield version
-                except ValueError:
-                    # Not a proper Python version
-                    continue
-    
     def test(self, data):
-        # See if we can run the tests.
-        if not TestSuite().test(data):
-            self._cause = "NoTests"
+        if not '_testresult' in data:
             return None
-
-        use_python = None
-        this_version = sys.version[:3]
-        versions = list(self._specified_versions(data))
-        if this_version in versions:
-            sys.path.insert(0, data['_path'])
-            os.chdir(data['_path'])
-            try:
-                sys.argv = ['setup.py', '-q', 'test']
-                import setup
-                del sys.modules['setup']
-            except SystemExit, e:
-                if e.args[0]:
-                    # Failure
-                    self._cause = "Failure"
-                    return False
-                # Success!
-            finally:
-                sys.path.pop(0)
-            
-            return True
         
-        self._cause = "WrongPython"
-        return None
-        
-    def message(self):
-        if self._cause == 'Failure':
+        if data['_testresult']== 'Failure':
             self.weight = 100
-            return "The test suite failed!"
-        if self._cause == 'WrongPython':
+            self._msg = "The test suite failed!"
+            return False
+        if data['_testresult'] == 'WrongPython':
             self.weight = 0
-            return "This project doesn't support this version of Python."
-        if self._cause == 'NoTests':
+            self._msg = "This project doesn't support this version of Python; tests not run."
+            return False
+        if data['_testresult'] == 'NoTests':
             self.weight = 0
-            return "This package is not set up to run tests."
+            self._msg = "This package is not set up to run tests."
+            return False
+        if data['_testresult'] == 'Success':
+            self.weight = 100
+            self._msg = ""
+            return True
         self.fatal = True
-        return "Uknown error, this is likely a Pyroma bug."
+        self._msg = "Uknown error, this is likely a Pyroma bug."
+        return False
+    
+    def message(self):
+        return self._msg
 
 class PackageDocs(BaseTest):
     weight = 0 # Just a recommendation
@@ -304,7 +217,6 @@ class ValidREST(BaseTest):
         try:
             parts = publish_parts(source=source, writer_name='html4css1')
         except SystemMessage, e:
-            import pdb;pdb.set_trace()
             self._message = e.args[0].strip()
             return False
         
