@@ -88,7 +88,7 @@ class FieldTest(BaseTest):
         return bool(data.get(self.field))
     
     def message(self):
-        return ("Your package does not have %s data" % self.field) + (self.fatal and '!' or '')
+        return ("Your package does not have %s data" % self.field) + (self.fatal and '!' or '.')
 
 class Name(FieldTest):
     fatal = True
@@ -112,7 +112,7 @@ class Description(BaseTest):
         if self.fatal:
             return 'The package had no description!'
         else:
-            return 'The packages description should be longer than 10 characters'
+            return 'The packages description should be longer than 10 characters.'
 
 class LongDescription(BaseTest):    
     weight = 50
@@ -121,7 +121,7 @@ class LongDescription(BaseTest):
         return len(data.get('long_description')) > 100
     
     def message(self):
-        return 'The packages long_description is quite short'
+        return 'The packages long_description is quite short.'
 
 class Classifiers(FieldTest):
     weight = 100
@@ -170,8 +170,8 @@ class PythonVersion(BaseTest):
     def message(self):
         if self._major_version_specified:
             return "The classifiers should specify what minor versions of "\
-                   "Python you support as well as what major version"
-        return "You should specify what Python versions you support"
+                   "Python you support as well as what major version."
+        return "You should specify what Python versions you support."
         
         
 class Keywords(FieldTest):    
@@ -294,7 +294,7 @@ class PackageDocs(BaseTest):
         return "The site packages.python.org is a nice place to put your "\
                "documentation that makes it easy to find, and relieves you of "\
                "hosting it. You should consider using it."
-
+    
 class ValidREST(BaseTest):
     
     weight = 50
@@ -313,6 +313,29 @@ class ValidREST(BaseTest):
     def message(self):
         return 'Your long_description is not valid ReST: ' + self._message
     
+class BusFactor(BaseTest):
+
+    
+    def test(self, data):
+        if not '_owners' in data:
+            self.weight = 0
+            return None
+
+        if len(data['_owners']) == 1:
+            self.weight = 100
+            return False
+    
+        if len(data['_owners']) == 2:
+            self.weight = 50
+            return False
+        
+        # Three or more, that's good.
+        self.weight = 100
+        return True
+    
+    def message(self):
+        return "You should have three or more owners of the project on PyPI."
+    
 ALL_TESTS = [
     Name(),
     Version(),
@@ -330,6 +353,7 @@ ALL_TESTS = [
     RunnableTests(),
     PackageDocs(),
     ValidREST(),
+    BusFactor(),
 ]
 
 def rate(data):
