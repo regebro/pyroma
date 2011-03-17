@@ -56,13 +56,20 @@ def urlopenstub(url):
         else:
             # This package doesn't have docs on packages.python.org:
             return FakeResponse(404)
-                
-    if url.startswith('http://pypi.python.org/'):
-        # Faking PyPI
-        filename = resource_filename(
-            __name__, os.path.join('testdata', 'distributions', filename))
-        return FakeResponse(200, filename)
+
+    if url.startswith('http://pypi.python.org/pypi'):
+        # Faking PyPI package
+        datafile = resource_filename(
+            __name__, os.path.join('testdata', 'xmlrpcdata', filename+'.html'))
+        return FakeResponse(200, datafile)
         
+        
+    if url.startswith('http://pypi.python.org/packages'):
+        # Faking PyPI file downloads
+        datafile = resource_filename(
+            __name__, os.path.join('testdata', 'distributions', filename))
+        return FakeResponse(200, datafile)
+    
     raise ValueError("Don't know how to stub " + url)
 
 class ProxyStub(object):
@@ -129,15 +136,15 @@ class RatingsTest(unittest.TestCase):
         rating = rate(data)
         
         self.assertEqual(rating, (1, [
-            'The packages description should be longer than 10 characters', 
-            'The packages long_description is quite short', 
-            'Your package does not have classifiers data', 
-            'You should specify what Python versions you support', 
-            'Your package does not have keywords data', 
-            'Your package does not have author data', 
-            'Your package does not have author_email data', 
-            'Your package does not have url data', 
-            'Your package does not have license data', 
+            'The packages description should be longer than 10 characters.', 
+            'The packages long_description is quite short.', 
+            'Your package does not have classifiers data.', 
+            'You should specify what Python versions you support.', 
+            'Your package does not have keywords data.', 
+            'Your package does not have author data.', 
+            'Your package does not have author_email data.', 
+            'Your package does not have url data.', 
+            'Your package does not have license data.', 
             "It's not specified if this package is zip_safe or not, which is usually an oversight. You should specify it, as it defaults to True, which you probably do not want.",
             "Setuptools and Distribute support running tests. By specifying a test suite, it's easy to find and run tests both for automated tools and humans.",
         ]))
@@ -156,7 +163,8 @@ class RatingsTest(unittest.TestCase):
             rating = rate(data)
             
             self.assertEqual(rating, (9, [
-                'The classifiers should specify what minor versions of Python you support as well as what major version',
+                'The classifiers should specify what minor versions of Python you support as well as what major version.',
+                'You should have three or more owners of the project on PyPI.'
             ]))
         finally:
             xmlrpclib.ServerProxy = real_server_proxy

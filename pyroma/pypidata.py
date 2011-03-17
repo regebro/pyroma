@@ -3,7 +3,10 @@ import urllib
 import tempfile
 import os
 import contextlib
+import re
 from pyroma import distributiondata
+
+OWNER_RE = re.compile(r'<strong>Package Index Owner:</strong>\s*?<span>(.*?)</span>')
 
 def _get_client():
     # I think I should be able to monkeypatch a mock-thingy here... I think.
@@ -24,6 +27,11 @@ def get_data(project):
     urls = client.release_urls(project, release)
     data['_pypi_downloads'] = bool(urls)
     
+    # Scrape the PyPI project page for owner info:
+    page = urllib.urlopen('http://pypi.python.org/pypi/' + project)
+    html = page.read()
+    owners = OWNER_RE.search(html).groups()[0]
+    data['_owners'] = [x.strip() for x in owners.split(',')]
     
     # See if there is any docs on http://packages.python.org/
     page = urllib.urlopen('http://packages.python.org/' + project)
