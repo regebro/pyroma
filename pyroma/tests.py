@@ -52,7 +52,7 @@ def urlopenstub(url):
     filename = [x for x in url.split('/') if x][-1]
     if url.startswith('http://packages.python.org/'):
         # Faking the docs:
-        if filename in ('distribute',):
+        if filename in ('distribute', 'complete',):
             return FakeResponse(200)
         else:
             # This package doesn't have docs on packages.python.org:
@@ -121,7 +121,7 @@ class ProxyStub(object):
         
 class RatingsTest(unittest.TestCase):
     
-    def test_complete1(self):
+    def test_complete(self):
         directory = resource_filename(
             __name__, os.path.join('testdata', 'complete'))
         data = projectdata.get_data(directory)
@@ -151,6 +151,8 @@ class RatingsTest(unittest.TestCase):
             'This package is not set up to run tests.',
         ]))
 
+class PyPITest(unittest.TestCase):
+        
     def test_distribute(self):
         real_urlopen = urllib.urlopen
         real_server_proxy = xmlrpclib.ServerProxy
@@ -158,9 +160,7 @@ class RatingsTest(unittest.TestCase):
             xmlrpclib.ServerProxy = ProxyStub('distributedata.py',
                                               xmlrpclib.ServerProxy,
                                               False)
-            
             urllib.urlopen = urlopenstub
-            
             data = pypidata.get_data('distribute')
             rating = rate(data)
             
@@ -172,10 +172,26 @@ class RatingsTest(unittest.TestCase):
         finally:
             xmlrpclib.ServerProxy = real_server_proxy
             urllib.urlopen = real_urlopen
-        
+
+    def test_complete(self):
+        real_urlopen = urllib.urlopen
+        real_server_proxy = xmlrpclib.ServerProxy
+        try:
+            xmlrpclib.ServerProxy = ProxyStub('completedata.py',
+                                              xmlrpclib.ServerProxy,
+                                              False)            
+            urllib.urlopen = urlopenstub
+            data = pypidata.get_data('complete')
+            rating = rate(data)
+            
+            self.assertEqual(rating, (10, []))
+        finally:
+            xmlrpclib.ServerProxy = real_server_proxy
+            urllib.urlopen = real_urlopen
+            
 class ProjectDataTest(unittest.TestCase):
     
-    def test_complete2(self):
+    def test_complete(self):
         directory = resource_filename(
             __name__, os.path.join('testdata', 'complete'))
         
@@ -186,7 +202,7 @@ class ProjectDataTest(unittest.TestCase):
 
 class DistroDataTest(unittest.TestCase):
     
-    def test_complete3(self):
+    def test_complete(self):
         directory = resource_filename(
             __name__, os.path.join('testdata', 'distributions'))
 
