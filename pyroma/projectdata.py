@@ -50,7 +50,8 @@ class SetupMonkey(object):
             setuptools.setup = self.setup_replacement
         except ImportError:
             self._setuptools_setup = None
-            
+        
+        self._kw = {}
         return self
     
     def __exit__(self, exc_type, exc_val, exc_tb):
@@ -94,8 +95,28 @@ def get_data(path):
         with SetupMonkey() as sm:
             import setup
             metadata = sm.get_data()
+            
+            if not metadata:
+                # This may be a module, like twisted, that only runs setup()
+                # when setup.py is called as the main script. In that case it
+                # often has a main() script to call instead. Try that.
+                try:
+                    setup.main()
+                except TypeError: # OK, so it's twisted.
+                    try:
+                        setup.main([])
+                    except TypeError:
+                        pass # OK, not twisted, then.
+                except AttributeError:
+                    pass # No, no main.
+                
+                metadata = sm.get_data()
             del sys.modules['setup']
 
+        # No data found
+        if not metadata:
+            return {}
+        
         # See if we can run the tests.
         if not 'test_suite' in metadata:
             metadata['_testresult'] = "NoTests"

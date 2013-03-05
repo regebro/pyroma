@@ -14,18 +14,18 @@ print('Checking ' + argument)
 
 if os.path.isdir(argument):
     data = projectdata.get_data(os.path.abspath(argument))
-    print('Found ' + data['name'])
+    print('Found ' + data.get('name', 'nothing'))
     rating = ratings.rate(data)
 
 elif os.path.isfile(argument):
     data = distributiondata.get_data(os.path.abspath(argument))
-    print('Found ' + data['name'])
+    print('Found ' + data.get('name', 'nothing'))
     rating = ratings.rate(data)
     
 else:
-    # Its probably a package name
+    # It's probably a package name
     data = pypidata.get_data(argument)
-    print('Found ' + data['name'])
+    print('Found ' + data.get('name', 'nothing'))
     rating = ratings.rate(data)
     
 print('-'*30)

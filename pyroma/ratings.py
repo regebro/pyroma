@@ -20,7 +20,7 @@ import sys, os, re
 from docutils.core import publish_parts
 from docutils.utils import SystemMessage
 
-LEVELS = ["I don't think that's really cheese",
+LEVELS = ["This cheese seems to contain no dairy products",
           "Vieux Bologne",
           "Limburger",
           "Gorgonzola",
