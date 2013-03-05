@@ -4,6 +4,7 @@ import xmlrpclib
 import urlparse
 import urllib
 import sys
+import collections
 
 from pyroma import projectdata, distributiondata, pypidata
 from pyroma.ratings import rate
@@ -20,7 +21,11 @@ COMPLETE = {'name': 'complete',
             'long_description': long_description,
             'classifiers': ['Development Status :: 6 - Mature',
                             'Operating System :: OS Independent',
-                            'Programming Language :: Python :: 2.6',],
+                            'Programming Language :: Python :: 2.6',
+                            'Programming Language :: Python :: 2.7',
+                            'Programming Language :: Python :: 3.1',
+                            'Programming Language :: Python :: 3.2',
+                            ],
             'keywords': 'pypi quality example',
             'author': 'Lennart Regebro',
             'author_email': 'regebro@gmail.com',
@@ -40,6 +45,7 @@ COMPLETE = {'name': 'complete',
 class FakeResponse(object):
     def __init__(self, responsecode, filename=None):
         self.filename = filename
+        self.headers = collections.defaultdict(lambda: None)
         if sys.version > '2.5':
             # 2.5 and lower doesn't have the code attribute.
             # The test should fail on Python 2.5.
@@ -137,6 +143,7 @@ class RatingsTest(unittest.TestCase):
         rating = rate(data)
         
         self.assertEqual(rating, (1, [
+            'The packages version number does not comply with PEP-386.', 
             'The packages description should be longer than 10 characters.', 
             'The packages long_description is quite short.', 
             'Your package does not have classifiers data.', 
