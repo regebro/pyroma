@@ -42,4 +42,5 @@ Credits
 -------
 
 The project was created by Lennart Regebro, regebro@gmail.com
+
 The name "Pyroma" was coined by Wichert Akkerman, wichert@wiggy.net
