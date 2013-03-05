@@ -16,7 +16,7 @@
 #                 False for fail and None for not applicable (meaning it will
 #                 not be counted).
 
-import sys, os
+import sys, os, re
 from docutils.core import publish_parts
 from docutils.utils import SystemMessage
 
@@ -48,10 +48,39 @@ class Name(FieldTest):
     fatal = True
     field = 'name'
 
-class Version(FieldTest):    
+class Version(FieldTest):
     fatal = True
     field = 'version'
         
+VERSION_RE = re.compile(r'''
+    ^
+    (?P<version>\d+\.\d+)          # minimum 'N.N'
+    (?P<extraversion>(?:\.\d+)*)   # any number of extra '.N' segments
+    (?:
+        (?P<prerel>[abc]|rc)       # 'a'=alpha, 'b'=beta, 'c'=release candidate
+                                   # 'rc'= alias for release candidate
+        (?P<prerelversion>\d+(?:\.\d+)*)
+    )?
+    (?P<postdev>(\.post(?P<post>\d+))?(\.dev(?P<dev>\d+))?)?
+    $''', re.VERBOSE)
+
+class PEP386Version(BaseTest):
+    weight = 50
+    
+    def test(self, data):
+        version = data.get('version')
+        if not version:
+            self.fatal = True
+        # Check that the version number complies to PEP-386:
+        match = VERSION_RE.search(version)
+        return match is not None
+    
+    def message(self):
+        if self.fatal:
+            return 'The package had no version!'
+        else:
+            return 'The packages version number does not comply with PEP-386.'
+
 class Description(BaseTest):
     weight = 100
     
@@ -216,7 +245,7 @@ class ValidREST(BaseTest):
         source = data['long_description']
         try:
             parts = publish_parts(source=source, writer_name='html4css1')
-        except SystemMessage, e:
+        except SystemMessage as e:
             self._message = e.args[0].strip()
             return False
         
@@ -251,6 +280,7 @@ class BusFactor(BaseTest):
 ALL_TESTS = [
     Name(),
     Version(),
+    PEP386Version(),
     Description(),
     LongDescription(),
     Classifiers(),

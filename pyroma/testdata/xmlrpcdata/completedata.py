@@ -2,9 +2,9 @@ from datetime import datetime
 args = ('http://pypi.python.org/pypi',)
 kw = {}
 data = {'package_releases': 
-           {('complete',): ['1.0dev']},
+           {('complete',): ['1.0.dev']},
         'release_data':
-           {('complete', '1.0dev'): {
+           {('complete', '1.0.dev'): {
                'maintainer': None,
                'requires_python': None,
                'maintainer_email': None,
@@ -15,7 +15,7 @@ data = {'package_releases':
                'author_email': 'regebro@gmail.com',
                'download_url': 'UNKNOWN',
                'platform': 'UNKNOWN',
-               'version': '1.0dev',
+               'version': '1.0.dev',
                'cheesecake_documentation_id': None,
                '_pypi_hidden': False,
                'description': """Complete
@@ -40,11 +40,15 @@ dolor. Fusce augue eros, aliquet ac dapibus at, tincidunt vitae leo. Lorem ipsum
 dolor sit amet, consectetur adipiscing elit. Vivamus sapien neque, fermentum sed
 ultrices sit amet, fermentum nec est. Pellentesque imperdiet enim nec velit
 posuere id dignissim massa molestie.""",
-               'release_url': 'http://pypi.python.org/pypi/distribute/1.0dev',
+               'release_url': 'http://pypi.python.org/pypi/distribute/1.0.dev',
                '_pypi_ordering': 115,
                'classifiers': ['Development Status :: 6 - Mature',
                                'Operating System :: OS Independent',
-                               'Programming Language :: Python :: 2.6',],
+                               'Programming Language :: Python :: 2.6',
+                               'Programming Language :: Python :: 2.7',
+                               'Programming Language :: Python :: 3.1',
+                               'Programming Language :: Python :: 3.2',
+                               ],
                'name': 'complete',
                'license': 'MIT',
                'summary': 'This is a test package for pyroma.',
@@ -53,15 +57,15 @@ posuere id dignissim massa molestie.""",
                'cheesecake_installability_id': None,
                },
             },
-        'release_urls': {('complete', '1.0dev'):[
+        'release_urls': {('complete', '1.0.dev'):[
             {'has_sig': False,
              'upload_time': datetime(2011, 3, 16, 16, 31, 39),
              'comment_text': '',
              'python_version': 'source',
-             'url': 'http://pypi.python.org/packages/source/c/complete/complete-1.0dev.tar.gz',
+             'url': 'http://pypi.python.org/packages/source/c/complete/complete-1.0.dev.tar.gz',
              'md5_digest': 'ea52e1412e7ff560c290266ed400e216',
              'downloads': 0,
-             'filename': 'complete-1.0dev.tar.gz',
+             'filename': 'complete-1.0.dev.tar.gz',
              'packagetype': 'sdist',
              'size': 289103}],
                          }

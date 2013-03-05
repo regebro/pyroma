@@ -29,7 +29,12 @@ def get_data(project):
     
     # Scrape the PyPI project page for owner info:
     page = urllib.urlopen('http://pypi.python.org/pypi/' + project)
-    html = page.read()
+    content_type = page.headers.get('content-type', '')
+    if '=' not in content_type:
+        encoding = 'utf-8'
+    else:
+        encoding = content_type.split('=')[1]
+    html = page.read().decode(encoding)
     owners = OWNER_RE.search(html).groups()[0]
     data['_owners'] = [x.strip() for x in owners.split(',')]
     
