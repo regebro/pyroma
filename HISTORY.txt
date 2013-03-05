@@ -4,7 +4,10 @@ Changelog
 1.1 (unreleased)
 ----------------
 
-- Nothing changed yet.
+- Better handling if there is no package data, for example if setup.py doesn't
+  call setup() unless you run it as the "__main__" script.
+  
+- If setup.py doesn't call setup() look for a main() script and try to run it.
 
 
 1.0 (2013-03-05)
