@@ -1,10 +1,12 @@
 Changelog
 =========
 
-0.9.4 (unreleased)
-------------------
+1.0 (2013-03-05)
+----------------
 
-- Nothing changed yet.
+- Support for Python 3.3
+
+- Added test for PEP 386 compliance.
 
 
 0.9.3 (2011-03-17)
