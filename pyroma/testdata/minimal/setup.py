@@ -1,7 +1,7 @@
 from setuptools import setup, find_packages
 import sys, os
 
-version = '0.0'
+version = '0.0foo'
 
 setup(name='minimal',
       version=version,
