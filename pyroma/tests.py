@@ -186,7 +186,7 @@ class PyPITest(unittest.TestCase):
         try:
             xmlrpclib.ServerProxy = ProxyStub('completedata.py',
                                               xmlrpclib.ServerProxy,
-                                              False)            
+                                              False)
             urllib.urlopen = urlopenstub
             data = pypidata.get_data('complete')
             rating = rate(data)
