@@ -1,7 +1,7 @@
 from setuptools import setup, find_packages
 import os
 
-version = '1.2.dev0'
+version = '1.1'
 
 setup(name='pyroma',
       version=version,
@@ -21,7 +21,7 @@ setup(name='pyroma',
       keywords='pypi quality testing',
       author='Lennart Regebro',
       author_email='regebro@gmail.com',
-      url='http://svn.plone.org/svn/collective/',
+      url='https://bitbucket.org/regebro/pyroma',
       license='MIT',
       packages=find_packages(exclude=['ez_setup']),
       scripts=['scripts/pyroma',],
