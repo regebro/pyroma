@@ -37,10 +37,6 @@ In all cases the output is similar::
     Cottage Cheese
     ------------------------------
 
-TODO
-----
-
- * A test that the version number is sane. Include packaging.version to do that.
 
 Credits
 -------
