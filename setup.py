@@ -24,14 +24,20 @@ setup(name='pyroma',
       url='https://bitbucket.org/regebro/pyroma',
       license='MIT',
       packages=find_packages(exclude=['ez_setup']),
-      scripts=['scripts/pyroma',],
       include_package_data=True,
       zip_safe=False,
       install_requires=[
           'setuptools',
           'docutils',
-          # -*- Extra requirements: -*-
       ],
+      entry_points={
+          'console_scripts': [
+              'pyroma = pyroma:main',
+          ],
+             'zest.releaser.releaser.after_checkout': [
+              'pyroma = pyroma:zester',
+          ],
+      },
       test_suite='pyroma',
       use_2to3=True,
       )
