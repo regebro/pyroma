@@ -1,6 +1,8 @@
 Some notes on developing
 ========================
 
+*Note: Since pyroma no longer runs tests, this is probably no longer true.*
+
 For each Python version supported by Pyroma you need to make sure the
 "complete" package that is used for testing also supports that version of
 Python. The complete data supports both Python 2 and Python 3 and depends on

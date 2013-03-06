@@ -197,45 +197,15 @@ class TestSuite(FieldTest):
                "specifying a test suite, it's easy to find and run tests "\
                "both for automated tools and humans."
     
-class RunnableTests(BaseTest):
-    
-    def test(self, data):
-        if not '_testresult' in data:
-            return None
-        
-        if data['_testresult']== 'Failure':
-            self.weight = 100
-            self._msg = "The test suite failed!"
-            return False
-        if data['_testresult'] == 'WrongPython':
-            self.weight = 0
-            self._msg = "This project doesn't support this version of Python; tests not run."
-            return False
-        if data['_testresult'] == 'NoTests':
-            self.weight = 0
-            self._msg = "This package is not set up to run tests."
-            return False
-        if data['_testresult'] == 'Success':
-            self.weight = 100
-            self._msg = ""
-            return True
-        self.fatal = True
-        self._msg = "Uknown error, this is likely a Pyroma bug."
-        return False
-    
-    def message(self):
-        return self._msg
-
 class PackageDocs(BaseTest):
     weight = 0 # Just a recommendation
     
     def test(self, data):
-        return data.get('_packages_docs')
+        return data.get('_packages_docs') or data.get('_readthe_docs')
 
     def message(self):
-        return "The site packages.python.org is a nice place to put your "\
-               "documentation that makes it easy to find, and relieves you of "\
-               "hosting it. You should consider using it."
+        return "You might want to host your documentation on pythonhosted.org"\
+               "or readthedocs.org ."
     
 class ValidREST(BaseTest):
     
@@ -292,7 +262,6 @@ ALL_TESTS = [
     License(),
     ZipSafe(),
     TestSuite(),
-    RunnableTests(),
     PackageDocs(),
     ValidREST(),
     BusFactor(),

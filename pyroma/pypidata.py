@@ -7,6 +7,7 @@ import re
 from pyroma import distributiondata
 
 OWNER_RE = re.compile(r'<strong>Package Index Owner:</strong>\s*?<span>(.*?)</span>')
+READTHEDOCS_RE = re.compile(r'(https?://.*?\.readthedocs.org)')
 
 def _get_client():
     # I think I should be able to monkeypatch a mock-thingy here... I think.
@@ -28,7 +29,7 @@ def get_data(project):
     data['_pypi_downloads'] = bool(urls)
     
     # Scrape the PyPI project page for owner info:
-    page = urllib.urlopen('http://pypi.python.org/pypi/' + project)
+    page = urllib.urlopen('/'.join(('http://pypi.python.org/pypi', project, release)))
     content_type = page.headers.get('content-type', '')
     if '=' not in content_type:
         encoding = 'utf-8'
@@ -38,12 +39,20 @@ def get_data(project):
     owners = OWNER_RE.search(html).groups()[0]
     data['_owners'] = [x.strip() for x in owners.split(',')]
     
-    # See if there is any docs on http://packages.python.org/
-    page = urllib.urlopen('http://packages.python.org/' + project)
+    # See if there is any docs on http://pythonhosted.org
+    page = urllib.urlopen('http://pythonhosted.org/' + project)
     if page.code == 200:
         data['_packages_docs'] = True
     else:
         data['_packages_docs'] = False
+
+    # Maybe on readthedocs?
+    data['_readthe_docs'] = False
+    rtdocs = READTHEDOCS_RE.search(html)
+    if rtdocs:
+        page = urllib.urlopen(rtdocs.groups()[0])
+        if page.code == 200:
+            data['_readthe_docs'] = True
 
     # If there is a source download, download it, and get that data.
     # This is done mostly to do the imports check.

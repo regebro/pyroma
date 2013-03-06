@@ -39,7 +39,6 @@ COMPLETE = {'name': 'complete',
             'include_package_data': True,
             'zip_safe': True,
             'test_suite': "complete",
-            '_testresult': 'Success',
             }
 
 
@@ -56,16 +55,17 @@ class FakeResponse(object):
         return open(self.filename, 'rb').read()
 
 def urlopenstub(url):
-    filename = [x for x in url.split('/') if x][-1]
-    if url.startswith('http://packages.python.org/'):
+    if url.startswith('http://pythonhosted.org/'):
+        filename = [x for x in url.split('/') if x][-1]
         # Faking the docs:
         if filename in ('distribute', 'complete',):
             return FakeResponse(200)
         else:
-            # This package doesn't have docs on packages.python.org:
+            # This package doesn't have docs on pythonhosted.org:
             return FakeResponse(404)
 
     if url.startswith('http://pypi.python.org/pypi'):
+        filename = url[len('http://pypi.python.org/pypi/'):]
         # Faking PyPI package
         datafile = resource_filename(
             __name__, os.path.join('testdata', 'xmlrpcdata', filename+'.html'))
@@ -73,6 +73,7 @@ def urlopenstub(url):
         
         
     if url.startswith('http://pypi.python.org/packages'):
+        filename = [x for x in url.split('/') if x][-1]
         # Faking PyPI file downloads
         datafile = resource_filename(
             __name__, os.path.join('testdata', 'distributions', filename))
@@ -156,7 +157,6 @@ class RatingsTest(unittest.TestCase):
             'Your package does not have license data.', 
             "It's not specified if this package is zip_safe or not, which is usually an oversight. You should specify it, as it defaults to True, which you probably do not want.",
             "Setuptools and Distribute support running tests. By specifying a test suite, it's easy to find and run tests both for automated tools and humans.",
-            'This package is not set up to run tests.',
         ]))
 
 class PyPITest(unittest.TestCase):
@@ -174,7 +174,6 @@ class PyPITest(unittest.TestCase):
             
             self.assertEqual(rating, (9, [
                 'The classifiers should specify what minor versions of Python you support as well as what major version.',
-                "This project doesn't support this version of Python; tests not run.",
                 'You should have three or more owners of the project on PyPI.'
             ]))
         finally:
