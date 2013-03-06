@@ -5,3 +5,6 @@ syntax: glob
 EGG-INFO
 dist
 build
+py2*
+py3*
+
