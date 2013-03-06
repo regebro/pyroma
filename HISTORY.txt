@@ -1,7 +1,7 @@
 Changelog
 =========
 
-1.2 (unreleased)
+1.2 (2013-03-06)
 ----------------
 
 - Removed the running of tests. I always found it a bit iffy, and getting
@@ -11,6 +11,9 @@ Changelog
 - A package on PyPI with several versions will no longer return an error.
 
 - Now looks for documentation on pythonhosted.org or readthedocs.org.
+
+- Adds a hook for zest.releaser, so it can be run after doing the checkout,
+  before uploading to PyPI.
 
 
 1.1 (2013-03-05)
