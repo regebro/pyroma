@@ -1,5 +1,4 @@
 include *.txt
 recursive-include pyroma/testdata *.py *.txt *.cfg *.html
-recursive-exclude *.egg
 prune pyroma/testdata/complete/*.egg
-graft pyroma/testdata/distributions
+#graft pyroma/testdata/distributions

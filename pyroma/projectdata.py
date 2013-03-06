@@ -117,24 +117,5 @@ def get_data(path):
         if not metadata:
             return {}
         
-        # See if we can run the tests.
-        if not 'test_suite' in metadata:
-            metadata['_testresult'] = "NoTests"
-    
-        else:
-            use_python = None
-            this_version = sys.version[:3]
-            versions = list(_specified_versions(metadata))
-            if this_version in versions:
-                res = os.system(sys.executable + ' setup.py -q test')
-                if res:
-                    metadata['_testresult'] = "Failure"
-                else:
-                    # Success!
-                    metadata['_testresult'] = "Success"
-
-            else:
-                metadata['_testresult'] = "WrongPython"
-        
     return metadata
     
