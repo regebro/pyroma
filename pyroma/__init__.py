@@ -2,11 +2,8 @@ import sys
 import os
 from pyroma import projectdata, distributiondata, pypidata, ratings
 
-<<<<<<< local
 import logging
 logging.basicConfig(level=logging.DEBUG, stream=sys.stdout, format="%(message)s")
-=======
->>>>>>> other
 
 def zester(data):
     from zest.releaser.utils import ask
@@ -18,45 +15,24 @@ def zester(data):
 
 
 def run(argument):
-<<<<<<< local
     logging.info('-'*30)
     logging.info('Checking ' + argument)
     
-=======
-    print('-'*30)
-    print('Checking ' + argument)
-
->>>>>>> other
     if os.path.isdir(argument):
         data = projectdata.get_data(os.path.abspath(argument))
-<<<<<<< local
         logging.info('Found ' + data.get('name', 'nothing'))
     
-=======
-        print('Found ' + data.get('name', 'nothing'))
-
->>>>>>> other
     elif os.path.isfile(argument):
         data = distributiondata.get_data(os.path.abspath(argument))
-<<<<<<< local
         logging.info('Found ' + data.get('name', 'nothing'))
         
-=======
-        print('Found ' + data.get('name', 'nothing'))
-
->>>>>>> other
     else:
         # It's probably a package name
         data = pypidata.get_data(argument)
         logging.info('Found ' + data.get('name', 'nothing'))
     rating = ratings.rate(data)
-<<<<<<< local
         
     logging.info('-'*30)
-=======
-
-    print('-'*30)
->>>>>>> other
     for problem in rating[1]:
         # XXX It would be nice with a * pointlist instead, but that requires
         # that we know how wide the terminal is and nice word-breaks, so that's
