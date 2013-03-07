@@ -1,0 +1,4 @@
+include *.txt
+recursive-include pyroma/testdata *.py *.txt *.cfg *.html
+prune pyroma/testdata/complete/*.egg
+#graft pyroma/testdata/distributions

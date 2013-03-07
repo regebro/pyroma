@@ -1,0 +1,89 @@
+import xmlrpclib
+import urllib
+import tempfile
+import os
+import contextlib
+import re
+from pyroma import distributiondata
+
+OWNER_RE = re.compile(r'<strong>Package Index Owner:</strong>\s*?<span>(.*?)</span>')
+READTHEDOCS_RE = re.compile(r'(https?://.*?\.readthedocs.org)')
+
+def _get_client():
+    # I think I should be able to monkeypatch a mock-thingy here... I think.
+    return xmlrpclib.ServerProxy('http://pypi.python.org/pypi')
+
+def get_data(project):
+    client = _get_client()
+    # Pick the latest release.
+    releases = client.package_releases(project)
+    if not releases:
+        raise ValueError("Did not find '%s' on PyPI. Did you misspell it? It's case sensitive!" % project)
+    release = releases[0]
+    # Get the metadata:
+    print("Found %s version %s" % (project, release))
+    data = client.release_data(project, release)
+    
+    # Map things around:
+    data['long_description'] = data['description']
+    data['description'] = data['summary']
+    
+    # Get download_urls:
+    urls = client.release_urls(project, release)
+    data['_pypi_downloads'] = bool(urls)
+    
+    # Scrape the PyPI project page for owner info:
+    url = '/'.join(('http://pypi.python.org/pypi', project, release))
+    page = urllib.urlopen(url)
+    content_type = page.headers.get('content-type', '')
+    if '=' not in content_type:
+        encoding = 'utf-8'
+    else:
+        encoding = content_type.split('=')[1]
+    html = page.read().decode(encoding)
+    owners = OWNER_RE.search(html).groups()[0]
+    data['_owners'] = [x.strip() for x in owners.split(',')]
+    
+    print("Looking for documentation")
+    # See if there is any docs on http://pythonhosted.or
+    page = urllib.urlopen('http://pythonhosted.org/' + project)
+    if page.code == 200:
+        data['_packages_docs'] = True
+    else:
+        data['_packages_docs'] = False
+
+    # Maybe on readthedocs?
+    data['_readthe_docs'] = False
+    rtdocs = READTHEDOCS_RE.search(html)
+    if rtdocs:
+        page = urllib.urlopen(rtdocs.groups()[0])
+        if page.code == 200:
+            data['_readthe_docs'] = True
+
+    # If there is a source download, download it, and get that data.
+    # This is done mostly to do the imports check.
+    data['_source_download'] = False
+    for download in urls:
+        if download['packagetype'] == 'sdist':
+            # Found a source distribution. Download and analyze it.
+            tempdir = tempfile.gettempdir()
+            filename = download['url'].split('/')[-1]
+            tmp = os.path.join(tempdir, filename)
+            print("Downloading %s to verify distribution" % filename)
+            try:
+                with open(tmp, 'wb') as outfile:
+                    outfile.write(urllib.urlopen(download['url']).read())
+                ddata = distributiondata.get_data(tmp)
+            except Exception:
+                # Clean up the file
+                os.unlink(tmp)
+                raise
+            
+            # Combine them, with the PyPI data winning:
+            ddata.update(data)
+            data = ddata
+            data['_source_download'] = True
+            break
+            
+    return data
+    
