@@ -18,7 +18,7 @@ def get_data(project):
     # Pick the latest release.
     releases = client.package_releases(project)
     if not releases:
-        raise ValueError('Did not find "%s" on PyPI' % project)
+        raise ValueError("Did not find '%s' on PyPI. Did you misspell it? It's case sensitive!" % project)
     release = releases[0]
     # Get the metadata:
     print("Found %s version %s" % (project, release))
