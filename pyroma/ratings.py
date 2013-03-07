@@ -51,6 +51,17 @@ class Name(FieldTest):
 class Version(FieldTest):
     fatal = True
     field = 'version'
+
+class VersionIsString(BaseTest):
+    weight = 50
+    
+    def test(self, data):
+        # Check that the version is a string
+        version = data.get('version')
+        return isinstance(version, str)
+    
+    def message(self):
+        return 'The version number should be a string.'
         
 VERSION_RE = re.compile(r'''
     ^
@@ -68,18 +79,13 @@ class PEP386Version(BaseTest):
     weight = 50
     
     def test(self, data):
-        version = data.get('version')
-        if not version:
-            self.fatal = True
         # Check that the version number complies to PEP-386:
-        match = VERSION_RE.search(version)
+        version = data.get('version')
+        match = VERSION_RE.search(str(version))
         return match is not None
     
     def message(self):
-        if self.fatal:
-            return 'The package had no version!'
-        else:
-            return 'The packages version number does not comply with PEP-386.'
+        return 'The packages version number does not comply with PEP-386.'
 
 class Description(BaseTest):
     weight = 100
@@ -250,6 +256,7 @@ class BusFactor(BaseTest):
 ALL_TESTS = [
     Name(),
     Version(),
+    VersionIsString(),
     PEP386Version(),
     Description(),
     LongDescription(),
@@ -278,11 +285,11 @@ def rate(data):
     for test in ALL_TESTS:
         res = test.test(data)
         if res is False:
+            fails.append(test.message())
             if test.fatal:
                 fatality = True
             else:
-                bad += test.weight
-                fails.append(test.message())
+                bad += test.weight                
         elif res is True:
             if not test.fatal:
                 good += test.weight

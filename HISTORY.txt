@@ -4,7 +4,9 @@ Changelog
 1.3 (unreleased)
 ----------------
 
-- Nothing changed yet.
+- Added a test to make sure the version number is a string.
+
+- Made sure errors were printed also when a fatal error was encountered.
 
 
 1.2 (2013-03-06)
