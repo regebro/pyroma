@@ -2,6 +2,7 @@
 import os
 import re
 import sys
+import logging
 from collections import defaultdict
 
 IMPORTS = re.compile('^import (.*)$|^from (.*?) import .*$', re.MULTILINE)
@@ -118,8 +119,9 @@ def get_data(path):
                     
                     metadata = sm.get_data()
                 del sys.modules['setup']
-            except ImportError:
+            except ImportError as e:
                 # Either there is no setup py, or it's broken.
+                logging.exception(e)
                 metadata = {}
                 
         # No data found
