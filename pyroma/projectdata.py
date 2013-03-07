@@ -98,26 +98,30 @@ def get_data(path):
     # Run the imported setup to get the metadata.
     with FakeContext(path):
         with SetupMonkey() as sm:
-            import setup
-            metadata = sm.get_data()
-            
-            if not metadata:
-                # This may be a module, like twisted, that only runs setup()
-                # when setup.py is called as the main script. In that case it
-                # often has a main() script to call instead. Try that.
-                try:
-                    setup.main()
-                except TypeError: # OK, so it's twisted.
-                    try:
-                        setup.main([])
-                    except TypeError:
-                        pass # OK, not twisted, then.
-                except AttributeError:
-                    pass # No, no main.
-                
+            try:
+                import setup
                 metadata = sm.get_data()
-            del sys.modules['setup']
-
+            
+                if not metadata:
+                    # This may be a module, like twisted, that only runs setup()
+                    # when setup.py is called as the main script. In that case it
+                    # often has a main() script to call instead. Try that.
+                    try:
+                        setup.main()
+                    except TypeError: # OK, so it's twisted.
+                        try:
+                            setup.main([])
+                        except TypeError:
+                            pass # OK, not twisted, then.
+                    except AttributeError:
+                        pass # No, no main.
+                    
+                    metadata = sm.get_data()
+                del sys.modules['setup']
+            except ImportError:
+                # Either there is no setup py, or it's broken.
+                metadata = {}
+                
         # No data found
         if not metadata:
             return {}
