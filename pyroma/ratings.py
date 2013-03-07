@@ -211,7 +211,7 @@ class PackageDocs(BaseTest):
 
     def message(self):
         return "You might want to host your documentation on pythonhosted.org"\
-               "or readthedocs.org ."
+               " or readthedocs.org."
     
 class ValidREST(BaseTest):
     

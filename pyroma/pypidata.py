@@ -16,8 +16,12 @@ def _get_client():
 def get_data(project):
     client = _get_client()
     # Pick the latest release.
-    release = client.package_releases(project)[0]
+    releases = client.package_releases(project)
+    if not releases:
+        raise ValueError('Did not find "%s" on PyPI' % project)
+    release = releases[0]
     # Get the metadata:
+    print("Found %s version %s" % (project, release))
     data = client.release_data(project, release)
     
     # Map things around:
@@ -29,7 +33,8 @@ def get_data(project):
     data['_pypi_downloads'] = bool(urls)
     
     # Scrape the PyPI project page for owner info:
-    page = urllib.urlopen('/'.join(('http://pypi.python.org/pypi', project, release)))
+    url = '/'.join(('http://pypi.python.org/pypi', project, release))
+    page = urllib.urlopen(url)
     content_type = page.headers.get('content-type', '')
     if '=' not in content_type:
         encoding = 'utf-8'
@@ -39,7 +44,8 @@ def get_data(project):
     owners = OWNER_RE.search(html).groups()[0]
     data['_owners'] = [x.strip() for x in owners.split(',')]
     
-    # See if there is any docs on http://pythonhosted.org
+    print("Looking for documentation")
+    # See if there is any docs on http://pythonhosted.or
     page = urllib.urlopen('http://pythonhosted.org/' + project)
     if page.code == 200:
         data['_packages_docs'] = True
@@ -63,6 +69,7 @@ def get_data(project):
             tempdir = tempfile.gettempdir()
             filename = download['url'].split('/')[-1]
             tmp = os.path.join(tempdir, filename)
+            print("Downloading %s to verify distribution" % filename)
             try:
                 with open(tmp, 'wb') as outfile:
                     outfile.write(urllib.urlopen(download['url']).read())

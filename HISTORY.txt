@@ -8,6 +8,8 @@ Changelog
 
 - Made sure errors were printed also when a fatal error was encountered.
 
+- Better log messages.
+
 
 1.2 (2013-03-06)
 ----------------
