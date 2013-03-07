@@ -7,7 +7,7 @@ logging.basicConfig(level=logging.DEBUG, stream=sys.stdout, format="%(message)s"
 
 def zester(data):
     from zest.releaser.utils import ask
-    if ask("Run pyroma on the package before uploading?"):
+    if ask("Run pyroma on the package before tagging?"):
         result = run(data['workingdir'])
         if result != 10:
             if not ask("Continue?"):
