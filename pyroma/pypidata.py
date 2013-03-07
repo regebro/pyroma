@@ -4,6 +4,7 @@ import tempfile
 import os
 import contextlib
 import re
+import logging
 from pyroma import distributiondata
 
 OWNER_RE = re.compile(r'<strong>Package Index Owner:</strong>\s*?<span>(.*?)</span>')
@@ -21,7 +22,7 @@ def get_data(project):
         raise ValueError("Did not find '%s' on PyPI. Did you misspell it? It's case sensitive!" % project)
     release = releases[0]
     # Get the metadata:
-    print("Found %s version %s" % (project, release))
+    logging.info("Found %s version %s" % (project, release))
     data = client.release_data(project, release)
     
     # Map things around:
@@ -44,7 +45,7 @@ def get_data(project):
     owners = OWNER_RE.search(html).groups()[0]
     data['_owners'] = [x.strip() for x in owners.split(',')]
     
-    print("Looking for documentation")
+    logging.info("Looking for documentation")
     # See if there is any docs on http://pythonhosted.or
     page = urllib.urlopen('http://pythonhosted.org/' + project)
     if page.code == 200:
@@ -69,7 +70,7 @@ def get_data(project):
             tempdir = tempfile.gettempdir()
             filename = download['url'].split('/')[-1]
             tmp = os.path.join(tempdir, filename)
-            print("Downloading %s to verify distribution" % filename)
+            logging.info("Downloading %s to verify distribution" % filename)
             try:
                 with open(tmp, 'wb') as outfile:
                     outfile.write(urllib.urlopen(download['url']).read())
