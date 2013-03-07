@@ -15,7 +15,8 @@ long_description = resource_string(
 if not isinstance(long_description, str):
     long_description = long_description.decode()
 
-COMPLETE = {'name': 'complete',
+COMPLETE = {'_setuptools': True,
+            'name': 'complete',
             'version': '1.0',
             'description': 'This is a test package for pyroma.',
             'long_description': long_description,
@@ -144,7 +145,7 @@ class RatingsTest(unittest.TestCase):
         data = projectdata.get_data(directory)
         rating = rate(data)
         
-        self.assertEqual(rating, (1, [
+        self.assertEqual(rating, (2, [
             'The packages version number does not comply with PEP-386.', 
             'The packages description should be longer than 10 characters.', 
             'The packages long_description is quite short.', 
@@ -155,7 +156,7 @@ class RatingsTest(unittest.TestCase):
             'Your package does not have author_email data.', 
             'Your package does not have url data.', 
             'Your package does not have license data.', 
-            "It's not specified if this package is zip_safe or not, which is usually an oversight. You should specify it, as it defaults to True, which you probably do not want.",
+            'You are using Setuptools or Distribute but do not specify if this package is zip_safe or not. You should specify it, as it defaults to True, which you probably do not want.',
             "Setuptools and Distribute support running tests. By specifying a test suite, it's easy to find and run tests both for automated tools and humans.",
         ]))
 

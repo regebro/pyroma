@@ -184,19 +184,29 @@ class License(FieldTest):
     field = 'license'
 
 class ZipSafe(BaseTest):
-    weight = 20
     
     def test(self, data):
-        return 'zip_safe' in data
+        if data['_setuptools']:
+            self.weight = 20
+            return 'zip_safe' in data
+        else:
+            self.weight = 0
+            return True
     
     def message(self):
-        return "It's not specified if this package is zip_safe or not, which "\
-               "is usually an oversight. You should specify it, as it "\
-               "defaults to True, which you probably do not want."
+        return "You are using Setuptools or Distribute but do not specify if "\
+               "this package is zip_safe or not. You should specify it, as "\
+               "it defaults to True, which you probably do not want."
 
-class TestSuite(FieldTest):
-    weight = 50
-    field = 'test_suite'
+class TestSuite(BaseTest):
+
+    def test(self, data):
+        if data['_setuptools']:
+            self.weight = 50
+            return 'test_suite' in data
+        else:
+            self.weight = 0
+            return True
     
     def message(self):
         return "Setuptools and Distribute support running tests. By "\

@@ -33,8 +33,13 @@ class FakeContext(object):
     
 class SetupMonkey(object):
     
-    def setup_replacement(self, **kw):
+    def distutils_setup_replacement(self, **kw):
         self._kw = kw
+        self._kw['_setuptools'] = False
+
+    def setuptools_setup_replacement(self, **kw):
+        self._kw = kw
+        self._kw['_setuptools'] = True
         
     def get_data(self):
         return self._kw
@@ -42,12 +47,12 @@ class SetupMonkey(object):
     def __enter__(self):
         import distutils.core
         self._distutils_setup = distutils.core.setup
-        distutils.core.setup = self.setup_replacement
+        distutils.core.setup = self.distutils_setup_replacement
         
         try:
             import setuptools
             self._setuptools_setup = setuptools.setup
-            setuptools.setup = self.setup_replacement
+            setuptools.setup = self.setuptools_setup_replacement
         except ImportError:
             self._setuptools_setup = None
         
