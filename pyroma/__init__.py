@@ -6,7 +6,7 @@ from pyroma import projectdata, distributiondata, pypidata, ratings
 def zester(data):
     from zest.releaser.utils import ask
     if ask("Run pyroma on the package before uploading?"):
-        result = run(data['tagdir'])
+        result = run(data['workingdir'])
         if result != 10:
             if not ask("Continue?"):
                 sys.exit(1)
