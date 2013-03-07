@@ -33,7 +33,7 @@ setup(name='pyroma',
           'console_scripts': [
               'pyroma = pyroma:main',
           ],
-          'zest.releaser.releaser.after_checkout': [
+          'zest.releaser.prereleaser.before': [
               'pyroma = pyroma:zester',
           ],
       },
