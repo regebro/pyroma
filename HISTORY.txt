@@ -10,6 +10,9 @@ Changelog
 
 - Better log messages.
 
+- The zest.releaser hook is now done before tagging, as it's more useful there.
+  Especially in conjuction with check-manifest.
+
 
 1.2 (2013-03-06)
 ----------------
