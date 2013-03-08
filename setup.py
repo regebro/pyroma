@@ -38,5 +38,4 @@ setup(name='pyroma',
           ],
       },
       test_suite='pyroma',
-      use_2to3=True,
       )

@@ -1,11 +1,15 @@
-import xmlrpclib
 import urllib
 import tempfile
 import os
-import contextlib
 import re
 import logging
 from pyroma import distributiondata
+try:
+    from xmlrpc import client as xmlrpclib
+    from urllib import request as urllib
+except ImportError:
+    import xmlrpclib
+    import urllib
 
 OWNER_RE = re.compile(r'<strong>Package Index Owner:</strong>\s*?<span>(.*?)</span>')
 READTHEDOCS_RE = re.compile(r'(https?://.*?\.readthedocs.org)')

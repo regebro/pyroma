@@ -1,11 +1,16 @@
+from __future__ import print_function
 import unittest
 import os
-import xmlrpclib
-import urlparse
-import urllib
 import sys
 import collections
 
+try:
+    from xmlrpc import client as xmlrpclib
+    from urllib import request as urllib
+except ImportError:
+    import xmlrpclib
+    import urllib
+    
 from pyroma import projectdata, distributiondata, pypidata
 from pyroma.ratings import rate
 from pkg_resources import resource_filename, resource_string
@@ -112,12 +117,12 @@ class ProxyStub(object):
         def _proxy_method(*args, **kw):
             if self._real is None:
                 raise AttributeError('ProxyStub unkown method ' + name)
-            print
-            print "== ProxyStub unknown method =="
-            print name, ':', args, kw
+            print()
+            print("== ProxyStub unknown method ==")
+            print(name, ':', args, kw)
             result = getattr(self._real, name)(*args, **kw)
-            print "Result :"
-            print result
+            print("Result :")
+            print(result)
             return result
             
         return _proxy_method
