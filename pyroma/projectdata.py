@@ -3,7 +3,6 @@ import os
 import re
 import sys
 import logging
-from collections import defaultdict
 
 IMPORTS = re.compile('^import (.*)$|^from (.*?) import .*$', re.MULTILINE)
 

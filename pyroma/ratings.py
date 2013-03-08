@@ -16,7 +16,7 @@
 #                 False for fail and None for not applicable (meaning it will
 #                 not be counted).
 
-import sys, os, re
+import re
 from docutils.core import publish_parts
 from docutils.utils import SystemMessage
 
@@ -230,7 +230,8 @@ class ValidREST(BaseTest):
     def test(self, data):
         source = data['long_description']
         try:
-            parts = publish_parts(source=source, writer_name='html4css1')
+            # Try to publish to HTML and see if we get an error or not.
+            publish_parts(source=source, writer_name='html4css1')
         except SystemMessage as e:
             self._message = e.args[0].strip()
             return False
