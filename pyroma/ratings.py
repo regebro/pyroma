@@ -107,7 +107,7 @@ class LongDescription(BaseTest):
     weight = 50
     
     def test(self, data):
-        return len(data.get('long_description')) > 100
+        return len(data.get('long_description', '')) > 100
     
     def message(self):
         return 'The packages long_description is quite short.'
@@ -228,7 +228,7 @@ class ValidREST(BaseTest):
     weight = 50
     
     def test(self, data):
-        source = data['long_description']
+        source = data.get('long_description', '')
         try:
             # Try to publish to HTML and see if we get an error or not.
             publish_parts(source=source, writer_name='html4css1')
