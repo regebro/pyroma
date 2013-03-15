@@ -12,6 +12,8 @@ Changelog
 
 - The zest.releaser hook is now done before tagging, as it's more useful there.
   Especially in conjuction with check-manifest.
+  
+- Having no long_description no longer causes pyroma to fail.
 
 
 1.2 (2013-03-06)
