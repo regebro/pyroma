@@ -5,8 +5,6 @@ version = '0.0foo'
 setup(name='minimal',
       version=version,
       description="Test",
-      long_description="""\
-""",
       classifiers=[], # Get strings from http://pypi.python.org/pypi?%3Aaction=list_classifiers
       keywords='',
       author='',
