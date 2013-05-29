@@ -6,6 +6,8 @@ Changelog
 
 - Issue #13: Pyroma would fail when checking a package name if no source
   distribution could be found.
+  
+- Added a check that the package has a source distribution on PyPI.
 
 
 1.3.1 (2013-05-29)
