@@ -4,8 +4,10 @@ Changelog
 1.4 (unreleased)
 ----------------
 
+- Issue #11: pyroma would fail if long_description was a non-string.
+  
 - zest.releaser now only runs Pyroma on Python packages.
-  [maurits]
+
 
 
 1.3 (2013-03-15)
