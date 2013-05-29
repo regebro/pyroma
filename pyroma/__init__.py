@@ -13,7 +13,7 @@ def zester(data):
     from zest.releaser.utils import ask
     if ask("Run pyroma on the package before tagging?"):
         result = run(data['workingdir'])
-        if result != 9:
+        if result < 9:
             if not ask("Continue?"):
                 sys.exit(1)
 

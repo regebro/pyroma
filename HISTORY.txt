@@ -8,7 +8,10 @@ Changelog
   
 - zest.releaser now only runs Pyroma on Python packages.
 
-
+- Because packages that use external test-runners can not get more
+  that 9/10, this value is now also seens as acceptable when running
+  Pyroma through zest.releaser.
+  
 
 1.3 (2013-03-15)
 ----------------
