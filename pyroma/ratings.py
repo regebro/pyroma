@@ -20,6 +20,11 @@ import re
 from docutils.core import publish_parts
 from docutils.utils import SystemMessage
 
+try:
+    stringtypes = basestring,
+except NameError:
+    stringtypes = str,
+
 LEVELS = ["This cheese seems to contain no dairy products",
           "Vieux Bologne",
           "Limburger",
@@ -107,7 +112,10 @@ class LongDescription(BaseTest):
     weight = 50
     
     def test(self, data):
-        return len(data.get('long_description', '')) > 100
+        long_description = data.get('long_description', '')
+        if not isinstance(long_description, stringtypes):
+            long_description = ''
+        return len(long_description) > 100
     
     def message(self):
         return 'The packages long_description is quite short.'
