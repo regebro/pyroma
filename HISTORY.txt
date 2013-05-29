@@ -1,7 +1,7 @@
 Changelog
 =========
 
-1.4 (unreleased)
+1.4 (2013-05-29)
 ----------------
 
 - Issue #13: Pyroma would fail when checking a package name if no source
