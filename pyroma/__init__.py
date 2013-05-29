@@ -6,10 +6,14 @@ import logging
 logging.basicConfig(level=logging.DEBUG, stream=sys.stdout, format="%(message)s")
 
 def zester(data):
+    main_files = os.listdir(data['workingdir'])
+    if 'setup.py' not in main_files and 'setup.cfg' not in main_files:
+        return
+    
     from zest.releaser.utils import ask
     if ask("Run pyroma on the package before tagging?"):
         result = run(data['workingdir'])
-        if result != 10:
+        if result != 9:
             if not ask("Continue?"):
                 sys.exit(1)
 
