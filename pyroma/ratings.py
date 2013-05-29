@@ -220,6 +220,21 @@ class TestSuite(BaseTest):
         return "Setuptools and Distribute support running tests. By "\
                "specifying a test suite, it's easy to find and run tests "\
                "both for automated tools and humans."
+
+class SDist(BaseTest):
+    weight = 100
+    
+    def test(self, data):
+        if not '_has_sdist' in data:
+            # We aren't checking on PyPI
+            weight = 0
+            return None
+        return data['_has_sdist']
+
+    def message(self):
+        return "You have no source distribution on the Cheeseshop. Uploading "\
+        "the source distribution to the Cheeseshop ensures maximum "\
+        "availability of your package."
     
 class PackageDocs(BaseTest):
     weight = 0 # Just a recommendation
@@ -288,6 +303,7 @@ ALL_TESTS = [
     License(),
     ZipSafe(),
     TestSuite(),
+    SDist(),
     PackageDocs(),
     ValidREST(),
     BusFactor(),

@@ -68,9 +68,13 @@ def get_data(project):
     # If there is a source download, download it, and get that data.
     # This is done mostly to do the imports check.
     data['_source_download'] = False
+    data['_setuptools'] = None # Mark it as unknown, in case no sdist is found.
+    data['_has_sdist'] = False
+    
     for download in urls:
         if download['packagetype'] == 'sdist':
             # Found a source distribution. Download and analyze it.
+            data['_has_sdist'] = True
             tempdir = tempfile.gettempdir()
             filename = download['url'].split('/')[-1]
             tmp = os.path.join(tempdir, filename)
