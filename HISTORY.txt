@@ -6,6 +6,8 @@ Changelog
 
 - Fixed issue #13: Pyroma would fail if there was no description.
 
+- Dropping support for Python 3.1. It still works, but it is unsupported.
+
 
 1.4 (2013-05-29)
 ----------------
