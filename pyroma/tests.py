@@ -165,6 +165,27 @@ class RatingsTest(unittest.TestCase):
             "Setuptools and Distribute support running tests. By specifying a test suite, it's easy to find and run tests both for automated tools and humans.",
         ]))
 
+    def test_lacking(self):
+        directory = resource_filename(
+            __name__, os.path.join('testdata', 'lacking'))
+        data = projectdata.get_data(directory)
+        rating = rate(data)
+        
+        self.assertEqual(rating, (0, [
+            'The package had no description!', 
+            'The packages long_description is quite short.', 
+            'Your package does not have classifiers data.', 
+            'You should specify what Python versions you support.', 
+            'Your package does not have keywords data.', 
+            'Your package does not have author data.', 
+            'Your package does not have author_email data.', 
+            'Your package does not have url data.', 
+            'Your package does not have license data.', 
+            'You are using Setuptools or Distribute but do not specify if this package is zip_safe or not. You should specify it, as it defaults to True, which you probably do not want.',
+            "Setuptools and Distribute support running tests. By specifying a test suite, it's easy to find and run tests both for automated tools and humans.",
+        ]))
+        
+
 class PyPITest(unittest.TestCase):
         
     def test_distribute(self):

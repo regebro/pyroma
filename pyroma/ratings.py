@@ -100,6 +100,8 @@ class Description(BaseTest):
         if not description:
             # No description at all. That's fatal.
             self.fatal = True
+            return False
+        self.fatal = False
         return len(description) > 10
     
     def message(self):
