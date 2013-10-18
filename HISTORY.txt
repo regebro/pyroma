@@ -1,7 +1,7 @@
 Changelog
 =========
 
-1.5 (unreleased)
+1.5 (2013-10-18)
 ----------------
 
 - Fixed issue #13: Pyroma would fail if there was no description.
