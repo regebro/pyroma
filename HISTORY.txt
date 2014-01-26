@@ -4,7 +4,7 @@ Changelog
 1.6 (unreleased)
 ----------------
 
-- Nothing changed yet.
+- Fixed issue #19: Implementing a custom test class counts as having tests.
 
 
 1.5 (2013-10-18)
