@@ -13,8 +13,8 @@ def zester(data):
     
     from zest.releaser.utils import ask
     if ask("Run pyroma on the package before tagging?"):
-        result = run(data['workingdir'])
-        if result < 9:
+        rating = run('directory', os.path.abspath(data['workingdir']))
+        if rating < 8:
             if not ask("Continue?"):
                 sys.exit(1)
 
@@ -57,6 +57,13 @@ def main():
     else:
         mode = 'pypi'
         
+    rating = run(mode, argument)
+    if rating < 8:
+        sys.exit(2)
+    sys.exit(1)
+        
+def run(mode, argument):
+        
     logging.info('-'*30)
     logging.info('Checking ' + argument)
             
@@ -84,4 +91,5 @@ def main():
     logging.info('Final rating: ' + str(rating[0]) + '/10')
     logging.info(ratings.LEVELS[rating[0]])
     logging.info('-'*30)
+
     return rating[0]

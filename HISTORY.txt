@@ -4,7 +4,15 @@ Changelog
 1.6 (unreleased)
 ----------------
 
+- Fixed issue #17: Integration with zest.releaser stopped working.
+
+- Fixed issue #18: Pyroma returns the rating as an exit code, this was a 
+  mistake. It now returns 0 on success, 1 on incorrect options and 2 if
+  the rating is below 8.
+
 - Fixed issue #19: Implementing a custom test class counts as having tests.
+
+- 8: Philadelphia is now considered a "success" based on practical experience.
 
 
 1.5 (2013-10-18)
