@@ -11,7 +11,7 @@ except ImportError:
     import xmlrpclib
     import urllib
     
-from pyroma import projectdata, distributiondata, pypidata
+from pyroma import projectdata, distributiondata, pypidata, zester
 from pyroma.ratings import rate
 from pkg_resources import resource_filename, resource_string
 
