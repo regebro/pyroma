@@ -213,7 +213,12 @@ class TestSuite(BaseTest):
     def test(self, data):
         if data['_setuptools']:
             self.weight = 50
-            return 'test_suite' in data
+            if 'test_suite' in data:
+                return True
+            if 'cmdclass' in data:
+                if 'test' in data['cmdclass']:
+                    return True
+            return False
         else:
             self.weight = 0
             return True

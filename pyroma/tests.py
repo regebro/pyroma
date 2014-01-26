@@ -184,6 +184,26 @@ class RatingsTest(unittest.TestCase):
             'You are using Setuptools or Distribute but do not specify if this package is zip_safe or not. You should specify it, as it defaults to True, which you probably do not want.',
             "Setuptools and Distribute support running tests. By specifying a test suite, it's easy to find and run tests both for automated tools and humans.",
         ]))
+
+    def test_custom_test(self):
+        directory = resource_filename(
+            __name__, os.path.join('testdata', 'custom_test'))
+        data = projectdata.get_data(directory)
+        rating = rate(data)
+        
+        self.assertEqual(rating, (2, [
+            'The packages version number does not comply with PEP-386.', 
+            'The packages description should be longer than 10 characters.', 
+            'The packages long_description is quite short.', 
+            'Your package does not have classifiers data.', 
+            'You should specify what Python versions you support.', 
+            'Your package does not have keywords data.', 
+            'Your package does not have author data.', 
+            'Your package does not have author_email data.', 
+            'Your package does not have url data.', 
+            'Your package does not have license data.', 
+            'You are using Setuptools or Distribute but do not specify if this package is zip_safe or not. You should specify it, as it defaults to True, which you probably do not want.',            
+        ]))
         
 
 class PyPITest(unittest.TestCase):
