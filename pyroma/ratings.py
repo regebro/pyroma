@@ -90,7 +90,7 @@ class PEP386Version(BaseTest):
         return match is not None
     
     def message(self):
-        return 'The packages version number does not comply with PEP-386.'
+        return "The package's version number does not comply with PEP-386."
 
 class Description(BaseTest):
     weight = 100
@@ -108,7 +108,7 @@ class Description(BaseTest):
         if self.fatal:
             return 'The package had no description!'
         else:
-            return 'The packages description should be longer than 10 characters.'
+            return "The package's description should be longer than 10 characters."
 
 class LongDescription(BaseTest):    
     weight = 50
@@ -120,7 +120,7 @@ class LongDescription(BaseTest):
         return len(long_description) > 100
     
     def message(self):
-        return 'The packages long_description is quite short.'
+        return "The package's long_description is quite short."
 
 class Classifiers(FieldTest):
     weight = 100
