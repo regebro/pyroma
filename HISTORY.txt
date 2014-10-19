@@ -4,7 +4,9 @@ Changelog
 1.7 (unreleased)
 ----------------
 
-- Nothing changed yet.
+- Package name lookup is now case insensitive. [Dmitry Vakhrushev]
+
+- Fixed yet another error in return value. [Dmitry Vakhrushev]
 
 
 1.6 (2014-04-17)
