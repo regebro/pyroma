@@ -1,7 +1,7 @@
 Changelog
 =========
 
-1.7 (unreleased)
+1.7 (2014-10-19)
 ----------------
 
 - Package name lookup is now case insensitive. [Dmitry Vakhrushev]
