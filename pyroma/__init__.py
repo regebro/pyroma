@@ -10,7 +10,7 @@ def zester(data):
     main_files = os.listdir(data['workingdir'])
     if 'setup.py' not in main_files and 'setup.cfg' not in main_files:
         return
-    
+
     from zest.releaser.utils import ask
     if ask("Run pyroma on the package before tagging?"):
         rating = run('directory', os.path.abspath(data['workingdir']))
@@ -25,14 +25,14 @@ def main():
     parser.add_option("-a", "--auto", dest="auto", default=False,
                       action='store_true', help="Select mode automatically (default)",)
     parser.add_option("-d", "--directory", dest="directory",
-                      action='store_true', default=False, 
+                      action='store_true', default=False,
                       help="Run pyroma on a module in a project directory",)
     parser.add_option("-f", "--file", dest="file", action='store_true',
                       default=False, help="Run pyroma on a distribution file",)
     parser.add_option("-p", "--pypi", dest="pypi", action='store_true',
                       default=False, help="Run pyroma on a package on PyPI",)
-    
-    (options, args) = parser.parse_args()    
+
+    (options, args) = parser.parse_args()
 
     if len(args) < 1:
         parser.print_help()
@@ -43,8 +43,8 @@ def main():
         print("You can only select one of the options -a, -d, -f and -p")
         sys.exit(1)
 
-    argument = args[0]        
-    
+    argument = args[0]
+
     if not any(modes) or options.auto:
         if os.path.isdir(argument):
             mode = 'directory'
@@ -56,18 +56,18 @@ def main():
         mode = 'file'
     else:
         mode = 'pypi'
-        
+
     rating = run(mode, argument)
     if rating < 8:
         sys.exit(2)
-    sys.exit(1)
-        
+    sys.exit(0)
+
 def run(mode, argument):
-        
+
     logging.info('-'*30)
     logging.info('Checking ' + argument)
-            
-    if mode == 'directory':   
+
+    if mode == 'directory':
         data = projectdata.get_data(os.path.abspath(argument))
         logging.info('Found ' + data.get('name', 'nothing'))
     elif mode == 'file':
@@ -77,9 +77,9 @@ def run(mode, argument):
         # It's probably a package name
         data = pypidata.get_data(argument)
         logging.info('Found ' + data.get('name', 'nothing'))
-        
+
     rating = ratings.rate(data)
-        
+
     logging.info('-'*30)
     for problem in rating[1]:
         # XXX It would be nice with a * pointlist instead, but that requires
