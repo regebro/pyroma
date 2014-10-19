@@ -16,7 +16,7 @@ well as a script, also called pyroma.
 It can be run on a project directory before making a release:
 
     $ pyroma .
-    
+
 On a distribution before uploading it to the CheeseShop:
 
     $ pyroma pyroma-1.0.tar.gz
@@ -45,12 +45,12 @@ Tests
 
 This is the list of checks that are currently performed:
 
-* The package should have a name, a version and a Description. 
+* The package should have a name, a version and a Description.
   If it does not, it will recieve a rating of 0.
-  
+
 * The version number should be a string. A floating point number will
   work with distutils, but most other tools will fail.
-  
+
 * The version number should comply to PEP386.
 
 * The long_description should be over a 100 characters.
@@ -63,12 +63,12 @@ This is the list of checks that are currently performed:
 
 * You should have a the following meta data fields filled in:
   classifiers, keywords, author, author_email, url and license.
-  
+
 * You should have classifiers specifying the sypported Python versions.
 
 * If you are using setuptools or distribute you should specify zip_safe,
   as it defaults to "true" and that's probably not what you want.
-  
+
 * If you are using setuptools or distribute you can specify a test_suite
   to run tests with 'setup.py test'. This makes it easy to run tests for
   both humans and automated tools.
@@ -77,7 +77,7 @@ This is the list of checks that are currently performed:
   local package, pyroma will check the number of owners the package has
   on PyPI. It should be three or more, to minimize the "Bus factor",
   the risk of the index owners suddenly going off-line for whatever reason.
-  
+
 * If you are checking on a PyPI package, and not a local directory or
   local package, Pyroma will look for documentation for your package at
   pythonhosted.org and readthedocs.org. If it can't find it, it prints out
@@ -90,3 +90,9 @@ Credits
 The project was created by Lennart Regebro, regebro@gmail.com
 
 The name "Pyroma" was coined by Wichert Akkerman, wichert@wiggy.net
+
+Contributors:
+
+  * Godefroid Chapelle
+  * Dmitry Vakhrushev
+  * hugovk
