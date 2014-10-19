@@ -21,7 +21,6 @@ def _get_client():
 def get_data(project):
     client = _get_client()
     # Pick the latest release.
-
     releases = client.package_releases(project)
     if not releases:
         # Try to find project by case-insensitive name
@@ -31,21 +30,20 @@ def get_data(project):
         if not projects:
             raise ValueError("Did not find '%s' on PyPI. Did you misspell it?" % project)
         project = projects[0]['name']
-        releases = [p['version'] for p in reversed(projects)]
-
+        releases = [p['version'] for p in reversed(projects)]        
     release = releases[0]
     # Get the metadata:
     logging.debug("Found %s version %s" % (project, release))
     data = client.release_data(project, release)
-
+    
     # Map things around:
     data['long_description'] = data['description']
     data['description'] = data['summary']
-
+    
     # Get download_urls:
     urls = client.release_urls(project, release)
     data['_pypi_downloads'] = bool(urls)
-
+    
     # Scrape the PyPI project page for owner info:
     url = '/'.join(('http://pypi.python.org/pypi', project, release))
     page = urllib.urlopen(url)
@@ -57,7 +55,7 @@ def get_data(project):
     html = page.read().decode(encoding)
     owners = OWNER_RE.search(html).groups()[0]
     data['_owners'] = [x.strip() for x in owners.split(',')]
-
+    
     logging.debug("Looking for documentation")
     # See if there is any docs on http://pythonhosted.or
     page = urllib.urlopen('http://pythonhosted.org/' + project)
@@ -79,7 +77,7 @@ def get_data(project):
     data['_source_download'] = False
     data['_setuptools'] = None # Mark it as unknown, in case no sdist is found.
     data['_has_sdist'] = False
-
+    
     for download in urls:
         if download['packagetype'] == 'sdist':
             # Found a source distribution. Download and analyze it.
@@ -96,12 +94,12 @@ def get_data(project):
                 # Clean up the file
                 os.unlink(tmp)
                 raise
-
+            
             # Combine them, with the PyPI data winning:
             ddata.update(data)
             data = ddata
             data['_source_download'] = True
             break
-
+            
     return data
-
+    
