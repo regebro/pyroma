@@ -4,7 +4,7 @@ version = '1.0'
 
 with open('README.txt', 'rt') as readme:
     long_description = readme.read()
-    
+
 setup(name='complete',
       version=version,
       description='This is a test package for pyroma.',
