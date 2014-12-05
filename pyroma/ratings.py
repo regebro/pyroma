@@ -196,7 +196,7 @@ class License(FieldTest):
 class ZipSafe(BaseTest):
 
     def test(self, data):
-        if data['_setuptools']:
+        if data.get('_setuptools'):
             self.weight = 20
             return 'zip_safe' in data
         else:
@@ -211,12 +211,12 @@ class ZipSafe(BaseTest):
 class TestSuite(BaseTest):
 
     def test(self, data):
-        if data['_setuptools']:
+        if data.get('_setuptools'])
             self.weight = 50
             if 'test_suite' in data:
                 return True
             if 'cmdclass' in data:
-                if 'test' in data['cmdclass']:
+                if 'test' in data.get('cmdclass', []):
                     return True
             return False
         else:
@@ -279,11 +279,11 @@ class BusFactor(BaseTest):
             self.weight = 0
             return None
 
-        if len(data['_owners']) == 1:
+        if len(data.get('_owners', [])) == 1:
             self.weight = 100
             return False
 
-        if len(data['_owners']) == 2:
+        if len(data.get('_owners', [])) == 2:
             self.weight = 50
             return False
 
