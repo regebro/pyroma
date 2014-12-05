@@ -96,3 +96,4 @@ Contributors:
   * Godefroid Chapelle
   * Dmitry Vakhrushev
   * hugovk
+  * Jeff Quast
