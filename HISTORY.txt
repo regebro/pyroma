@@ -1,7 +1,7 @@
 Changelog
 =========
 
-1.8 (unreleased)
+1.8 (2015-04-27)
 ----------------
 
 - More robust rating. [Jeff Quast]
