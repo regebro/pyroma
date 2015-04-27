@@ -6,6 +6,8 @@ Changelog
 
 - More robust rating. [Jeff Quast]
 
+- Closed #24.
+
 
 1.7 (2014-10-19)
 ----------------

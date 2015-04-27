@@ -45,6 +45,7 @@ def main():
 
     argument = args[0]
 
+    mode = 'pypi'
     if not any(modes) or options.auto:
         if os.path.isdir(argument):
             mode = 'directory'
@@ -54,8 +55,6 @@ def main():
         mode = 'directory'
     elif options.file:
         mode = 'file'
-    else:
-        mode = 'pypi'
 
     rating = run(mode, argument)
     if rating < 8:
