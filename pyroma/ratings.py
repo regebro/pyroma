@@ -211,7 +211,7 @@ class ZipSafe(BaseTest):
 class TestSuite(BaseTest):
 
     def test(self, data):
-        if data.get('_setuptools'])
+        if data.get('_setuptools'):
             self.weight = 50
             if 'test_suite' in data:
                 return True
