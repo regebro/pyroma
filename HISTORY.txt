@@ -1,8 +1,8 @@
 Changelog
 =========
 
-1.9 (unreleased)
-----------------
+1.8.1 (2015-04-27)
+------------------
 
 - This is what happens when you don't run the tests after merging.
 
