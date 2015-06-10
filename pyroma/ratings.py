@@ -63,7 +63,7 @@ class VersionIsString(BaseTest):
     def test(self, data):
         # Check that the version is a string
         version = data.get('version')
-        return isinstance(version, str)
+        return isinstance(version, stringtypes)
 
     def message(self):
         return 'The version number should be a string.'
