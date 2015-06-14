@@ -1,7 +1,7 @@
 Changelog
 =========
 
-1.8.1 (2015-06-14)
+1.8.2 (2015-06-14)
 ------------------
 
 - Do not complain that the version number should be a string, when it
