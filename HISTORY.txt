@@ -1,8 +1,8 @@
 Changelog
 =========
 
-1.9 (unreleased)
-----------------
+1.8.1 (2015-06-14)
+------------------
 
 - Do not complain that the version number should be a string, when it
   is a basestring.
