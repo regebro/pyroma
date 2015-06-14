@@ -46,7 +46,7 @@ Tests
 This is the list of checks that are currently performed:
 
 * The package should have a name, a version and a Description.
-  If it does not, it will recieve a rating of 0.
+  If it does not, it will receive a rating of 0.
 
 * The version number should be a string. A floating point number will
   work with distutils, but most other tools will fail.
