@@ -4,8 +4,7 @@ Changelog
 1.8.3 (unreleased)
 ------------------
 
-- Nothing changed yet.
-
+- Issue #26: Checking a PyPI package could fail under Python 3.
 
 1.8.2 (2015-06-14)
 ------------------
@@ -42,7 +41,7 @@ Changelog
 
 - Fixed issue #17: Integration with zest.releaser stopped working.
 
-- Fixed issue #18: Pyroma returns the rating as an exit code, this was a 
+- Fixed issue #18: Pyroma returns the rating as an exit code, this was a
   mistake. It now returns 0 on success, 1 on incorrect options and 2 if
   the rating is below 8.
 
@@ -66,7 +65,7 @@ Changelog
 
 - Issue #13: Pyroma would fail when checking a package name if no source
   distribution could be found.
-  
+
 - Added a check that the package has a source distribution on PyPI.
 
 
@@ -74,13 +73,13 @@ Changelog
 ------------------
 
 - Issue #11: pyroma would fail if long_description was a non-string.
-  
+
 - zest.releaser now only runs Pyroma on Python packages.
 
 - Because packages that use external test-runners can not get more
   that 9/10, this value is now also seens as acceptable when running
   Pyroma through zest.releaser.
-  
+
 
 1.3 (2013-03-15)
 ----------------
@@ -93,7 +92,7 @@ Changelog
 
 - The zest.releaser hook is now done before tagging, as it's more useful there.
   Especially in conjuction with check-manifest.
-  
+
 - Having no long_description no longer causes pyroma to fail.
 
 
@@ -103,7 +102,7 @@ Changelog
 - Removed the running of tests. I always found it a bit iffy, and getting
   rid of it solved a lot of issues. Pyroma is now focused solely on
   packaging quality.
-  
+
 - A package on PyPI with several versions will no longer return an error.
 
 - Now looks for documentation on pythonhosted.org or readthedocs.org.
@@ -117,7 +116,7 @@ Changelog
 
 - Better handling if there is no package data, for example if setup.py doesn't
   call setup() unless you run it as the "__main__" script.
-  
+
 - If setup.py doesn't call setup() look for a main() script and try to run it.
 
 
