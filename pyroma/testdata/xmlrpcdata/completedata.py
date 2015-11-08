@@ -9,7 +9,7 @@ data = {'package_releases':
                'requires_python': None,
                'maintainer_email': None,
                'cheesecake_code_kwalitee_id': None,
-               'keywords': 'pypi quality example',
+               'keywords': ['pypi', 'quality', 'example'],
                'package_url': 'http://pypi.python.org/pypi/complete',
                'author': 'Lennart Regebro',
                'author_email': 'regebro@gmail.com',

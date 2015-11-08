@@ -3,6 +3,8 @@ import os
 import sys
 import logging
 
+from distutils import core
+
 class FakeContext(object):
 
     def __init__(self, path):
@@ -30,13 +32,14 @@ class FakeContext(object):
 
 class SetupMonkey(object):
 
+    used_setuptools = False
+
     def distutils_setup_replacement(self, **kw):
-        self._kw = kw
-        self._kw['_setuptools'] = False
+        self._distutils_setup(**kw)
 
     def setuptools_setup_replacement(self, **kw):
-        self._kw = kw
-        self._kw['_setuptools'] = True
+        self.used_setuptools = True
+        self._setuptools_setup(**kw)
 
     def get_data(self):
         return self._kw
@@ -64,28 +67,73 @@ class SetupMonkey(object):
             setuptools.setup = self._setuptools_setup
 
 
-def _specified_versions(data):
-    classifiers = data.get('classifiers', [])
-    for classifier in classifiers:
-        parts = [p.strip() for p in classifier.split('::')]
-        if parts[0] == 'Programming Language' and parts[1] == 'Python':
-            if len(parts) == 2:
-                # Specified Python, but no version.
-                continue
-            version = parts[2]
+# This is a version of distutils run_setup() that doesn't give
+# up just because Setuptools throws errors if you try to exec it.
+def run_setup(script_name, script_args=None, stop_after="run"):
+    """Run a setup script in a somewhat controlled environment, and
+    return the Distribution instance that drives things.  This is useful
+    if you need to find out the distribution meta-data (passed as
+    keyword args from 'script' to 'setup()', or the contents of the
+    config files or command-line.
+
+    'script_name' is a file that will be run with 'execfile()';
+    'sys.argv[0]' will be replaced with 'script' for the duration of the
+    call.  'script_args' is a list of strings; if supplied,
+    'sys.argv[1:]' will be replaced by 'script_args' for the duration of
+    the call.
+
+    'stop_after' tells 'setup()' when to stop processing; possible
+    values:
+      init
+        stop after the Distribution instance has been created and
+        populated with the keyword arguments to 'setup()'
+      config
+        stop after config files have been parsed (and their data
+        stored in the Distribution instance)
+      commandline
+        stop after the command-line ('sys.argv[1:]' or 'script_args')
+        have been parsed (and the data stored in the Distribution)
+      run [default]
+        stop after all commands have been run (the same as if 'setup()'
+        had been called in the usual way
+
+    Returns the Distribution instance, which provides all information
+    used to drive the Distutils.
+    """
+    if stop_after not in ('init', 'config', 'commandline', 'run'):
+        raise ValueError, "invalid value for 'stop_after': %r" % (stop_after,)
+
+    core._setup_stop_after = stop_after
+
+    save_argv = sys.argv
+    g = {'__file__': script_name}
+    l = {}
+    try:
+        try:
+            sys.argv[0] = script_name
+            if script_args is not None:
+                sys.argv[1:] = script_args
+            f = open(script_name)
             try:
-                int(version)
-                # This is just specifying 2 or 3, not which version
-                continue
-            except ValueError:
-                pass
-            try:
-                float(version)
-                # This version is good!
-                yield version
-            except ValueError:
-                # Not a proper Python version
-                continue
+                exec f.read() in g, l
+            finally:
+                f.close()
+        finally:
+            sys.argv = save_argv
+            core._setup_stop_after = None
+    except Exception:
+        pass
+
+    if core._setup_distribution is None:
+        raise RuntimeError, \
+              ("'distutils.core.setup()' was never called -- "
+               "perhaps '%s' is not a Distutils setup script?") % \
+              script_name
+
+    # I wonder if the setup script's namespace -- g and l -- would be of
+    # any interest to callers?
+    return core._setup_distribution
+
 
 def get_data(path):
     """
@@ -96,32 +144,29 @@ def get_data(path):
     with FakeContext(path):
         with SetupMonkey() as sm:
             try:
-                import setup
-                metadata = sm.get_data()
+                distro = run_setup('setup.py', stop_after='config')
 
-                if not metadata:
-                    # This may be a module, like twisted, that only runs setup()
-                    # when setup.py is called as the main script. In that case it
-                    # often has a main() script to call instead. Try that.
-                    try:
-                        setup.main()
-                    except TypeError: # OK, so it's twisted.
-                        try:
-                            setup.main([])
-                        except TypeError:
-                            pass # OK, not twisted, then.
-                    except AttributeError:
-                        pass # No, no main.
+                metadata = {'_setuptools': sm.used_setuptools}
 
-                    metadata = sm.get_data()
-                del sys.modules['setup']
+                for k, v in distro.metadata.__dict__.items():
+                    if k[0] == '_' or not v:
+                        continue
+                    if all(not x for x in v):
+                        continue
+                    metadata[k] = v
+
+                if sm.used_setuptools:
+                    for extras in ['cmdclass', 'zip_safe', 'test_suite',
+                                   'include_package_data', 'install_requires',
+                                   'packages', 'setup_requires',
+                                   'tests_require']:
+                        v = getattr(distro, extras, None)
+                        if v is not None and v not in ([], {}):
+                            metadata[extras] = v
+
             except ImportError as e:
                 # Either there is no setup py, or it's broken.
                 logging.exception(e)
                 metadata = {}
-
-        # No data found
-        if not metadata:
-            return {}
 
     return metadata
