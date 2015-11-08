@@ -1,8 +1,8 @@
 Changelog
 =========
 
-2.0.0 (unreleased)
-------------------
+2.0.0b1 (2015-11-08)
+--------------------
 
 - Big rewrite of how data is extracted from Distutils/Setuptools.
 
