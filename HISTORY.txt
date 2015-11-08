@@ -1,7 +1,7 @@
 Changelog
 =========
 
-1.8.3 (unreleased)
+1.8.3 (2015-11-08)
 ------------------
 
 - Issue #26: Checking a PyPI package could fail under Python 3.
