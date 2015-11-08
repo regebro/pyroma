@@ -33,7 +33,7 @@ COMPLETE = {'_setuptools': True,
                             'Programming Language :: Python :: 3.2',
                             'Programming Language :: Python :: 3.3',
                             ],
-            'keywords': 'pypi quality example',
+            'keywords': ['pypi', 'quality', 'example'],
             'author': 'Lennart Regebro',
             'author_email': 'regebro@gmail.com',
             'url': 'http://colliberty.com',
@@ -244,6 +244,8 @@ class PyPITest(unittest.TestCase):
             urllib.urlopen = real_urlopen
 
 class ProjectDataTest(unittest.TestCase):
+
+    maxDiff = None
 
     def test_complete(self):
         directory = resource_filename(
