@@ -5,6 +5,23 @@ import logging
 
 from distutils import core
 
+if sys.version_info[0] == 3:
+    def exec_(_code_, _globs_=None, _locs_=None):
+        exec(_code_, _globs_, _locs_)
+else:
+    def exec_(_code_, _globs_=None, _locs_=None):
+        """Execute code in a namespace."""
+        if _globs_ is None:
+            frame = sys._getframe(1)
+            _globs_ = frame.f_globals
+            if _locs_ is None:
+                _locs_ = frame.f_locals
+            del frame
+        elif _locs_ is None:
+            _locs_ = _globs_
+        exec("""exec _code_ in _globs_, _locs_""")
+
+
 class FakeContext(object):
 
     def __init__(self, path):
@@ -101,7 +118,7 @@ def run_setup(script_name, script_args=None, stop_after="run"):
     used to drive the Distutils.
     """
     if stop_after not in ('init', 'config', 'commandline', 'run'):
-        raise ValueError, "invalid value for 'stop_after': %r" % (stop_after,)
+        raise ValueError("invalid value for 'stop_after': %r" % stop_after)
 
     core._setup_stop_after = stop_after
 
@@ -115,7 +132,7 @@ def run_setup(script_name, script_args=None, stop_after="run"):
                 sys.argv[1:] = script_args
             f = open(script_name)
             try:
-                exec f.read() in g, l
+                exec_(f.read(), g, l)
             finally:
                 f.close()
         finally:
@@ -125,10 +142,10 @@ def run_setup(script_name, script_args=None, stop_after="run"):
         pass
 
     if core._setup_distribution is None:
-        raise RuntimeError, \
-              ("'distutils.core.setup()' was never called -- "
-               "perhaps '%s' is not a Distutils setup script?") % \
-              script_name
+        raise RuntimeError(
+            "'distutils.core.setup()' was never called -- "
+            "perhaps '%s' is not a Distutils setup script?" %
+            script_name)
 
     # I wonder if the setup script's namespace -- g and l -- would be of
     # any interest to callers?
@@ -156,10 +173,7 @@ def get_data(path):
                     metadata[k] = v
 
                 if sm.used_setuptools:
-                    for extras in ['cmdclass', 'zip_safe', 'test_suite',
-                                   'include_package_data', 'install_requires',
-                                   'packages', 'setup_requires',
-                                   'tests_require']:
+                    for extras in ['cmdclass', 'zip_safe', 'test_suite']:
                         v = getattr(distro, extras, None)
                         if v is not None and v not in ([], {}):
                             metadata[extras] = v

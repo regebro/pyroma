@@ -37,8 +37,10 @@ LEVELS = ["This cheese seems to contain no dairy products",
           "Cottage Cheese",
           "Your cheese is so fresh most people think it's a cream: Mascarpone"]
 
+
 class BaseTest(object):
     fatal = False
+
 
 class FieldTest(BaseTest):
     """Tests that a specific field is in the data and is not empty or False"""
@@ -47,15 +49,19 @@ class FieldTest(BaseTest):
         return bool(data.get(self.field))
 
     def message(self):
-        return ("Your package does not have %s data" % self.field) + (self.fatal and '!' or '.')
+        return ("Your package does not have %s data" % self.field) + (
+            self.fatal and '!' or '.')
+
 
 class Name(FieldTest):
     fatal = True
     field = 'name'
 
+
 class Version(FieldTest):
     fatal = True
     field = 'version'
+
 
 class VersionIsString(BaseTest):
     weight = 50
@@ -80,6 +86,7 @@ VERSION_RE = re.compile(r'''
     (?P<postdev>(\.post(?P<post>\d+))?(\.dev(?P<dev>\d+))?)?
     $''', re.VERBOSE)
 
+
 class PEP386Version(BaseTest):
     weight = 50
 
@@ -91,6 +98,7 @@ class PEP386Version(BaseTest):
 
     def message(self):
         return "The package's version number does not comply with PEP-386."
+
 
 class Description(BaseTest):
     weight = 100
@@ -108,7 +116,9 @@ class Description(BaseTest):
         if self.fatal:
             return 'The package had no description!'
         else:
-            return "The package's description should be longer than 10 characters."
+            return ("The package's description should be longer than "
+                    "10 characters.")
+
 
 class LongDescription(BaseTest):
     weight = 50
@@ -122,9 +132,11 @@ class LongDescription(BaseTest):
     def message(self):
         return "The package's long_description is quite short."
 
+
 class Classifiers(FieldTest):
     weight = 100
     field = 'classifiers'
+
 
 class PythonVersion(BaseTest):
 
@@ -177,21 +189,26 @@ class Keywords(FieldTest):
     weight = 20
     field = 'keywords'
 
+
 class Author(FieldTest):
     weight = 100
     field = 'author'
+
 
 class AuthorEmail(FieldTest):
     weight = 100
     field = 'author_email'
 
+
 class Url(FieldTest):
     weight = 20
     field = 'url'
 
+
 class License(FieldTest):
     weight = 50
     field = 'license'
+
 
 class ZipSafe(BaseTest):
 
@@ -207,6 +224,7 @@ class ZipSafe(BaseTest):
         return "You are using Setuptools or Distribute but do not specify if "\
                "this package is zip_safe or not. You should specify it, as "\
                "it defaults to True, which you probably do not want."
+
 
 class TestSuite(BaseTest):
 
@@ -228,23 +246,25 @@ class TestSuite(BaseTest):
                "specifying a test suite, it's easy to find and run tests "\
                "both for automated tools and humans."
 
+
 class SDist(BaseTest):
     weight = 100
 
     def test(self, data):
-        if not '_has_sdist' in data:
+        if '_has_sdist' not in data:
             # We aren't checking on PyPI
             self.weight = 0
             return None
         return data['_has_sdist']
 
     def message(self):
-        return "You have no source distribution on the Cheeseshop. Uploading "\
-        "the source distribution to the Cheeseshop ensures maximum "\
-        "availability of your package."
+        return ("You have no source distribution on the Cheeseshop. "
+                "Uploading the source distribution to the Cheeseshop ensures "
+                "maximum availability of your package.")
+
 
 class PackageDocs(BaseTest):
-    weight = 0 # Just a recommendation
+    weight = 0  # Just a recommendation
 
     def test(self, data):
         return data.get('_packages_docs') or data.get('_readthe_docs')
@@ -252,6 +272,7 @@ class PackageDocs(BaseTest):
     def message(self):
         return "You might want to host your documentation on pythonhosted.org"\
                " or readthedocs.org."
+
 
 class ValidREST(BaseTest):
 
@@ -271,11 +292,11 @@ class ValidREST(BaseTest):
     def message(self):
         return 'Your long_description is not valid ReST: ' + self._message
 
+
 class BusFactor(BaseTest):
 
-
     def test(self, data):
-        if not '_owners' in data:
+        if '_owners' not in data:
             self.weight = 0
             return None
 
@@ -293,6 +314,7 @@ class BusFactor(BaseTest):
 
     def message(self):
         return "You should have three or more owners of the project on PyPI."
+
 
 ALL_TESTS = [
     Name(),
@@ -315,6 +337,7 @@ ALL_TESTS = [
     ValidREST(),
     BusFactor(),
 ]
+
 
 def rate(data):
     if not data:

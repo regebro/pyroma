@@ -38,11 +38,6 @@ COMPLETE = {'_setuptools': True,
             'author_email': 'regebro@gmail.com',
             'url': 'http://colliberty.com',
             'license': 'MIT',
-            'packages': ['complete'],
-            'install_requires': ['zope.event'],
-            'tests_require': ['six'],
-            'setup_requires': ['setuptools'],
-            'include_package_data': True,
             'zip_safe': True,
             'test_suite': "complete",
             }
@@ -59,6 +54,7 @@ class FakeResponse(object):
 
     def read(self):
         return open(self.filename, 'rb').read()
+
 
 def urlopenstub(url):
     if url.startswith('http://pythonhosted.org/'):
@@ -77,7 +73,6 @@ def urlopenstub(url):
             __name__, os.path.join('testdata', 'xmlrpcdata', filename+'.html'))
         return FakeResponse(200, datafile)
 
-
     if url.startswith('http://pypi.python.org/packages'):
         filename = [x for x in url.split('/') if x][-1]
         # Faking PyPI file downloads
@@ -86,6 +81,7 @@ def urlopenstub(url):
         return FakeResponse(200, datafile)
 
     raise ValueError("Don't know how to stub " + url)
+
 
 class ProxyStub(object):
     def __init__(self, dataname, real_class, developmode):
@@ -161,8 +157,12 @@ class RatingsTest(unittest.TestCase):
             "Your package does not have author_email data.",
             "Your package does not have url data.",
             "Your package does not have license data.",
-            "You are using Setuptools or Distribute but do not specify if this package is zip_safe or not. You should specify it, as it defaults to True, which you probably do not want.",
-            "Setuptools and Distribute support running tests. By specifying a test suite, it's easy to find and run tests both for automated tools and humans.",
+            "You are using Setuptools or Distribute but do not specify if "
+            "this package is zip_safe or not. You should specify it, as it "
+            "defaults to True, which you probably do not want.",
+            "Setuptools and Distribute support running tests. By specifying a "
+            "test suite, it's easy to find and run tests both for automated "
+            "tools and humans.",
         ]))
 
     def test_lacking(self):
@@ -181,8 +181,12 @@ class RatingsTest(unittest.TestCase):
             "Your package does not have author_email data.",
             "Your package does not have url data.",
             "Your package does not have license data.",
-            "You are using Setuptools or Distribute but do not specify if this package is zip_safe or not. You should specify it, as it defaults to True, which you probably do not want.",
-            "Setuptools and Distribute support running tests. By specifying a test suite, it's easy to find and run tests both for automated tools and humans.",
+            "You are using Setuptools or Distribute but do not specify if "
+            "this package is zip_safe or not. You should specify it, as it "
+            "defaults to True, which you probably do not want.",
+            "Setuptools and Distribute support running tests. By specifying a "
+            "test suite, it's easy to find and run tests both for automated "
+            "tools and humans.",
         ]))
 
     def test_custom_test(self):
@@ -202,7 +206,9 @@ class RatingsTest(unittest.TestCase):
             "Your package does not have author_email data.",
             "Your package does not have url data.",
             "Your package does not have license data.",
-            "You are using Setuptools or Distribute but do not specify if this package is zip_safe or not. You should specify it, as it defaults to True, which you probably do not want.",
+            "You are using Setuptools or Distribute but do not specify if "
+            "this package is zip_safe or not. You should specify it, as it "
+            "defaults to True, which you probably do not want.",
         ]))
 
 
@@ -220,7 +226,8 @@ class PyPITest(unittest.TestCase):
             rating = rate(data)
 
             self.assertEqual(rating, (9, [
-                'The classifiers should specify what minor versions of Python you support as well as what major version.',
+                'The classifiers should specify what minor versions of Python '
+                'you support as well as what major version.',
                 'You should have three or more owners of the project on PyPI.'
             ]))
         finally:
@@ -243,6 +250,7 @@ class PyPITest(unittest.TestCase):
             xmlrpclib.ServerProxy = real_server_proxy
             urllib.urlopen = real_urlopen
 
+
 class ProjectDataTest(unittest.TestCase):
 
     maxDiff = None
@@ -252,7 +260,6 @@ class ProjectDataTest(unittest.TestCase):
             __name__, os.path.join('testdata', 'complete'))
 
         data = projectdata.get_data(directory)
-        # The path is dynamic, and needs not be tested anyway:
         self.assertEqual(data, COMPLETE)
 
 

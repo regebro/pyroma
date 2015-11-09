@@ -10,12 +10,15 @@ except ImportError:
     import xmlrpclib
     import urllib
 
-OWNER_RE = re.compile(r'<strong>Package Index Owner:</strong>\s*?<span>(.*?)</span>')
+OWNER_RE = re.compile(
+    r'<strong>Package Index Owner:</strong>\s*?<span>(.*?)</span>')
 READTHEDOCS_RE = re.compile(r'(https?://.*?\.readthedocs.org)')
+
 
 def _get_client():
     # I think I should be able to monkeypatch a mock-thingy here... I think.
     return xmlrpclib.ServerProxy('http://pypi.python.org/pypi')
+
 
 def get_data(project):
     client = _get_client()
@@ -27,7 +30,8 @@ def get_data(project):
         projects = client.search({'name': project_name})
         projects = [p for p in projects if p['name'].lower() == project_name]
         if not projects:
-            raise ValueError("Did not find '%s' on PyPI. Did you misspell it?" % project)
+            raise ValueError(
+                "Did not find '%s' on PyPI. Did you misspell it?" % project)
         project = projects[0]['name']
         releases = [p['version'] for p in reversed(projects)]
     release = releases[0]
@@ -76,7 +80,7 @@ def get_data(project):
     # If there is a source download, download it, and get that data.
     # This is done mostly to do the imports check.
     data['_source_download'] = False
-    data['_setuptools'] = None # Mark it as unknown, in case no sdist is found.
+    data['_setuptools'] = None  # Mark as unknown, in case no sdist is found.
     data['_has_sdist'] = False
 
     for download in urls:

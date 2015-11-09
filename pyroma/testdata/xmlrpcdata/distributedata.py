@@ -2,23 +2,23 @@ from datetime import datetime
 args = ('http://pypi.python.org/pypi',)
 kw = {}
 data = {'package_releases':
-           {('distribute',): ['0.6.15']},
+        {('distribute',): ['0.6.15']},
         'release_data':
-           {('distribute', '0.6.15'): {
-               'maintainer': None,
-               'requires_python': None,
-               'maintainer_email': None,
-               'cheesecake_code_kwalitee_id': None,
-               'keywords': 'CPAN PyPI distutils eggs package management',
-               'package_url': 'http://pypi.python.org/pypi/distribute',
-               'author': 'The fellowship of the packaging',
-               'author_email': 'distutils-sig@python.org',
-               'download_url': 'UNKNOWN',
-               'platform': 'UNKNOWN',
-               'version': '0.6.15',
-               'cheesecake_documentation_id': None,
-               '_pypi_hidden': False,
-               'description': """===============================
+        {('distribute', '0.6.15'): {
+            'maintainer': None,
+            'requires_python': None,
+            'maintainer_email': None,
+            'cheesecake_code_kwalitee_id': None,
+            'keywords': 'CPAN PyPI distutils eggs package management',
+            'package_url': 'http://pypi.python.org/pypi/distribute',
+            'author': 'The fellowship of the packaging',
+            'author_email': 'distutils-sig@python.org',
+            'download_url': 'UNKNOWN',
+            'platform': 'UNKNOWN',
+            'version': '0.6.15',
+            'cheesecake_documentation_id': None,
+            '_pypi_hidden': False,
+            'description': """===============================
 Installing and Using Distribute
 ===============================
 
@@ -119,7 +119,8 @@ Source installation
 
 Download the source tarball, uncompress it, then run the install command::
 
-    $ curl -O http://pypi.python.org/packages/source/d/distribute/distribute-0.6.15.tar.gz
+    $ curl -O http://pypi.python.org/packages/source/d/distribute/"""
+            """distribute-0.6.15.tar.gz
     $ tar -xzvf distribute-0.6.15.tar.gz
     $ cd distribute-0.6.15
     $ python setup.py install
@@ -143,7 +144,8 @@ Distribute can be removed like this:
 - remove the ``distribute*.egg`` file located in your site-packages directory
 - remove the ``setuptools.pth`` file located in you site-packages directory
 - remove the easy_install script located in you ``sys.prefix/bin`` directory
-- remove the ``setuptools*.egg`` directory located in your site-packages directory,
+- remove the ``setuptools*.egg`` directory located in your site-"""
+            """packages directory,
   if any.
 
 If you want to get back to setuptools:
@@ -209,7 +211,8 @@ Install FAQ
   Once installed, your virtualenv will use Distribute transparently.
 
   Although, if you have Setuptools installed in your system-wide Python,
-  and if the virtualenv you are in was generated without the `--no-site-packages`
+  and if the virtualenv you are in was generated without the """
+            """`--no-site-packages`
   option, the Distribute installation will stop.
 
   You need in this case to build a virtualenv with the `--no-site-packages`
@@ -274,7 +277,8 @@ CHANGES
 
 * Issue 160: 2.7 gives ValueError("Invalid IPv6 URL")
 * Issue 150: Fixed using ~/.local even in a --no-site-packages virtualenv
-* Issue 163: scan index links before external links, and don\'t use the md5 when
+* Issue 163: scan index links before external links, and don\'t use the """
+            """md5 when
   comparing two distributions
 
 ------
@@ -534,37 +538,41 @@ easy_install
 
 * Immediately close all file handles. This closes
   http://bitbucket.org/tarek/distribute/issue/3.""",
-               'release_url': 'http://pypi.python.org/pypi/distribute/0.6.15',
-               '_pypi_ordering': 115,
-               'classifiers': ['Development Status :: 5 - Production/Stable',
-                               'Intended Audience :: Developers',
-                               'License :: OSI Approved :: Python Software Foundation License',
-                               'License :: OSI Approved :: Zope Public License',
-                               'Operating System :: OS Independent',
-                               'Programming Language :: Python',
-                               'Programming Language :: Python :: 3',
-                               'Topic :: Software Development :: Libraries :: Python Modules',
-                               'Topic :: System :: Archiving :: Packaging',
-                               'Topic :: System :: Systems Administration',
-                               'Topic :: Utilities'],
-               'name': 'distribute',
-               'license': 'PSF or ZPL',
-               'summary': 'Easily download, build, install, upgrade, and uninstall Python packages',
-               'home_page': 'http://packages.python.org/distribute',
-               'stable_version': None,
-               'cheesecake_installability_id': None,
-               },
+            'release_url': 'http://pypi.python.org/pypi/distribute/0.6.15',
+            '_pypi_ordering': 115,
+            'classifiers': ['Development Status :: 5 - Production/Stable',
+                            'Intended Audience :: Developers',
+                            'License :: OSI Approved :: '
+                            'Python Software Foundation License',
+                            'License :: OSI Approved :: Zope Public License',
+                            'Operating System :: OS Independent',
+                            'Programming Language :: Python',
+                            'Programming Language :: Python :: 3',
+                            'Topic :: Software Development :: '
+                            'Libraries :: Python Modules',
+                            'Topic :: System :: Archiving :: Packaging',
+                            'Topic :: System :: Systems Administration',
+                            'Topic :: Utilities'],
+            'name': 'distribute',
+            'license': 'PSF or ZPL',
+            'summary': 'Easily download, build, install, upgrade, and '
+            'uninstall Python packages',
+            'home_page': 'http://packages.python.org/distribute',
+            'stable_version': None,
+            'cheesecake_installability_id': None,
             },
-        'release_urls': {('distribute', '0.6.15'):[
+         },
+        'release_urls': {('distribute', '0.6.15'): [
             {'has_sig': False,
              'upload_time': datetime(2011, 3, 16, 16, 31, 39),
              'comment_text': '',
              'python_version': 'source',
-             'url': 'http://pypi.python.org/packages/source/d/distribute/distribute-0.6.15.tar.gz',
+             'url': 'http://pypi.python.org/packages/source/d/'
+             'distribute/distribute-0.6.15.tar.gz',
              'md5_digest': 'ea52e1412e7ff560c290266ed400e216',
              'downloads': 0,
              'filename': 'distribute-0.6.15.tar.gz',
              'packagetype': 'sdist',
              'size': 289103}],
-                         }
+            }
         }

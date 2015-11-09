@@ -4,7 +4,9 @@ from optparse import OptionParser
 from pyroma import projectdata, distributiondata, pypidata, ratings
 
 import logging
-logging.basicConfig(level=logging.DEBUG, stream=sys.stdout, format="%(message)s")
+logging.basicConfig(level=logging.DEBUG, stream=sys.stdout,
+                    format="%(message)s")
+
 
 def zester(data):
     main_files = os.listdir(data['workingdir'])
@@ -20,10 +22,12 @@ def zester(data):
 
 
 def main():
-    usage = "usage: %prog [-a|-d|-f|-p] <project directory|distribution file|pypi package name>"
+    usage = ("usage: %prog [-a|-d|-f|-p] <project directory|"
+             "distribution file|pypi package name>")
     parser = OptionParser(usage)
     parser.add_option("-a", "--auto", dest="auto", default=False,
-                      action='store_true', help="Select mode automatically (default)",)
+                      action='store_true',
+                      help="Select mode automatically (default)",)
     parser.add_option("-d", "--directory", dest="directory",
                       action='store_true', default=False,
                       help="Run pyroma on a module in a project directory",)
@@ -60,6 +64,7 @@ def main():
     if rating < 8:
         sys.exit(2)
     sys.exit(0)
+
 
 def run(mode, argument):
 

@@ -3,13 +3,14 @@ from setuptools.command.test import test
 
 version = '0.0foo'
 
+
 class CustomTest(test):
     pass
 
 setup(name='minimal',
       version=version,
       description="Test",
-      classifiers=[], # Get strings from http://pypi.python.org/pypi?%3Aaction=list_classifiers
+      classifiers=[],
       keywords='',
       author='',
       author_email='',

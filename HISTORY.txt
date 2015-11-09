@@ -4,7 +4,9 @@ Changelog
 2.0.0b2 (unreleased)
 --------------------
 
-- Nothing changed yet.
+- Made it run under Python 3 again.
+
+- PEP8
 
 
 2.0.0b1 (2015-11-08)
