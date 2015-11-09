@@ -8,6 +8,7 @@ import tarfile
 
 from pyroma import projectdata
 
+
 def get_data(path):
     filename = os.path.split(path)[-1]
     basename, ext = os.path.splitext(filename)
