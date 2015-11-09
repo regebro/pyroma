@@ -1,7 +1,7 @@
 Changelog
 =========
 
-2.0.0b2 (unreleased)
+2.0.0b2 (2015-11-09)
 --------------------
 
 - Made it run under Python 3 again.
