@@ -9,3 +9,8 @@ py2*
 py3*
 .tox
 *.wpr
+*.wpu
+*.bak
+*.class
+.venv
+.env

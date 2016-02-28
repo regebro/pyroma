@@ -139,7 +139,7 @@ def run_setup(script_name, script_args=None, stop_after="run"):
             sys.argv = save_argv
             core._setup_stop_after = None
     except Exception:
-        pass
+        logging.warn("Exception when running setup.", exc_info=True)
 
     if core._setup_distribution is None:
         raise RuntimeError(
