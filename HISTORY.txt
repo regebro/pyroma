@@ -1,7 +1,7 @@
 Changelog
 =========
 
-2.0.2 (unreleased)
+2.0.2 (2016-03-06)
 ------------------
 
 - Faked the __name__ variable to allow you to have a "if __name__" construct
