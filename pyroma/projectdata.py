@@ -127,6 +127,7 @@ def run_setup(script_name, script_args=None, stop_after="run"):
     save_argv = sys.argv
     glocals = copy(globals())
     glocals['__file__'] = script_name
+    glocals['__name__'] = "__main__"
     try:
         try:
             sys.argv[0] = script_name
