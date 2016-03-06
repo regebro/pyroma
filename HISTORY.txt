@@ -4,7 +4,8 @@ Changelog
 2.0.2 (unreleased)
 ------------------
 
-- Nothing changed yet.
+- Faked the __name__ variable to allow you to have a "if __name__" construct
+  in the setup.py.
 
 
 2.0.1 (2016-03-06)
