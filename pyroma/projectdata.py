@@ -3,8 +3,10 @@ import os
 import sys
 import logging
 
+from copy import copy
 from distutils import core
 
+# From six (where else?):
 if sys.version_info[0] == 3:
     def exec_(_code_, _globs_=None, _locs_=None):
         exec(_code_, _globs_, _locs_)
@@ -123,8 +125,8 @@ def run_setup(script_name, script_args=None, stop_after="run"):
     core._setup_stop_after = stop_after
 
     save_argv = sys.argv
-    g = {'__file__': script_name}
-    l = {}
+    glocals = copy(globals())
+    glocals['__file__'] = script_name
     try:
         try:
             sys.argv[0] = script_name
@@ -132,7 +134,7 @@ def run_setup(script_name, script_args=None, stop_after="run"):
                 sys.argv[1:] = script_args
             f = open(script_name)
             try:
-                exec_(f.read(), g, l)
+                exec_(f.read(), glocals, glocals)
             finally:
                 f.close()
         finally:

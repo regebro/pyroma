@@ -4,7 +4,7 @@ Changelog
 2.0.1 (unreleased)
 ------------------
 
-- Nothing changed yet.
+- Fixed a bug under Python 3 with certain imports.
 
 
 2.0.0 (2016-02-28)
