@@ -1,7 +1,7 @@
 Changelog
 =========
 
-2.0.1 (unreleased)
+2.0.1 (2016-03-06)
 ------------------
 
 - Fixed a bug under Python 3 with certain imports.
