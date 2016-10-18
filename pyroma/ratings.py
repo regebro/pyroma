@@ -74,7 +74,7 @@ class VersionIsString(BaseTest):
     def message(self):
         return 'The version number should be a string.'
 
-VERSION_RE = re.compile(r'''
+PEP386_RE = re.compile(r'''
     ^
     (?P<version>\d+\.\d+)          # minimum 'N.N'
     (?P<extraversion>(?:\.\d+)*)   # any number of extra '.N' segments
@@ -84,20 +84,59 @@ VERSION_RE = re.compile(r'''
         (?P<prerelversion>\d+(?:\.\d+)*)
     )?
     (?P<postdev>(\.post(?P<post>\d+))?(\.dev(?P<dev>\d+))?)?
-    $''', re.VERBOSE)
+    $''', re.VERBOSE | re.IGNORECASE)
 
 
-class PEP386Version(BaseTest):
+PEP440_RE = re.compile(r"""^
+    v?
+    (?:
+        (?:(?P<epoch>[0-9]+)!)?                           # epoch
+        (?P<release>[0-9]+(?:\.[0-9]+)*)                  # release segment
+        (?P<pre>                                          # pre-release
+            [-_\.]?
+            (?P<pre_l>(a|b|c|rc|alpha|beta|pre|preview))
+            [-_\.]?
+            (?P<pre_n>[0-9]+)?
+        )?
+        (?P<post>                                         # post release
+            (?:-(?P<post_n1>[0-9]+))
+            |
+            (?:
+                [-_\.]?
+                (?P<post_l>post|rev|r)
+                [-_\.]?
+                (?P<post_n2>[0-9]+)?
+            )
+        )?
+        (?P<dev>                                          # dev release
+            [-_\.]?
+            (?P<dev_l>dev)
+            [-_\.]?
+            (?P<dev_n>[0-9]+)?
+        )?
+    )
+    (?:\+(?P<local>[a-z0-9]+(?:[-_\.][a-z0-9]+)*))?       # local version
+$""", re.VERBOSE | re.IGNORECASE)
+
+class PEPVersion(BaseTest):
     weight = 50
+    pep386 = False
 
     def test(self, data):
         # Check that the version number complies to PEP-386:
         version = data.get('version')
-        match = VERSION_RE.search(str(version))
+        self.pep386 = False
+        if PEP386_RE.search(str(version)) is not None:
+            # Matches the old PEP386
+            self.weight = 10
+            self.pep386 = True
+        match = PEP440_RE.search(str(version))
         return match is not None
 
     def message(self):
-        return "The package's version number does not comply with PEP-386."
+        if self.pep386:
+            return "The package's version number complies only with PEP-386 and not PEP-440."
+        return "The package's version number does not comply with PEP-386 or PEP-440."
 
 
 class Description(BaseTest):
@@ -320,7 +359,7 @@ ALL_TESTS = [
     Name(),
     Version(),
     VersionIsString(),
-    PEP386Version(),
+    PEPVersion(),
     Description(),
     LongDescription(),
     Classifiers(),
