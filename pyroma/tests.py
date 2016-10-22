@@ -160,9 +160,6 @@ class RatingsTest(unittest.TestCase):
             "You are using Setuptools or Distribute but do not specify if "
             "this package is zip_safe or not. You should specify it, as it "
             "defaults to True, which you probably do not want.",
-            "Setuptools and Distribute support running tests. By specifying a "
-            "test suite, it's easy to find and run tests both for automated "
-            "tools and humans.",
         ]))
 
     def test_lacking(self):
@@ -184,9 +181,6 @@ class RatingsTest(unittest.TestCase):
             "You are using Setuptools or Distribute but do not specify if "
             "this package is zip_safe or not. You should specify it, as it "
             "defaults to True, which you probably do not want.",
-            "Setuptools and Distribute support running tests. By specifying a "
-            "test suite, it's easy to find and run tests both for automated "
-            "tools and humans.",
         ]))
 
     def test_custom_test(self):

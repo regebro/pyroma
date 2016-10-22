@@ -265,27 +265,6 @@ class ZipSafe(BaseTest):
                "it defaults to True, which you probably do not want."
 
 
-class TestSuite(BaseTest):
-
-    def test(self, data):
-        if data.get('_setuptools'):
-            self.weight = 50
-            if 'test_suite' in data:
-                return True
-            if 'cmdclass' in data:
-                if 'test' in data.get('cmdclass', []):
-                    return True
-            return False
-        else:
-            self.weight = 0
-            return True
-
-    def message(self):
-        return "Setuptools and Distribute support running tests. By "\
-               "specifying a test suite, it's easy to find and run tests "\
-               "both for automated tools and humans."
-
-
 class SDist(BaseTest):
     weight = 100
 
@@ -370,7 +349,6 @@ ALL_TESTS = [
     Url(),
     License(),
     ZipSafe(),
-    TestSuite(),
     SDist(),
     PackageDocs(),
     ValidREST(),
@@ -399,7 +377,7 @@ def rate(data):
                 good += test.weight
     # If res is None, it's ignored.
     if fatality:
-        # A fatal tests failed. That means we give a 0 rating:
+        # A fatal test failed. That means we give a 0 rating:
         return 0, fails
     # Multiply good by 9, and add 1 to get a rating between
     # 1: All non-fatal tests failed.
