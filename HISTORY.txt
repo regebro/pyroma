@@ -4,7 +4,8 @@ Changelog
 2.1.1 (unreleased)
 ------------------
 
-- Nothing changed yet.
+- Removed the TestSuite rating. I decided it was too close to looking at
+  code quality. Pyroma no longer cares if you have tests or not.
 
 
 2.1 (2016-10-18)
