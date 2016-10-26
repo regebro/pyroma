@@ -1,5 +1,5 @@
 from datetime import datetime
-args = ('http://pypi.python.org/pypi',)
+args = ('https://pypi.python.org/pypi',)
 kw = {}
 data = {'package_releases':
         {('complete',): ['1.0.dev1']},

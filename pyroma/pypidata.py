@@ -17,7 +17,7 @@ READTHEDOCS_RE = re.compile(r'(https?://.*?\.readthedocs.org)')
 
 def _get_client():
     # I think I should be able to monkeypatch a mock-thingy here... I think.
-    return xmlrpclib.ServerProxy('http://pypi.python.org/pypi')
+    return xmlrpclib.ServerProxy('https://pypi.python.org/pypi')
 
 
 def get_data(project):
