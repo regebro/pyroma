@@ -1,8 +1,8 @@
 Changelog
 =========
 
-2.1.1 (unreleased)
-------------------
+2.2 (2016-10-26)
+----------------
 
 - Removed the TestSuite rating. I decided it was too close to looking at
   code quality. Pyroma no longer cares if you have tests or not.
