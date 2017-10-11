@@ -1,7 +1,6 @@
-Some notes on developing
-========================
+# Some notes on developing
 
-*Note: Since pyroma no longer runs tests, this is probably no longer true.*
+- Note: Since pyroma no longer runs tests, this is probably no longer true.*
 
 For each Python version supported by Pyroma you need to make sure the
 "complete" package that is used for testing also supports that version of
@@ -20,7 +19,8 @@ version, and you'll get errors when running Pyroma's test-suite.
 You also have to make new test-distributions with the updated data.
 You do it this way:
 
-    $ cd pyroma/testdata/complete
-    $ python setup.py sdist --formats=bztar,gztar,tar,zip
-    $ cp dist/complete-1.0.dev1.* ../distributions/
-    
+```bash
+$ cd pyroma/testdata/complete
+$ python setup.py sdist --formats=bztar,gztar,tar,zip
+$ cp dist/complete-1.0.dev1.* ../distributions/
+```
