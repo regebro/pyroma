@@ -25,17 +25,17 @@ try:
 except NameError:
     stringtypes = str,
 
-LEVELS = ["This cheese seems to contain no dairy products",
-          "Vieux Bologne",
-          "Limburger",
-          "Gorgonzola",
-          "Stilton",
-          "Brie",
-          "Comté",
-          "Jarlsberg",
-          "Philadelphia",
-          "Cottage Cheese",
-          "Your cheese is so fresh most people think it's a cream: Mascarpone"]
+LEVELS = [u"This cheese seems to contain no dairy products",
+          u"Vieux Bologne",
+          u"Limburger",
+          u"Gorgonzola",
+          u"Stilton",
+          u"Brie",
+          u"Comté",
+          u"Jarlsberg",
+          u"Philadelphia",
+          u"Cottage Cheese",
+          u"Your cheese is so fresh most people think it's a cream: Mascarpone"]
 
 
 class BaseTest(object):
