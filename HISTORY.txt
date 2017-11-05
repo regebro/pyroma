@@ -4,7 +4,7 @@ Changelog
 2.3 (unreleased)
 ----------------
 
-- Nothing changed yet.
+- Check that a classifier specifying the project license.
 
 
 2.2 (2016-10-26)
