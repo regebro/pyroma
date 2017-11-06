@@ -258,7 +258,6 @@ class License(FieldTest):
             parts = [p.strip() for p in classifier.split('::')]
             if parts[0] == 'License':
                 # license classifier exist
-                self.weight = 100
                 return True
         return False
 
