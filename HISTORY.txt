@@ -8,6 +8,8 @@ Changelog
 
 - Dropped support for Python 2.6, 3.3 and 3.4.
 
+- Fixed a unicode issue [gotcha]
+
 
 2.2 (2016-10-26)
 ----------------
