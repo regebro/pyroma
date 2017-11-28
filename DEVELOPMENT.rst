@@ -1,3 +1,10 @@
+Testing
+=======
+
+Run tests:
+
+    $ python -m unittest pyroma.tests
+
 Some notes on developing
 ========================
 
@@ -23,4 +30,3 @@ You do it this way:
     $ cd pyroma/testdata/complete
     $ python setup.py sdist --formats=bztar,gztar,tar,zip
     $ cp dist/complete-1.0.dev1.* ../distributions/
-    
