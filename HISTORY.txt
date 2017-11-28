@@ -1,7 +1,7 @@
 Changelog
 =========
 
-2.3 (unreleased)
+2.3 (2017-11-28)
 ----------------
 
 - Check that a classifier specifies the project license. [4383]
