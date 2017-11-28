@@ -64,7 +64,9 @@ This is the list of checks that are currently performed:
 * You should have a the following meta data fields filled in:
   classifiers, keywords, author, author_email, url and license.
 
-* You should have classifiers specifying the sypported Python versions.
+* You should have classifiers specifying the supported Python versions.
+
+* You should have a classifier specifying the project license.
 
 * If you are using setuptools or distribute you should specify zip_safe,
   as it defaults to "true" and that's probably not what you want.
@@ -98,3 +100,4 @@ Contributors:
   * hugovk
   * Jeff Quast
   * Maurits van Rees
+  * Hervé Beraud

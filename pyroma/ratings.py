@@ -249,6 +249,22 @@ class License(FieldTest):
     field = 'license'
 
 
+class LicenceClassifier(BaseTest):
+    weight = 20
+
+    def test(self, data):
+        classifiers = data.get('classifiers', [])
+        for classifier in classifiers:
+            parts = [p.strip() for p in classifier.split('::')]
+            if parts[0] == 'License':
+                # license classifier exist
+                return True
+        return False
+
+    def message(self):
+        return "You should specify license in classifiers."
+
+
 class ZipSafe(BaseTest):
 
     def test(self, data):
