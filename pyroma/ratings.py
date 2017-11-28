@@ -248,6 +248,24 @@ class License(FieldTest):
     weight = 50
     field = 'license'
 
+    def test(self, data):
+        self._license_specified = super(License, self).test(data)
+        if not self._license_specified:
+            return False
+
+        classifiers = data.get('classifiers', [])
+        for classifier in classifiers:
+            parts = [p.strip() for p in classifier.split('::')]
+            if parts[0] == 'License':
+                # license classifier exist
+                return True
+        return False
+
+    def message(self):
+        if not self._license_specified:
+            return super(License, self).message()
+        return "You should specify license in classifiers."
+
 
 class LicenceClassifier(BaseTest):
     weight = 20
