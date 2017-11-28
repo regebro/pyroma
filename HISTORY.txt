@@ -10,6 +10,8 @@ Changelog
 
 - Fixed a unicode issue [gotcha]
 
+- Stopped recommending places to keep documentation.
+
 
 2.2 (2016-10-26)
 ----------------

@@ -60,17 +60,9 @@ def get_data(project):
     data['_owners'] = [x.strip() for x in owners.split(',')]
 
     logging.debug("Looking for documentation")
-    # See if there is any docs on http://pythonhosted.org
-    data['_packages_docs'] = False
-    try:
-        page = urllib.urlopen('http://pythonhosted.org/' + project)
-        if page.code == 200:
-            data['_packages_docs'] = True
-    except urllib.HTTPError:
-        pass
-
-    # Maybe on readthedocs?
+    # See if there is any docs on readthedocs
     data['_readthe_docs'] = False
+    #import pdb;pdb.set_trace()
     rtdocs = READTHEDOCS_RE.search(html)
     if rtdocs:
         page = urllib.urlopen(rtdocs.groups()[0])

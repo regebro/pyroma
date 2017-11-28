@@ -48,20 +48,18 @@ class FakeResponse(object):
     def __init__(self, responsecode, filename=None):
         self.filename = filename
         self.headers = collections.defaultdict(lambda: None)
-        if sys.version > '2.5':
-            # 2.5 and lower doesn't have the code attribute.
-            # The test should fail on Python 2.5.
-            self.code = responsecode
+        self.code = responsecode
 
     def read(self):
         return open(self.filename, 'rb').read()
 
 
 def urlopenstub(url):
-    if url.startswith('http://pythonhosted.org/'):
-        filename = [x for x in url.split('/') if x][-1]
+    if url.find('readthedocs.org') != -1:
+        host = url.split('/')[2]
+        package = host.split('.')[0]
         # Faking the docs:
-        if filename in ('distribute', 'complete',):
+        if package in ('distribute', 'complete',):
             return FakeResponse(200)
         else:
             # This package doesn't have docs on pythonhosted.org:
@@ -158,6 +156,7 @@ class RatingsTest(unittest.TestCase):
             "Your package does not have author_email data.",
             "Your package does not have url data.",
             "Your package does not have license data.",
+            "You should specify license in classifiers.",
             "You are using Setuptools or Distribute but do not specify if "
             "this package is zip_safe or not. You should specify it, as it "
             "defaults to True, which you probably do not want.",
@@ -179,6 +178,7 @@ class RatingsTest(unittest.TestCase):
             "Your package does not have author_email data.",
             "Your package does not have url data.",
             "Your package does not have license data.",
+            "You should specify license in classifiers.",
             "You are using Setuptools or Distribute but do not specify if "
             "this package is zip_safe or not. You should specify it, as it "
             "defaults to True, which you probably do not want.",
@@ -201,6 +201,7 @@ class RatingsTest(unittest.TestCase):
             "Your package does not have author_email data.",
             "Your package does not have url data.",
             "Your package does not have license data.",
+            "You should specify license in classifiers.",
             "You are using Setuptools or Distribute but do not specify if "
             "this package is zip_safe or not. You should specify it, as it "
             "defaults to True, which you probably do not want.",
@@ -223,6 +224,7 @@ class PyPITest(unittest.TestCase):
             self.assertEqual(rating, (9, [
                 'The classifiers should specify what minor versions of Python '
                 'you support as well as what major version.',
+                'You might want to host your documentation on readthedocs.org.',
                 'You should have three or more owners of the project on PyPI.'
             ]))
         finally:

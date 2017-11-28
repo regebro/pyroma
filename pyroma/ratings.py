@@ -301,11 +301,10 @@ class PackageDocs(BaseTest):
     weight = 0  # Just a recommendation
 
     def test(self, data):
-        return data.get('_packages_docs') or data.get('_readthe_docs')
+        return data.get('_readthe_docs')
 
     def message(self):
-        return "You might want to host your documentation on pythonhosted.org"\
-               " or readthedocs.org."
+        return "You might want to host your documentation on readthedocs.org."
 
 
 class ValidREST(BaseTest):
@@ -364,6 +363,7 @@ ALL_TESTS = [
     AuthorEmail(),
     Url(),
     License(),
+    LicenceClassifier(),
     ZipSafe(),
     SDist(),
     PackageDocs(),
