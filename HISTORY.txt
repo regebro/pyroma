@@ -4,7 +4,9 @@ Changelog
 2.3 (unreleased)
 ----------------
 
-- Check that a classifier specifying the project license.
+- Check that a classifier specifies the project license. [4383]
+
+- Dropped support for Python 2.6, 3.3 and 3.4.
 
 
 2.2 (2016-10-26)
