@@ -5,8 +5,8 @@ version = '2.4.dev0'
 setup(name='pyroma',
       version=version,
       description="Test your project's packaging friendliness",
-      long_description=open("README.rst", 'rt').read() + "\n" +
-      open("HISTORY.txt", 'rt').read(),
+      long_description=open("README.rst", "rb").read().decode("UTF-8") + "\n" +
+      open("HISTORY.txt", "rb").read().decode("UTF-8"),
       # Get more strings from
       # http://pypi.python.org/pypi?:action=list_classifiers
       classifiers=[
