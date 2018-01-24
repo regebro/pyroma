@@ -4,7 +4,8 @@ Changelog
 2.4 (unreleased)
 ----------------
 
-- Nothing changed yet.
+- Fixed #12: Installation fails with a non-UTF8 locale under Python 3.
+  [ericof, 4383, regebro]
 
 
 2.3 (2017-11-28)

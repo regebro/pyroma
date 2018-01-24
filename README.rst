@@ -101,3 +101,4 @@ Contributors:
   * Jeff Quast
   * Maurits van Rees
   * Hervé Beraud
+  * Érico Andrei

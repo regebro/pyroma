@@ -1,12 +1,15 @@
 from setuptools import setup, find_packages
+from io import open
 
 version = '2.4.dev0'
+
+long_description = (open("README.rst", 'rt', encoding='UTF-8').read() + "\n" +
+                    open("HISTORY.txt", 'rt', encoding='UTF-8').read())
 
 setup(name='pyroma',
       version=version,
       description="Test your project's packaging friendliness",
-      long_description=open("README.rst", 'rt').read() + "\n" +
-      open("HISTORY.txt", 'rt').read(),
+      long_description=long_description,
       # Get more strings from
       # http://pypi.python.org/pypi?:action=list_classifiers
       classifiers=[
