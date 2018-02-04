@@ -1,5 +1,6 @@
-from setuptools import setup, find_packages
 from io import open
+from setuptools import find_packages
+from setuptools import setup
 
 version = '2.4.dev0'
 
@@ -29,7 +30,7 @@ setup(name='pyroma',
       include_package_data=True,
       zip_safe=False,
       install_requires=[
-          'setuptools',
+          'setuptools>=38.4.1',
           'docutils',
       ],
       entry_points={
