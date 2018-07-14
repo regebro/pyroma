@@ -22,9 +22,12 @@ def zester(data):
 
 
 def main():
-    usage = ("usage: %prog [-a|-d|-f|-p] <project directory|"
+    usage = ("usage: %prog [-n N] [-a|-d|-f|-p] <project directory|"
              "distribution file|pypi package name>")
     parser = OptionParser(usage)
+    parser.add_option("-n", "--min", dest="min", default=8,
+                      action='store', type=int,
+                      help="Minimum rating for clean return between 0 and 10, inclusive",)
     parser.add_option("-a", "--auto", dest="auto", default=False,
                       action='store_true',
                       help="Select mode automatically (default)",)
@@ -39,6 +42,10 @@ def main():
     (options, args) = parser.parse_args()
 
     if len(args) < 1:
+        parser.print_help()
+        sys.exit(1)
+
+    if not (0 <= options.min <= 10):
         parser.print_help()
         sys.exit(1)
 
@@ -61,7 +68,7 @@ def main():
         mode = 'file'
 
     rating = run(mode, argument)
-    if rating < 8:
+    if rating < options.min:
         sys.exit(2)
     sys.exit(0)
 
