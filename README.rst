@@ -61,7 +61,7 @@ This is the list of checks that are currently performed:
   even if there are warnings or error in the conversion. These warnings
   and errors are printed to stdout so you will see them.
 
-* You should have a the following meta data fields filled in:
+* You should have the following meta data fields filled in:
   classifiers, keywords, author, author_email, url and license.
 
 * You should have classifiers specifying the supported Python versions.
