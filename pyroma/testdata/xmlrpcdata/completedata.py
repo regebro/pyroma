@@ -1,5 +1,5 @@
 from datetime import datetime
-args = ('https://pypi.python.org/pypi',)
+args = ('https://pypi.org/pypi',)
 kw = {}
 data = {'package_releases':
         {('complete',): ['1.0.dev1']},
@@ -10,7 +10,7 @@ data = {'package_releases':
             'maintainer_email': None,
             'cheesecake_code_kwalitee_id': None,
             'keywords': ['pypi', 'quality', 'example'],
-            'package_url': 'http://pypi.python.org/pypi/complete',
+            'package_url': 'http://pypi.org/project/complete',
             'author': 'Lennart Regebro',
             'author_email': 'regebro@gmail.com',
             'download_url': 'UNKNOWN',
@@ -40,7 +40,7 @@ lectus enim et dolor. Fusce augue eros, aliquet ac dapibus at, tincidunt vitae
 leo. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus sapien
 neque, fermentum sed ultrices sit amet, fermentum nec est. Pellentesque
 imperdiet enim nec velit posuere id dignissim massa molestie.""",
-            'release_url': 'http://pypi.python.org/pypi/distribute/1.0.dev1',
+            'release_url': 'http://pypi.org/project/distribute/1.0.dev1',
             '_pypi_ordering': 115,
             'classifiers': ['Development Status :: 6 - Mature',
                             'Operating System :: OS Independent',

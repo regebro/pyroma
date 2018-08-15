@@ -102,3 +102,5 @@ Contributors:
   * Maurits van Rees
   * Hervé Beraud
   * Érico Andrei
+  * Jakub Wilk
+  * Andreas Lutro

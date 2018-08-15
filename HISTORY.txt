@@ -4,7 +4,10 @@ Changelog
 2.3.2 (unreleased)
 ------------------
 
-- Nothing changed yet.
+- Get rid of the tests that rely on HTML scraping, it's too brittle.
+
+- Update to use pypi.org instead of pypi.python.org
+  [Andreas Lutro, Lennart Regebro]
 
 
 2.3.1 (2018-05-28)

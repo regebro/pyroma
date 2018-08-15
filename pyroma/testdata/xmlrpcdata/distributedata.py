@@ -1,5 +1,5 @@
 from datetime import datetime
-args = ('https://pypi.python.org/pypi',)
+args = ('https://pypi.org/pypi',)
 kw = {}
 data = {'package_releases':
         {('distribute',): ['0.6.15']},
@@ -10,7 +10,7 @@ data = {'package_releases':
             'maintainer_email': None,
             'cheesecake_code_kwalitee_id': None,
             'keywords': 'CPAN PyPI distutils eggs package management',
-            'package_url': 'http://pypi.python.org/pypi/distribute',
+            'package_url': 'http://pypi.org/project/distribute',
             'author': 'The fellowship of the packaging',
             'author_email': 'distutils-sig@python.org',
             'download_url': 'UNKNOWN',
@@ -538,7 +538,7 @@ easy_install
 
 * Immediately close all file handles. This closes
   http://bitbucket.org/tarek/distribute/issue/3.""",
-            'release_url': 'http://pypi.python.org/pypi/distribute/0.6.15',
+            'release_url': 'http://pypi.org/project/distribute/0.6.15',
             '_pypi_ordering': 115,
             'classifiers': ['Development Status :: 5 - Production/Stable',
                             'Intended Audience :: Developers',
