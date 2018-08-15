@@ -224,6 +224,7 @@ class PyPITest(unittest.TestCase):
             self.assertEqual(rating, (9, [
                 'The classifiers should specify what minor versions of Python '
                 'you support as well as what major version.',
+                'You should have three or more owners of the project on PyPI.'
             ]))
         finally:
             xmlrpclib.ServerProxy = real_server_proxy

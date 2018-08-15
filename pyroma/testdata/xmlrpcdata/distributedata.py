@@ -574,5 +574,9 @@ easy_install
              'filename': 'distribute-0.6.15.tar.gz',
              'packagetype': 'sdist',
              'size': 289103}],
-            }
+            },
+        'package_roles': {('distribute',): [['Owner', 'someone'],
+                                            ['Owner', 'me'],
+                                            ['Maintainer', 'other']],
+                          }
         }

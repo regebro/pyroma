@@ -39,6 +39,9 @@ def get_data(project):
     data['long_description'] = data['description']
     data['description'] = data['summary']
 
+    roles = client.package_roles(project)
+    data['_owners'] = [user for (role, user) in roles if role == 'Owner']
+
     # Get download_urls:
     urls = client.release_urls(project, release)
     data['_pypi_downloads'] = bool(urls)

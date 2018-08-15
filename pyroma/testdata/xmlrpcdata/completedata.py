@@ -71,5 +71,9 @@ imperdiet enim nec velit posuere id dignissim massa molestie.""",
              'filename': 'complete-1.0.dev1.tar.gz',
              'packagetype': 'sdist',
              'size': 289103}],
-            }
-        }
+            },
+        'package_roles': {('complete',): [['Owner', 'someone'],
+                                          ['Owner', 'me'],
+                                          ['Owner', 'other']],
+                          }
+    }
