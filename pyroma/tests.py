@@ -65,8 +65,8 @@ def urlopenstub(url):
             # This package doesn't have docs on pythonhosted.org:
             return FakeResponse(404)
 
-    if url.startswith('http://pypi.python.org/pypi'):
-        filename = url[len('http://pypi.python.org/pypi/'):]
+    if url.startswith('http://pypi.org/project'):
+        filename = url[len('http://pypi.org/project/'):]
         # Faking PyPI package
         datafile = resource_filename(
             __name__, os.path.join('testdata', 'xmlrpcdata', filename+'.html'))
@@ -224,8 +224,6 @@ class PyPITest(unittest.TestCase):
             self.assertEqual(rating, (9, [
                 'The classifiers should specify what minor versions of Python '
                 'you support as well as what major version.',
-                'You might want to host your documentation on readthedocs.org.',
-                'You should have three or more owners of the project on PyPI.'
             ]))
         finally:
             xmlrpclib.ServerProxy = real_server_proxy

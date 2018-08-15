@@ -297,16 +297,6 @@ class SDist(BaseTest):
                 "maximum availability of your package.")
 
 
-class PackageDocs(BaseTest):
-    weight = 0  # Just a recommendation
-
-    def test(self, data):
-        return data.get('_readthe_docs')
-
-    def message(self):
-        return "You might want to host your documentation on readthedocs.org."
-
-
 class ValidREST(BaseTest):
 
     weight = 50
@@ -326,27 +316,29 @@ class ValidREST(BaseTest):
         return 'Your long_description is not valid ReST: ' + self._message
 
 
-class BusFactor(BaseTest):
+# I'll ask the PyPA to add this info to the json data and use that instead,
+# disable until then:
+#class BusFactor(BaseTest):
 
-    def test(self, data):
-        if '_owners' not in data:
-            self.weight = 0
-            return None
+    #def test(self, data):
+        #if '_owners' not in data:
+            #self.weight = 0
+            #return None
 
-        if len(data.get('_owners', [])) == 1:
-            self.weight = 100
-            return False
+        #if len(data.get('_owners', [])) == 1:
+            #self.weight = 100
+            #return False
 
-        if len(data.get('_owners', [])) == 2:
-            self.weight = 50
-            return False
+        #if len(data.get('_owners', [])) == 2:
+            #self.weight = 50
+            #return False
 
-        # Three or more, that's good.
-        self.weight = 100
-        return True
+        ## Three or more, that's good.
+        #self.weight = 100
+        #return True
 
-    def message(self):
-        return "You should have three or more owners of the project on PyPI."
+    #def message(self):
+        #return "You should have three or more owners of the project on PyPI."
 
 
 ALL_TESTS = [
@@ -366,9 +358,8 @@ ALL_TESTS = [
     LicenceClassifier(),
     ZipSafe(),
     SDist(),
-    PackageDocs(),
     ValidREST(),
-    BusFactor(),
+    #BusFactor(),
 ]
 
 

@@ -1,1152 +1,1622 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-
-  <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
-    <head>
-
-      <meta content="text/html; charset=utf-8" http-equiv="content-type"/>
-      <base href="http://pypi.python.org/pypi/complete"/>
-      <title>Python Package Index : complete 1.0</title>
-      <meta content="CPAN PyPI distutils eggs package management"/>
-      <meta content="Easily download, build, install, upgrade, and uninstall Python packages"/>
-
-       <link rel="stylesheet" type="text/css"
-             href="http://www.python.org/css/pypi.css"/>
-       <link rel="alternate" type="application/rss+xml" title="RSS: 30 latest updates" href="http://www.python.org/pypi?:action=rss"/>
-       <link media="screen" type="text/css"
-             id="screen-switcher-stylesheet"
-             rel="stylesheet"
-             href="http://www.python.org/styles/screen-switcher-default.css"/>
-       <link media="screen" type="text/css" rel="stylesheet"
-             href="http://www.python.org/styles/netscape4.css"/>
-       <link media="print" type="text/css" rel="stylesheet"
-             href="http://www.python.org/styles/print.css"/>
-       <link media="screen" type="text/css"
-             rel="alternate stylesheet" title="large text"
-             href="http://www.python.org/styles/largestyles.css"/>
-       <link media="screen" type="text/css"
-             rel="alternate stylesheet"
-             title="default fonts"
-             href="http://www.python.org/styles/defaultfonts.css"/>
-       <link rel="stylesheet" media="screen" href="/css/docutils.css" type="text/css"/>
 
 
- <meta name="keywords"
-       content="CPAN PyPI distutils eggs package management"/>
- <meta name="description"
-       content="Easily download, build, install, upgrade, and uninstall Python packages"/>
- <link rel="meta" title="DOAP" type="application/rdf+xml"
-       href="/pypi?:action=doap&amp;name=complete&amp;version=1.0"/>
- <style type="text/css">
-  table.form th {white-space: pre;}
- </style>
 
 
-       <style type="text/css" rel="stylesheet">
-       </style>
-    </head>
-    <body>
-
-      <!--  Logo  -->
-      <h1 id="logoheader">
-       <a accesskey="1" href="http://www.python.org" id="logolink">
-
-          <img src="/python-3.png" alt="homepage" border="0" id="logo"/>
 
 
-       </a>
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <meta name="defaultLanguage" content="en">
+    <meta name="availableLanguages" content="en">
+
+
+
+    <title>xmldiff · PyPI</title>
+    <meta name="description" content="Tree 2 tree correction between xml documents. Extract differences between two xml files. It returns a set of primitives to apply on source tree to obtain the destination tree.">
+
+    <link rel="stylesheet" href="/static/css/warehouse.a1809af1.css">
+    <link rel="stylesheet" href="/static/css/fontawesome.4b73fd92.css">
+    <link rel="stylesheet" href="/static/css/regular.19624371.css">
+    <link rel="stylesheet" href="/static/css/solid.f478cfb1.css">
+    <link rel="stylesheet" href="/static/css/brands.1ea560bf.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,400italic,600,600italic,700,700italic|Source+Code+Pro:500">
+    <noscript>
+      <link rel="stylesheet" href="/static/css/noscript.ea8974d1.css">
+    </noscript>
+
+
+
+    <link rel="icon" href="/static/images/favicon.6a76275d.ico" type="image/x-icon">
+
+    <link rel="alternate" type="application/rss+xml" title="RSS: 40 latest updates" href="/rss/updates.xml">
+    <link rel="alternate" type="application/rss+xml" title="RSS: 40 newest packages" href="/rss/packages.xml">
+
+    <link rel="canonical" href="https://pypi.org/project/xmldiff/">
+
+
+    <meta property="og:url" content="https://pypi.org/project/xmldiff/">
+    <meta property="og:site_name" content="PyPI">
+    <meta property="og:type" content="website">
+    <meta property="og:image" content="https://pypi.org/static/images/twitter.c0030826.jpg">
+    <meta property="og:title" content="xmldiff">
+    <meta property="og:description" content="Tree 2 tree correction between xml documents. Extract differences between two xml files. It returns a set of primitives to apply on source tree to obtain the destination tree.">
+
+    <link rel="search" type="application/opensearchdescription+xml" title="PyPI" href="/opensearch.xml">
+
+
+    <script
+      src="https://cdn.ravenjs.com/3.26.2/raven.min.js"
+      integrity="sha384-D6LXy67EIC102DTuqypxwQsTHgiatlbvg7q/1YAWFb6lRyZ1lIZ6bGDsX7jxHNKA"
+      crossorigin="anonymous">
+    </script>
+
+    <script async
+	    data-ga-id="UA-55961911-1"
+	    data-sentry-frontend-dsn="https://3a67b35c9dc248a191d761410b095861@sentry.io/1231155"
+	    src="/static/js/warehouse.b56a7115.js">
+    </script>
+
+
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-55961911-1"></script>
+    <script defer src="https://www.fastly-insights.com/insights.js?k=6a52360a-f306-421e-8ed5-7417d0d4a4e9&dnt=true"></script>
+  </head>
+
+  <body data-controller="viewport-toggle">
+
+
+    <!-- Accessibility: this link should always be the first piece of content inside the body-->
+    <a href="#content" class="skip-to-content">Skip to main content</a>
+
+    <button class="button button--primary button--switch-to-mobile hidden" data-target="viewport-toggle.switchToMobile" data-action="viewport-toggle#switchToMobile">
+      Switch to mobile version
+    </button>
+
+    <section id="sticky-notifications" class="stick-to-top js-stick-to-top">
+      <!-- Add browser warning. Will show for ie9 and below -->
+      <!--[if IE]>
+      <div class="notification-bar notification-bar--danger">
+	<span class="notification-bar__icon">
+	  <i class="fa fa-exclamation-triangle" aria-hidden="true"></i>
+	  <span class="sr-only">Warning:</span>
+	</span>
+	<span class="notification-bar__message">You are using an unsupported browser, upgrade to a newer version.</span>
+      </div>
+      <![endif]-->
+
+      <noscript>
+      <div class="notification-bar notification-bar--danger">
+
+	<span class="notification-bar__icon">
+	  <i class="fa fa-exclamation-triangle" aria-hidden="true"></i>
+	  <span class="sr-only">Warning:</span>
+	</span>
+	<span class="notification-bar__message">Some features may not work without JavaScript. Please try enabling it if you encounter problems.</span>
+      </div>
+      </noscript>
+    </section>
+
+
+      <div data-html-include="/_includes/flash-messages/">
+      </div>
+
+
+
+
+
+
+    <header class="site-header ">
+      <div class="site-container">
+	<div class="split-layout">
+
+	  <div class="split-layout">
+	    <div>
+	      <a class="site-header__logo" href="/">
+		<img alt="PyPI" src="/static/images/logo-small.6eef541e.svg">
+	      </a>
+	    </div>
+
+	    <form class="search-form search-form--primary" action="/search/">
+	      <div role="search">
+		<label for="search" class="sr-only">Search PyPI</label>
+		<input id="search" class="search-form__search" type="text" name="q" placeholder="Search projects" value="">
+
+		<button type="submit" class="search-form__button">
+		  <i class="fa fa-search" aria-hidden="true"></i>
+		  <span class="sr-only">Search</span>
+		</button>
+	      </div>
+	    </form>
+	  </div>
+
+
+	  <div data-html-include="/_includes/current-user-indicator/">
+	    <nav id="user-indicator" class="horizontal-menu horizontal-menu--light horizontal-menu--tall" aria-label="Main navigation">
+  <a class="horizontal-menu__link horizontal-menu__link--remove-on-mobile" href="/help/">Help</a>
+  <a class="horizontal-menu__link horizontal-menu__link--remove-on-mobile" href="https://donate.pypi.org">Donate</a>
+  <a class="horizontal-menu__link" href="/account/login/">Log in</a>
+  <a class="horizontal-menu__link" href="/account/register/">Register</a>
+</nav>
+	  </div>
+	</div>
+      </div>
+    </header>
+
+
+    <section class="mobile-search">
+      <form class="search-form search-form--fullwidth" action="/search/">
+	<div role="search">
+	  <label for="mobile-search" class="sr-only">Search PyPI</label>
+	  <input id="mobile-search" class="search-form__search" type="text" name="q" placeholder="Search projects" value="">
+
+	  <button type="submit" class="search-form__button">
+	    <i class="fa fa-search" aria-hidden="true"></i>
+	    <span class="sr-only">Search</span>
+	  </button>
+	  </button>
+	</div>
+      </form>
+    </section>
+
+
+    <main id="content">
+
+<section class="banner">
+  <div class="package-header">
+    <div class="package-header__left">
+      <h1 class="package-header__name">
+	xmldiff 1.1.1
       </h1>
-      <!--  Skip to Navigation  -->
-      <div class="skiptonav"><a accesskey="2" href="#left-hand-navigation"><img
-    alt="skip to navigation" border="0" id="skiptonav"
-    src="http://www.python.org/images/trans.gif"/></a></div>
-      <div class="skiptonav"><a accesskey="3" href="#content-body"><img
-    alt="skip to content" border="0" id="skiptocontent"
-    src="http://www.python.org/images/trans.gif"/></a></div>
 
-      <!--  Utility Menu  -->
 
-      <div id="utility-menu">
-        <!--  Search Box  -->
-        <div id="searchbox">
-          <form id="searchform" method="get"
-                name="searchform" action="/pypi">
-            <input type="hidden" name=":action" value="search"/>
-            <div id="search">
-              <input class="input-text" id="term" name="term"/>
 
-              <input class="input-button" type="submit" name="submit" value="search" id="submit"/>
-            </div>
-          </form>
-        </div>
-<!-- XXX: reinstate this       <div id="screen-switcher"></div> -->
-      </div>
-      <div id="left-hand-navigation">
 
-        <!--  Main Menu NEED LEVEL TWO HEADER AND FOOTER -->
-        <div id="menu">
 
-          <ul class="level-one">
-            <li class="selected">
-              <a class="selected" href="/pypi">Package Index</a>
+      <p class="package-header__pip-instructions">
+	<span id="pip-command">pip install xmldiff</span>
+	<button class="-js-copy-pip-command tooltipped tooltipped-s" data-clipboard-target="#pip-command" aria-label="Copy to clipboard" data-original-label="Copy to clipboard">
+	  <i class="fa fa-copy" aria-hidden="true"></i>
+	  <span class="sr-only">Copy PIP instructions<span>
+	</button>
+      </p>
 
-              <ul class="level-two">
+    </div>
 
+    <div class="package-header__right">
 
-                  <li class=""><a class="" href="/pypi?%3Aaction=browse">Browse&nbsp;packages</a></li>
+      <a class="status-badge status-badge--good" href="/project/xmldiff/">Latest version</a>
 
+      <p class="package-header__date">Last released: <time class="-js-relative-time" datetime="2018-06-20T18:38:14+0000">
+  Jun 20, 2018
+</time></p>
+    </div>
+  </div>
+</section>
 
-                  <li class=""><a class="" href="/pypi?%3Aaction=submit_form">Package&nbsp;submission</a></li>
+<section class="horizontal-section horizontal-section--grey horizontal-section--thin">
+  <div class="site-container">
+    <div class="split-layout split-layout--middle package-description">
 
+      <p class="package-description__summary">Tree 2 tree correction between xml documents. Extract differences between two xml files. It returns a set of primitives to apply on source tree to obtain the destination tree.</p>
 
+    <div data-html-include="/_includes/edit-project-button/xmldiff">
+    </div>
+    </div>
+  </div>
+</section>
 
-                  <li class=""><a class="" href="/pypi?%3Aaction=list_classifiers">List&nbsp;trove&nbsp;classifiers</a></li>
+<section data-controller="project-tabs">
+  <div class="tabs-container">
+    <div class="vertical-tabs">
+      <div class="vertical-tabs__tabs">
+	<div class="sidebar-section">
+	  <h3 class="sidebar-section__title">Navigation</h3>
+	    <nav role="tablist">
+	      <a id="description-tab" data-target="project-tabs.tab" data-action="project-tabs#onTabClick" class="vertical-tabs__tab vertical-tabs__tab--with-icon vertical-tabs__tab--is-active" href="#description" role="tab">
+		<i class="fa fa-align-left" aria-hidden="true"></i>
+		Project description
+	      </a>
+	      <a id="history-tab" data-target="project-tabs.tab" data-action="project-tabs#onTabClick" class="vertical-tabs__tab vertical-tabs__tab--with-icon" href="#history" role="tab">
+		<i class="fa fa-history" aria-hidden="true"></i>
+		Release history
+	      </a>
 
+		<a id="files-tab" data-target="project-tabs.tab" data-action="project-tabs#onTabClick" class="vertical-tabs__tab vertical-tabs__tab--with-icon" href="#files" role="tab">
+		  <i class="fa fa-download" aria-hidden="true"></i>
+		  Download files
+		</a>
 
-                  <li class=""><a class="" href="/pypi?%3Aaction=index">List&nbsp;packages</a></li>
+	    </nav>
+	</div>
 
+<div class="sidebar-section">
+  <h3 class="sidebar-section__title">Project links</h3>
 
-                  <li class=""><a class="" href="/pypi?%3Aaction=rss">RSS&nbsp;(last&nbsp;40&nbsp;updates)</a></li>
 
-		<li><a href="/pypi?:action=browse&amp;c=533&amp;show=all">Python 3 packages</a></li>
+  <a class="vertical-tabs__tab vertical-tabs__tab--with-icon vertical-tabs__tab--condensed" href="https://github.com/Shoobx/xmldiff" rel="nofollow">
 
-                <li><a href="http://wiki.python.org/moin/CheeseShopTutorial">Tutorial</a></li>
 
-                <li><a href="http://sourceforge.net/tracker/?group_id=66150&amp;atid=513504">Get
-                help</a></li>
-                <li><a href="http://sourceforge.net/tracker/?group_id=66150&amp;atid=513503">Bug
-                reports</a></li>
-                <li><a href="http://www.python.org/sigs/catalog-sig/">Comments</a></li>
-                <li><a href="http://wiki.python.org/moin/CheeseShopDev">Developers</a></li>
 
-              </ul>
 
-            </li>
 
 
 
+<i class="fab fa-github" aria-hidden="true"></i>Homepage
+  </a>
 
-            <li class=""><a href="http://www.python.org/about" class="" title="About The Python Language">About</a>
-            </li><li class=""><a href="http://www.python.org/news" class="" title="">News</a>
-            </li><li class=""><a href="http://www.python.org/doc" class="" title="">Documentation</a>
 
-            </li><li class=""><a href="http://www.python.org/download" title="">Download</a>
-
-
-            </li><li class=""><a href="http://www.python.org/community" class="" title="">Community</a>
-            </li><li class=""><a href="http://www.python.org/psf" class="" title="Python Software Foundation">Foundation</a>
-            </li><li class=""><a href="http://www.python.org/dev" class="" title="Python Core Language Development">Core Development</a>
-            </li><li class=""><a href="http://www.python.org/links" class="" title="">Links</a>
-
-          </li>
-          </ul>
-        </div>
-
-      </div>
-      <div id="content-body">
-        <div id="body-main">
-          <div id="content">
-
-            <div id="breadcrumb">
-
-              <a href="/pypi">Package Index</a>
-
-                <span class="breadcrumb-separator">&gt;</span>
-                <a href="/pypi/complete/1.0">complete 1.0</a>
-
-
-            </div>
-
-            <div id="document-floating">
-
-            <div id="document-navigation" style="overflow-y: auto; max-height: 15em; overflow-x: hidden;">
-
-
-
-
-                  <h4>Welcome regebro</h4>
-
-                  <li>
-                    <a href="/pypi?%3Aaction=user_form">Your details</a>
-                  </li>
-
-
-
-                      <li>
-			Your packages:
-                      </li>
-                      <ul>
-			<li>
-
-
-                            <a
-    href="/pypi?%3Aaction=pkg_edit&amp;name=calcore">calcore</a><br/>
-
-
-                            <a
-    href="/pypi?%3Aaction=pkg_edit&amp;name=collective.blog.feeds">collective.blog.feeds</a><br/>
-
-
-                            <a
-    href="/pypi?%3Aaction=pkg_edit&amp;name=collective.blog.portlets">collective.blog.portlets</a><br/>
-
-
-                            <a
-    href="/pypi?%3Aaction=pkg_edit&amp;name=collective.blog.star">collective.blog.star</a><br/>
-
-
-                            <a
-    href="/pypi?%3Aaction=pkg_edit&amp;name=collective.blog.view">collective.blog.view</a><br/>
-
-
-                            <a
-    href="/pypi?%3Aaction=pkg_edit&amp;name=collective.blueprint.base">collective.blueprint.base</a><br/>
-
-
-
-                            <a
-    href="/pypi?%3Aaction=pkg_edit&amp;name=collective.dancing">collective.dancing</a><br/>
-
-
-                            <a
-    href="/pypi?%3Aaction=pkg_edit&amp;name=collective.portlet.content">collective.portlet.content</a><br/>
-
-
-                            <a
-    href="/pypi?%3Aaction=pkg_edit&amp;name=collective.portlet.quote">collective.portlet.quote</a><br/>
-
-
-                            <a
-    href="/pypi?%3Aaction=pkg_edit&amp;name=collective.singing">collective.singing</a><br/>
-
-
-                            <a
-    href="/pypi?%3Aaction=pkg_edit&amp;name=dateable.chronos">dateable.chronos</a><br/>
-
-
-                            <a
-    href="/pypi?%3Aaction=pkg_edit&amp;name=dateable.kalends">dateable.kalends</a><br/>
-
-
-
-                            <a
-    href="/pypi?%3Aaction=pkg_edit&amp;name=icalendar">icalendar</a><br/>
-
-
-                            <a
-    href="/pypi?%3Aaction=pkg_edit&amp;name=megrok.genshi">megrok.genshi</a><br/>
-
-
-                            <a
-    href="/pypi?%3Aaction=pkg_edit&amp;name=p4a.calendar">p4a.calendar</a><br/>
-
-
-                            <a
-    href="/pypi?%3Aaction=pkg_edit&amp;name=p4a.common">p4a.common</a><br/>
-
-
-                            <a
-    href="/pypi?%3Aaction=pkg_edit&amp;name=p4a.plonecalendar">p4a.plonecalendar</a><br/>
-
-
-                            <a
-    href="/pypi?%3Aaction=pkg_edit&amp;name=p4a.ploneevent">p4a.ploneevent</a><br/>
-
-
-
-                            <a
-    href="/pypi?%3Aaction=pkg_edit&amp;name=p4a.subtyper">p4a.subtyper</a><br/>
-
-
-                            <a
-    href="/pypi?%3Aaction=pkg_edit&amp;name=plone.app.vocabularies">plone.app.vocabularies</a><br/>
-
-
-                            <a
-    href="/pypi?%3Aaction=pkg_edit&amp;name=plone.recipe.bundlecheckout">plone.recipe.bundlecheckout</a><br/>
-
-
-                            <a
-    href="/pypi?%3Aaction=pkg_edit&amp;name=plone.z3cform">plone.z3cform</a><br/>
-
-
-                            <a
-    href="/pypi?%3Aaction=pkg_edit&amp;name=Products.AutoRole">Products.AutoRole</a><br/>
-
-
-                            <a
-    href="/pypi?%3Aaction=pkg_edit&amp;name=Products.ZMIntrospection">Products.ZMIntrospection</a><br/>
-
-
-
-                            <a
-    href="/pypi?%3Aaction=pkg_edit&amp;name=pyroma">pyroma</a><br/>
-
-
-                            <a
-    href="/pypi?%3Aaction=pkg_edit&amp;name=templess">templess</a><br/>
-
-
-                            <a
-    href="/pypi?%3Aaction=pkg_edit&amp;name=zc.recipe.testrunner">zc.recipe.testrunner</a><br/>
-
-
-                            <a
-    href="/pypi?%3Aaction=pkg_edit&amp;name=zope.event">zope.event</a><br/>
-
-
-                            <a
-    href="/pypi?%3Aaction=pkg_edit&amp;name=zope.exceptions">zope.exceptions</a><br/>
-
-
-                            <a
-    href="/pypi?%3Aaction=pkg_edit&amp;name=zope.fixers">zope.fixers</a><br/>
-
-
-
-                            <a
-    href="/pypi?%3Aaction=pkg_edit&amp;name=zope.interface">zope.interface</a><br/>
-
-
-                            <a
-    href="/pypi?%3Aaction=pkg_edit&amp;name=zope.testing">zope.testing</a><br/>
-
-
-                            <a
-    href="/pypi?%3Aaction=pkg_edit&amp;name=zope.testrunner">zope.testrunner</a><br/>
-
-			</li>
-                      </ul>
-
-
-
-                  <li>
-                    <a href="/pypi?%3Aaction=logout">Logout</a>
-
-                  </li>
-
-
-            </div>
-        </div>
-
-
-
-            <div class="section">
-              <h1>complete 1.0</h1>
-
-
-<p style="font-style: italic">Easily download, build, install, upgrade, and uninstall Python packages</p>
-
-<p>
-
- <a href="#downloads">Downloads &darr;</a>
-    |
-   <a href="http://complete.readthedocs.org/">Package Documentation</a>
-</p>
-
-
-
-
-
-
-<div class="section" id="installing-and-using-complete">
-<h1><a class="toc-backref" href="#id23">Installing and Using complete</a></h1>
-
-<div class="contents topic" id="table-of-contents">
-<p class="topic-title first"><strong>Table of Contents</strong></p>
-<ul class="simple">
-<li><a class="reference internal" href="#installing-and-using-complete" id="id23">Installing and Using complete</a><ul>
-<li><a class="reference internal" href="#disclaimers" id="id24">Disclaimers</a><ul>
-<li><a class="reference internal" href="#about-the-fork" id="id25">About the fork</a></li>
-<li><a class="reference internal" href="#more-documentation" id="id26">More documentation</a></li>
-<li><a class="reference internal" href="#about-the-installation-process" id="id27">About the installation process</a></li>
-</ul>
-</li>
-<li><a class="reference internal" href="#installation-instructions" id="id28">Installation Instructions</a><ul>
-
-<li><a class="reference internal" href="#complete-setup-py" id="id29">complete_setup.py</a></li>
-<li><a class="reference internal" href="#pip" id="id30">pip</a></li>
-<li><a class="reference internal" href="#source-installation" id="id31">Source installation</a></li>
-</ul>
-</li>
-<li><a class="reference internal" href="#uninstallation-instructions" id="id32">Uninstallation Instructions</a></li>
-<li><a class="reference internal" href="#quick-help-for-developers" id="id33">Quick help for developers</a></li>
-<li><a class="reference internal" href="#install-faq" id="id34">Install FAQ</a></li>
-<li><a class="reference internal" href="#feedback-and-getting-involved" id="id35">Feedback and getting involved</a></li>
-</ul>
-
-</li>
-<li><a class="reference internal" href="#changes" id="id36">CHANGES</a><ul>
-<li><a class="reference internal" href="#id2" id="id37">1.0</a></li>
-<li><a class="reference internal" href="#id3" id="id38">0.6.14</a></li>
-<li><a class="reference internal" href="#id4" id="id39">0.6.13</a></li>
-<li><a class="reference internal" href="#id5" id="id40">0.6.12</a></li>
-<li><a class="reference internal" href="#id6" id="id41">0.6.11</a></li>
-<li><a class="reference internal" href="#id7" id="id42">0.6.10</a></li>
-<li><a class="reference internal" href="#id8" id="id43">0.6.9</a></li>
-
-<li><a class="reference internal" href="#id9" id="id44">0.6.8</a></li>
-<li><a class="reference internal" href="#id10" id="id45">0.6.7</a></li>
-<li><a class="reference internal" href="#id11" id="id46">0.6.6</a></li>
-<li><a class="reference internal" href="#id12" id="id47">0.6.5</a></li>
-<li><a class="reference internal" href="#id13" id="id48">0.6.4</a></li>
-<li><a class="reference internal" href="#id14" id="id49">0.6.3</a><ul>
-<li><a class="reference internal" href="#setuptools" id="id50">setuptools</a></li>
-<li><a class="reference internal" href="#bootstrapping" id="id51">bootstrapping</a></li>
-</ul>
-
-</li>
-<li><a class="reference internal" href="#id15" id="id52">0.6.2</a><ul>
-<li><a class="reference internal" href="#id16" id="id53">setuptools</a></li>
-<li><a class="reference internal" href="#id17" id="id54">bootstrapping</a></li>
-</ul>
-</li>
-<li><a class="reference internal" href="#id18" id="id55">0.6.1</a><ul>
-<li><a class="reference internal" href="#id19" id="id56">setuptools</a></li>
-<li><a class="reference internal" href="#id20" id="id57">bootstrapping</a></li>
-</ul>
-</li>
-
-<li><a class="reference internal" href="#id21" id="id58">0.6</a><ul>
-<li><a class="reference internal" href="#id22" id="id59">setuptools</a></li>
-<li><a class="reference internal" href="#pkg-resources" id="id60">pkg_resources</a></li>
-<li><a class="reference internal" href="#easy-install" id="id61">easy_install</a></li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-</div>
-<div class="section" id="disclaimers">
-<h2><a class="toc-backref" href="#id24">Disclaimers</a></h2>
-
-<div class="section" id="about-the-fork">
-<h3><a class="toc-backref" href="#id25">About the fork</a></h3>
-<p><cite>complete</cite> is a fork of the <cite>Setuptools</cite> project.</p>
-<p>complete is intended to replace Setuptools as the standard method
-for working with Python module distributions.</p>
-<p>The fork has two goals:</p>
-<ul>
-<li><p class="first">Providing a backward compatible version to replace Setuptools
-and make all distributions that depend on Setuptools work as
-before, but with less bugs and behaviorial issues.</p>
-
-<p>This work is done in the 0.6.x series.</p>
-<p>Starting with version 0.6.2, complete supports Python 3.
-Installing and using complete for Python 3 code works exactly
-the same as for Python 2 code, but complete also helps you to support
-Python 2 and Python 3 from the same source code by letting you run 2to3
-on the code as a part of the build process, by setting the keyword parameter
-<tt class="docutils literal">use_2to3</tt> to True. See <a class="reference external" href="http://complete.readthedocs.org/">http://complete.readthedocs.org/</a> for more
-information.</p>
-</li>
-<li><p class="first">Refactoring the code, and releasing it in several distributions.
-This work is being done in the 0.7.x series but not yet released.</p>
-</li>
-</ul>
-<p>The roadmap is still evolving, and the page that is up-to-date is
-located at : <cite>http://complete.readthedocs.org//roadmap</cite>.</p>
-
-<p>If you install <cite>complete</cite> and want to switch back for any reason to
-<cite>Setuptools</cite>, get to the <a class="reference internal" href="#uninstallation-instructions">Uninstallation instructions</a> section.</p>
-</div>
-<div class="section" id="more-documentation">
-<h3><a class="toc-backref" href="#id26">More documentation</a></h3>
-<p>You can get more information in the Sphinx-based documentation, located
-at <a class="reference external" href="http://complete.readthedocs.org/">http://complete.readthedocs.org/</a>. This documentation includes the old
-Setuptools documentation that is slowly replaced, and brand new content.</p>
-
-</div>
-<div class="section" id="about-the-installation-process">
-<h3><a class="toc-backref" href="#id27">About the installation process</a></h3>
-<p>The <cite>complete</cite> installer modifies your installation by de-activating an
-existing installation of <cite>Setuptools</cite> in a bootstrap process. This process
-has been tested in various installation schemes and contexts but in case of a
-bug during this process your Python installation might be left in a broken
-state. Since all modified files and directories are copied before the
-installation starts, you will be able to get back to a normal state by reading
-the instructions in the <a class="reference internal" href="#uninstallation-instructions">Uninstallation instructions</a> section.</p>
-<p>In any case, it is recommended to save you <cite>site-packages</cite> directory before
-you start the installation of <cite>complete</cite>.</p>
-
-</div>
-</div>
-<div class="section" id="installation-instructions">
-<h2><a class="toc-backref" href="#id28">Installation Instructions</a></h2>
-<p>complete is only released as a source distribution.</p>
-<p>It can be installed using pip, and can be done so with the source tarball,
-or by using the <tt class="docutils literal">complete_setup.py</tt> script provided online.</p>
-<p><tt class="docutils literal">complete_setup.py</tt> is the simplest and preferred way on all systems.</p>
-<div class="section" id="complete-setup-py">
-
-<h3><a class="toc-backref" href="#id29">complete_setup.py</a></h3>
-<p>Download
-<a class="reference external" href="http://python-complete.org/complete_setup.py">complete_setup.py</a>
-and execute it, using the Python interpreter of your choice.</p>
-<p>If your shell has the <tt class="docutils literal">curl</tt> program you can do:</p>
-<pre class="literal-block">
-$ curl -O http://python-complete.org/complete_setup.py
-$ python complete_setup.py
-</pre>
-<p>Notice this file is also provided in the source release.</p>
-
-</div>
-<div class="section" id="pip">
-<h3><a class="toc-backref" href="#id30">pip</a></h3>
-<p>Run easy_install or pip:</p>
-<pre class="literal-block">
-$ pip install complete
-</pre>
-</div>
-<div class="section" id="source-installation">
-<h3><a class="toc-backref" href="#id31">Source installation</a></h3>
-<p>Download the source tarball, uncompress it, then run the install command:</p>
-<pre class="literal-block">
-$ curl -O http://pypi.python.org/packages/source/c/complete/complete-1.0.tar.gz
-$ tar -xzvf complete-1.0.tar.gz
-$ cd complete-1.0
-$ python setup.py install
-
-</pre>
-</div>
-</div>
-<div class="section" id="uninstallation-instructions">
-<h2><a class="toc-backref" href="#id32">Uninstallation Instructions</a></h2>
-<p>Like other distutils-based distributions, complete doesn't provide an
-uninstaller yet. It's all done manually! We are all waiting for PEP 376
-support in Python.</p>
-<p>complete is installed in three steps:</p>
-<ol class="arabic simple">
-<li>it gets out of the way an existing installation of Setuptools</li>
-<li>it installs a <cite>fake</cite> setuptools installation</li>
-
-<li>it installs complete</li>
-</ol>
-<p>complete can be removed like this:</p>
-<ul class="simple">
-<li>remove the <tt class="docutils literal"><span class="pre">complete*.egg</span></tt> file located in your site-packages directory</li>
-<li>remove the <tt class="docutils literal">setuptools.pth</tt> file located in you site-packages directory</li>
-<li>remove the easy_install script located in you <tt class="docutils literal">sys.prefix/bin</tt> directory</li>
-
-<li>remove the <tt class="docutils literal"><span class="pre">setuptools*.egg</span></tt> directory located in your site-packages directory,
-if any.</li>
-</ul>
-<p>If you want to get back to setuptools:</p>
-<ul class="simple">
-<li>reinstall setuptools using its instruction.</li>
-</ul>
-<p>Lastly:</p>
-<ul class="simple">
-<li>remove the <em>.OLD.</em> directory located in your site-packages directory if any,
-
-<strong>once you have checked everything was working correctly again</strong>.</li>
-</ul>
-</div>
-<div class="section" id="quick-help-for-developers">
-<h2><a class="toc-backref" href="#id33">Quick help for developers</a></h2>
-<p>To create an egg which is compatible with complete, use the same
-practice as with Setuptools, e.g.:</p>
-<pre class="literal-block">
-from setuptools import setup
-
-setup(...
-)
-</pre>
-<p>To use <cite>pkg_resources</cite> to access data files in the egg, you should
-require the Setuptools distribution explicitly:</p>
-
-<pre class="literal-block">
-from setuptools import setup
-
-setup(...
-    install_requires=['setuptools']
-)
-</pre>
-<p>Only if you need complete-specific functionality should you depend
-on it explicitly. In this case, replace the Setuptools dependency:</p>
-<pre class="literal-block">
-from setuptools import setup
-
-setup(...
-    install_requires=['complete']
-)
-</pre>
-</div>
-<div class="section" id="install-faq">
-<h2><a class="toc-backref" href="#id34">Install FAQ</a></h2>
-<ul>
-<li><p class="first"><strong>Why is complete wrapping my Setuptools installation?</strong></p>
-<blockquote>
-<p>Since complete is a fork, and since it provides the same package
-and modules, it renames the existing Setuptools egg and inserts a
-new one which merely wraps the complete code. This way, full
-backwards compatibility is kept for packages which rely on the
-Setuptools modules.</p>
-
-<p>At the same time, packages can meet their dependency on Setuptools
-without actually installing it (which would disable complete).</p>
-</blockquote>
-</li>
-<li><p class="first"><strong>How does complete interact with virtualenv?</strong></p>
-<p>Everytime you create a virtualenv it will install setuptools by default.
-You either need to re-install complete in it right after or pass the
-<tt class="docutils literal"><span class="pre">--complete</span></tt> option when creating it.</p>
-<p>Once installed, your virtualenv will use complete transparently.</p>
-<p>Although, if you have Setuptools installed in your system-wide Python,
-and if the virtualenv you are in was generated without the <cite>--no-site-packages</cite>
-option, the complete installation will stop.</p>
-
-<p>You need in this case to build a virtualenv with the <cite>--no-site-packages</cite>
-option or to install <cite>complete</cite> globally.</p>
-</li>
-<li><p class="first"><strong>How does complete interacts with zc.buildout?</strong></p>
-<p>You can use complete in your zc.buildout, with the --complete option,
-starting at zc.buildout 1.4.2:</p>
-<pre class="literal-block">
-$ python bootstrap.py --complete
-</pre>
-<p>For previous zc.buildout versions, <em>the only thing</em> you need to do
-is use the bootstrap at <cite>http://python-complete.org/bootstrap.py</cite>.  Run
-that bootstrap and <tt class="docutils literal">bin/buildout</tt> (and all other buildout-generated
-scripts) will transparently use complete instead of setuptools.  You do
-not need a specific buildout release.</p>
-
-<p>A shared eggs directory is no problem (since 0.6.6): the setuptools egg is
-left in place unmodified.  So other buildouts that do not yet use the new
-bootstrap continue to work just fine.  And there is no need to list
-<tt class="docutils literal">complete</tt> somewhere in your eggs: using the bootstrap is enough.</p>
-<p>The source code for the bootstrap script is located at
-<cite>http://bitbucket.org/tarek/buildout-complete</cite>.</p>
-</li>
-</ul>
-</div>
-<div class="section" id="feedback-and-getting-involved">
-<h2><a class="toc-backref" href="#id35">Feedback and getting involved</a></h2>
-<ul class="simple">
-<li>Mailing list: <a class="reference external" href="http://mail.python.org/mailman/listinfo/distutils-sig">http://mail.python.org/mailman/listinfo/distutils-sig</a></li>
-
-<li>Issue tracker: <a class="reference external" href="http://bitbucket.org/tarek/complete/issues/">http://bitbucket.org/tarek/complete/issues/</a></li>
-<li>Code Repository: <a class="reference external" href="http://bitbucket.org/tarek/complete">http://bitbucket.org/tarek/complete</a></li>
-</ul>
-</div>
-</div>
-<div class="section" id="changes">
-<h1><a class="toc-backref" href="#id36">CHANGES</a></h1>
-<div class="section" id="id2">
-<h2><a class="toc-backref" href="#id37">1.0</a></h2>
-<ul class="simple">
-<li>Fixed typo in bdist_egg</li>
-
-<li>Several issues under Python 3 has been solved.</li>
-<li>Issue 146: Fixed missing DLL files after easy_install of windows exe package.</li>
-</ul>
-</div>
-<div class="section" id="id3">
-<h2><a class="toc-backref" href="#id38">0.6.14</a></h2>
-<ul class="simple">
-<li>Issue 170: Fixed unittest failure. Thanks to Toshio.</li>
-<li>Issue 171: Fixed race condition in unittests cause deadlocks in test suite.</li>
-<li>Issue 143: Fixed a lookup issue with easy_install.
-Thanks to David and Zooko.</li>
-<li>Issue 174: Fixed the edit mode when its used with setuptools itself</li>
-
-</ul>
-</div>
-<div class="section" id="id4">
-<h2><a class="toc-backref" href="#id39">0.6.13</a></h2>
-<ul class="simple">
-<li>Issue 160: 2.7 gives ValueError(&quot;Invalid IPv6 URL&quot;)</li>
-<li>Issue 150: Fixed using ~/.local even in a --no-site-packages virtualenv</li>
-<li>Issue 163: scan index links before external links, and don't use the md5 when
-comparing two distributions</li>
-</ul>
-</div>
-<div class="section" id="id5">
-
-<h2><a class="toc-backref" href="#id40">0.6.12</a></h2>
-<ul class="simple">
-<li>Issue 149: Fixed various failures on 2.3/2.4</li>
-</ul>
-</div>
-<div class="section" id="id6">
-<h2><a class="toc-backref" href="#id41">0.6.11</a></h2>
-<ul class="simple">
-<li>Found another case of SandboxViolation - fixed</li>
-<li>Issue 15 and 48: Introduced a socket timeout of 15 seconds on url openings</li>
-<li>Added indexsidebar.html into MANIFEST.in</li>
-
-<li>Issue 108: Fixed TypeError with Python3.1</li>
-<li>Issue 121: Fixed --help install command trying to actually install.</li>
-<li>Issue 112: Added an os.makedirs so that Tarek's solution will work.</li>
-<li>Issue 133: Added --no-find-links to easy_install</li>
-<li>Added easy_install --user</li>
-<li>Issue 100: Fixed develop --user not taking '.' in PYTHONPATH into account</li>
-<li>Issue 134: removed spurious UserWarnings. Patch by VanLindberg</li>
-<li>Issue 138: cant_write_to_target error when setup_requires is used.</li>
-<li>Issue 147: respect the sys.dont_write_bytecode flag</li>
-
-</ul>
-</div>
-<div class="section" id="id7">
-<h2><a class="toc-backref" href="#id42">0.6.10</a></h2>
-<ul class="simple">
-<li>Reverted change made for the DistributionNotFound exception because
-zc.buildout uses the exception message to get the name of the
-distribution.</li>
-</ul>
-</div>
-<div class="section" id="id8">
-<h2><a class="toc-backref" href="#id43">0.6.9</a></h2>
-<ul class="simple">
-<li>Issue 90: unknown setuptools version can be added in the working set</li>
-<li>Issue 87: setupt.py doesn't try to convert complete_setup.py anymore
-Initial Patch by arfrever.</li>
-
-<li>Issue 89: added a side bar with a download link to the doc.</li>
-<li>Issue 86: fixed missing sentence in pkg_resources doc.</li>
-<li>Added a nicer error message when a DistributionNotFound is raised.</li>
-<li>Issue 80: test_develop now works with Python 3.1</li>
-<li>Issue 93: upload_docs now works if there is an empty sub-directory.</li>
-<li>Issue 70: exec bit on non-exec files</li>
-<li>Issue 99: now the standalone easy_install command doesn't uses a
-&quot;setup.cfg&quot; if any exists in the working directory. It will use it
-only if triggered by <tt class="docutils literal">install_requires</tt> from a setup.py call
-(install, develop, etc).</li>
-
-<li>Issue 101: Allowing <tt class="docutils literal">os.devnull</tt> in Sandbox</li>
-<li>Issue 92: Fixed the &quot;no eggs&quot; found error with MacPort
-(platform.mac_ver() fails)</li>
-<li>Issue 103: test_get_script_header_jython_workaround not run
-anymore under py3 with C or POSIX local. Contributed by Arfrever.</li>
-<li>Issue 104: remvoved the assertion when the installation fails,
-with a nicer message for the end user.</li>
-<li>Issue 100: making sure there's no SandboxViolation when
-the setup script patches setuptools.</li>
-</ul>
-
-</div>
-<div class="section" id="id9">
-<h2><a class="toc-backref" href="#id44">0.6.8</a></h2>
-<ul class="simple">
-<li>Added &quot;check_packages&quot; in dist. (added in Setuptools 0.6c11)</li>
-<li>Fixed the DONT_PATCH_SETUPTOOLS state.</li>
-</ul>
-</div>
-<div class="section" id="id10">
-<h2><a class="toc-backref" href="#id45">0.6.7</a></h2>
-
-<ul class="simple">
-<li>Issue 58: Added --user support to the develop command</li>
-<li>Issue 11: Generated scripts now wrap their call to the script entry point
-in the standard &quot;if name == 'main'&quot;</li>
-<li>Added the 'DONT_PATCH_SETUPTOOLS' environment variable, so virtualenv
-can drive an installation that doesn't patch a global setuptools.</li>
-<li>Reviewed unladen-swallow specific change from
-<a class="reference external" href="http://code.google.com/p/unladen-swallow/source/detail?spec=svn875&amp;r=719">http://code.google.com/p/unladen-swallow/source/detail?spec=svn875&amp;r=719</a>
-and determined that it no longer applies. complete should work fine with
-Unladen Swallow 2009Q3.</li>
-<li>Issue 21: Allow PackageIndex.open_url to gracefully handle all cases of a
-httplib.HTTPException instead of just InvalidURL and BadStatusLine.</li>
-<li>Removed virtual-python.py from this distribution and updated documentation
-to point to the actively maintained virtualenv instead.</li>
-
-<li>Issue 64: use_setuptools no longer rebuilds the complete egg every
-time it is run</li>
-<li>use_setuptools now properly respects the requested version</li>
-<li>use_setuptools will no longer try to import a complete egg for the
-wrong Python version</li>
-<li>Issue 74: no_fake should be True by default.</li>
-<li>Issue 72: avoid a bootstrapping issue with easy_install -U</li>
-</ul>
-</div>
-<div class="section" id="id11">
-<h2><a class="toc-backref" href="#id46">0.6.6</a></h2>
-<ul class="simple">
-<li>Unified the bootstrap file so it works on both py2.x and py3k without 2to3
-(patch by Holger Krekel)</li>
-
-</ul>
-</div>
-<div class="section" id="id12">
-<h2><a class="toc-backref" href="#id47">0.6.5</a></h2>
-<ul class="simple">
-<li>Issue 65: cli.exe and gui.exe are now generated at build time,
-depending on the platform in use.</li>
-<li>Issue 67: Fixed doc typo (PEP 381/382)</li>
-<li>complete no longer shadows setuptools if we require a 0.7-series
-setuptools.  And an error is raised when installing a 0.7 setuptools with
-complete.</li>
-<li>When run from within buildout, no attempt is made to modify an existing
-setuptools egg, whether in a shared egg directory or a system setuptools.</li>
-<li>Fixed a hole in sandboxing allowing builtin file to write outside of
-the sandbox.</li>
-</ul>
-
-</div>
-<div class="section" id="id13">
-<h2><a class="toc-backref" href="#id48">0.6.4</a></h2>
-<ul class="simple">
-<li>Added the generation of <cite>complete_setup_3k.py</cite> during the release.
-This close <a class="reference external" href="http://bitbucket.org/tarek/complete/issue/52">http://bitbucket.org/tarek/complete/issue/52</a>.</li>
-<li>Added an upload_docs command to easily upload project documentation to
-PyPI's <a class="reference external" href="http://pythonhosted.org">http://pythonhosted.org</a>.
-This close <a class="reference external" href="http://bitbucket.org/tarek/complete/issue/56">http://bitbucket.org/tarek/complete/issue/56</a>.</li>
-
-<li>Fixed a bootstrap bug on the use_setuptools() API.</li>
-</ul>
-</div>
-<div class="section" id="id14">
-<h2><a class="toc-backref" href="#id49">0.6.3</a></h2>
-<div class="section" id="setuptools">
-<h3><a class="toc-backref" href="#id50">setuptools</a></h3>
-<ul class="simple">
-<li>Fixed a bunch of calls to file() that caused crashes on Python 3.</li>
-</ul>
-</div>
-<div class="section" id="bootstrapping">
-<h3><a class="toc-backref" href="#id51">bootstrapping</a></h3>
-
-<ul class="simple">
-<li>Fixed a bug in sorting that caused bootstrap to fail on Python 3.</li>
-</ul>
-</div>
-</div>
-<div class="section" id="id15">
-<h2><a class="toc-backref" href="#id52">0.6.2</a></h2>
-<div class="section" id="id16">
-<h3><a class="toc-backref" href="#id53">setuptools</a></h3>
-<ul class="simple">
-<li>Added Python 3 support; see docs/python3.txt.
-This closes <a class="reference external" href="http://bugs.python.org/setuptools/issue39">http://bugs.python.org/setuptools/issue39</a>.</li>
-
-<li>Added option to run 2to3 automatically when installing on Python 3.
-This closes <a class="reference external" href="http://bitbucket.org/tarek/complete/issue/31">http://bitbucket.org/tarek/complete/issue/31</a>.</li>
-<li>Fixed invalid usage of requirement.parse, that broke develop -d.
-This closes <a class="reference external" href="http://bugs.python.org/setuptools/issue44">http://bugs.python.org/setuptools/issue44</a>.</li>
-<li>Fixed script launcher for 64-bit Windows.
-This closes <a class="reference external" href="http://bugs.python.org/setuptools/issue2">http://bugs.python.org/setuptools/issue2</a>.</li>
-<li>KeyError when compiling extensions.
-This closes <a class="reference external" href="http://bugs.python.org/setuptools/issue41">http://bugs.python.org/setuptools/issue41</a>.</li>
-</ul>
-
-</div>
-<div class="section" id="id17">
-<h3><a class="toc-backref" href="#id54">bootstrapping</a></h3>
-<ul class="simple">
-<li>Fixed bootstrap not working on Windows.
-This closes <a class="reference external" href="http://bitbucket.org/tarek/complete/issue/49">http://bitbucket.org/tarek/complete/issue/49</a>.</li>
-<li>Fixed 2.6 dependencies.
-This closes <a class="reference external" href="http://bitbucket.org/tarek/complete/issue/50">http://bitbucket.org/tarek/complete/issue/50</a>.</li>
-<li>Make sure setuptools is patched when running through easy_install
-This closes <a class="reference external" href="http://bugs.python.org/setuptools/issue40">http://bugs.python.org/setuptools/issue40</a>.</li>
-
-</ul>
-</div>
-</div>
-<div class="section" id="id18">
-<h2><a class="toc-backref" href="#id55">0.6.1</a></h2>
-<div class="section" id="id19">
-<h3><a class="toc-backref" href="#id56">setuptools</a></h3>
-<ul class="simple">
-<li>package_index.urlopen now catches BadStatusLine and malformed url errors.
-This closes <a class="reference external" href="http://bitbucket.org/tarek/complete/issue/16">http://bitbucket.org/tarek/complete/issue/16</a> and
-<a class="reference external" href="http://bitbucket.org/tarek/complete/issue/18">http://bitbucket.org/tarek/complete/issue/18</a>.</li>
-
-<li>zip_ok is now False by default. This closes
-<a class="reference external" href="http://bugs.python.org/setuptools/issue33">http://bugs.python.org/setuptools/issue33</a>.</li>
-<li>Fixed invalid URL error catching. <a class="reference external" href="http://bugs.python.org/setuptools/issue20">http://bugs.python.org/setuptools/issue20</a>.</li>
-<li>Fixed invalid bootstraping with easy_install installation
-<a class="reference external" href="http://bitbucket.org/tarek/complete/issue/40">http://bitbucket.org/tarek/complete/issue/40</a>.
-Thanks to Florian Schulze for the help.</li>
-<li>Removed buildout/bootstrap.py. A new repository will create a specific
-bootstrap.py script.</li>
-</ul>
-</div>
-<div class="section" id="id20">
-
-<h3><a class="toc-backref" href="#id57">bootstrapping</a></h3>
-<ul class="simple">
-<li>The boostrap process leave setuptools alone if detected in the system
-and --root or --prefix is provided, but is not in the same location.
-This closes <a class="reference external" href="http://bitbucket.org/tarek/complete/issue/10">http://bitbucket.org/tarek/complete/issue/10</a>.</li>
-</ul>
-</div>
-</div>
-<div class="section" id="id21">
-<h2><a class="toc-backref" href="#id58">0.6</a></h2>
-<div class="section" id="id22">
-<h3><a class="toc-backref" href="#id59">setuptools</a></h3>
-<ul class="simple">
-
-<li>Packages required at build time where not fully present at install time.
-This closes <a class="reference external" href="http://bitbucket.org/tarek/complete/issue/12">http://bitbucket.org/tarek/complete/issue/12</a>.</li>
-<li>Protected against failures in tarfile extraction. This closes
-<a class="reference external" href="http://bitbucket.org/tarek/complete/issue/10">http://bitbucket.org/tarek/complete/issue/10</a>.</li>
-<li>Made Jython api_tests.txt doctest compatible. This closes
-<a class="reference external" href="http://bitbucket.org/tarek/complete/issue/7">http://bitbucket.org/tarek/complete/issue/7</a>.</li>
-<li>sandbox.py replaced builtin type file with builtin function open. This
-closes <a class="reference external" href="http://bitbucket.org/tarek/complete/issue/6">http://bitbucket.org/tarek/complete/issue/6</a>.</li>
-<li>Immediately close all file handles. This closes
-
-<a class="reference external" href="http://bitbucket.org/tarek/complete/issue/3">http://bitbucket.org/tarek/complete/issue/3</a>.</li>
-<li>Added compatibility with Subversion 1.6. This references
-<a class="reference external" href="http://bitbucket.org/tarek/complete/issue/1">http://bitbucket.org/tarek/complete/issue/1</a>.</li>
-</ul>
-</div>
-<div class="section" id="pkg-resources">
-<h3><a class="toc-backref" href="#id60">pkg_resources</a></h3>
-<ul class="simple">
-<li>Avoid a call to /usr/bin/sw_vers on OSX and use the official platform API
-instead. Based on a patch from ronaldoussoren. This closes
-<a class="reference external" href="http://bitbucket.org/tarek/complete/issue/5">http://bitbucket.org/tarek/complete/issue/5</a>.</li>
-
-<li>Fixed a SandboxViolation for mkdir that could occur in certain cases.
-This closes <a class="reference external" href="http://bitbucket.org/tarek/complete/issue/13">http://bitbucket.org/tarek/complete/issue/13</a>.</li>
-<li>Allow to find_on_path on systems with tight permissions to fail gracefully.
-This closes <a class="reference external" href="http://bitbucket.org/tarek/complete/issue/9">http://bitbucket.org/tarek/complete/issue/9</a>.</li>
-<li>Corrected inconsistency between documentation and code of add_entry.
-This closes <a class="reference external" href="http://bitbucket.org/tarek/complete/issue/8">http://bitbucket.org/tarek/complete/issue/8</a>.</li>
-<li>Immediately close all file handles. This closes
-<a class="reference external" href="http://bitbucket.org/tarek/complete/issue/3">http://bitbucket.org/tarek/complete/issue/3</a>.</li>
-</ul>
-
-</div>
-<div class="section" id="easy-install">
-<h3><a class="toc-backref" href="#id61">easy_install</a></h3>
-<ul class="simple">
-<li>Immediately close all file handles. This closes
-<a class="reference external" href="http://bitbucket.org/tarek/complete/issue/3">http://bitbucket.org/tarek/complete/issue/3</a>.</li>
-</ul>
-</div>
-</div>
 </div>
 
 
-<a name="downloads">&nbsp;</a>
-<table class="list" style="margin-bottom: 10px;">
+<div class="sidebar-section">
+  <h3 class="sidebar-section__title">Statistics</h3>
 
-<tr>
-  <th>File</th>
-  <th>Type</th>
-  <th>Py Version</th>
-  <th>Uploaded on</th>
-  <th style="text-align: right;">Size</th>
-  <th style="text-align: right;"># downloads</th>
+  <div class="github-repo-info hidden" data-url="https://api.github.com/repos/Shoobx/xmldiff">
+    <em>GitHub statistics:</em>
+    <a class="vertical-tabs__tab vertical-tabs__tab--with-icon vertical-tabs__tab--condensed github-repo-info__item"
+       data-key="html_url" data-attr="href" data-supplement="/stargazers" rel="noopener"
+       target="_blank">
+      <i class="fa fa-star" aria-hidden="true"></i>
+      <strong>Stars: </strong>
+      <span class="github-repo-info__item" data-key="stargazers_count"></span>
+    </a>
+    <a class="vertical-tabs__tab vertical-tabs__tab--with-icon vertical-tabs__tab--condensed github-repo-info__item"
+       data-key="html_url" data-attr="href" data-supplement="/network" rel="noopener"
+       target="_blank">
+      <i class="fa fa-code-branch" aria-hidden="true"></i>
+      <strong>Forks: </strong>
+      <span class="github-repo-info__item" data-key="forks_count"></span>
+    </a>
+    <a class="vertical-tabs__tab vertical-tabs__tab--with-icon vertical-tabs__tab--condensed github-repo-info__item"
+       data-key="html_url" data-attr="href" data-supplement="/issues" rel="noopener"
+       target="_blank">
+      <i class="fa fa-exclamation-circle" aria-hidden="true"></i>
+      <strong>Open issues/PRs: </strong>
+      <span class="github-repo-info__item" data-key="open_issues_count"></span>
+    </a>
+  </div>
 
-</tr>
+  <p>View statistics for this project via <a
+	  href="https://libraries.io/pypi/xmldiff">Libraries.io</a>, or by using
+    <a href="https://packaging.python.org/guides/analyzing-pypi-package-downloads/">Google
+      BigQuery</a></p>
+</div>
 
-<tr class="odd">
 
-    <td>
-    <span style="white-space: nowrap;">
-      <a href="http://pypi.python.org/packages/source/c/complete/complete-1.0.tar.gz#md5=ea52e1412e7ff560c290266ed400e216">complete-1.0.tar.gz</a>
-      (<a title="MD5 Digest"
-          href="/pypi?:action=show_md5&amp;digest=ea52e1412e7ff560c290266ed400e216">md5</a>)
+<div class="sidebar-section">
+  <h3 class="sidebar-section__title">Meta</h3>
+
+  <p><strong>License:</strong> GNU Library or Lesser General Public License (LGPL) (LGPL)</p>
+
+
+    <p><strong>Author:</strong> <a href="mailto:dev@shoobx.com">Logilab and Shoobx Team</a></p>
+
+
+
+  <p class="tags">
+    <i class="fa fa-tags" aria-hidden="true"></i>
+    <span class="sr-only">Tags:</span>
+
+    <span class="package-keyword">
+      xml,
     </span>
 
-        </td>
+    <span class="package-keyword">
+      diff,
+    </span>
 
-  <td style="white-space: nowrap;">
-    Source
-  </td>
-  <td>
+    <span class="package-keyword">
+      xmldiff,
+    </span>
 
-  </td>
-  <td>2011-03-16</td>
-  <td style="text-align: right;">282KB</td>
-  <td style="text-align: right;">973</td>
+    <span class="package-keyword">
+      tree 2 tree
+    </span>
 
-</tr>
-
-<tr><td id="last" colspan="6"/></tr>
-  </table>
-
-<ul class="nodot">
- <li>
-  <strong>Author:</strong>
-  <span>The fellowship of the packaging &lt;distutils-sig at python org&gt;</span>
-
- </li>
+  </p>
 
 
-
- <li>
-  <strong>Documentation:</strong>
-  <a href="http://complete.readthedocs.org/">complete package documentation</a>
- </li>
-
-<!-- The <th> elements below are a terrible terrible hack for setuptools -->
- <li>
-
-  <strong>Home Page:</strong>
-  <!-- <th>Home Page -->
-  <a href="http://complete.readthedocs.org/">http://complete.readthedocs.org/</a>
- </li>
-
-
-
-
- <li>
-  <strong>Keywords:</strong>
-  <span>CPAN PyPI distutils eggs package management</span>
-
- </li>
-
- <li>
-  <strong>License:</strong>
-
-
-  <span>PSF or ZPL</span>
-
- </li>
-
-
-
-<!-- TODO: add link to products in follow dependencies... -->
-
-
-
-
- <li>
-
-  <strong>Categories</strong>
-  <ul class="nodot">
-   <li>
-    <a href="/pypi?:action=browse&amp;c=5">Development Status :: 5 - Production/Stable</a>
-   </li>
-   <li>
-    <a href="/pypi?:action=browse&amp;c=30">Intended Audience :: Developers</a>
-
-   </li>
-   <li>
-    <a href="/pypi?:action=browse&amp;c=78">License :: OSI Approved :: Python Software Foundation License</a>
-   </li>
-   <li>
-    <a href="/pypi?:action=browse&amp;c=89">License :: OSI Approved :: Zope Public License</a>
-   </li>
-   <li>
-
-    <a href="/pypi?:action=browse&amp;c=156">Operating System :: OS Independent</a>
-   </li>
-   <li>
-    <a href="/pypi?:action=browse&amp;c=214">Programming Language :: Python</a>
-   </li>
-   <li>
-    <a href="/pypi?:action=browse&amp;c=533">Programming Language :: Python :: 3</a>
-
-   </li>
-   <li>
-    <a href="/pypi?:action=browse&amp;c=423">Topic :: Software Development :: Libraries :: Python Modules</a>
-   </li>
-   <li>
-    <a href="/pypi?:action=browse&amp;c=444">Topic :: System :: Archiving :: Packaging</a>
-   </li>
-   <li>
-
-    <a href="/pypi?:action=browse&amp;c=474">Topic :: System :: Systems Administration</a>
-   </li>
-   <li>
-    <a href="/pypi?:action=browse&amp;c=501">Topic :: Utilities</a>
-   </li>
-  </ul>
- </li>
-
-
-
-
-
-
-
-
-
-
-
-
-
- <li>
-  <strong>Package Index Owner:</strong>
-  <span>lregebro, somebody, anotherone</span>
- </li>
-
- <li>
-  <strong>Package Index Maintainer:</strong>
-
-  <span>agronholm, jaraco</span>
- </li>
-
- <li>
-  <strong><a href="http://usefulinc.com/doap">DOAP</a> record:</strong>
-  <a href="/pypi?:action=doap&amp;name=complete&amp;version=1.0">complete-1.0.xml</a>
- </li>
-
-</ul>
-
-<div>
-
-  <div>
-    <form method="POST" action="/pypi/complete/1.0">
-      <input type="hidden" name=":action" value="rate"/>
-      <input type="hidden" name="name" value="complete"/>
-      <input type="hidden" name="version" value="1.0"/>
-      <table>
-      <tr>
-
-      <td>Rate this release: 0</td>
-      <td><input type="radio" name="rating" value="0"/></td>
-      <td><input type="radio" name="rating" value="1"/></td>
-      <td><input type="radio" name="rating" value="2"/></td>
-      <td><input type="radio" name="rating" value="3"/></td>
-      <td><input type="radio" name="rating" value="4"/></td>
-      <td><input type="radio" name="rating" value="5"/></td>
-      <td>5 (best)</td>
-
-      </tr>
-      </table>
-      <table><tr><td>Review: (<em>Please use the package's bug reporting channels <br/>(trackers, mailing lists) for bug reports and requests for help</em>)</td><td>
-         <!--XXX trick TAL into not minimizing tag-->
-         <textarea name="comment" rows="5" cols="40" wrap="soft"> </textarea>
-      </td></tr></table>
-
-      <input type="submit" name="rate" value="Rate"/>
-    </form>
-    <form method="POST" action="/pypi/complete/1.0">
-      <input type="hidden" name=":action" value="rate"/>
-      <input type="hidden" name="name" value="complete"/>
-      <input type="hidden" name="version" value="1.0"/>
-      <input type="hidden" name="fromversion" value="0.6.14"/>
-      <input type="submit" name="copy"
-             value="Copy your rating from release 0.6.14"/>
-    </form>
-
-  </div>
 </div>
 
 
+<div class="sidebar-section">
+  <h3 class="sidebar-section__title">Maintainers</h3>
 
 
+    <span class="sidebar-section__maintainer">
+      <a href="/user/agroszer/" aria-label="agroszer" class="sidebar-section__user-gravatar">
+	<img src="https://warehouse-camo.cmh1.psfhosted.org/2cf577e23f7a82e2a85605f0dc2d8dd5773d4dbc/68747470733a2f2f7365637572652e67726176617461722e636f6d2f6176617461722f36623034656539663531646234376237626537643830383463306635636630303f73697a653d3530" height="50" width="50" alt="Avatar for agroszer from gravatar.com" title="Avatar for agroszer from gravatar.com">
+      </a>
+      <a href="/user/agroszer/" class="sidebar-section__user-gravatar-text">
+	agroszer
+      </a>
+    </span>
 
 
+    <span class="sidebar-section__maintainer">
+      <a href="/user/gotcha/" aria-label="gotcha" class="sidebar-section__user-gravatar">
+	<img src="https://warehouse-camo.cmh1.psfhosted.org/ecf530c13433db1f48b805cff0efa5dc9785c95c/68747470733a2f2f7365637572652e67726176617461722e636f6d2f6176617461722f66613337306335386336323635653065343936363638663463623339653134613f73697a653d3530" height="50" width="50" alt="Avatar for gotcha from gravatar.com" title="Avatar for gotcha from gravatar.com">
+      </a>
+      <a href="/user/gotcha/" class="sidebar-section__user-gravatar-text">
+	gotcha
+      </a>
+    </span>
 
 
+    <span class="sidebar-section__maintainer">
+      <a href="/user/kedder/" aria-label="kedder" class="sidebar-section__user-gravatar">
+	<img src="https://warehouse-camo.cmh1.psfhosted.org/5851a6735a9f74e807e248af27008c4de5cc7880/68747470733a2f2f7365637572652e67726176617461722e636f6d2f6176617461722f32313934333865643936633362306635653932343262336539313038653561383f73697a653d3530" height="50" width="50" alt="Avatar for kedder from gravatar.com" title="Avatar for kedder from gravatar.com">
+      </a>
+      <a href="/user/kedder/" class="sidebar-section__user-gravatar-text">
+	kedder
+      </a>
+    </span>
 
 
+    <span class="sidebar-section__maintainer">
+      <a href="/user/logilab/" aria-label="logilab" class="sidebar-section__user-gravatar">
+	<img src="https://warehouse-camo.cmh1.psfhosted.org/fcb92a779061e0e3b05c5fc422b0ca66d03e75e9/68747470733a2f2f7365637572652e67726176617461722e636f6d2f6176617461722f31643431646665663036643663653762303463653965666439333435663632393f73697a653d3530" height="50" width="50" alt="Avatar for logilab from gravatar.com" title="Avatar for logilab from gravatar.com">
+      </a>
+      <a href="/user/logilab/" class="sidebar-section__user-gravatar-text">
+	logilab
+      </a>
+    </span>
 
 
-            </div>
+    <span class="sidebar-section__maintainer">
+      <a href="/user/regebro/" aria-label="regebro" class="sidebar-section__user-gravatar">
+	<img src="https://warehouse-camo.cmh1.psfhosted.org/9803575df88765c1b4fc4880b6856cc119cba4fc/68747470733a2f2f7365637572652e67726176617461722e636f6d2f6176617461722f39666637306639366661363763326133633830656366303438363133386263323f73697a653d3530" height="50" width="50" alt="Avatar for regebro from gravatar.com" title="Avatar for regebro from gravatar.com">
+      </a>
+      <a href="/user/regebro/" class="sidebar-section__user-gravatar-text">
+	regebro
+      </a>
+    </span>
 
 
-          </div>
-          <div id="footer"><div id="credits">
-            <a href="http://www.python.org/about/website">Website maintained by the Python community</a><br/>
-            <a href="http://www.xs4all.com/" title="Web and email hosting provided by xs4all, Netherlands">hosting by xs4all</a> /
-            <a href="http://www.timparkin.co.uk/" title="Design by Tim Parkin, Yorkshire man, photographer and developer">design by Tim Parkin</a>
-          </div>
+    <span class="sidebar-section__maintainer">
+      <a href="/user/srichter/" aria-label="srichter" class="sidebar-section__user-gravatar">
+	<img src="https://warehouse-camo.cmh1.psfhosted.org/9023c9ce0076d03b90e6b39b13ba98218a7fdb5e/68747470733a2f2f7365637572652e67726176617461722e636f6d2f6176617461722f30333462623432333265376531346534636266323538616164386361326135373f73697a653d3530" height="50" width="50" alt="Avatar for srichter from gravatar.com" title="Avatar for srichter from gravatar.com">
+      </a>
+      <a href="/user/srichter/" class="sidebar-section__user-gravatar-text">
+	srichter
+      </a>
+    </span>
 
-          Copyright © 1990-2011, <a href="http://www.python.org/psf">Python Software Foundation</a><br/>
-          <a href="http://www.python.org/about/legal">Legal Statements</a>
+</div>
 
-          </div>
-        </div>
+
+<div class="sidebar-section classifiers">
+  <h3>Classifiers</h3>
+  <dl>
+
+    <dt>Development Status</dt>
+
+    <dd>
+    <a href="/search/?c=Development+Status+%3A%3A+3+-+Alpha">
+      3 - Alpha
+    </a>
+    </dd>
+
+
+    <dt>Framework</dt>
+
+    <dd>
+    <a href="/search/?c=Framework+%3A%3A+ZODB">
+      ZODB
+    </a>
+    </dd>
+
+
+    <dt>Intended Audience</dt>
+
+    <dd>
+    <a href="/search/?c=Intended+Audience+%3A%3A+Developers">
+      Developers
+    </a>
+    </dd>
+
+
+    <dt>License</dt>
+
+    <dd>
+    <a href="/search/?c=License+%3A%3A+OSI+Approved+%3A%3A+GNU+Library+or+Lesser+General+Public+License+%28LGPL%29">
+      OSI Approved :: GNU Library or Lesser General Public License (LGPL)
+    </a>
+    </dd>
+
+
+    <dt>Natural Language</dt>
+
+    <dd>
+    <a href="/search/?c=Natural+Language+%3A%3A+English">
+      English
+    </a>
+    </dd>
+
+
+    <dt>Operating System</dt>
+
+    <dd>
+    <a href="/search/?c=Operating+System+%3A%3A+OS+Independent">
+      OS Independent
+    </a>
+    </dd>
+
+
+    <dt>Programming Language</dt>
+
+    <dd>
+    <a href="/search/?c=Programming+Language+%3A%3A+Python">
+      Python
+    </a>
+    </dd>
+
+    <dd>
+    <a href="/search/?c=Programming+Language+%3A%3A+Python+%3A%3A+2">
+      Python :: 2
+    </a>
+    </dd>
+
+    <dd>
+    <a href="/search/?c=Programming+Language+%3A%3A+Python+%3A%3A+2.7">
+      Python :: 2.7
+    </a>
+    </dd>
+
+    <dd>
+    <a href="/search/?c=Programming+Language+%3A%3A+Python+%3A%3A+3">
+      Python :: 3
+    </a>
+    </dd>
+
+    <dd>
+    <a href="/search/?c=Programming+Language+%3A%3A+Python+%3A%3A+3.5">
+      Python :: 3.5
+    </a>
+    </dd>
+
+    <dd>
+    <a href="/search/?c=Programming+Language+%3A%3A+Python+%3A%3A+3.6">
+      Python :: 3.6
+    </a>
+    </dd>
+
+
+  </dl>
+</div>
+
+
       </div>
-    </body>
-  </html>
+      <div class="vertical-tabs__panel">
+	<!-- mobile menu -->
+	<nav>
+	  <a id="mobile-description-tab" data-target="project-tabs.mobileTab" data-action="project-tabs#onTabClick" class="vertical-tabs__tab vertical-tabs__tab--with-icon vertical-tabs__tab--mobile vertical-tabs__tab--no-top-border vertical-tabs__tab--is-active" href="#description">
+	    <i class="fa fa-align-left" aria-hidden="true"></i>
+	    Project description
+	  </a>
+	  <a id="mobile-data-tab" data-target="project-tabs.mobileTab" data-action="project-tabs#onTabClick" class="vertical-tabs__tab vertical-tabs__tab--with-icon vertical-tabs__tab--mobile" href="#data">
+	    <i class="fa fa-info-circle" aria-hidden="true"></i>
+	    Project details
+	  </a>
+	  <a id="mobile-history-tab" data-target="project-tabs.mobileTab" data-action="project-tabs#onTabClick" class="vertical-tabs__tab vertical-tabs__tab--with-icon vertical-tabs__tab--mobile" href="#history">
+	    <i class="fa fa-history" aria-hidden="true"></i>
+	    Release history
+	  </a>
+
+	  <a id="mobile-files-tab" data-target="project-tabs.mobileTab" data-action="project-tabs#onTabClick" class="vertical-tabs__tab vertical-tabs__tab--with-icon vertical-tabs__tab--mobile" href="#files">
+	    <i class="fa fa-download" aria-hidden="true"></i>
+	    Download files
+	  </a>
+
+	</nav>
+
+
+	<div id="description" data-target="project-tabs.content" class="vertical-tabs__content" role="tabpanel" aria-labelledby="description-tab mobile-description-tab">
+	  <h2 class="page-title">Project description</h2>
+
+	  <div class="project-description">
+	    <a href="https://travis-ci.org/Shoobx/xmldiff" rel=nofollow><img alt="https://travis-ci.org/Shoobx/xmldiff.png?branch=master" src="https://warehouse-camo.cmh1.psfhosted.org/406b599f4a979216fdec9e391debc985616baee3/68747470733a2f2f7472617669732d63692e6f72672f53686f6f62782f786d6c646966662e706e673f6272616e63683d6d6173746572"></a>
+<a href="https://coveralls.io/github/Shoobx/xmldiff?branch=master" rel=nofollow><img alt="https://coveralls.io/repos/github/Shoobx/xmldiff/badge.svg?branch=master" src="https://warehouse-camo.cmh1.psfhosted.org/bfb29a6936e18affbb0e20f71101b4560c4a2e8d/68747470733a2f2f636f766572616c6c732e696f2f7265706f732f6769746875622f53686f6f62782f786d6c646966662f62616467652e7376673f6272616e63683d6d6173746572"></a>
+<a href="https://pypi.python.org/pypi/xmldiff" rel=nofollow><img src="https://warehouse-camo.cmh1.psfhosted.org/9a8d5cfb05d4582b158499a53edc3b2a67e8e967/68747470733a2f2f696d672e736869656c64732e696f2f707970692f762f786d6c646966662e737667">
+</a>
+<a href="https://pypi.python.org/pypi/xmldiff/" rel=nofollow><img src="https://warehouse-camo.cmh1.psfhosted.org/f406542cb019e45a92a4e4c27cf8df6545ef4ad4/68747470733a2f2f696d672e736869656c64732e696f2f707970692f707976657273696f6e732f786d6c646966662e737667">
+</a>
+<p>Xmldiff is a utility for extracting differences between two xml files. It
+returns a set of primitives to apply on source tree to obtain the destination
+tree.</p>
+<p>The implementation is based on <cite>Change detection in hierarchically structured
+information</cite>, by S. Chawathe, A. Rajaraman, H. Garcia-Molina and J. Widom,
+Stanford University, 1996</p>
+<div id=installation>
+<h2>Installation</h2>
+<p>To install the latest release:</p>
+<pre>pip install xmldiff
+</pre>
+<p>To install the development version:</p>
+<pre>git clone https://github.com/Shoobx/xmldiff.git
+<span class=nb>cd</span> xmldiff
+virtualenv ./.venv
+./.venv/bin/python setup.py install
+</pre>
+<p>Then to compare two given XML files:</p>
+<pre>./.venv/bin/xmldiff <span class=m>1</span>.xml <span class=m>2</span>.xml
+</pre>
+</div>
+<div id=running-tests>
+<h2>Running tests</h2>
+<p>To run the test suite for all python versions:</p>
+<pre>tox
+</pre>
+<div id=changes>
+<h3>CHANGES</h3>
+</div>
+</div>
+<div id=id1>
+<h2>1.1.1 (2018-06-20)</h2>
+<ul>
+<li>When moving attributes the secondary rename action xpath was
+‘//LogilabXmldiffTmpAttr&lt;attrib&gt;’ which is a tag specification.
+Changed this to ‘//@LogilabXmldiffTmpAttr&lt;attrib&gt;’, so an attribute
+is specified.</li>
+</ul>
+</div>
+<div id=id2>
+<h2>1.1.0 (2018-06-15)</h2>
+<ul>
+<li>When using namespaces, the returned xpaths are now in the form ns_prefix:tag
+instead of the earlier {ns_uri}tag, which isn’t correct xpaths.</li>
+</ul>
+</div>
+<div id=id3>
+<h2>1.0.0 (2018-04-13)</h2>
+<ul>
+<li>pep8 cleanup, added flake8 checking to tox</li>
+</ul>
+</div>
+<div id=a6-2018-04-12>
+<h2>1.0.0a6 (2018-04-12)</h2>
+<ul>
+<li>Removed encoding, because python does unicode just fine</li>
+<li>Switched on namespace handling for XML input</li>
+</ul>
+</div>
+<div id=a5-2018-04-11>
+<h2>1.0.0a5 (2018-04-11)</h2>
+<ul>
+<li>Brownbag release to make up for bad previous ones.</li>
+</ul>
+</div>
+<div id=a2-2018-04-11>
+<h2>1.0.0a2 (2018-04-11)</h2>
+<ul>
+<li>Temporary disabling of encoding text (hopefully permanent).</li>
+<li>Reverted bug fix: Do not remove newlines from text while parsing
+the XML.</li>
+</ul>
+</div>
+<div id=a1-2018-04-10>
+<h2>1.0.0a1 (2018-04-10)</h2>
+<ul>
+<li>Bug: Fix a off-by-one issue with <cite>insert-after</cite> action.</li>
+<li>Bug: Do not rename children on text node updates.</li>
+<li>Bug: Text moves were not recorded as part of the fmes edit script.</li>
+<li>Remove only partially implemented xmlrev script.</li>
+<li>Removed support for xupdate, which never became a standard.</li>
+<li>Removed deprecated ezs optional algorithm.</li>
+<li>Removed support for Debian and RedHat packaging.</li>
+<li>Removed Windows support</li>
+<li>LOTS of package cleanup (setup.py, MANIFEST, proper console script, etc)</li>
+<li>tests moved to py.test and cleaned, added tox, travis, coverage support</li>
+</ul>
+</div>
+<div id=id4>
+<h2>0.6.10 (2010-08-27)</h2>
+<ul>
+<li>apply Daiki Ueno patch: fails when comparing minimal trees on i386</li>
+</ul>
+</div>
+<div id=id5>
+<h2>0.6.9 (2009-04-02)</h2>
+<ul>
+<li>Fixed xmldiff-xmlrev compilation error</li>
+</ul>
+</div>
+<div id=id6>
+<h2>0.6.8 (2006-06-15)</h2>
+<ul>
+<li>Fixed 64bit cleanness issues</li>
+</ul>
+</div>
+<div id=id7>
+<h2>0.6.7 (2005-05-04)</h2>
+<ul>
+<li>WARNING: xmldiff is no longer a logilab subpackage. Users may have to
+manually remove the old logilab/xmldiff directory.</li>
+<li>fixed debian bug #275750, also reported by Christopher R Newman on the
+xml-projects mailing list</li>
+<li>fixed –profile option, wrap function from maplookup when profiling so that
+they appear in the profile information</li>
+<li>fixed setup.py to ignore the xmlrev shell script under windows platforms</li>
+<li>small improvements (remove recursion in object.py, minor enhancement in
+mydifflib.py, rewrite of lcs4 in C)</li>
+</ul>
+</div>
+<div id=id8>
+<h2>0.6.6 (2004-12-23)</h2>
+<ul>
+<li><p>Applied patch by Bastian Kleineidam &lt;<a href=mailto:calvin%40debian.org>calvin<span>@</span>debian<span>.</span>org</a>&gt; which</p>
+<ul>
+<li>corrects the typo in  ML_DIR</li>
+<li>fixes the TMPFILE_XSLT/TMPFILE_XSL typo</li>
+<li>makes sure the files are XML or SGML files, else prints an error</li>
+<li>adds various missing quotes around filenames which could have
+spaces or begin with a hyphen</li>
+<li>fixes typos in the usage() function</li>
+</ul>
+<p>Thanks a lot, Bastian.</p>
+</li>
+<li><p>Fixed some problems in the xmlrev.xslt stylesheet</p>
+</li>
+<li><p>Fixed problems in xmlrev caused by the exit status of xmldiff when
+successful</p>
+</li>
+<li><p>Added a man page for xmldiff and xmlrev</p>
+</li>
+</ul>
+</div>
+<div id=id9>
+<h2>0.6.5 (2004-09-02)</h2>
+<ul>
+<li>xmlrev bugfixes</li>
+<li>Fixed packaging problems (missing xsl stylesheets and MANIFEST file)</li>
+</ul>
+</div>
+<div id=id10>
+<h2>0.6.4 (2003-10-02)</h2>
+<ul>
+<li>fix recursive mode</li>
+<li>rewrite regression test, add test for the recursive mode</li>
+<li>add –help option to xlmrev</li>
+<li>packaging fixes</li>
+<li>turn API.txt and HELP.txt to correct ReST</li>
+</ul>
+</div>
+<div id=id11>
+<h2>0.6.3 (2002-11-06)</h2>
+<ul>
+<li>fix wrong xpath for attributes</li>
+<li>fix bug with temporary duplicate attribute node</li>
+<li>fix for xupdate</li>
+<li>fix ext_pes option bug</li>
+<li>update changelog to new format</li>
+</ul>
+</div>
+<div id=id12>
+<h2>0.6.2 (2002-09-23)</h2>
+<ul>
+<li>return number of differences on command line</li>
+<li>reintroduce misc.list_print which caused recursive mode
+to fail</li>
+<li>use psyco if available (<a href="http://psyco.sf.net" rel=nofollow>http://psyco.sf.net</a>)</li>
+<li>little changes in C extension</li>
+</ul>
+</div>
+<div id=id13>
+<h2>0.6.1 (2002-08-29)</h2>
+<ul>
+<li>fix packaging problems</li>
+</ul>
+</div>
+<div id=id14>
+<h2>0.6.0 (2002-08-23)</h2>
+<ul>
+<li>change of the internal representation</li>
+<li>remove support for the EZS algorithm (no more maintened
+for the moment)</li>
+<li>add command line options to parse html and to control
+entities inclusion and output encoding</li>
+<li>fixing coalescing text nodes bug</li>
+<li>many other bugs fixes</li>
+<li>great speed improvement</li>
+</ul>
+</div>
+<div id=id15>
+<h2>0.5.3 (2002-01-31)</h2>
+<ul>
+<li>add __init__.py in “logilab” directory</li>
+</ul>
+</div>
+<div id=id16>
+<h2>0.5.2 (2001-10-29)</h2>
+<ul>
+<li>bug fixes in xupdate formatting and in the dom interface.</li>
+</ul>
+</div>
+<div id=id17>
+<h2>0.5.1 (2001-09-07)</h2>
+<ul>
+<li>Fast Match / Edit Scritp algorithm, now fully usable</li>
+<li>fixes Unicode problem</li>
+</ul>
+</div>
+<div id=id18>
+<h2>0.2.1 (2001-08-10)</h2>
+<ul>
+<li>bug fixes, optimizations for ezs algorithm</li>
+</ul>
+</div>
+<div id=id19>
+<h2>0.1.1 (2001-08-04)</h2>
+<ul>
+<li>original revision</li>
+</ul>
+</div>
+
+	  </div>
+
+	</div>
+
+
+	<div id="data" data-target="project-tabs.content" class="vertical-tabs__content" role="tabpanel" aria-labelledby="mobile-data-tab">
+	  <h2 class="page-title">Project details</h2>
+
+<div class="sidebar-section">
+  <h3 class="sidebar-section__title">Project links</h3>
+
+
+  <a class="vertical-tabs__tab vertical-tabs__tab--with-icon vertical-tabs__tab--condensed" href="https://github.com/Shoobx/xmldiff" rel="nofollow">
+
+
+
+
+
+
+
+<i class="fab fa-github" aria-hidden="true"></i>Homepage
+  </a>
+
+
+</div>
+
+
+<div class="sidebar-section">
+  <h3 class="sidebar-section__title">Statistics</h3>
+
+  <div class="github-repo-info hidden" data-url="https://api.github.com/repos/Shoobx/xmldiff">
+    <em>GitHub statistics:</em>
+    <a class="vertical-tabs__tab vertical-tabs__tab--with-icon vertical-tabs__tab--condensed github-repo-info__item"
+       data-key="html_url" data-attr="href" data-supplement="/stargazers" rel="noopener"
+       target="_blank">
+      <i class="fa fa-star" aria-hidden="true"></i>
+      <strong>Stars: </strong>
+      <span class="github-repo-info__item" data-key="stargazers_count"></span>
+    </a>
+    <a class="vertical-tabs__tab vertical-tabs__tab--with-icon vertical-tabs__tab--condensed github-repo-info__item"
+       data-key="html_url" data-attr="href" data-supplement="/network" rel="noopener"
+       target="_blank">
+      <i class="fa fa-code-branch" aria-hidden="true"></i>
+      <strong>Forks: </strong>
+      <span class="github-repo-info__item" data-key="forks_count"></span>
+    </a>
+    <a class="vertical-tabs__tab vertical-tabs__tab--with-icon vertical-tabs__tab--condensed github-repo-info__item"
+       data-key="html_url" data-attr="href" data-supplement="/issues" rel="noopener"
+       target="_blank">
+      <i class="fa fa-exclamation-circle" aria-hidden="true"></i>
+      <strong>Open issues/PRs: </strong>
+      <span class="github-repo-info__item" data-key="open_issues_count"></span>
+    </a>
+  </div>
+
+  <p>View statistics for this project via <a
+	  href="https://libraries.io/pypi/xmldiff">Libraries.io</a>, or by using
+    <a href="https://packaging.python.org/guides/analyzing-pypi-package-downloads/">Google
+      BigQuery</a></p>
+</div>
+
+
+<div class="sidebar-section">
+  <h3 class="sidebar-section__title">Meta</h3>
+
+  <p><strong>License:</strong> GNU Library or Lesser General Public License (LGPL) (LGPL)</p>
+
+
+    <p><strong>Author:</strong> <a href="mailto:dev@shoobx.com">Logilab and Shoobx Team</a></p>
+
+
+
+  <p class="tags">
+    <i class="fa fa-tags" aria-hidden="true"></i>
+    <span class="sr-only">Tags:</span>
+
+    <span class="package-keyword">
+      xml,
+    </span>
+
+    <span class="package-keyword">
+      diff,
+    </span>
+
+    <span class="package-keyword">
+      xmldiff,
+    </span>
+
+    <span class="package-keyword">
+      tree 2 tree
+    </span>
+
+  </p>
+
+
+</div>
+
+
+<div class="sidebar-section">
+  <h3 class="sidebar-section__title">Maintainers</h3>
+
+
+    <span class="sidebar-section__maintainer">
+      <a href="/user/agroszer/" aria-label="agroszer" class="sidebar-section__user-gravatar">
+	<img src="https://warehouse-camo.cmh1.psfhosted.org/2cf577e23f7a82e2a85605f0dc2d8dd5773d4dbc/68747470733a2f2f7365637572652e67726176617461722e636f6d2f6176617461722f36623034656539663531646234376237626537643830383463306635636630303f73697a653d3530" height="50" width="50" alt="Avatar for agroszer from gravatar.com" title="Avatar for agroszer from gravatar.com">
+      </a>
+      <a href="/user/agroszer/" class="sidebar-section__user-gravatar-text">
+	agroszer
+      </a>
+    </span>
+
+
+    <span class="sidebar-section__maintainer">
+      <a href="/user/gotcha/" aria-label="gotcha" class="sidebar-section__user-gravatar">
+	<img src="https://warehouse-camo.cmh1.psfhosted.org/ecf530c13433db1f48b805cff0efa5dc9785c95c/68747470733a2f2f7365637572652e67726176617461722e636f6d2f6176617461722f66613337306335386336323635653065343936363638663463623339653134613f73697a653d3530" height="50" width="50" alt="Avatar for gotcha from gravatar.com" title="Avatar for gotcha from gravatar.com">
+      </a>
+      <a href="/user/gotcha/" class="sidebar-section__user-gravatar-text">
+	gotcha
+      </a>
+    </span>
+
+
+    <span class="sidebar-section__maintainer">
+      <a href="/user/kedder/" aria-label="kedder" class="sidebar-section__user-gravatar">
+	<img src="https://warehouse-camo.cmh1.psfhosted.org/5851a6735a9f74e807e248af27008c4de5cc7880/68747470733a2f2f7365637572652e67726176617461722e636f6d2f6176617461722f32313934333865643936633362306635653932343262336539313038653561383f73697a653d3530" height="50" width="50" alt="Avatar for kedder from gravatar.com" title="Avatar for kedder from gravatar.com">
+      </a>
+      <a href="/user/kedder/" class="sidebar-section__user-gravatar-text">
+	kedder
+      </a>
+    </span>
+
+
+    <span class="sidebar-section__maintainer">
+      <a href="/user/logilab/" aria-label="logilab" class="sidebar-section__user-gravatar">
+	<img src="https://warehouse-camo.cmh1.psfhosted.org/fcb92a779061e0e3b05c5fc422b0ca66d03e75e9/68747470733a2f2f7365637572652e67726176617461722e636f6d2f6176617461722f31643431646665663036643663653762303463653965666439333435663632393f73697a653d3530" height="50" width="50" alt="Avatar for logilab from gravatar.com" title="Avatar for logilab from gravatar.com">
+      </a>
+      <a href="/user/logilab/" class="sidebar-section__user-gravatar-text">
+	logilab
+      </a>
+    </span>
+
+
+    <span class="sidebar-section__maintainer">
+      <a href="/user/regebro/" aria-label="regebro" class="sidebar-section__user-gravatar">
+	<img src="https://warehouse-camo.cmh1.psfhosted.org/9803575df88765c1b4fc4880b6856cc119cba4fc/68747470733a2f2f7365637572652e67726176617461722e636f6d2f6176617461722f39666637306639366661363763326133633830656366303438363133386263323f73697a653d3530" height="50" width="50" alt="Avatar for regebro from gravatar.com" title="Avatar for regebro from gravatar.com">
+      </a>
+      <a href="/user/regebro/" class="sidebar-section__user-gravatar-text">
+	regebro
+      </a>
+    </span>
+
+
+    <span class="sidebar-section__maintainer">
+      <a href="/user/srichter/" aria-label="srichter" class="sidebar-section__user-gravatar">
+	<img src="https://warehouse-camo.cmh1.psfhosted.org/9023c9ce0076d03b90e6b39b13ba98218a7fdb5e/68747470733a2f2f7365637572652e67726176617461722e636f6d2f6176617461722f30333462623432333265376531346534636266323538616164386361326135373f73697a653d3530" height="50" width="50" alt="Avatar for srichter from gravatar.com" title="Avatar for srichter from gravatar.com">
+      </a>
+      <a href="/user/srichter/" class="sidebar-section__user-gravatar-text">
+	srichter
+      </a>
+    </span>
+
+</div>
+
+
+<div class="sidebar-section classifiers">
+  <h3>Classifiers</h3>
+  <dl>
+
+    <dt>Development Status</dt>
+
+    <dd>
+    <a href="/search/?c=Development+Status+%3A%3A+3+-+Alpha">
+      3 - Alpha
+    </a>
+    </dd>
+
+
+    <dt>Framework</dt>
+
+    <dd>
+    <a href="/search/?c=Framework+%3A%3A+ZODB">
+      ZODB
+    </a>
+    </dd>
+
+
+    <dt>Intended Audience</dt>
+
+    <dd>
+    <a href="/search/?c=Intended+Audience+%3A%3A+Developers">
+      Developers
+    </a>
+    </dd>
+
+
+    <dt>License</dt>
+
+    <dd>
+    <a href="/search/?c=License+%3A%3A+OSI+Approved+%3A%3A+GNU+Library+or+Lesser+General+Public+License+%28LGPL%29">
+      OSI Approved :: GNU Library or Lesser General Public License (LGPL)
+    </a>
+    </dd>
+
+
+    <dt>Natural Language</dt>
+
+    <dd>
+    <a href="/search/?c=Natural+Language+%3A%3A+English">
+      English
+    </a>
+    </dd>
+
+
+    <dt>Operating System</dt>
+
+    <dd>
+    <a href="/search/?c=Operating+System+%3A%3A+OS+Independent">
+      OS Independent
+    </a>
+    </dd>
+
+
+    <dt>Programming Language</dt>
+
+    <dd>
+    <a href="/search/?c=Programming+Language+%3A%3A+Python">
+      Python
+    </a>
+    </dd>
+
+    <dd>
+    <a href="/search/?c=Programming+Language+%3A%3A+Python+%3A%3A+2">
+      Python :: 2
+    </a>
+    </dd>
+
+    <dd>
+    <a href="/search/?c=Programming+Language+%3A%3A+Python+%3A%3A+2.7">
+      Python :: 2.7
+    </a>
+    </dd>
+
+    <dd>
+    <a href="/search/?c=Programming+Language+%3A%3A+Python+%3A%3A+3">
+      Python :: 3
+    </a>
+    </dd>
+
+    <dd>
+    <a href="/search/?c=Programming+Language+%3A%3A+Python+%3A%3A+3.5">
+      Python :: 3.5
+    </a>
+    </dd>
+
+    <dd>
+    <a href="/search/?c=Programming+Language+%3A%3A+Python+%3A%3A+3.6">
+      Python :: 3.6
+    </a>
+    </dd>
+
+
+  </dl>
+</div>
+
+	  <br>
+	</div>
+
+
+	<div id="history" data-target="project-tabs.content" class="vertical-tabs__content" role="tabpanel" aria-labelledby="history-tab mobile-history-tab">
+	  <h2 class="page-title split-layout">
+	    <span>Release history</span>
+	    <a class="reset-text margin-top" href="/help/#project-release-notifications">Release notifications</a>
+	  </h2>
+
+	  <section class="release-timeline">
+
+
+
+
+	    <div class="release release--latest release--current">
+	      <div class="release__meta">
+
+		<span class="badge">This version</span>
+
+	      </div>
+
+	      <div class="release__graphic">
+
+		<div class="release__line"></div>
+
+
+		<img class="release__node" alt="History Node" src="https://pypi.org/static/images/blue-cube.e6165d35.svg">
+
+	      </div>
+
+	      <a class="card release__card" href="/project/xmldiff/1.1.1/">
+		<p class="release__version">
+		  1.1.1
+		</p>
+		<p class="release__version-date"><time class="-js-relative-time" datetime="2018-06-20T18:38:14+0000">
+  Jun 20, 2018
+</time></p>
+	      </a>
+	    </div>
+
+
+	    <div class="release">
+	      <div class="release__meta">
+
+	      </div>
+
+	      <div class="release__graphic">
+
+		<div class="release__line"></div>
+
+
+		<img class="release__node" alt="History Node" src="https://pypi.org/static/images/white-cube.8c3a6fe9.svg">
+
+	      </div>
+
+	      <a class="card release__card" href="/project/xmldiff/1.1.0/">
+		<p class="release__version">
+		  1.1.0
+		</p>
+		<p class="release__version-date"><time class="-js-relative-time" datetime="2018-06-15T12:24:36+0000">
+  Jun 15, 2018
+</time></p>
+	      </a>
+	    </div>
+
+
+	    <div class="release">
+	      <div class="release__meta">
+
+	      </div>
+
+	      <div class="release__graphic">
+
+		<div class="release__line"></div>
+
+
+		<img class="release__node" alt="History Node" src="https://pypi.org/static/images/white-cube.8c3a6fe9.svg">
+
+	      </div>
+
+	      <a class="card release__card" href="/project/xmldiff/1.0.0/">
+		<p class="release__version">
+		  1.0.0
+		</p>
+		<p class="release__version-date"><time class="-js-relative-time" datetime="2018-04-13T13:22:51+0000">
+  Apr 13, 2018
+</time></p>
+	      </a>
+	    </div>
+
+
+	    <div class="release">
+	      <div class="release__meta">
+
+	      </div>
+
+	      <div class="release__graphic">
+
+		<div class="release__line"></div>
+
+
+		<img class="release__node" alt="History Node" src="https://pypi.org/static/images/white-cube.8c3a6fe9.svg">
+
+	      </div>
+
+	      <a class="card release__card" href="/project/xmldiff/1.0.0a6/">
+		<p class="release__version">
+		  1.0.0a6 <span class="badge badge--warning release__version-badge">pre-release</span>
+		</p>
+		<p class="release__version-date"><time class="-js-relative-time" datetime="2018-04-12T12:48:52+0000">
+  Apr 12, 2018
+</time></p>
+	      </a>
+	    </div>
+
+
+	    <div class="release">
+	      <div class="release__meta">
+
+	      </div>
+
+	      <div class="release__graphic">
+
+		<div class="release__line"></div>
+
+
+		<img class="release__node" alt="History Node" src="https://pypi.org/static/images/white-cube.8c3a6fe9.svg">
+
+	      </div>
+
+	      <a class="card release__card" href="/project/xmldiff/1.0.0a5/">
+		<p class="release__version">
+		  1.0.0a5 <span class="badge badge--warning release__version-badge">pre-release</span>
+		</p>
+		<p class="release__version-date"><time class="-js-relative-time" datetime="2018-04-11T13:02:26+0000">
+  Apr 11, 2018
+</time></p>
+	      </a>
+	    </div>
+
+
+	    <div class="release">
+	      <div class="release__meta">
+
+	      </div>
+
+	      <div class="release__graphic">
+
+		<div class="release__line"></div>
+
+
+		<img class="release__node" alt="History Node" src="https://pypi.org/static/images/white-cube.8c3a6fe9.svg">
+
+	      </div>
+
+	      <a class="card release__card" href="/project/xmldiff/1.0.0a4.dev0/">
+		<p class="release__version">
+		  1.0.0a4.dev0 <span class="badge badge--warning release__version-badge">pre-release</span>
+		</p>
+		<p class="release__version-date"><time class="-js-relative-time" datetime="2018-04-10T16:02:36+0000">
+  Apr 10, 2018
+</time></p>
+	      </a>
+	    </div>
+
+
+	    <div class="release">
+	      <div class="release__meta">
+
+	      </div>
+
+	      <div class="release__graphic">
+
+		<div class="release__line"></div>
+
+
+		<img class="release__node" alt="History Node" src="https://pypi.org/static/images/white-cube.8c3a6fe9.svg">
+
+	      </div>
+
+	      <a class="card release__card" href="/project/xmldiff/1.0.0a3.dev0/">
+		<p class="release__version">
+		  1.0.0a3.dev0 <span class="badge badge--warning release__version-badge">pre-release</span>
+		</p>
+		<p class="release__version-date"><time class="-js-relative-time" datetime="2018-04-10T15:56:31+0000">
+  Apr 10, 2018
+</time></p>
+	      </a>
+	    </div>
+
+
+	    <div class="release">
+	      <div class="release__meta">
+
+	      </div>
+
+	      <div class="release__graphic">
+
+		<div class="release__line"></div>
+
+
+		<img class="release__node" alt="History Node" src="https://pypi.org/static/images/white-cube.8c3a6fe9.svg">
+
+	      </div>
+
+	      <a class="card release__card" href="/project/xmldiff/1.0.0a2/">
+		<p class="release__version">
+		  1.0.0a2 <span class="badge badge--warning release__version-badge">pre-release</span>
+		</p>
+		<p class="release__version-date"><time class="-js-relative-time" datetime="2018-04-10T15:48:43+0000">
+  Apr 10, 2018
+</time></p>
+	      </a>
+	    </div>
+
+
+	    <div class="release">
+	      <div class="release__meta">
+
+	      </div>
+
+	      <div class="release__graphic">
+
+		<div class="release__line"></div>
+
+
+		<img class="release__node" alt="History Node" src="https://pypi.org/static/images/white-cube.8c3a6fe9.svg">
+
+	      </div>
+
+	      <a class="card release__card" href="/project/xmldiff/1.0.0a1/">
+		<p class="release__version">
+		  1.0.0a1 <span class="badge badge--warning release__version-badge">pre-release</span>
+		</p>
+		<p class="release__version-date"><time class="-js-relative-time" datetime="2018-04-10T13:22:53+0000">
+  Apr 10, 2018
+</time></p>
+	      </a>
+	    </div>
+
+
+	    <div class="release">
+	      <div class="release__meta">
+
+	      </div>
+
+	      <div class="release__graphic">
+
+		<div class="release__line"></div>
+
+
+		<img class="release__node" alt="History Node" src="https://pypi.org/static/images/white-cube.8c3a6fe9.svg">
+
+	      </div>
+
+	      <a class="card release__card" href="/project/xmldiff/0.6.10/">
+		<p class="release__version">
+		  0.6.10
+		</p>
+		<p class="release__version-date"><time class="-js-relative-time" datetime="2015-04-02T16:07:18+0000">
+  Apr 2, 2015
+</time></p>
+	      </a>
+	    </div>
+
+
+	    <div class="release">
+	      <div class="release__meta">
+
+	      </div>
+
+	      <div class="release__graphic">
+
+		<div class="release__line"></div>
+
+
+		<img class="release__node" alt="History Node" src="https://pypi.org/static/images/white-cube.8c3a6fe9.svg">
+
+	      </div>
+
+	      <a class="card release__card" href="/project/xmldiff/0.6.9/">
+		<p class="release__version">
+		  0.6.9
+		</p>
+		<p class="release__version-date"><time class="-js-relative-time" datetime="2015-04-02T16:07:02+0000">
+  Apr 2, 2015
+</time></p>
+	      </a>
+	    </div>
+
+
+	    <div class="release">
+	      <div class="release__meta">
+
+	      </div>
+
+	      <div class="release__graphic">
+
+		<div class="release__line"></div>
+
+
+		<img class="release__node" alt="History Node" src="https://pypi.org/static/images/white-cube.8c3a6fe9.svg">
+
+	      </div>
+
+	      <a class="card release__card" href="/project/xmldiff/0.6.8/">
+		<p class="release__version">
+		  0.6.8
+		</p>
+		<p class="release__version-date"><time class="-js-relative-time" datetime="2015-04-02T16:06:39+0000">
+  Apr 2, 2015
+</time></p>
+	      </a>
+	    </div>
+
+
+	    <div class="release">
+	      <div class="release__meta">
+
+	      </div>
+
+	      <div class="release__graphic">
+
+		<div class="release__line"></div>
+
+
+		<img class="release__node" alt="History Node" src="https://pypi.org/static/images/white-cube.8c3a6fe9.svg">
+
+	      </div>
+
+	      <a class="card release__card" href="/project/xmldiff/0.6.7/">
+		<p class="release__version">
+		  0.6.7
+		</p>
+		<p class="release__version-date"><time class="-js-relative-time" datetime="2015-04-02T16:00:25+0000">
+  Apr 2, 2015
+</time></p>
+	      </a>
+	    </div>
+
+
+	    <div class="release">
+	      <div class="release__meta">
+
+	      </div>
+
+	      <div class="release__graphic">
+
+		<div class="release__line"></div>
+
+
+		<img class="release__node" alt="History Node" src="https://pypi.org/static/images/white-cube.8c3a6fe9.svg">
+
+	      </div>
+
+	      <a class="card release__card" href="/project/xmldiff/0.6.6/">
+		<p class="release__version">
+		  0.6.6
+		</p>
+		<p class="release__version-date"><time class="-js-relative-time" datetime="2005-02-15T16:29:29+0000">
+  Feb 15, 2005
+</time></p>
+	      </a>
+	    </div>
+
+
+	    <div class="release release--oldest">
+	      <div class="release__meta">
+
+	      </div>
+
+	      <div class="release__graphic">
+
+		<div class="release__line"></div>
+
+
+		<img class="release__node" alt="History Node" src="https://pypi.org/static/images/white-cube.8c3a6fe9.svg">
+
+	      </div>
+
+	      <a class="card release__card" href="/project/xmldiff/0.6.4/">
+		<p class="release__version">
+		  0.6.4
+		</p>
+		<p class="release__version-date"><time class="-js-relative-time" datetime="2004-06-22T10:56:16+0000">
+  Jun 22, 2004
+</time></p>
+	      </a>
+	    </div>
+
+	  </section>
+	</div>
+
+
+
+	  <div id="files" data-target="project-tabs.content" class="vertical-tabs__content" role="tabpanel" aria-labelledby="files-tab mobile-files-tab">
+	    <h2 class="page-title">Download files</h2>
+	    <p>Download the file for your platform. If you're not sure which to choose, learn more about <a href="https://packaging.python.org/installing/">installing packages</a>.</p>
+
+	    <table class="table table--downloads">
+	      <thead>
+		<tr>
+		  <th class="table__filename">
+		    Filename, size &amp; hash
+		    <a href="https://pip.pypa.io/en/stable/reference/pip_install/#hash-checking-mode" class="tooltipped tooltipped-n" aria-label="what's this?" data-original-label="what's this?" target="_blank">
+		      <i class="fa fa-question-circle" aria-hidden="true"></i>
+		      <span class="sr-only">SHA256 hash help</span>
+		    </a>
+		  </th>
+		  <th class="table__type">File type</th>
+		  <th class="table__version">Python version</th>
+		  <th class="table__upload-date">Upload date</th>
+		</tr>
+	      </thead>
+	      <tbody>
+
+		<tr>
+		  <td>
+		    <a href="https://files.pythonhosted.org/packages/35/cc/ae210f70dac681a7566f25f43740a0cbdc53a77e23684f7b9b1d71e4d918/xmldiff-1.1.1.tar.gz">
+		      xmldiff-1.1.1.tar.gz
+		    </a>
+		     (39.5 kB)
+		    <a class="-js-copy-hash table__sha256-link tooltipped tooltipped-s" aria-label="Copy to clipboard" data-original-label="Copy to clipboard" data-clipboard-text="b8dc6c36a3499e752cf5b5d2704d961be37fcf2ea5be2e4187572e18f674d053">
+		      <i class="fa fa-copy" aria-hidden="true"></i>
+		      <span class="sr-only">Copy SHA256 hash</span>
+		      SHA256
+		    </a>
+		  </td>
+		  <td>
+		    Source
+		  </td>
+		  <td>
+
+		      None
+
+		  </td>
+		  <td>Jun 20, 2018</td>
+		</tr>
+
+	      </tbody>
+	    </table>
+	  </div>
+
+      </div>
+    </div>
+  </div>
+</section>
+
+    </main>
+
+    <footer class="footer" role="contentinfo">
+      <div class="footer__logo">
+	<img src="/static/images/white-cube.8c3a6fe9.svg" alt="Logo" class="-js-white-cube">
+      </div>
+
+      <div class="footer__menus">
+	<ul class="footer__menu">
+	  <li>
+	    <h2>Help</h2>
+	  </li>
+	  <li><a href="https://packaging.python.org/installing/">Installing packages</a></li>
+	  <li><a href="https://packaging.python.org/distributing/">Uploading packages</a></li>
+	  <li><a href="https://packaging.python.org/">User guide</a></li>
+	  <li><a href="/help/">FAQs</a></li>
+	</ul>
+	<ul class="footer__menu">
+	  <li>
+	    <h2>About PyPI</h2>
+	  </li>
+
+	  <li><a href="https://status.python.org/">Status: <span data-statuspage-domain="https://2p66nmmycsj3.statuspage.io">all systems operational</span></a></li>
+
+	  <li><a href="https://dtdg.co/pypi">Infrastructure dashboard</a></li>
+	  <li><a href="https://www.python.org/dev/peps/pep-0541/">Package index name retention</a></li>
+	  <li><a href="/sponsors/">Our sponsors</a></li>
+	</ul>
+
+
+	<ul class="footer__menu">
+	  <li>
+	    <h2>Contributing to PyPI</h2>
+	  </li>
+	  <li><a href="/help/#feedback">Bugs and feedback</a></li>
+	  <li><a href="https://github.com/pypa/warehouse">Contribute on GitHub</a></li>
+	  <li><a href="https://github.com/pypa/warehouse/graphs/contributors">Development credits</a></li>
+	</ul>
+	<ul class="footer__menu">
+	  <li>
+	    <h2>Using PyPI</h2>
+	  </li>
+	  <li><a href="https://www.pypa.io/en/latest/code-of-conduct/">Code of conduct</a></li>
+	  <li><a href="/security/">Report security issue</a></li>
+	  <li><a href="https://www.python.org/privacy/">Privacy policy</a></li>
+	  <li><a href="/policy/terms-of-use/">Terms of use</a></li>
+	</ul>
+      </div>
+
+      <hr class="footer__divider">
+
+      <div class="footer__text">
+	<p>
+	  Developed and maintained by the Python community, for the Python community.
+	  <br>
+	  <a href="https://donate.pypi.org">Donate today!</a>
+	</p>
+	<p>© 2018 <a href="https://www.python.org/psf/">Python Software Foundation</a></p>
+      </div>
+
+      <div class="centered hide-on-desktop">
+	<button class="button button--switch-to-desktop hidden" data-target="viewport-toggle.switchToDesktop" data-action="viewport-toggle#switchToDesktop">
+	  Desktop version
+	</button>
+      </div>
+    </footer>
+
+
+
+<div class="sponsors">
+  <p class="sponsors__title">Supported by</p>
+
+
+      <a class="sponsors__sponsor" target="_blank" rel="noopener" href="https://www.elastic.co/">
+	<img class="sponsors__image" alt="Elastic" src="/static/images/sponsors/white/elastic.a912fb87.png">
+	<span class="sponsors__name">Elastic</span>
+	<span class="sponsors__service">Search</span>
+      </a>
+
+
+
+      <a class="sponsors__sponsor" target="_blank" rel="noopener" href="https://www.pingdom.com/">
+	<img class="sponsors__image" alt="Pingdom" src="/static/images/sponsors/white/pingdom.07446398.png">
+	<span class="sponsors__name">Pingdom</span>
+	<span class="sponsors__service">Monitoring</span>
+      </a>
+
+
+
+      <a class="sponsors__sponsor" target="_blank" rel="noopener" href="https://cloud.google.com/">
+	<img class="sponsors__image" alt="Google" src="/static/images/sponsors/white/google.2f72f26f.png">
+	<span class="sponsors__name">Google</span>
+	<span class="sponsors__service">BigQuery</span>
+      </a>
+
+
+
+      <a class="sponsors__sponsor" target="_blank" rel="noopener" href="https://getsentry.com/for/python">
+	<img class="sponsors__image" alt="Sentry" src="/static/images/sponsors/white/sentry.5ab437bc.png">
+	<span class="sponsors__name">Sentry</span>
+	<span class="sponsors__service">Error logging</span>
+      </a>
+
+
+
+      <a class="sponsors__sponsor" target="_blank" rel="noopener" href="https://aws.amazon.com/">
+	<img class="sponsors__image" alt="AWS" src="/static/images/sponsors/white/aws.5f800271.png">
+	<span class="sponsors__name">AWS</span>
+	<span class="sponsors__service">Cloud computing</span>
+      </a>
+
+
+
+      <a class="sponsors__sponsor" target="_blank" rel="noopener" href="https://www.datadoghq.com/">
+	<img class="sponsors__image" alt="DataDog" src="/static/images/sponsors/white/datadog.e569d741.png">
+	<span class="sponsors__name">DataDog</span>
+	<span class="sponsors__service">Monitoring</span>
+      </a>
+
+
+
+      <a class="sponsors__sponsor" target="_blank" rel="noopener" href="https://www.fastly.com/">
+	<img class="sponsors__image" alt="Fastly" src="/static/images/sponsors/white/fastly.0563c6f5.png">
+	<span class="sponsors__name">Fastly</span>
+	<span class="sponsors__service">CDN</span>
+      </a>
+
+
+
+      <a class="sponsors__sponsor" target="_blank" rel="noopener" href="https://www.digicert.com/">
+	<img class="sponsors__image" alt="DigiCert" src="/static/images/sponsors/white/digicert.79748718.png">
+	<span class="sponsors__name">DigiCert</span>
+	<span class="sponsors__service">EV certificate</span>
+      </a>
+
+
+
+      <a class="sponsors__sponsor" target="_blank" rel="noopener" href="https://statuspage.io">
+	<img class="sponsors__image" alt="StatusPage" src="/static/images/sponsors/white/statuspage.67af0b3d.png">
+	<span class="sponsors__name">StatusPage</span>
+	<span class="sponsors__service">Status page</span>
+      </a>
+
+
+</div>
+
+
+  </body>
+
+</html>

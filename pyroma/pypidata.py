@@ -10,14 +10,10 @@ except ImportError:
     import xmlrpclib
     import urllib
 
-OWNER_RE = re.compile(
-    r'<strong>Package Index Owner:</strong>\s*?<span>(.*?)</span>')
-READTHEDOCS_RE = re.compile(r'(https?://.*?\.readthedocs.org)')
-
 
 def _get_client():
     # I think I should be able to monkeypatch a mock-thingy here... I think.
-    return xmlrpclib.ServerProxy('https://pypi.python.org/pypi')
+    return xmlrpclib.ServerProxy('https://pypi.org/pypi')
 
 
 def get_data(project):
@@ -46,28 +42,6 @@ def get_data(project):
     # Get download_urls:
     urls = client.release_urls(project, release)
     data['_pypi_downloads'] = bool(urls)
-
-    # Scrape the PyPI project page for owner info:
-    url = '/'.join(('http://pypi.python.org/pypi', project, release))
-    page = urllib.urlopen(url)
-    content_type = page.headers.get('content-type', '')
-    if '=' not in content_type:
-        encoding = 'utf-8'
-    else:
-        encoding = content_type.split('=')[1]
-    html = page.read().decode(encoding)
-    owners = OWNER_RE.search(html).groups()[0]
-    data['_owners'] = [x.strip() for x in owners.split(',')]
-
-    logging.debug("Looking for documentation")
-    # See if there is any docs on readthedocs
-    data['_readthe_docs'] = False
-    #import pdb;pdb.set_trace()
-    rtdocs = READTHEDOCS_RE.search(html)
-    if rtdocs:
-        page = urllib.urlopen(rtdocs.groups()[0])
-        if page.code == 200:
-            data['_readthe_docs'] = True
 
     # If there is a source download, download it, and get that data.
     # This is done mostly to do the imports check.
