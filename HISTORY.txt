@@ -1,8 +1,8 @@
 Changelog
 =========
 
-2.3.2 (unreleased)
-------------------
+2.4 (2018-08-15)
+----------------
 
 - Get rid of the tests that rely on HTML scraping, it's too brittle.
 

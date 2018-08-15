@@ -1,7 +1,7 @@
 from setuptools import setup, find_packages
 from io import open
 
-version = '2.3.2.dev0'
+version = '2.4'
 
 long_description = (open("README.rst", 'rt', encoding='UTF-8').read() + "\n" +
                     open("HISTORY.txt", 'rt', encoding='UTF-8').read())
