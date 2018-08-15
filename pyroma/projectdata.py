@@ -6,23 +6,6 @@ import logging
 from copy import copy
 from distutils import core
 
-# From six (where else?):
-if sys.version_info[0] == 3:
-    def exec_(_code_, _globs_=None, _locs_=None):
-        exec(_code_, _globs_, _locs_)
-else:
-    def exec_(_code_, _globs_=None, _locs_=None):
-        """Execute code in a namespace."""
-        if _globs_ is None:
-            frame = sys._getframe(1)
-            _globs_ = frame.f_globals
-            if _locs_ is None:
-                _locs_ = frame.f_locals
-            del frame
-        elif _locs_ is None:
-            _locs_ = _globs_
-        exec("""exec _code_ in _globs_, _locs_""")
-
 
 class FakeContext(object):
 
@@ -135,7 +118,7 @@ def run_setup(script_name, script_args=None, stop_after="run"):
                 sys.argv[1:] = script_args
             f = open(script_name)
             try:
-                exec_(f.read(), glocals, glocals)
+                exec(f.read(), glocals, glocals)
             finally:
                 f.close()
         finally:
