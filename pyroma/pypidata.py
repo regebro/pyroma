@@ -11,13 +11,13 @@ except ImportError:
     import urllib
 
 OWNER_RE = re.compile(
-    r'<strong>Package Index Owner:</strong>\s*?<span>(.*?)</span>')
+    r'<span class="sidebar-section__maintainer">\s*<a href="/user/([^/]*?)/"')
 READTHEDOCS_RE = re.compile(r'(https?://.*?\.readthedocs.org)')
 
 
 def _get_client():
     # I think I should be able to monkeypatch a mock-thingy here... I think.
-    return xmlrpclib.ServerProxy('https://pypi.python.org/pypi')
+    return xmlrpclib.ServerProxy('https://pypi.org')
 
 
 def get_data(project):
