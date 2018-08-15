@@ -104,3 +104,4 @@ Contributors:
   * Érico Andrei
   * Jakub Wilk
   * Andreas Lutro
+  * Scott Colby

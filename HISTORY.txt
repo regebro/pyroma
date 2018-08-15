@@ -9,6 +9,10 @@ Changelog
 - Update to use pypi.org instead of pypi.python.org
   [Andreas Lutro, Lennart Regebro]
 
+- Added -n command line option to set the minimum rating needed for pyroma
+  to return success, useful in scripts.
+  [Scott Colby]
+
 
 2.3.1 (2018-05-28)
 ------------------
