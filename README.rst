@@ -53,7 +53,8 @@ This is the list of checks that are currently performed:
 
 * The version number should comply to PEP386.
 
-* The long_description should be over a 100 characters.
+* The description should be over 10 characters, and the long_description
+  should be over a 100 characters.
 
 * Pyroma will convert your long_description to HTML using Docutils, to
   verify that it is possible. This guarantees pretty formatting of your
@@ -68,23 +69,15 @@ This is the list of checks that are currently performed:
 
 * You should have a classifier specifying the project license.
 
-* If you are using setuptools or distribute you should specify zip_safe,
-  as it defaults to "true" and that's probably not what you want.
-
-* If you are using setuptools or distribute you can specify a test_suite
-  to run tests with 'setup.py test'. This makes it easy to run tests for
-  both humans and automated tools.
-
 * If you are checking on a PyPI package, and not a local directory or
   local package, pyroma will check the number of owners the package has
   on PyPI. It should be three or more, to minimize the "Bus factor",
   the risk of the index owners suddenly going off-line for whatever reason.
 
 * If you are checking on a PyPI package, and not a local directory or
-  local package, Pyroma will look for documentation for your package at
-  pythonhosted.org and readthedocs.org. If it can't find it, it prints out
-  a message to that effect. However, since you may have documentation
-  elsewhere, this does not affect your rating.
+  local package, pyroma will check that you have uploaded a source
+  distribution, and not just binary distributions.
+
 
 Credits
 -------

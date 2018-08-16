@@ -265,22 +265,6 @@ class LicenceClassifier(BaseTest):
         return "You should specify license in classifiers."
 
 
-class ZipSafe(BaseTest):
-
-    def test(self, data):
-        if data.get('_setuptools'):
-            self.weight = 20
-            return 'zip_safe' in data
-        else:
-            self.weight = 0
-            return True
-
-    def message(self):
-        return "You are using Setuptools or Distribute but do not specify if "\
-               "this package is zip_safe or not. You should specify it, as "\
-               "it defaults to True, which you probably do not want."
-
-
 class SDist(BaseTest):
     weight = 100
 
@@ -354,7 +338,6 @@ ALL_TESTS = [
     Url(),
     License(),
     LicenceClassifier(),
-    ZipSafe(),
     SDist(),
     ValidREST(),
     BusFactor(),

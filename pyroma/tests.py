@@ -157,9 +157,6 @@ class RatingsTest(unittest.TestCase):
             "Your package does not have url data.",
             "Your package does not have license data.",
             "You should specify license in classifiers.",
-            "You are using Setuptools or Distribute but do not specify if "
-            "this package is zip_safe or not. You should specify it, as it "
-            "defaults to True, which you probably do not want.",
         ]))
 
     def test_lacking(self):
@@ -179,9 +176,6 @@ class RatingsTest(unittest.TestCase):
             "Your package does not have url data.",
             "Your package does not have license data.",
             "You should specify license in classifiers.",
-            "You are using Setuptools or Distribute but do not specify if "
-            "this package is zip_safe or not. You should specify it, as it "
-            "defaults to True, which you probably do not want.",
         ]))
 
     def test_custom_test(self):
@@ -202,9 +196,6 @@ class RatingsTest(unittest.TestCase):
             "Your package does not have url data.",
             "Your package does not have license data.",
             "You should specify license in classifiers.",
-            "You are using Setuptools or Distribute but do not specify if "
-            "this package is zip_safe or not. You should specify it, as it "
-            "defaults to True, which you probably do not want.",
         ]))
 
 
