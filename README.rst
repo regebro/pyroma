@@ -62,6 +62,10 @@ This is the list of checks that are currently performed:
   even if there are warnings or error in the conversion. These warnings
   and errors are printed to stdout so you will see them.
 
+  NB! Currently this doesn't change the rating, this is because Docutils
+  no longer raises an error during this process, so I have to rewrite the
+  test. Once it's reinstated, incorrect syntax will be fatal.
+
 * You should have the following meta data fields filled in:
   classifiers, keywords, author, author_email, url and license.
 
@@ -77,7 +81,6 @@ This is the list of checks that are currently performed:
 * If you are checking on a PyPI package, and not a local directory or
   local package, pyroma will check that you have uploaded a source
   distribution, and not just binary distributions.
-
 
 Credits
 -------
