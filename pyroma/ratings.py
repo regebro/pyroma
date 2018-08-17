@@ -265,6 +265,23 @@ class LicenceClassifier(BaseTest):
         return "You should specify license in classifiers."
 
 
+class DevStatusClassifier(BaseTest):
+    weight = 20
+
+    def test(self, data):
+        classifiers = data.get('classifiers', [])
+        for classifier in classifiers:
+            parts = [p.strip() for p in classifier.split('::')]
+            if parts[0] == 'Development Status':
+                # license classifier exist
+                return True
+        return False
+
+    def message(self):
+        return "Specifying a development status in the classifiers gives "\
+               "users a hint of how stable your software is."
+
+
 class SDist(BaseTest):
     weight = 100
 
@@ -341,6 +358,7 @@ ALL_TESTS = [
     SDist(),
     ValidREST(),
     BusFactor(),
+    DevStatusClassifier(),
 ]
 
 

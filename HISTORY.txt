@@ -6,6 +6,8 @@ Changelog
 
 - Added back the BusFactor test, the XMLRPC API supports it.
 
+- #26: Adding a test to check for a development status classifier.
+
 
 2.4 (2018-08-15)
 ----------------

@@ -157,6 +157,8 @@ class RatingsTest(unittest.TestCase):
             "Your package does not have url data.",
             "Your package does not have license data.",
             "You should specify license in classifiers.",
+            "Specifying a development status in the classifiers gives users " \
+            "a hint of how stable your software is.",
         ]))
 
     def test_lacking(self):
@@ -176,6 +178,9 @@ class RatingsTest(unittest.TestCase):
             "Your package does not have url data.",
             "Your package does not have license data.",
             "You should specify license in classifiers.",
+            "Specifying a development status in the classifiers gives users " \
+            "a hint of how stable your software is.",
+
         ]))
 
     def test_custom_test(self):
@@ -196,6 +201,8 @@ class RatingsTest(unittest.TestCase):
             "Your package does not have url data.",
             "Your package does not have license data.",
             "You should specify license in classifiers.",
+            "Specifying a development status in the classifiers gives users " \
+            "a hint of how stable your software is.",
         ]))
 
 
