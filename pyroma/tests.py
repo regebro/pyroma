@@ -155,8 +155,7 @@ class RatingsTest(unittest.TestCase):
             "Your package does not have author data.",
             "Your package does not have author_email data.",
             "Your package should have a 'url' field with a link to the project home page, or a 'project_urls' field, with a dictionary of links, or both.",
-            "Your package does not have license data.",
-            "You should specify license in classifiers.",
+            "Your package does neither have a license field nor any license classifiers.",
             "Specifying a development status in the classifiers gives users " \
             "a hint of how stable your software is.",
         ]))
@@ -176,8 +175,7 @@ class RatingsTest(unittest.TestCase):
             "Your package does not have author data.",
             "Your package does not have author_email data.",
             "Your package should have a 'url' field with a link to the project home page, or a 'project_urls' field, with a dictionary of links, or both.",
-            "Your package does not have license data.",
-            "You should specify license in classifiers.",
+            "Your package does neither have a license field nor any license classifiers.",
             "Specifying a development status in the classifiers gives users " \
             "a hint of how stable your software is.",
 
@@ -199,8 +197,7 @@ class RatingsTest(unittest.TestCase):
             "Your package does not have author data.",
             "Your package does not have author_email data.",
             "Your package should have a 'url' field with a link to the project home page, or a 'project_urls' field, with a dictionary of links, or both.",
-            "Your package does not have license data.",
-            "You should specify license in classifiers.",
+            "Your package does neither have a license field nor any license classifiers.",
             "Specifying a development status in the classifiers gives users " \
             "a hint of how stable your software is.",
         ]))
@@ -219,9 +216,10 @@ class PyPITest(unittest.TestCase):
             data = pypidata.get_data('distribute')
             rating = rate(data)
 
-            self.assertEqual(rating, (9, [
+            self.assertEqual(rating, (8, [
                 'The classifiers should specify what minor versions of Python '
                 'you support as well as what major version.',
+                "The license specification 'PSF or ZPL' is not listed as a common name for 'License :: OSI Approved :: Zope Public License'. Expected 'ZPL'.",
                 'You should have three or more owners of the project on PyPI.'
             ]))
         finally:
