@@ -8,6 +8,8 @@ Changelog
 
 - #26: Adding a test to check for a development status classifier.
 
+- #21: Accept the new project_urls distribution data.
+
 
 2.4 (2018-08-15)
 ----------------

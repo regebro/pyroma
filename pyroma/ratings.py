@@ -239,9 +239,16 @@ class AuthorEmail(FieldTest):
     field = 'author_email'
 
 
-class Url(FieldTest):
+class Url(BaseTest):
     weight = 20
-    field = 'url'
+
+    def test(self, data):
+        return bool(data.get('url')) or bool(data.get('project_urls'))
+
+    def message(self):
+        return ("Your package should have a 'url' field with a link to the "
+                "project home page, or a 'project_urls' field, with a "
+                "dictionary of links, or both.")
 
 
 class License(FieldTest):
