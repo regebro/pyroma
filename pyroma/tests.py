@@ -37,6 +37,7 @@ COMPLETE = {'_setuptools': True,
             'keywords': ['pypi', 'quality', 'example'],
             'author': 'Lennart Regebro',
             'author_email': 'regebro@gmail.com',
+            'url': 'https://github.com/regebro/pyroma',
             'project_urls': {'Source Code': 'https://github.com/regebro/pyroma'},
             'license': 'MIT',
             'zip_safe': True,
@@ -263,6 +264,6 @@ class DistroDataTest(unittest.TestCase):
 
         for filename in os.listdir(directory):
             if filename.startswith('complete'):
-                data = distributiondata.get_data(os.path.join(directory,
-                                                              filename))
+                data = distributiondata.get_data(
+                    os.path.join(directory, filename))
                 self.assertEqual(data, COMPLETE)

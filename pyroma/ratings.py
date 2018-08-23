@@ -178,6 +178,24 @@ class Classifiers(FieldTest):
     field = 'classifiers'
 
 
+class ClassifierVerification(BaseTest):
+    weight = 20
+
+    def test(self, data):
+        self._incorrect = []
+        classifiers = data.get('classifiers', [])
+        for classifier in classifiers:
+            if classifier not in CLASSIFIERS:
+                self._incorrect.append(classifier)
+        if self._incorrect:
+            return False
+        return True
+
+    def message(self):
+        err = '\n'.join(self._incorrect)
+        return "Some of your classifiers are not standard classifiers:\n" + err
+
+
 class PythonVersion(BaseTest):
 
     def test(self, data):
@@ -385,6 +403,7 @@ ALL_TESTS = [
     Description(),
     LongDescription(),
     Classifiers(),
+    ClassifierVerification(),
     PythonVersion(),
     Keywords(),
     Author(),

@@ -10,6 +10,9 @@ Changelog
 
 - #21: Accept the new project_urls distribution data.
 
+- Now verifies that classifiers are valid, and that the license field
+  and license classifiers match.
+
 
 2.4 (2018-08-15)
 ----------------
