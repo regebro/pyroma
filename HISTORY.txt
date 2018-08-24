@@ -13,6 +13,8 @@ Changelog
 - Now verifies that classifiers are valid, and that the license field
   and license classifiers match.
 
+- The rating now again reflects if the long_description isn't valid ReST.
+
 
 2.4 (2018-08-15)
 ----------------
