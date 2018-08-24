@@ -15,7 +15,7 @@
 #     test(data): Performs the test on the given data. Returns True for pass
 #                 False for fail and None for not applicable (meaning it will
 #                 not be counted).
-
+import io
 import re
 from docutils.core import publish_parts
 from docutils.utils import SystemMessage
@@ -359,14 +359,20 @@ class ValidREST(BaseTest):
 
     def test(self, data):
         source = data.get('long_description', '')
-        try:
-            # Try to publish to HTML and see if we get an error or not.
-            publish_parts(source=source, writer_name='html4css1')
-        except SystemMessage as e:
-            self._message = e.args[0].strip()
-            return False
+        stream = io.StringIO()
+        settings = {"warning_stream": stream}
 
-        return True
+        try:
+            parts = publish_parts(source=source, writer_name='html4css1',
+                                  settings_overrides=settings)
+        except SystemMessage as e:
+            self._message = e.args[0]
+        errors = stream.getvalue().strip()
+        if not errors:
+            return True
+
+        self._message = '\n' + errors
+        return False
 
     def message(self):
         return 'Your long_description is not valid ReST: ' + self._message
