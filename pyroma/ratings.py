@@ -19,6 +19,7 @@
 import re
 from docutils.core import publish_parts
 from docutils.utils import SystemMessage
+from pyroma.classifiers import CLASSIFIERS, CODE_LICENSES, LICENSE_CODES
 
 try:
     stringtypes = basestring,
@@ -177,6 +178,24 @@ class Classifiers(FieldTest):
     field = 'classifiers'
 
 
+class ClassifierVerification(BaseTest):
+    weight = 20
+
+    def test(self, data):
+        self._incorrect = []
+        classifiers = data.get('classifiers', [])
+        for classifier in classifiers:
+            if classifier not in CLASSIFIERS:
+                self._incorrect.append(classifier)
+        if self._incorrect:
+            return False
+        return True
+
+    def message(self):
+        err = '\n'.join(self._incorrect)
+        return "Some of your classifiers are not standard classifiers:\n" + err
+
+
 class PythonVersion(BaseTest):
 
     def test(self, data):
@@ -251,25 +270,54 @@ class Url(BaseTest):
                 "dictionary of links, or both.")
 
 
-class License(FieldTest):
+class Licensing(BaseTest):
     weight = 50
-    field = 'license'
-
-
-class LicenceClassifier(BaseTest):
-    weight = 20
 
     def test(self, data):
+        license = data.get('license')
         classifiers = data.get('classifiers', [])
+        licenses = set()
         for classifier in classifiers:
             parts = [p.strip() for p in classifier.split('::')]
             if parts[0] == 'License':
                 # license classifier exist
-                return True
-        return False
+                licenses.add(classifier)
+
+        if not license and not licenses:
+            self._message = "Your package does neither have a license field "\
+                "nor any license classifiers."
+            return False
+
+        if not license:
+            self._message = "Your package does not have a license field."
+            return False
+
+        if not licenses:
+            self._message = "You should specify one or several licenses in "\
+                "the classifiers."
+            return False
+
+        if license in CODE_LICENSES:
+            if not CODE_LICENSES[license].intersection(licenses):
+                self._message = "The license '%s' specified is not listed in "\
+                    "your classifiers." % license
+                return False
+            # We have a standard license in the license field, and it's
+            # also in classifiers.
+            return True
+
+        for classifier in classifiers:
+            if classifier in LICENSE_CODES:
+                # A common license is in classifiers, but no common license
+                # was specified as licence.
+                expected = LICENSE_CODES[classifier]
+                self._message = "The license specification '%s' is not "\
+                    "listed as a common name for '%s'. Expected '%s'." % (
+                        license, classifier, "' or '".join(expected))
+                return False
 
     def message(self):
-        return "You should specify license in classifiers."
+        return self._message
 
 
 class DevStatusClassifier(BaseTest):
@@ -355,13 +403,13 @@ ALL_TESTS = [
     Description(),
     LongDescription(),
     Classifiers(),
+    ClassifierVerification(),
     PythonVersion(),
     Keywords(),
     Author(),
     AuthorEmail(),
     Url(),
-    License(),
-    LicenceClassifier(),
+    Licensing(),
     SDist(),
     ValidREST(),
     BusFactor(),

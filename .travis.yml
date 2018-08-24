@@ -1,15 +1,18 @@
 language: python
 os:
   - linux
-python:
-  - "2.7"
-  - "3.5"
-  - "3.6"
-  - "nightly" # currently points to 3.7-dev
-  - "pypy"
-  - "pypy3"
-# command to run tests
-install: python setup.py develop
-# Nothing needed
+matrix:
+  fast_finish: true
+  include:
+  - python: 2.7
+  - python: 3.6
+  - python: 3.7
+    sudo: required
+    dist: xenial
+  - python: pypy
+  - python: pypy3
+install:
+  - pip install -U setuptools>=39.2.0
+  - python setup.py develop
 script: python setup.py test
 

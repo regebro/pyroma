@@ -10,8 +10,6 @@ setup(name='pyroma',
       version=version,
       description="Test your project's packaging friendliness",
       long_description=long_description,
-      # Get more strings from
-      # http://pypi.python.org/pypi?:action=list_classifiers
       classifiers=[
           "Programming Language :: Python :: 2.7",
           "Programming Language :: Python :: 3",
@@ -32,6 +30,9 @@ setup(name='pyroma',
       install_requires=[
           'setuptools',
           'docutils',
+      ],
+      tests_require=[
+          'setuptools>=39.2.0',
       ],
       entry_points={
           'console_scripts': [
