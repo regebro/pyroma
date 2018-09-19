@@ -131,20 +131,19 @@ class ProxyStub(object):
 
 class RatingsTest(unittest.TestCase):
 
-    def test_complete(self):
+    def _get_file_rating(self, dirname):
         directory = resource_filename(
-            __name__, os.path.join('testdata', 'complete'))
+            __name__, os.path.join('testdata', dirname))
         data = projectdata.get_data(directory)
-        rating = rate(data)
+        return rate(data)
 
+    def test_complete(self):
+        rating = self._get_file_rating('complete')
         # Should have a perfect score
         self.assertEqual(rating, (10, []))
 
     def test_minimal(self):
-        directory = resource_filename(
-            __name__, os.path.join('testdata', 'minimal'))
-        data = projectdata.get_data(directory)
-        rating = rate(data)
+        rating = self._get_file_rating('minimal')
 
         self.assertEqual(rating, (2, [
             "The package's version number does not comply with PEP-386 or PEP-440.",
@@ -162,10 +161,7 @@ class RatingsTest(unittest.TestCase):
         ]))
 
     def test_lacking(self):
-        directory = resource_filename(
-            __name__, os.path.join('testdata', 'lacking'))
-        data = projectdata.get_data(directory)
-        rating = rate(data)
+        rating = self._get_file_rating('lacking')
 
         self.assertEqual(rating, (0, [
             "The package had no description!",
@@ -184,10 +180,7 @@ class RatingsTest(unittest.TestCase):
         ]))
 
     def test_custom_test(self):
-        directory = resource_filename(
-            __name__, os.path.join('testdata', 'custom_test'))
-        data = projectdata.get_data(directory)
-        rating = rate(data)
+        rating = self._get_file_rating('custom_test')
 
         self.assertEqual(rating, (2, [
             "The package's version number does not comply with PEP-386 or PEP-440.",
