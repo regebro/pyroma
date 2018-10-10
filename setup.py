@@ -3,8 +3,11 @@ from io import open
 
 version = '2.5.dev0'
 
-long_description = (open("README.rst", 'rt', encoding='UTF-8').read() + "\n" +
-                    open("HISTORY.txt", 'rt', encoding='UTF-8').read())
+with open("README.rst", 'rt', encoding='UTF-8') as file:
+    long_description = file.read() + '\n'
+
+with open("HISTORY.txt", 'rt', encoding='UTF-8') as file:
+    long_description += file.read()
 
 setup(name='pyroma',
       version=version,
@@ -17,6 +20,7 @@ setup(name='pyroma',
           "Programming Language :: Python :: 3.6",
           "Programming Language :: Python :: Implementation :: PyPy",
           "License :: OSI Approved :: MIT License",
+          "Development Status :: 5 - Production/Stable",
       ],
       keywords=['pypi', 'quality', 'testing'],
       author='Lennart Regebro',
