@@ -35,9 +35,6 @@ setup(name='pyroma',
           'setuptools',
           'docutils',
       ],
-      tests_require=[
-          'setuptools>=39.2.0',
-      ],
       entry_points={
           'console_scripts': [
               'pyroma = pyroma:main',
