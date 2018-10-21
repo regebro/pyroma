@@ -426,7 +426,7 @@ ALL_TESTS = [
 def rate(data):
     if not data:
         # No data was gathered. Fail:
-        return (0, ["I couldn't find any package data"])
+        return 0, ["I couldn't find any package data"]
     fails = []
     good = 0
     bad = 0
