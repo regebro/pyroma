@@ -32,7 +32,7 @@ def get_data(project):
         releases = [p['version'] for p in reversed(projects)]
     release = releases[0]
     # Get the metadata:
-    logging.debug("Found %s version %s" % (project, release))
+    logging.debug("Found {} version {}".format(project, release))
     data = client.release_data(project, release)
 
     # Map things around:
