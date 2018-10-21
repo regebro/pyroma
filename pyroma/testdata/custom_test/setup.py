@@ -7,6 +7,7 @@ version = '0.0foo'
 class CustomTest(test):
     pass
 
+
 setup(name='minimal',
       version=version,
       description="Test",

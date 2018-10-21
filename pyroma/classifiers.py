@@ -794,4 +794,3 @@ CODE_LICENSES = {
     "LGPLv2": {
         "License :: OSI Approved :: GNU Lesser General Public License v2 (LGPLv2)"},
 }
-

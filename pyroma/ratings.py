@@ -75,6 +75,7 @@ class VersionIsString(BaseTest):
     def message(self):
         return 'The version number should be a string.'
 
+
 PEP386_RE = re.compile(r'''
     ^
     (?P<version>\d+\.\d+)          # minimum 'N.N'
@@ -118,6 +119,7 @@ PEP440_RE = re.compile(r"""^
     )
     (?:\+(?P<local>[a-z0-9]+(?:[-_\.][a-z0-9]+)*))?       # local version
 $""", re.VERBOSE | re.IGNORECASE)
+
 
 class PEPVersion(BaseTest):
     weight = 50
@@ -363,8 +365,8 @@ class ValidREST(BaseTest):
         settings = {"warning_stream": stream}
 
         try:
-            parts = publish_parts(source=source, writer_name='html4css1',
-                                  settings_overrides=settings)
+            publish_parts(source=source, writer_name='html4css1',
+                          settings_overrides=settings)
         except SystemMessage as e:
             self._message = e.args[0]
         errors = stream.getvalue().strip()
