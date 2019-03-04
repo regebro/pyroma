@@ -4,6 +4,8 @@ Changelog
 2.5 (unreleased)
 ----------------
 
+- Fixed #35: Correctly restore ``sys.argv``.  [maurits]
+
 - Added back the BusFactor test, the XMLRPC API supports it.
 
 - #26: Adding a test to check for a development status classifier.
