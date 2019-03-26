@@ -53,12 +53,15 @@ CLASSIFIERS = {
     "Framework :: Django :: 1.9",
     "Framework :: Django :: 2.0",
     "Framework :: Django :: 2.1",
+    "Framework :: Django :: 2.2",
     "Framework :: Flake8",
     "Framework :: Flask",
+    "Framework :: Hypothesis",
     "Framework :: IDLE",
     "Framework :: IPython",
     "Framework :: Jupyter",
     "Framework :: Lektor",
+    "Framework :: Masonite",
     "Framework :: Odoo",
     "Framework :: Opps",
     "Framework :: Paste",
@@ -75,6 +78,9 @@ CLASSIFIERS = {
     "Framework :: Plone :: 5.0",
     "Framework :: Plone :: 5.1",
     "Framework :: Plone :: 5.2",
+    "Framework :: Plone :: 5.3",
+    "Framework :: Plone :: Addon",
+    "Framework :: Plone :: Core",
     "Framework :: Plone :: Theme",
     "Framework :: Pylons",
     "Framework :: Pyramid",
@@ -132,6 +138,8 @@ CLASSIFIERS = {
     "License :: Freely Distributable",
     "License :: Free To Use But Restricted",
     "License :: Freeware",
+    "License :: GUST Font License 1.0",
+    "License :: GUST Font License 2006-09-30",
     "License :: Netscape Public License (NPL)",
     "License :: Nokia Open Source License (NOKOS)",
     "License :: OSI Approved",
@@ -164,10 +172,12 @@ CLASSIFIERS = {
     "License :: OSI Approved :: GNU Lesser General Public License v3 (LGPLv3)",
     "License :: OSI Approved :: GNU Lesser General Public License v3 or later (LGPLv3+)",
     "License :: OSI Approved :: GNU Library or Lesser General Public License (LGPL)",
+    "License :: OSI Approved :: Historical Permission Notice and Disclaimer (HPND)",
     "License :: OSI Approved :: IBM Public License",
     "License :: OSI Approved :: Intel Open Source License",
     "License :: OSI Approved :: ISC License (ISCL)",
     "License :: OSI Approved :: Jabber Open Source License",
+    "License :: OSI Approved :: MirOS License (MirOS)",
     "License :: OSI Approved :: MIT License",
     "License :: OSI Approved :: MITRE Collaborative Virtual Workspace License (CVW)",
     "License :: OSI Approved :: Motosoto License",
@@ -182,6 +192,7 @@ CLASSIFIERS = {
     "License :: OSI Approved :: Python Software Foundation License",
     "License :: OSI Approved :: Qt Public License (QPL)",
     "License :: OSI Approved :: Ricoh Source Code Public License",
+    "License :: OSI Approved :: SIL Open Font License 1.1 (OFL-1.1)",
     "License :: OSI Approved :: Sleepycat License",
     "License :: OSI Approved :: Sun Industry Standards Source License (SISSL)",
     "License :: OSI Approved :: Sun Public License",
@@ -348,6 +359,7 @@ CLASSIFIERS = {
     "Programming Language :: Python :: 3.5",
     "Programming Language :: Python :: 3.6",
     "Programming Language :: Python :: 3.7",
+    "Programming Language :: Python :: 3.8",
     "Programming Language :: Python :: 3 :: Only",
     "Programming Language :: Python :: Implementation",
     "Programming Language :: Python :: Implementation :: CPython",
@@ -356,6 +368,7 @@ CLASSIFIERS = {
     "Programming Language :: Python :: Implementation :: MicroPython",
     "Programming Language :: Python :: Implementation :: PyPy",
     "Programming Language :: Python :: Implementation :: Stackless",
+    "Programming Language :: R",
     "Programming Language :: REBOL",
     "Programming Language :: Rexx",
     "Programming Language :: Ruby",
@@ -662,136 +675,146 @@ CLASSIFIERS = {
     "Topic :: Text Processing :: Markup :: VRML",
     "Topic :: Text Processing :: Markup :: XML",
     "Topic :: Utilities",
+    "Typing :: Typed",
 }
 
 LICENSE_CODES = {
-    "License :: OSI Approved :: Eclipse Public License 2.0 (EPL-2.0)": set(["EPL-2.0"]),
-    "License :: CC0 1.0 Universal (CC0 1.0) Public Domain Dedication": set(["CC0 1.0"]),
-    "License :: OSI Approved :: Sun Industry Standards Source License (SISSL)": set(["SISSL"]),
-    "License :: OSI Approved :: GNU General Public License v2 or later (GPLv2+)": set(["GPLv2+", "GPL"]),
-    "License :: OSI Approved :: Eclipse Public License 1.0 (EPL-1.0)": set(["EPL-1.0"]),
-    "License :: OSI Approved :: GNU Lesser General Public License v3 (LGPLv3)": set(["LGPL", "LGPLv3"]),
-    "License :: OSI Approved :: Mozilla Public License 2.0 (MPL 2.0)": set(["MPL 2.0"]),
-    "License :: OSI Approved :: European Union Public Licence 1.0 (EUPL 1.0)": set(["EUPL 1.0"]),
-    "License :: CeCILL-C Free Software License Agreement (CECILL-C)": set(["CECILL-C"]),
-    "License :: OSI Approved :: GNU Lesser General Public License v2 or later (LGPLv2+)": set(["LGPL", "LGPLv2+"]),
-    "License :: OSI Approved :: GNU General Public License v3 (GPLv3)": set(["GPL", "GPLv3"]),
-    "License :: CeCILL-B Free Software License Agreement (CECILL-B)": set(["CECILL-B"]),
-    "License :: OSI Approved :: GNU Affero General Public License v3 or later (AGPLv3+)": set(["AGPLv3+"]),
-    "License :: OSI Approved :: Zope Public License": set(["ZPL"]),
-    "License :: OSI Approved :: CEA CNRS Inria Logiciel Libre License, version 2.1 (CeCILL-2.1)": set(["CeCILL-2.1"]),
-    "License :: OSI Approved :: European Union Public Licence 1.2 (EUPL 1.2)": set(["EUPL 1.2"]),
-    "License :: OSI Approved :: MITRE Collaborative Virtual Workspace License (CVW)": set(["CVW"]),
-    "License :: OSI Approved :: GNU Free Documentation License (FDL)": set(["FDL"]),
     "License :: Aladdin Free Public License (AFPL)": set(["AFPL"]),
-    "License :: OSI Approved :: GNU General Public License (GPL)": set(["GPL"]),
+    "License :: CC0 1.0 Universal (CC0 1.0) Public Domain Dedication": set(["CC0 1.0"]),
+    "License :: CeCILL-B Free Software License Agreement (CECILL-B)": set(["CECILL-B"]),
+    "License :: CeCILL-C Free Software License Agreement (CECILL-C)": set(["CECILL-C"]),
     "License :: Eiffel Forum License (EFL)": set(["EFL"]),
-    "License :: OSI Approved :: Mozilla Public License 1.1 (MPL 1.1)": set(["MPL 1.1"]),
-    "License :: OSI Approved :: Python License (CNRI Python License)": set(["CNRI Python License"]),
-    "License :: Nokia Open Source License (NOKOS)": set(["NOKOS"]),
-    "License :: OSI Approved :: Mozilla Public License 1.0 (MPL)": set(["MPL"]),
-    "License :: OSI Approved :: GNU Lesser General Public License v3 or later (LGPLv3+)": set(["LGPLv3+", "LGPL"]),
-    "License :: OSI Approved :: Qt Public License (QPL)": set(["QPL"]),
-    "License :: OSI Approved :: GNU Library or Lesser General Public License (LGPL)": set(["LGPL"]),
-    "License :: OSI Approved :: Common Development and Distribution License 1.0 (CDDL-1.0)": set(["CDDL-1.0"]),
-    "License :: OSI Approved :: GNU General Public License v2 (GPLv2)": set(["GPL", "GPLv2"]),
-    "License :: OSI Approved :: MIT License": set(["MIT"]),
     "License :: Netscape Public License (NPL)": set(["NPL"]),
-    "License :: OSI Approved :: GNU General Public License v3 or later (GPLv3+)": set(["GPL", "GPLv3+"]),
-    "License :: OSI Approved :: GNU Lesser General Public License v2 (LGPLv2)": set(["LGPL", "LGPLv2"]),
-    "License :: OSI Approved :: Boost Software License 1.0 (BSL-1.0)": set(["BSL-1.0"]),
-    "License :: OSI Approved :: European Union Public Licence 1.1 (EUPL 1.1)": set(["EUPL 1.1"]),
-    "License :: OSI Approved :: ISC License (ISCL)": set(["ISCL"]),
+    "License :: Nokia Open Source License (NOKOS)": set(["NOKOS"]),
     "License :: OSI Approved :: Academic Free License (AFL)": set(["AFL"]),
+    "License :: OSI Approved :: Boost Software License 1.0 (BSL-1.0)": set(["BSL-1.0"]),
+    "License :: OSI Approved :: CEA CNRS Inria Logiciel Libre License, version 2.1 (CeCILL-2.1)": set(["CeCILL-2.1"]),
+    "License :: OSI Approved :: Common Development and Distribution License 1.0 (CDDL-1.0)": set(["CDDL-1.0"]),
+    "License :: OSI Approved :: Eclipse Public License 1.0 (EPL-1.0)": set(["EPL-1.0"]),
+    "License :: OSI Approved :: Eclipse Public License 2.0 (EPL-2.0)": set(["EPL-2.0"]),
+    "License :: OSI Approved :: European Union Public Licence 1.0 (EUPL 1.0)": set(["EUPL 1.0"]),
+    "License :: OSI Approved :: European Union Public Licence 1.1 (EUPL 1.1)": set(["EUPL 1.1"]),
+    "License :: OSI Approved :: European Union Public Licence 1.2 (EUPL 1.2)": set(["EUPL 1.2"]),
+    "License :: OSI Approved :: GNU Affero General Public License v3 or later (AGPLv3+)": set(["AGPLv3+"]),
+    "License :: OSI Approved :: GNU Free Documentation License (FDL)": set(["FDL"]),
+    "License :: OSI Approved :: GNU General Public License (GPL)": set(["GPL"]),
+    "License :: OSI Approved :: GNU General Public License v2 (GPLv2)": set(["GPLv2", "GPL"]),
+    "License :: OSI Approved :: GNU General Public License v2 or later (GPLv2+)": set(["GPLv2+", "GPL"]),
+    "License :: OSI Approved :: GNU General Public License v3 (GPLv3)": set(["GPLv3", "GPL"]),
+    "License :: OSI Approved :: GNU General Public License v3 or later (GPLv3+)": set(["GPLv3+", "GPL"]),
+    "License :: OSI Approved :: GNU Lesser General Public License v2 (LGPLv2)": set(["LGPL", "LGPLv2"]),
+    "License :: OSI Approved :: GNU Lesser General Public License v2 or later (LGPLv2+)": set(["LGPLv2+", "LGPL"]),
+    "License :: OSI Approved :: GNU Lesser General Public License v3 (LGPLv3)": set(["LGPLv3", "LGPL"]),
+    "License :: OSI Approved :: GNU Lesser General Public License v3 or later (LGPLv3+)": set(["LGPL", "LGPLv3+"]),
+    "License :: OSI Approved :: GNU Library or Lesser General Public License (LGPL)": set(["LGPL"]),
+    "License :: OSI Approved :: Historical Permission Notice and Disclaimer (HPND)": set(["HPND"]),
+    "License :: OSI Approved :: ISC License (ISCL)": set(["ISCL"]),
+    "License :: OSI Approved :: MirOS License (MirOS)": set(["MirOS"]),
+    "License :: OSI Approved :: MIT License": set(["MIT"]),
+    "License :: OSI Approved :: MITRE Collaborative Virtual Workspace License (CVW)": set(["CVW"]),
+    "License :: OSI Approved :: Mozilla Public License 1.0 (MPL)": set(["MPL"]),
+    "License :: OSI Approved :: Mozilla Public License 1.1 (MPL 1.1)": set(["MPL 1.1"]),
+    "License :: OSI Approved :: Mozilla Public License 2.0 (MPL 2.0)": set(["MPL 2.0"]),
+    "License :: OSI Approved :: Python License (CNRI Python License)": set(["CNRI Python License"]),
+    "License :: OSI Approved :: Qt Public License (QPL)": set(["QPL"]),
+    "License :: OSI Approved :: SIL Open Font License 1.1 (OFL-1.1)": set(["OFL-1.1"]),
+    "License :: OSI Approved :: Sun Industry Standards Source License (SISSL)": set(["SISSL"]),
     "License :: OSI Approved :: Universal Permissive License (UPL)": set(["UPL"]),
+    "License :: OSI Approved :: Zope Public License": set(["ZPL"]),
 }
 
 CODE_LICENSES = {
-    "GPLv2+": set([
-        "License :: OSI Approved :: GNU General Public License v2 or later (GPLv2+)"]),
-    "GPLv3+": set([
-        "License :: OSI Approved :: GNU General Public License v3 or later (GPLv3+)"]),
-    "CECILL-C": set([
-        "License :: CeCILL-C Free Software License Agreement (CECILL-C)"]),
-    "CECILL-B": set([
-        "License :: CeCILL-B Free Software License Agreement (CECILL-B)"]),
-    "GPLv2": set([
-        "License :: OSI Approved :: GNU General Public License v2 (GPLv2)"]),
-    "GPLv3": set([
-        "License :: OSI Approved :: GNU General Public License v3 (GPLv3)"]),
-    "BSL-1.0": set([
-        "License :: OSI Approved :: Boost Software License 1.0 (BSL-1.0)"]),
-    "FDL": set([
-        "License :: OSI Approved :: GNU Free Documentation License (FDL)"]),
     "AFPL": set([
         "License :: Aladdin Free Public License (AFPL)"]),
+    "CC0 1.0": set([
+        "License :: CC0 1.0 Universal (CC0 1.0) Public Domain Dedication"]),
+    "CECILL-B": set([
+        "License :: CeCILL-B Free Software License Agreement (CECILL-B)"]),
+    "CECILL-C": set([
+        "License :: CeCILL-C Free Software License Agreement (CECILL-C)"]),
+    "EFL": set([
+        "License :: Eiffel Forum License (EFL)"]),
+    "NPL": set([
+        "License :: Netscape Public License (NPL)"]),
+    "NOKOS": set([
+        "License :: Nokia Open Source License (NOKOS)"]),
+    "AFL": set([
+        "License :: OSI Approved :: Academic Free License (AFL)"]),
+    "BSL-1.0": set([
+        "License :: OSI Approved :: Boost Software License 1.0 (BSL-1.0)"]),
+    "CeCILL-2.1": set([
+        "License :: OSI Approved :: CEA CNRS Inria Logiciel Libre License, version 2.1 (CeCILL-2.1)"]),
     "CDDL-1.0": set([
         "License :: OSI Approved :: Common Development and Distribution License 1.0 (CDDL-1.0)"]),
-    "MPL 1.1": set([
-        "License :: OSI Approved :: Mozilla Public License 1.1 (MPL 1.1)"]),
+    "EPL-1.0": set([
+        "License :: OSI Approved :: Eclipse Public License 1.0 (EPL-1.0)"]),
+    "EPL-2.0": set([
+        "License :: OSI Approved :: Eclipse Public License 2.0 (EPL-2.0)"]),
+    "EUPL 1.0": set([
+        "License :: OSI Approved :: European Union Public Licence 1.0 (EUPL 1.0)"]),
+    "EUPL 1.1": set([
+        "License :: OSI Approved :: European Union Public Licence 1.1 (EUPL 1.1)"]),
+    "EUPL 1.2": set([
+        "License :: OSI Approved :: European Union Public Licence 1.2 (EUPL 1.2)"]),
+    "AGPLv3+": set([
+        "License :: OSI Approved :: GNU Affero General Public License v3 or later (AGPLv3+)"]),
+    "FDL": set([
+        "License :: OSI Approved :: GNU Free Documentation License (FDL)"]),
+    "GPL": set([
+        "License :: OSI Approved :: GNU General Public License v2 (GPLv2)",
+        "License :: OSI Approved :: GNU General Public License v2 or later (GPLv2+)",
+        "License :: OSI Approved :: GNU General Public License v3 or later (GPLv3+)",
+        "License :: OSI Approved :: GNU General Public License v3 (GPLv3)",
+        "License :: OSI Approved :: GNU General Public License (GPL)"]),
+    "GPLv2": set([
+        "License :: OSI Approved :: GNU General Public License v2 (GPLv2)"]),
+    "GPLv2+": set([
+        "License :: OSI Approved :: GNU General Public License v2 or later (GPLv2+)"]),
+    "GPLv3": set([
+        "License :: OSI Approved :: GNU General Public License v3 (GPLv3)"]),
+    "GPLv3+": set([
+        "License :: OSI Approved :: GNU General Public License v3 or later (GPLv3+)"]),
+    "LGPLv2": set([
+        "License :: OSI Approved :: GNU Lesser General Public License v2 (LGPLv2)"]),
+    "LGPL": set([
+        "License :: OSI Approved :: GNU Lesser General Public License v3 (LGPLv3)",
+        "License :: OSI Approved :: GNU Library or Lesser General Public License (LGPL)",
+        "License :: OSI Approved :: GNU Lesser General Public License v3 or later (LGPLv3+)",
+        "License :: OSI Approved :: GNU Lesser General Public License v2 or later (LGPLv2+)",
+        "License :: OSI Approved :: GNU Lesser General Public License v2 (LGPLv2)"]),
     "LGPLv2+": set([
         "License :: OSI Approved :: GNU Lesser General Public License v2 or later (LGPLv2+)"]),
+    "LGPLv3": set([
+        "License :: OSI Approved :: GNU Lesser General Public License v3 (LGPLv3)"]),
+    "LGPLv3+": set([
+        "License :: OSI Approved :: GNU Lesser General Public License v3 or later (LGPLv3+)"]),
+    "HPND": set([
+        "License :: OSI Approved :: Historical Permission Notice and Disclaimer (HPND)"]),
+    "ISCL": set([
+        "License :: OSI Approved :: ISC License (ISCL)"]),
+    "MirOS": set([
+        "License :: OSI Approved :: MirOS License (MirOS)"]),
+    "MIT": set([
+        "License :: OSI Approved :: MIT License"]),
+    "CVW": set([
+        "License :: OSI Approved :: MITRE Collaborative Virtual Workspace License (CVW)"]),
+    "MPL": set([
+        "License :: OSI Approved :: Mozilla Public License 1.0 (MPL)"]),
+    "MPL 1.1": set([
+        "License :: OSI Approved :: Mozilla Public License 1.1 (MPL 1.1)"]),
     "MPL 2.0": set([
         "License :: OSI Approved :: Mozilla Public License 2.0 (MPL 2.0)"]),
     "CNRI Python License": set([
         "License :: OSI Approved :: Python License (CNRI Python License)"]),
     "QPL": set([
         "License :: OSI Approved :: Qt Public License (QPL)"]),
+    "OFL-1.1": set([
+        "License :: OSI Approved :: SIL Open Font License 1.1 (OFL-1.1)"]),
     "SISSL": set([
         "License :: OSI Approved :: Sun Industry Standards Source License (SISSL)"]),
-    "MIT": set([
-        "License :: OSI Approved :: MIT License"]),
-    "EPL-2.0": set([
-        "License :: OSI Approved :: Eclipse Public License 2.0 (EPL-2.0)"]),
-    "CVW": set([
-        "License :: OSI Approved :: MITRE Collaborative Virtual Workspace License (CVW)"]),
-    "EUPL 1.1": set([
-        "License :: OSI Approved :: European Union Public Licence 1.1 (EUPL 1.1)"]),
-    "EUPL 1.0": set([
-        "License :: OSI Approved :: European Union Public Licence 1.0 (EUPL 1.0)"]),
-    "EPL-1.0": set([
-        "License :: OSI Approved :: Eclipse Public License 1.0 (EPL-1.0)"]),
-    "EUPL 1.2": set([
-        "License :: OSI Approved :: European Union Public Licence 1.2 (EUPL 1.2)"]),
-    "CC0 1.0": set([
-        "License :: CC0 1.0 Universal (CC0 1.0) Public Domain Dedication"]),
-    "NOKOS": set([
-        "License :: Nokia Open Source License (NOKOS)"]),
-    "AFL": set([
-        "License :: OSI Approved :: Academic Free License (AFL)"]),
-    "LGPLv3+": set([
-        "License :: OSI Approved :: GNU Lesser General Public License v3 or later (LGPLv3+)"]),
-    "EFL": set([
-        "License :: Eiffel Forum License (EFL)"]),
-    "ZPL": set([
-        "License :: OSI Approved :: Zope Public License"]),
-    "ISCL": set([
-        "License :: OSI Approved :: ISC License (ISCL)"]),
-    "NPL": set([
-        "License :: Netscape Public License (NPL)"]),
-    "LGPL": set([
-        "License :: OSI Approved :: GNU Lesser General Public License v3 (LGPLv3)",
-        "License :: OSI Approved :: GNU Lesser General Public License v3 or later (LGPLv3+)",
-        "License :: OSI Approved :: GNU Library or Lesser General Public License (LGPL)",
-        "License :: OSI Approved :: GNU Lesser General Public License v2 (LGPLv2)",
-        "License :: OSI Approved :: GNU Lesser General Public License v2 or later (LGPLv2+)"]),
-    "GPL": set([
-        "License :: OSI Approved :: GNU General Public License (GPL)",
-        "License :: OSI Approved :: GNU General Public License v2 (GPLv2)",
-        "License :: OSI Approved :: GNU General Public License v3 (GPLv3)",
-        "License :: OSI Approved :: GNU General Public License v3 or later (GPLv3+)",
-        "License :: OSI Approved :: GNU General Public License v2 or later (GPLv2+)"]),
-    "MPL": set([
-        "License :: OSI Approved :: Mozilla Public License 1.0 (MPL)"]),
-    "CeCILL-2.1": set([
-        "License :: OSI Approved :: CEA CNRS Inria Logiciel Libre License, version 2.1 (CeCILL-2.1)"]),
-    "AGPLv3+": set([
-        "License :: OSI Approved :: GNU Affero General Public License v3 or later (AGPLv3+)"]),
     "UPL": set([
         "License :: OSI Approved :: Universal Permissive License (UPL)"]),
-    "LGPLv3": set([
-        "License :: OSI Approved :: GNU Lesser General Public License v3 (LGPLv3)"]),
-    "LGPLv2": set([
-        "License :: OSI Approved :: GNU Lesser General Public License v2 (LGPLv2)"]),
+    "ZPL": set([
+        "License :: OSI Approved :: Zope Public License"]),
 }
 
