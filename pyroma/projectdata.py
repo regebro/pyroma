@@ -107,7 +107,7 @@ def run_setup(script_name, script_args=None, stop_after="run"):
 
     core._setup_stop_after = stop_after
 
-    save_argv = sys.argv.copy()
+    save_argv = copy(sys.argv)
     glocals = copy(globals())
     glocals['__file__'] = script_name
     glocals['__name__'] = "__main__"
