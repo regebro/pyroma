@@ -211,10 +211,9 @@ class PyPITest(unittest.TestCase):
             data = pypidata.get_data('distribute')
             rating = rate(data)
 
-            self.assertEqual(rating, (8, [
+            self.assertEqual(rating, (9, [
                 'The classifiers should specify what minor versions of Python '
                 'you support as well as what major version.',
-                "The license specification 'PSF or ZPL' is not listed as a common name for 'License :: OSI Approved :: Zope Public License'. Expected 'ZPL'.",
                 'You should have three or more owners of the project on PyPI.'
             ]))
         finally:

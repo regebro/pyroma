@@ -288,33 +288,13 @@ class Licensing(BaseTest):
                 "nor any license classifiers."
             return False
 
-        if not license:
-            self._message = "Your package does not have a license field."
-            return False
-
-        if not licenses:
-            self._message = "You should specify one or several licenses in "\
-                "the classifiers."
-            return False
-
         if license in CODE_LICENSES:
             if not CODE_LICENSES[license].intersection(licenses):
                 self._message = "The license '%s' specified is not listed in "\
                     "your classifiers." % license
                 return False
-            # We have a standard license in the license field, and it's
-            # also in classifiers.
-            return True
 
-        for classifier in classifiers:
-            if classifier in LICENSE_CODES:
-                # A common license is in classifiers, but no common license
-                # was specified as licence.
-                expected = LICENSE_CODES[classifier]
-                self._message = "The license specification '%s' is not "\
-                    "listed as a common name for '%s'. Expected '%s'." % (
-                        license, classifier, "' or '".join(expected))
-                return False
+        return True
 
     def message(self):
         return self._message

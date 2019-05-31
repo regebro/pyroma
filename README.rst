@@ -101,3 +101,5 @@ Contributors:
   * Jakub Wilk
   * Andreas Lutro
   * Scott Colby
+  * Andrew Murray
+  * Nikita Sobolev
