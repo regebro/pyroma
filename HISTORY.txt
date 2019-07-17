@@ -1,8 +1,8 @@
 Changelog
 =========
 
-2.6 (unreleased)
-----------------
+2.6b1 (2019-07-17)
+------------------
 
 - Adds support for Markdown long_descriptions, if you set
   long_description_content_type to 'text/markdown'
