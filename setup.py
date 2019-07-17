@@ -37,6 +37,7 @@ setup(name='pyroma',
       install_requires=[
           'setuptools',
           'docutils',
+          'pygments',
       ],
       entry_points={
           'console_scripts': [

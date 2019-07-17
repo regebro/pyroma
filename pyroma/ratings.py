@@ -338,6 +338,13 @@ class ValidREST(BaseTest):
     weight = 50
 
     def test(self, data):
+        content_type = data.get('long_description_content_type', None)
+        if content_type in ('text/plain', 'text/markdown'):
+            # These can't fail. Markdown will just assume everything
+            # it doesn't understand is plain text.
+            return True
+
+        # This should be ReStructuredText
         source = data.get('long_description', '')
         stream = io.StringIO()
         settings = {"warning_stream": stream}

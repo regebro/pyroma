@@ -4,7 +4,11 @@ Changelog
 2.6 (unreleased)
 ----------------
 
-- Nothing changed yet.
+- Adds support for Markdown long_descriptions, if you set
+  long_description_content_type to 'text/markdown'
+
+- Installs Pygments to avoid an error message of you have
+  syntax highlighted code in the long_description.
 
 
 2.5 (2019-06-01)

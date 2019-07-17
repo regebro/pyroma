@@ -197,6 +197,21 @@ class RatingsTest(unittest.TestCase):
             "a hint of how stable your software is.",
         ]))
 
+    def test_markdown(self):
+        # Markdown and text shouldn't get ReST errors
+        testdata = COMPLETE.copy()
+        testdata['long_description'] = '# Broken ReST\n\n``Valid  Markdown\n'
+        testdata['long_description_content_type'] = 'text/markdown'
+        rating = rate(testdata)
+        self.assertEqual(rating, (9, [
+            "The package's long_description is quite short."
+        ]))
+
+        testdata['long_description_content_type'] = 'text/plain'
+        rating = rate(testdata)
+        self.assertEqual(rating, (9, [
+            "The package's long_description is quite short."
+        ]))
 
 class PyPITest(unittest.TestCase):
 
