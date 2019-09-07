@@ -46,16 +46,16 @@ def update_classifiers():
 
         out.write(b'''LICENSE_CODES = {\n''')
         for license, codes in license_map.items():
-            out.write(b'    "%s": set(["' % license)
+            out.write(b'    "%s": {"' % license)
             out.write(b'", "'.join(codes))
-            out.write(b'"]),\n')
+            out.write(b'"},\n')
         out.write(b'''}\n\n''')
 
         out.write(b'''CODE_LICENSES = {\n''')
         for code, licenses in code_map.items():
-            out.write(b'    "%s": set([\n        "' % code)
+            out.write(b'    "%s": {\n        "' % code)
             out.write(b'",\n        "'.join(licenses))
-            out.write(b'"]),\n')
+            out.write(b'"},\n')
         out.write(b'''}\n\n''')
 
 
