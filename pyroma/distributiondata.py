@@ -12,20 +12,20 @@ from pyroma import projectdata
 def get_data(path):
     filename = os.path.split(path)[-1]
     basename, ext = os.path.splitext(filename)
-    if basename.endswith('.tar'):
+    if basename.endswith(".tar"):
         basename, ignored = os.path.splitext(basename)
 
     try:
         tempdir = tempfile.mkdtemp()
 
-        if ext in ('.bz2', '.tbz', 'tb2', '.gz', '.tgz', '.tar'):
-            tarfile.open(name=path, mode='r:*').extractall(tempdir)
+        if ext in (".bz2", ".tbz", "tb2", ".gz", ".tgz", ".tar"):
+            tarfile.open(name=path, mode="r:*").extractall(tempdir)
 
-        elif ext in ('.zip', '.egg'):
-            zipfile.ZipFile(path, mode='r').extractall(tempdir)
+        elif ext in (".zip", ".egg"):
+            zipfile.ZipFile(path, mode="r").extractall(tempdir)
 
         else:
-            raise ValueError('Unknown file type: ' + ext)
+            raise ValueError("Unknown file type: " + ext)
 
         projectpath = os.path.join(tempdir, basename)
         data = projectdata.get_data(projectpath)

@@ -8,7 +8,6 @@ from distutils import core
 
 
 class FakeContext(object):
-
     def __init__(self, path):
         self._path = path
 
@@ -48,11 +47,13 @@ class SetupMonkey(object):
 
     def __enter__(self):
         import distutils.core
+
         self._distutils_setup = distutils.core.setup
         distutils.core.setup = self.distutils_setup_replacement
 
         try:
             import setuptools
+
             self._setuptools_setup = setuptools.setup
             setuptools.setup = self.setuptools_setup_replacement
         except ImportError:
@@ -63,9 +64,11 @@ class SetupMonkey(object):
 
     def __exit__(self, exc_type, exc_val, exc_tb):
         import distutils.core
+
         distutils.core.setup = self._distutils_setup
         if self._setuptools_setup is not None:
             import setuptools
+
             setuptools.setup = self._setuptools_setup
 
 
@@ -102,15 +105,15 @@ def run_setup(script_name, script_args=None, stop_after="run"):
     Returns the Distribution instance, which provides all information
     used to drive the Distutils.
     """
-    if stop_after not in ('init', 'config', 'commandline', 'run'):
+    if stop_after not in ("init", "config", "commandline", "run"):
         raise ValueError("invalid value for 'stop_after': %r" % stop_after)
 
     core._setup_stop_after = stop_after
 
     save_argv = copy(sys.argv)
     glocals = copy(globals())
-    glocals['__file__'] = script_name
-    glocals['__name__'] = "__main__"
+    glocals["__file__"] = script_name
+    glocals["__name__"] = "__main__"
     try:
         try:
             sys.argv[0] = script_name
@@ -130,8 +133,8 @@ def run_setup(script_name, script_args=None, stop_after="run"):
     if core._setup_distribution is None:
         raise RuntimeError(
             "'distutils.core.setup()' was never called -- "
-            "perhaps '%s' is not a Distutils setup script?" %
-            script_name)
+            "perhaps '%s' is not a Distutils setup script?" % script_name
+        )
 
     # I wonder if the setup script's namespace -- g and l -- would be of
     # any interest to callers?
@@ -147,19 +150,19 @@ def get_data(path):
     with FakeContext(path):
         with SetupMonkey() as sm:
             try:
-                distro = run_setup('setup.py', stop_after='config')
+                distro = run_setup("setup.py", stop_after="config")
 
-                metadata = {'_setuptools': sm.used_setuptools}
+                metadata = {"_setuptools": sm.used_setuptools}
 
                 for k, v in distro.metadata.__dict__.items():
-                    if k[0] == '_' or not v:
+                    if k[0] == "_" or not v:
                         continue
                     if all(not x for x in v):
                         continue
                     metadata[k] = v
 
                 if sm.used_setuptools:
-                    for extras in ['cmdclass', 'zip_safe', 'test_suite']:
+                    for extras in ["cmdclass", "zip_safe", "test_suite"]:
                         v = getattr(distro, extras, None)
                         if v is not None and v not in ([], {}):
                             metadata[extras] = v

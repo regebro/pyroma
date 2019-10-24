@@ -22,21 +22,23 @@ from docutils.utils import SystemMessage
 from pyroma.classifiers import CLASSIFIERS, CODE_LICENSES, LICENSE_CODES
 
 try:
-    stringtypes = basestring,
+    stringtypes = (basestring,)
 except NameError:
-    stringtypes = str,
+    stringtypes = (str,)
 
-LEVELS = [u"This cheese seems to contain no dairy products",
-          u"Vieux Bologne",
-          u"Limburger",
-          u"Gorgonzola",
-          u"Stilton",
-          u"Brie",
-          u"Comté",
-          u"Jarlsberg",
-          u"Philadelphia",
-          u"Cottage Cheese",
-          u"Your cheese is so fresh most people think it's a cream: Mascarpone"]
+LEVELS = [
+    u"This cheese seems to contain no dairy products",
+    u"Vieux Bologne",
+    u"Limburger",
+    u"Gorgonzola",
+    u"Stilton",
+    u"Brie",
+    u"Comté",
+    u"Jarlsberg",
+    u"Philadelphia",
+    u"Cottage Cheese",
+    u"Your cheese is so fresh most people think it's a cream: Mascarpone",
+]
 
 
 class BaseTest(object):
@@ -51,17 +53,18 @@ class FieldTest(BaseTest):
 
     def message(self):
         return ("Your package does not have %s data" % self.field) + (
-            self.fatal and '!' or '.')
+            self.fatal and "!" or "."
+        )
 
 
 class Name(FieldTest):
     fatal = True
-    field = 'name'
+    field = "name"
 
 
 class Version(FieldTest):
     fatal = True
-    field = 'version'
+    field = "version"
 
 
 class VersionIsString(BaseTest):
@@ -69,13 +72,15 @@ class VersionIsString(BaseTest):
 
     def test(self, data):
         # Check that the version is a string
-        version = data.get('version')
+        version = data.get("version")
         return isinstance(version, stringtypes)
 
     def message(self):
-        return 'The version number should be a string.'
+        return "The version number should be a string."
 
-PEP386_RE = re.compile(r'''
+
+PEP386_RE = re.compile(
+    r"""
     ^
     (?P<version>\d+\.\d+)          # minimum 'N.N'
     (?P<extraversion>(?:\.\d+)*)   # any number of extra '.N' segments
@@ -85,10 +90,13 @@ PEP386_RE = re.compile(r'''
         (?P<prerelversion>\d+(?:\.\d+)*)
     )?
     (?P<postdev>(\.post(?P<post>\d+))?(\.dev(?P<dev>\d+))?)?
-    $''', re.VERBOSE | re.IGNORECASE)
+    $""",
+    re.VERBOSE | re.IGNORECASE,
+)
 
 
-PEP440_RE = re.compile(r"""^
+PEP440_RE = re.compile(
+    r"""^
     v?
     (?:
         (?:(?P<epoch>[0-9]+)!)?                           # epoch
@@ -117,7 +125,10 @@ PEP440_RE = re.compile(r"""^
         )?
     )
     (?:\+(?P<local>[a-z0-9]+(?:[-_\.][a-z0-9]+)*))?       # local version
-$""", re.VERBOSE | re.IGNORECASE)
+$""",
+    re.VERBOSE | re.IGNORECASE,
+)
+
 
 class PEPVersion(BaseTest):
     weight = 50
@@ -125,7 +136,7 @@ class PEPVersion(BaseTest):
 
     def test(self, data):
         # Check that the version number complies to PEP-386:
-        version = data.get('version')
+        version = data.get("version")
         self.pep386 = False
         if PEP386_RE.search(str(version)) is not None:
             # Matches the old PEP386
@@ -144,7 +155,7 @@ class Description(BaseTest):
     weight = 100
 
     def test(self, data):
-        description = data.get('description')
+        description = data.get("description")
         if not description:
             # No description at all. That's fatal.
             self.fatal = True
@@ -154,19 +165,18 @@ class Description(BaseTest):
 
     def message(self):
         if self.fatal:
-            return 'The package had no description!'
+            return "The package had no description!"
         else:
-            return ("The package's description should be longer than "
-                    "10 characters.")
+            return "The package's description should be longer than " "10 characters."
 
 
 class LongDescription(BaseTest):
     weight = 50
 
     def test(self, data):
-        long_description = data.get('long_description', '')
+        long_description = data.get("long_description", "")
         if not isinstance(long_description, stringtypes):
-            long_description = ''
+            long_description = ""
         return len(long_description) > 100
 
     def message(self):
@@ -175,7 +185,7 @@ class LongDescription(BaseTest):
 
 class Classifiers(FieldTest):
     weight = 100
-    field = 'classifiers'
+    field = "classifiers"
 
 
 class ClassifierVerification(BaseTest):
@@ -183,7 +193,7 @@ class ClassifierVerification(BaseTest):
 
     def test(self, data):
         self._incorrect = []
-        classifiers = data.get('classifiers', [])
+        classifiers = data.get("classifiers", [])
         for classifier in classifiers:
             if classifier not in CLASSIFIERS:
                 self._incorrect.append(classifier)
@@ -192,19 +202,18 @@ class ClassifierVerification(BaseTest):
         return True
 
     def message(self):
-        err = '\n'.join(self._incorrect)
+        err = "\n".join(self._incorrect)
         return "Some of your classifiers are not standard classifiers:\n" + err
 
 
 class PythonVersion(BaseTest):
-
     def test(self, data):
         self._major_version_specified = False
 
-        classifiers = data.get('classifiers', [])
+        classifiers = data.get("classifiers", [])
         for classifier in classifiers:
-            parts = [p.strip() for p in classifier.split('::')]
-            if parts[0] == 'Programming Language' and parts[1] == 'Python':
+            parts = [p.strip() for p in classifier.split("::")]
+            if parts[0] == "Programming Language" and parts[1] == "Python":
                 if len(parts) == 2:
                     # Specified Python, but no version.
                     continue
@@ -238,60 +247,68 @@ class PythonVersion(BaseTest):
 
     def message(self):
         if self._major_version_specified:
-            return "The classifiers should specify what minor versions of "\
-                   "Python you support as well as what major version."
+            return (
+                "The classifiers should specify what minor versions of "
+                "Python you support as well as what major version."
+            )
         return "You should specify what Python versions you support."
 
 
 class Keywords(FieldTest):
     weight = 20
-    field = 'keywords'
+    field = "keywords"
 
 
 class Author(FieldTest):
     weight = 100
-    field = 'author'
+    field = "author"
 
 
 class AuthorEmail(FieldTest):
     weight = 100
-    field = 'author_email'
+    field = "author_email"
 
 
 class Url(BaseTest):
     weight = 20
 
     def test(self, data):
-        return bool(data.get('url')) or bool(data.get('project_urls'))
+        return bool(data.get("url")) or bool(data.get("project_urls"))
 
     def message(self):
-        return ("Your package should have a 'url' field with a link to the "
-                "project home page, or a 'project_urls' field, with a "
-                "dictionary of links, or both.")
+        return (
+            "Your package should have a 'url' field with a link to the "
+            "project home page, or a 'project_urls' field, with a "
+            "dictionary of links, or both."
+        )
 
 
 class Licensing(BaseTest):
     weight = 50
 
     def test(self, data):
-        license = data.get('license')
-        classifiers = data.get('classifiers', [])
+        license = data.get("license")
+        classifiers = data.get("classifiers", [])
         licenses = set()
         for classifier in classifiers:
-            parts = [p.strip() for p in classifier.split('::')]
-            if parts[0] == 'License':
+            parts = [p.strip() for p in classifier.split("::")]
+            if parts[0] == "License":
                 # license classifier exist
                 licenses.add(classifier)
 
         if not license and not licenses:
-            self._message = "Your package does neither have a license field "\
+            self._message = (
+                "Your package does neither have a license field "
                 "nor any license classifiers."
+            )
             return False
 
         if license in CODE_LICENSES:
             if not CODE_LICENSES[license].intersection(licenses):
-                self._message = "The license '%s' specified is not listed in "\
+                self._message = (
+                    "The license '%s' specified is not listed in "
                     "your classifiers." % license
+                )
                 return False
 
         return True
@@ -304,33 +321,37 @@ class DevStatusClassifier(BaseTest):
     weight = 20
 
     def test(self, data):
-        classifiers = data.get('classifiers', [])
+        classifiers = data.get("classifiers", [])
         for classifier in classifiers:
-            parts = [p.strip() for p in classifier.split('::')]
-            if parts[0] == 'Development Status':
+            parts = [p.strip() for p in classifier.split("::")]
+            if parts[0] == "Development Status":
                 # license classifier exist
                 return True
         return False
 
     def message(self):
-        return "Specifying a development status in the classifiers gives "\
-               "users a hint of how stable your software is."
+        return (
+            "Specifying a development status in the classifiers gives "
+            "users a hint of how stable your software is."
+        )
 
 
 class SDist(BaseTest):
     weight = 100
 
     def test(self, data):
-        if '_has_sdist' not in data:
+        if "_has_sdist" not in data:
             # We aren't checking on PyPI
             self.weight = 0
             return None
-        return data['_has_sdist']
+        return data["_has_sdist"]
 
     def message(self):
-        return ("You have no source distribution on the Cheeseshop. "
-                "Uploading the source distribution to the Cheeseshop ensures "
-                "maximum availability of your package.")
+        return (
+            "You have no source distribution on the Cheeseshop. "
+            "Uploading the source distribution to the Cheeseshop ensures "
+            "maximum availability of your package."
+        )
 
 
 class ValidREST(BaseTest):
@@ -338,45 +359,45 @@ class ValidREST(BaseTest):
     weight = 50
 
     def test(self, data):
-        content_type = data.get('long_description_content_type', None)
-        if content_type in ('text/plain', 'text/markdown'):
+        content_type = data.get("long_description_content_type", None)
+        if content_type in ("text/plain", "text/markdown"):
             # These can't fail. Markdown will just assume everything
             # it doesn't understand is plain text.
             return True
 
         # This should be ReStructuredText
-        source = data.get('long_description', '')
+        source = data.get("long_description", "")
         stream = io.StringIO()
         settings = {"warning_stream": stream}
 
         try:
-            parts = publish_parts(source=source, writer_name='html4css1',
-                                  settings_overrides=settings)
+            parts = publish_parts(
+                source=source, writer_name="html4css1", settings_overrides=settings
+            )
         except SystemMessage as e:
             self._message = e.args[0]
         errors = stream.getvalue().strip()
         if not errors:
             return True
 
-        self._message = '\n' + errors
+        self._message = "\n" + errors
         return False
 
     def message(self):
-        return 'Your long_description is not valid ReST: ' + self._message
+        return "Your long_description is not valid ReST: " + self._message
 
 
 class BusFactor(BaseTest):
-
     def test(self, data):
-        if '_owners' not in data:
+        if "_owners" not in data:
             self.weight = 0
             return None
 
-        if len(data.get('_owners', [])) == 1:
+        if len(data.get("_owners", [])) == 1:
             self.weight = 100
             return False
 
-        if len(data.get('_owners', [])) == 2:
+        if len(data.get("_owners", [])) == 2:
             self.weight = 50
             return False
 
@@ -436,4 +457,4 @@ def rate(data):
     # Multiply good by 9, and add 1 to get a rating between
     # 1: All non-fatal tests failed.
     # 10: All tests succeeded.
-    return (good*9)//(good+bad)+1, fails
+    return (good * 9) // (good + bad) + 1, fails
