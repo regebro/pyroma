@@ -1,6 +1,5 @@
 import tempfile
 import os
-import re
 import logging
 from pyroma import distributiondata
 

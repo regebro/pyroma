@@ -10,7 +10,7 @@ except ImportError:
 
 CLASSIFIER_URL = "https://pypi.org/pypi?%3Aaction=list_classifiers"
 CLASSIFIER_FILE = "pyroma/classifiers.py"
-SHORT_NAME_RE = re.compile(b"\(.*?\)")
+SHORT_NAME_RE = re.compile(br"\(.*?\)")
 
 
 def update_classifiers():

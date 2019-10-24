@@ -19,7 +19,7 @@ import io
 import re
 from docutils.core import publish_parts
 from docutils.utils import SystemMessage
-from pyroma.classifiers import CLASSIFIERS, CODE_LICENSES, LICENSE_CODES
+from pyroma.classifiers import CLASSIFIERS, CODE_LICENSES
 
 try:
     stringtypes = (basestring,)
@@ -371,7 +371,7 @@ class ValidREST(BaseTest):
         settings = {"warning_stream": stream}
 
         try:
-            parts = publish_parts(
+            publish_parts(
                 source=source, writer_name="html4css1", settings_overrides=settings
             )
         except SystemMessage as e:
