@@ -103,3 +103,4 @@ Contributors:
   * Scott Colby
   * Andrew Murray
   * Nikita Sobolev
+  * Charles Tapley Hoyt

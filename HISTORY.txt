@@ -4,7 +4,8 @@ Changelog
 2.6b2 (unreleased)
 ------------------
 
-- Nothing changed yet.
+- Ran flake8 and black on the code, better formatting for 
+  classifiers.py generation.
 
 
 2.6b1 (2019-07-17)
