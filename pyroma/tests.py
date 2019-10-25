@@ -145,6 +145,14 @@ class RatingsTest(unittest.TestCase):
         # Should have a perfect score
         self.assertEqual(rating, (10, []))
 
+    def test_setup_config(self):
+        rating = self._get_file_rating("setup_config")
+        self.assertEqual(rating, (10, []))
+
+    def test_only_config(self):
+        rating = self._get_file_rating("only_config")
+        self.assertEqual(rating, (10, []))
+
     def test_minimal(self):
         rating = self._get_file_rating("minimal")
 

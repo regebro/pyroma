@@ -104,3 +104,4 @@ Contributors:
   * Andrew Murray
   * Nikita Sobolev
   * Charles Tapley Hoyt
+  * Max Tyulin
