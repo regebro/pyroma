@@ -6,6 +6,8 @@ Changelog
 
 - Ran flake8 and black on the code, better formatting for 
   classifiers.py generation.
+  
+- Support for PEP 517, setup.cfg-only packages. [Max Tyulin]
 
 
 2.6b1 (2019-07-17)
