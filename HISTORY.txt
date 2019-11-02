@@ -1,23 +1,13 @@
 Changelog
 =========
 
-2.6b3 (unreleased)
-------------------
-
-- Nothing changed yet.
-
-
-2.6b2 (2019-10-26)
-------------------
+2.6 (2019-11-02)
+----------------
 
 - Ran flake8 and black on the code, better formatting for 
   classifiers.py generation.
   
 - Support for PEP 517, setup.cfg-only packages. [Max Tyulin]
-
-
-2.6b1 (2019-07-17)
-------------------
 
 - Adds support for Markdown long_descriptions, if you set
   long_description_content_type to 'text/markdown'
