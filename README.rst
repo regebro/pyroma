@@ -105,3 +105,4 @@ Contributors:
   * Nikita Sobolev
   * Charles Tapley Hoyt
   * Max Tyulin
+  * Michael Howitz

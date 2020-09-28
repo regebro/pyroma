@@ -35,7 +35,11 @@ setup(
     packages=find_packages(exclude=["ez_setup"]),
     include_package_data=True,
     zip_safe=False,
-    install_requires=["setuptools", "docutils", "pygments"],
+    install_requires=[
+        "setuptools",
+        "docutils",
+        "pygments < 2.6",  # needed to keep supporting Python 2
+    ],
     entry_points={
         "console_scripts": ["pyroma = pyroma:main"],
         "zest.releaser.prereleaser.before": ["pyroma = pyroma:zester"],
