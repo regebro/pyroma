@@ -6,6 +6,10 @@ Changelog
 
 - Update to the current list of Trove classifiers.
 
+- Officially support Python 3.8 and 3.9
+
+- Drop official support for Python 3.5 and 3.6 (still works though).
+
 
 2.6 (2019-11-02)
 ----------------
