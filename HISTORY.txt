@@ -4,15 +4,15 @@ Changelog
 2.7 (unreleased)
 ----------------
 
-- Nothing changed yet.
+- Update to the current list of Trove classifiers.
 
 
 2.6 (2019-11-02)
 ----------------
 
-- Ran flake8 and black on the code, better formatting for 
+- Ran flake8 and black on the code, better formatting for
   classifiers.py generation.
-  
+
 - Support for PEP 517, setup.cfg-only packages. [Max Tyulin]
 
 - Adds support for Markdown long_descriptions, if you set
