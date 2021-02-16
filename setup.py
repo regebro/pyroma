@@ -38,7 +38,9 @@ setup(
     install_requires=[
         "setuptools",
         "docutils",
-        "pygments < 2.6",  # needed to keep supporting Python 2
+        # needed to keep supporting Python 2
+        "pygments < 2.6; python_version < '3'",
+        "pygments; python_version >= '3'",
     ],
     entry_points={
         "console_scripts": ["pyroma = pyroma:main"],
