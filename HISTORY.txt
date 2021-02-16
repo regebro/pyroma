@@ -1,8 +1,8 @@
 Changelog
 =========
 
-2.7 (unreleased)
-----------------
+2.6.1 (2021-02-16)
+------------------
 
 - Update to the current list of Trove classifiers.
 
