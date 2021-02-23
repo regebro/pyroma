@@ -1,4 +1,3 @@
-from __future__ import print_function
 import unittest
 import os
 import collections
@@ -47,7 +46,7 @@ COMPLETE = {
 }
 
 
-class FakeResponse(object):
+class FakeResponse:
     def __init__(self, responsecode, filename=None):
         self.filename = filename
         self.headers = collections.defaultdict(lambda: None)
@@ -87,13 +86,13 @@ def urlopenstub(url):
     raise ValueError("Don't know how to stub " + url)
 
 
-class ProxyStub(object):
+class ProxyStub:
     def __init__(self, dataname, real_class, developmode):
         filename = resource_filename(
             __name__, os.path.join("testdata", "xmlrpcdata", dataname)
         )
         data = {}
-        exec(open(filename, "rt").read(), None, data)
+        exec(open(filename).read(), None, data)
         self.args = data["args"]
         self.kw = data["kw"]
         self._data = data["data"]

@@ -7,7 +7,7 @@ from copy import copy
 from distutils import core
 
 
-class FakeContext(object):
+class FakeContext:
     def __init__(self, path):
         self._path = path
 
@@ -31,7 +31,7 @@ class FakeContext(object):
         os.chdir(self._old_path)
 
 
-class SetupMonkey(object):
+class SetupMonkey:
 
     used_setuptools = False
 
@@ -106,7 +106,7 @@ def run_setup(script_name, script_args=None, stop_after="run"):
     used to drive the Distutils.
     """
     if stop_after not in ("init", "config", "commandline", "run"):
-        raise ValueError("invalid value for 'stop_after': %r" % stop_after)
+        raise ValueError(f"invalid value for 'stop_after': {stop_after!r}")
 
     core._setup_stop_after = stop_after
 
@@ -133,7 +133,7 @@ def run_setup(script_name, script_args=None, stop_after="run"):
     if core._setup_distribution is None:
         raise RuntimeError(
             "'distutils.core.setup()' was never called -- "
-            "perhaps '%s' is not a Distutils setup script?" % script_name
+            f"perhaps '{script_name}' is not a Distutils setup script?"
         )
 
     # I wonder if the setup script's namespace -- g and l -- would be of
