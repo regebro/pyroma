@@ -1,4 +1,3 @@
-# -*- coding: UTF-8 -*-
 # This is a collection of "tests" done on the package data. The resut of the
 # tests is used to give the package a rating.
 #
@@ -21,27 +20,22 @@ from docutils.core import publish_parts
 from docutils.utils import SystemMessage
 from pyroma.classifiers import CLASSIFIERS, CODE_LICENSES
 
-try:
-    stringtypes = (basestring,)
-except NameError:
-    stringtypes = (str,)
-
 LEVELS = [
-    u"This cheese seems to contain no dairy products",
-    u"Vieux Bologne",
-    u"Limburger",
-    u"Gorgonzola",
-    u"Stilton",
-    u"Brie",
-    u"Comté",
-    u"Jarlsberg",
-    u"Philadelphia",
-    u"Cottage Cheese",
-    u"Your cheese is so fresh most people think it's a cream: Mascarpone",
+    "This cheese seems to contain no dairy products",
+    "Vieux Bologne",
+    "Limburger",
+    "Gorgonzola",
+    "Stilton",
+    "Brie",
+    "Comté",
+    "Jarlsberg",
+    "Philadelphia",
+    "Cottage Cheese",
+    "Your cheese is so fresh most people think it's a cream: Mascarpone",
 ]
 
 
-class BaseTest(object):
+class BaseTest:
     fatal = False
 
 
@@ -52,7 +46,7 @@ class FieldTest(BaseTest):
         return bool(data.get(self.field))
 
     def message(self):
-        return ("Your package does not have %s data" % self.field) + (
+        return (f"Your package does not have {self.field} data") + (
             self.fatal and "!" or "."
         )
 
@@ -73,7 +67,7 @@ class VersionIsString(BaseTest):
     def test(self, data):
         # Check that the version is a string
         version = data.get("version")
-        return isinstance(version, stringtypes)
+        return isinstance(version, str)
 
     def message(self):
         return "The version number should be a string."
@@ -175,7 +169,7 @@ class LongDescription(BaseTest):
 
     def test(self, data):
         long_description = data.get("long_description", "")
-        if not isinstance(long_description, stringtypes):
+        if not isinstance(long_description, str):
             long_description = ""
         return len(long_description) > 100
 
@@ -306,8 +300,8 @@ class Licensing(BaseTest):
         if license in CODE_LICENSES:
             if not CODE_LICENSES[license].intersection(licenses):
                 self._message = (
-                    "The license '%s' specified is not listed in "
-                    "your classifiers." % license
+                    f"The license '{license}' specified is not listed in "
+                    "your classifiers."
                 )
                 return False
 

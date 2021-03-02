@@ -1,12 +1,11 @@
 from setuptools import setup, find_packages
-from io import open
 
 version = "2.6.2.dev0"
 
-with open("README.rst", "rt", encoding="UTF-8") as file:
+with open("README.rst", encoding="UTF-8") as file:
     long_description = file.read() + "\n"
 
-with open("HISTORY.txt", "rt", encoding="UTF-8") as file:
+with open("HISTORY.txt", encoding="UTF-8") as file:
     long_description += file.read()
 
 setup(
@@ -14,10 +13,8 @@ setup(
     version=version,
     description="Test your project's packaging friendliness",
     long_description=long_description,
-    python_requires=">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*, !=3.4.*",
+    python_requires=">=3.7",
     classifiers=[
-        "Programming Language :: Python :: 2",
-        "Programming Language :: Python :: 2.7",
         "Programming Language :: Python :: 3",
         "Programming Language :: Python :: 3.7",
         "Programming Language :: Python :: 3.8",
@@ -38,7 +35,7 @@ setup(
     install_requires=[
         "setuptools",
         "docutils",
-        "pygments < 2.6",  # needed to keep supporting Python 2
+        "pygments",
     ],
     entry_points={
         "console_scripts": ["pyroma = pyroma:main"],
