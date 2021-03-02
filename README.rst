@@ -106,3 +106,4 @@ Contributors:
   * Charles Tapley Hoyt
   * Max Tyulin
   * Michael Howitz
+  * Florian Bruhin

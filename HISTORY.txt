@@ -4,7 +4,9 @@ Changelog
 3.0.0 (unreleased)
 ------------------
 
-- Drop support for Python 2
+- Drop support for Python 2 [Florian Bruhin]
+
+- Add back official support for Python 3.6, I didn't realize it was still officially supported
 
 
 2.6.1 (2021-02-16)
