@@ -53,7 +53,9 @@ class FakeResponse:
         self.code = responsecode
 
     def read(self):
-        return open(self.filename, "rb").read()
+        with open(self.filename, "rb") as f:
+            file_contents = f.read()
+        return file_contents
 
 
 def urlopenstub(url):
@@ -92,7 +94,8 @@ class ProxyStub:
             __name__, os.path.join("testdata", "xmlrpcdata", dataname)
         )
         data = {}
-        exec(open(filename, encoding="UTF-8").read(), None, data)
+        with open(filename, encoding="UTF-8") as f:
+            exec(f.read(), None, data)
         self.args = data["args"]
         self.kw = data["kw"]
         self._data = data["data"]

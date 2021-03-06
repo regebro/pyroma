@@ -19,10 +19,12 @@ def get_data(path):
         tempdir = tempfile.mkdtemp()
 
         if ext in (".bz2", ".tbz", "tb2", ".gz", ".tgz", ".tar"):
-            tarfile.open(name=path, mode="r:*").extractall(tempdir)
+            with tarfile.open(name=path, mode="r:*") as tar_file:
+                tar_file.extractall(tempdir)
 
         elif ext in (".zip", ".egg"):
-            zipfile.ZipFile(path, mode="r").extractall(tempdir)
+            with zipfile.ZipFile(path, mode="r") as zip_file:
+                zip_file.extractall(tempdir)
 
         else:
             raise ValueError("Unknown file type: " + ext)
