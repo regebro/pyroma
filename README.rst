@@ -94,7 +94,7 @@ commit your work by adding the following to your ``.pre-commit-config.yaml``:
 
     repos:
     -   repo: https://github.com/regebro/pyroma
-        rev: "3.0.2"
+        rev: "3.2"
         hooks:
         -   id: pyroma
 
