@@ -1,0 +1,8 @@
+-   id: pyroma
+    name: Check package with Pyroma
+    description: Check how well a Python package conforms to best practices.
+    entry: pyroma
+    args: ["-d", "--min=10", "."]
+    language: python
+    pass_filenames: false
+    always_run: true
