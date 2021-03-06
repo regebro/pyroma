@@ -4,7 +4,9 @@ Changelog
 3.0.2 (unreleased)
 ------------------
 
-- Nothing changed yet.
+- Added correct detection of setup.py encoding
+
+- Code cleanup [CAM Gerlach]
 
 
 3.0.1 (2021-03-02)

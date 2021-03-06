@@ -107,3 +107,4 @@ Contributors:
   * Max Tyulin
   * Michael Howitz
   * Florian Bruhin
+  * Christopher A.M. Gerlach
