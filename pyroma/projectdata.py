@@ -119,11 +119,8 @@ def run_setup(script_name, script_args=None, stop_after="run"):
             sys.argv[0] = script_name
             if script_args is not None:
                 sys.argv[1:] = script_args
-            f = open(script_name)
-            try:
+            with open(script_name, encoding="UTF-8") as f:
                 exec(f.read(), glocals, glocals)
-            finally:
-                f.close()
         finally:
             sys.argv = save_argv
             core._setup_stop_after = None

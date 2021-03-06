@@ -2,7 +2,7 @@ from setuptools import setup, find_packages
 
 version = "1.0"
 
-with open("README.txt") as readme:
+with open("README.txt", encoding="UTF-8") as readme:
     long_description = readme.read()
 
 setup(
