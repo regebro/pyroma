@@ -119,7 +119,7 @@ def run_setup(script_name, script_args=None, stop_after="run"):
             sys.argv[0] = script_name
             if script_args is not None:
                 sys.argv[1:] = script_args
-            f = open(script_name)
+            f = open(script_name, encoding="UTF-8")
             try:
                 exec(f.read(), glocals, glocals)
             finally:

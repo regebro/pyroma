@@ -92,7 +92,7 @@ class ProxyStub:
             __name__, os.path.join("testdata", "xmlrpcdata", dataname)
         )
         data = {}
-        exec(open(filename).read(), None, data)
+        exec(open(filename, encoding="UTF-8").read(), None, data)
         self.args = data["args"]
         self.kw = data["kw"]
         self._data = data["data"]
