@@ -120,18 +120,13 @@ def run_setup(script_name, script_args=None, stop_after="run"):
             sys.argv[0] = script_name
             if script_args is not None:
                 sys.argv[1:] = script_args
-
-            # Find the encoding
-            with open(script_name, "rb") as f:
-                encoding = tokenize.detect_encoding(f.readline)[0]
-
-            with open(script_name, "rt", encoding=encoding) as f:
+            with tokenize.open(script_name) as f:
                 exec(f.read(), glocals, glocals)
         finally:
             sys.argv = save_argv
             core._setup_stop_after = None
     except Exception:
-        logging.warn("Exception when running setup.", exc_info=True)
+        logging.warning("Exception when running setup.", exc_info=True)
 
     if core._setup_distribution is None:
         raise RuntimeError(
