@@ -1,17 +1,14 @@
-import unittest
-import os
 import collections
+import json
+import mock
+import os
+import unittest
 
-try:
-    from xmlrpc import client as xmlrpclib
-    from urllib import request as urllib
-except ImportError:
-    import xmlrpclib
-    import urllib
+from xmlrpc import client as xmlrpclib
+from pkg_resources import resource_filename, resource_string
 
 from pyroma import projectdata, distributiondata, pypidata
 from pyroma.ratings import rate
-from pkg_resources import resource_filename, resource_string
 
 long_description = resource_string(
     __name__, os.path.join("testdata", "complete", "README.txt")
@@ -46,50 +43,8 @@ COMPLETE = {
 }
 
 
-class FakeResponse:
-    def __init__(self, responsecode, filename=None):
-        self.filename = filename
-        self.headers = collections.defaultdict(lambda: None)
-        self.code = responsecode
-
-    def read(self):
-        with open(self.filename, "rb") as f:
-            file_contents = f.read()
-        return file_contents
-
-
-def urlopenstub(url):
-    if url.find("readthedocs.org") != -1:
-        host = url.split("/")[2]
-        package = host.split(".")[0]
-        # Faking the docs:
-        if package in ("distribute", "complete"):
-            return FakeResponse(200)
-        else:
-            # This package doesn't have docs on pythonhosted.org:
-            return FakeResponse(404)
-
-    if url.startswith("http://pypi.org/project"):
-        filename = url[len("http://pypi.org/project/") :]
-        # Faking PyPI package
-        datafile = resource_filename(
-            __name__, os.path.join("testdata", "xmlrpcdata", filename + ".html")
-        )
-        return FakeResponse(200, datafile)
-
-    if url.startswith("http://pypi.python.org/packages"):
-        filename = [x for x in url.split("/") if x][-1]
-        # Faking PyPI file downloads
-        datafile = resource_filename(
-            __name__, os.path.join("testdata", "distributions", filename)
-        )
-        return FakeResponse(200, datafile)
-
-    raise ValueError("Don't know how to stub " + url)
-
-
 class ProxyStub:
-    def __init__(self, dataname, real_class, developmode):
+    def set_debug_context(self, dataname, real_class, developmode):
         filename = resource_filename(
             __name__, os.path.join("testdata", "xmlrpcdata", dataname)
         )
@@ -134,6 +89,9 @@ class ProxyStub:
         if attr in self._data:
             return self._make_proxy(attr)
         return self._make_unknown_proxy(attr)
+
+
+proxystub = ProxyStub()
 
 
 class RatingsTest(unittest.TestCase):
@@ -245,47 +203,49 @@ class RatingsTest(unittest.TestCase):
 
 
 class PyPITest(unittest.TestCase):
-    def test_distribute(self):
-        real_urlopen = urllib.urlopen
-        real_server_proxy = xmlrpclib.ServerProxy
-        try:
-            xmlrpclib.ServerProxy = ProxyStub(
-                "distributedata.py", xmlrpclib.ServerProxy, False
-            )
-            urllib.urlopen = urlopenstub
-            data = pypidata.get_data("distribute")
-            rating = rate(data)
 
-            self.assertEqual(
-                rating,
-                (
-                    9,
-                    [
-                        "The classifiers should specify what minor versions of Python "
-                        "you support as well as what major version.",
-                        "You should have three or more owners of the project on PyPI.",
-                    ],
-                ),
-            )
-        finally:
-            xmlrpclib.ServerProxy = real_server_proxy
-            urllib.urlopen = real_urlopen
+    @mock.patch('xmlrpc.client.ServerProxy', proxystub)
+    @mock.patch('pyroma.pypidata._get_project_data')
+    def test_distribute(self, projectdatamock):
+        datafile = resource_filename(
+            __name__, os.path.join("testdata", "jsondata", "distribute.json")
+        )
+        with open(datafile, 'rt') as file:
+            projectdatamock.return_value = json.load(file)
 
-    def test_complete(self):
-        real_urlopen = urllib.urlopen
-        real_server_proxy = xmlrpclib.ServerProxy
-        try:
-            xmlrpclib.ServerProxy = ProxyStub(
-                "completedata.py", xmlrpclib.ServerProxy, False
-            )
-            urllib.urlopen = urlopenstub
-            data = pypidata.get_data("complete")
-            rating = rate(data)
+        proxystub.set_debug_context("distributedata.py", xmlrpclib.ServerProxy, False)
 
-            self.assertEqual(rating, (10, []))
-        finally:
-            xmlrpclib.ServerProxy = real_server_proxy
-            urllib.urlopen = real_urlopen
+        data = pypidata.get_data("distribute")
+        rating = rate(data)
+
+        self.assertEqual(
+            rating,
+            (
+                9,
+                [
+                    "The classifiers should specify what minor versions of Python "
+                    "you support as well as what major version.",
+                    "You should have three or more owners of the project on PyPI.",
+                ],
+            ),
+        )
+
+
+    @mock.patch('xmlrpc.client.ServerProxy', proxystub)
+    @mock.patch('pyroma.pypidata._get_project_data')
+    def test_complete(self, projectdatamock):
+        datafile = resource_filename(
+            __name__, os.path.join("testdata", "jsondata", "complete.json")
+        )
+        with open(datafile, 'rt') as file:
+            projectdatamock.return_value = json.load(file)
+
+        proxystub.set_debug_context("completedata.py", xmlrpclib.ServerProxy, False)
+
+        data = pypidata.get_data("complete")
+        rating = rate(data)
+
+        self.assertEqual(rating, (10, []))
 
 
 class ProjectDataTest(unittest.TestCase):

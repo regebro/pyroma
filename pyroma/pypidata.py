@@ -1,50 +1,51 @@
 import tempfile
 import os
 import logging
-from pyroma import distributiondata
+import requests
 
-try:
-    from xmlrpc import client as xmlrpclib
-    from urllib import request as urllib
-except ImportError:
-    import xmlrpclib
-    import urllib
+from xmlrpc import client
+from urllib import request
+
+from pyroma import distributiondata
 
 
 def _get_client():
     # I think I should be able to monkeypatch a mock-thingy here... I think.
-    return xmlrpclib.ServerProxy("https://pypi.org/pypi")
+    return client.ServerProxy("https://pypi.org/pypi")
+
+def _get_project_data(project):
+    # I think I should be able to monkeypatch a mock-thingy here... I think.
+    response = requests.get(f"https://pypi.org/pypi/{project}/json")
+    if response.status_code == 404:
+        raise ValueError(
+            f"Did not find '{project}' on PyPI. Did you misspell it?"
+        )
+    if not response.ok:
+        raise ValueError(
+            f"Unknown http error: {response.status_code} {response.reason}"
+        )
+
+    return response.json()
 
 
 def get_data(project):
-    client = _get_client()
     # Pick the latest release.
-    releases = client.package_releases(project)
-    if not releases:
-        # Try to find project by case-insensitive name
-        project_name = project.lower()
-        projects = client.search({"name": project_name})
-        projects = [p for p in projects if p["name"].lower() == project_name]
-        if not projects:
-            raise ValueError(
-                f"Did not find '{project}' on PyPI. Did you misspell it?"
-            )
-        project = projects[0]["name"]
-        releases = [p["version"] for p in reversed(projects)]
-    release = releases[0]
-    # Get the metadata:
+    project_data = _get_project_data(project)
+    releases = project_data['releases']
+    data = project_data['info']
+    release = data['version']
     logging.debug(f"Found {project} version {release}")
-    data = client.release_data(project, release)
 
     # Map things around:
     data["long_description"] = data["description"]
     data["description"] = data["summary"]
 
+    client = _get_client()
     roles = client.package_roles(project)
     data["_owners"] = [user for (role, user) in roles if role == "Owner"]
 
     # Get download_urls:
-    urls = client.release_urls(project, release)
+    urls = releases[release]
     data["_pypi_downloads"] = bool(urls)
 
     # If there is a source download, download it, and get that data.
@@ -63,7 +64,7 @@ def get_data(project):
             logging.debug(f"Downloading {filename} to verify distribution")
             try:
                 with open(tmp, "wb") as outfile:
-                    outfile.write(urllib.urlopen(download["url"]).read())
+                    outfile.write(requests.get(download["url"]).content)
                 ddata = distributiondata.get_data(tmp)
             except Exception:
                 # Clean up the file

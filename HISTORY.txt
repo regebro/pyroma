@@ -6,6 +6,14 @@ Changelog
 
 - Added support for pre-commit [CAM Gerlach]
 
+- Rewrote parts of the PyPI support, to avoid using the xmlrpc API,
+  since it's being heavily rate-limited at the moment. Only one call
+  is using it now, which seems to work fine.
+
+- Backwards incompatible change: As a result of the above change, when
+  looking for packages on PyPI, the package name must now be spelled
+  exactly correct, including capitalization.
+
 
 3.1 (2021-03-06)
 ----------------

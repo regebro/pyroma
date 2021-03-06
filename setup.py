@@ -38,6 +38,10 @@ setup(
         "setuptools",
         "docutils",
         "pygments",
+        "requests"
+    ],
+    tests_require=[
+        'mock'
     ],
     entry_points={
         "console_scripts": ["pyroma = pyroma:main"],
