@@ -40,6 +40,7 @@ In all cases the output is similar::
     Cottage Cheese
     ------------------------------
 
+
 Tests
 -----
 
@@ -81,6 +82,22 @@ This is the list of checks that are currently performed:
 * If you are checking on a PyPI package, and not a local directory or
   local package, pyroma will check that you have uploaded a source
   distribution, and not just binary distributions.
+
+
+Version control integration
+---------------------------
+
+With `pre-commit <https://pre-commit.com>`_, pyroma can be run whenever you
+commit your work by adding the following to your ``.pre-commit-config.yaml``:
+
+.. code-block:: yaml
+
+    repos:
+    -   repo: https://github.com/regebro/pyroma
+        rev: "3.0.2"
+        hooks:
+        -   id: pyroma
+
 
 Credits
 -------
