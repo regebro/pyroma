@@ -179,6 +179,7 @@ def get_data(path):
             elif os.path.isfile("setup.cfg"):
                 try:
                     from setuptools import config
+
                     data = config.read_configuration("setup.cfg")
                     metadata = data["metadata"]
                     metadata["_setuptools"] = True

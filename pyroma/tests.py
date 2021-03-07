@@ -1,8 +1,7 @@
-import collections
 import json
-import mock
 import os
 import unittest
+import unittest.mock
 
 from xmlrpc import client as xmlrpclib
 from pkg_resources import resource_filename, resource_string
@@ -203,14 +202,13 @@ class RatingsTest(unittest.TestCase):
 
 
 class PyPITest(unittest.TestCase):
-
-    @mock.patch('xmlrpc.client.ServerProxy', proxystub)
-    @mock.patch('pyroma.pypidata._get_project_data')
+    @unittest.mock.patch("xmlrpc.client.ServerProxy", proxystub)
+    @unittest.mock.patch("pyroma.pypidata._get_project_data")
     def test_distribute(self, projectdatamock):
         datafile = resource_filename(
             __name__, os.path.join("testdata", "jsondata", "distribute.json")
         )
-        with open(datafile, 'rt') as file:
+        with open(datafile, "rt") as file:
             projectdatamock.return_value = json.load(file)
 
         proxystub.set_debug_context("distributedata.py", xmlrpclib.ServerProxy, False)
@@ -230,14 +228,13 @@ class PyPITest(unittest.TestCase):
             ),
         )
 
-
-    @mock.patch('xmlrpc.client.ServerProxy', proxystub)
-    @mock.patch('pyroma.pypidata._get_project_data')
+    @unittest.mock.patch("xmlrpc.client.ServerProxy", proxystub)
+    @unittest.mock.patch("pyroma.pypidata._get_project_data")
     def test_complete(self, projectdatamock):
         datafile = resource_filename(
             __name__, os.path.join("testdata", "jsondata", "complete.json")
         )
-        with open(datafile, 'rt') as file:
+        with open(datafile, "rt") as file:
             projectdatamock.return_value = json.load(file)
 
         proxystub.set_debug_context("completedata.py", xmlrpclib.ServerProxy, False)

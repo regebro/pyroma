@@ -4,8 +4,6 @@ import logging
 import requests
 
 from xmlrpc import client
-from urllib import request
-
 from pyroma import distributiondata
 
 
@@ -13,13 +11,12 @@ def _get_client():
     # I think I should be able to monkeypatch a mock-thingy here... I think.
     return client.ServerProxy("https://pypi.org/pypi")
 
+
 def _get_project_data(project):
     # I think I should be able to monkeypatch a mock-thingy here... I think.
     response = requests.get(f"https://pypi.org/pypi/{project}/json")
     if response.status_code == 404:
-        raise ValueError(
-            f"Did not find '{project}' on PyPI. Did you misspell it?"
-        )
+        raise ValueError(f"Did not find '{project}' on PyPI. Did you misspell it?")
     if not response.ok:
         raise ValueError(
             f"Unknown http error: {response.status_code} {response.reason}"
@@ -31,9 +28,9 @@ def _get_project_data(project):
 def get_data(project):
     # Pick the latest release.
     project_data = _get_project_data(project)
-    releases = project_data['releases']
-    data = project_data['info']
-    release = data['version']
+    releases = project_data["releases"]
+    data = project_data["info"]
+    release = data["version"]
     logging.debug(f"Found {project} version {release}")
 
     # Map things around:

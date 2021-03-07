@@ -34,15 +34,7 @@ setup(
     packages=find_packages(exclude=["ez_setup"]),
     include_package_data=True,
     zip_safe=False,
-    install_requires=[
-        "setuptools",
-        "docutils",
-        "pygments",
-        "requests"
-    ],
-    tests_require=[
-        'mock'
-    ],
+    install_requires=["setuptools", "docutils", "pygments", "requests"],
     entry_points={
         "console_scripts": ["pyroma = pyroma:main"],
         "zest.releaser.prereleaser.before": ["pyroma = pyroma:zester"],
