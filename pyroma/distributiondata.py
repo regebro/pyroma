@@ -1,10 +1,13 @@
-# Extracts information from a distribution file by unpacking in a temporary
-# directory and then using projectdata on that.
+"""
+Extract information from a distribution file by unpacking in a temporary
+directory and then using projectdata on that.
+"""
+
 import os
 import shutil
+import tarfile
 import tempfile
 import zipfile
-import tarfile
 
 from pyroma import projectdata
 
@@ -15,9 +18,8 @@ def get_data(path):
     if basename.endswith(".tar"):
         basename, ignored = os.path.splitext(basename)
 
+    tempdir = tempfile.mkdtemp()
     try:
-        tempdir = tempfile.mkdtemp()
-
         if ext in (".bz2", ".tbz", "tb2", ".gz", ".tgz", ".tar"):
             with tarfile.open(name=path, mode="r:*") as tar_file:
                 tar_file.extractall(tempdir)
@@ -31,8 +33,7 @@ def get_data(path):
 
         projectpath = os.path.join(tempdir, basename)
         data = projectdata.get_data(projectpath)
-
     finally:
-        shutil.rmtree(tempdir)
+        shutil.rmtree(tempdir, ignore_errors=True)
 
     return data

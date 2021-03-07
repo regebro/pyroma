@@ -1,6 +1,7 @@
-import unittest
-import os
 import collections
+import io
+import os
+import unittest
 
 try:
     from xmlrpc import client as xmlrpclib
@@ -18,6 +19,8 @@ long_description = resource_string(
 )
 if not isinstance(long_description, str):
     long_description = long_description.decode()
+# Translate newlines to universal format
+long_description = io.StringIO(long_description, newline=None).read()
 
 COMPLETE = {
     "_setuptools": True,
