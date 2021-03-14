@@ -161,7 +161,7 @@ class Description(BaseTest):
         if self.fatal:
             return "The package had no description!"
         else:
-            return "The package's description should be longer than " "10 characters."
+            return "The package's description should be longer than 10 characters."
 
 
 class LongDescription(BaseTest):

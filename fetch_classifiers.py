@@ -60,6 +60,6 @@ if __name__ == "__main__":
     # Verify that we are in the right directory
     if not os.path.exists(CLASSIFIER_FILE):
         raise RuntimeError(
-            "You must run this script from the root directory of " "a Pyroma checkout."
+            "You must run this script from the root directory of a Pyroma checkout."
         )
     update_classifiers()
