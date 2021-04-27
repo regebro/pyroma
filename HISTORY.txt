@@ -16,6 +16,8 @@ Changelog
 
 - Some more code cleanup/modernization [CAM Gerlach]
 
+- Added --quiet option to output only the rating [Hugo van Kemenade]
+
 
 3.1 (2021-03-06)
 ----------------
