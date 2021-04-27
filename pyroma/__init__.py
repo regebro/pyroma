@@ -69,6 +69,14 @@ def main():
         default=False,
         help="Run pyroma on a package on PyPI",
     )
+    parser.add_option(
+        "-q",
+        "--quiet",
+        dest="quiet",
+        action="store_true",
+        default=False,
+        help="Output only the rating",
+    )
 
     (options, args) = parser.parse_args()
 
@@ -98,13 +106,17 @@ def main():
     elif options.file:
         mode = "file"
 
-    rating = run(mode, argument)
+    rating = run(mode, argument, options.quiet)
     if rating < options.min:
         sys.exit(2)
     sys.exit(0)
 
 
-def run(mode, argument):
+def run(mode, argument, quiet=False):
+
+    if quiet:
+        logger = logging.getLogger()
+        logger.disabled = True
 
     logging.info("-" * 30)
     logging.info("Checking " + argument)
@@ -133,5 +145,9 @@ def run(mode, argument):
     logging.info("Final rating: " + str(rating[0]) + "/10")
     logging.info(ratings.LEVELS[rating[0]])
     logging.info("-" * 30)
+
+    if quiet:
+        logger.disabled = False
+        logging.info(rating[0])
 
     return rating[0]
