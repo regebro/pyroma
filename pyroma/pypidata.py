@@ -2,14 +2,9 @@ import tempfile
 import os
 import logging
 import requests
+import xmlrpc.client
 
-from xmlrpc import client
 from pyroma import distributiondata
-
-
-def _get_client():
-    # I think I should be able to monkeypatch a mock-thingy here... I think.
-    return client.ServerProxy("https://pypi.org/pypi")
 
 
 def _get_project_data(project):
@@ -37,8 +32,9 @@ def get_data(project):
     data["long_description"] = data["description"]
     data["description"] = data["summary"]
 
-    client = _get_client()
-    roles = client.package_roles(project)
+    with xmlrpc.client.ServerProxy("https://pypi.org/pypi") as xmlrpc_client:
+        roles = xmlrpc_client.package_roles(project)
+
     data["_owners"] = [user for (role, user) in roles if role == "Owner"]
 
     # Get download_urls:

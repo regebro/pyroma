@@ -92,6 +92,12 @@ class ProxyStub:
             return self._make_proxy(attr)
         return self._make_unknown_proxy(attr)
 
+    def __enter__(self):
+        return self
+
+    def __exit__(self, type, value, traceback):
+        return
+
 
 proxystub = ProxyStub()
 
@@ -211,7 +217,7 @@ class PyPITest(unittest.TestCase):
         datafile = resource_filename(
             __name__, os.path.join("testdata", "jsondata", "distribute.json")
         )
-        with open(datafile, "rt") as file:
+        with open(datafile, "rt", encoding="UTF-8") as file:
             projectdatamock.return_value = json.load(file)
 
         proxystub.set_debug_context("distributedata.py", xmlrpclib.ServerProxy, False)
@@ -237,7 +243,7 @@ class PyPITest(unittest.TestCase):
         datafile = resource_filename(
             __name__, os.path.join("testdata", "jsondata", "complete.json")
         )
-        with open(datafile, "rt") as file:
+        with open(datafile, "rt", encoding="UTF-8") as file:
             projectdatamock.return_value = json.load(file)
 
         proxystub.set_debug_context("completedata.py", xmlrpclib.ServerProxy, False)
