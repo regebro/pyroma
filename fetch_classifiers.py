@@ -56,7 +56,7 @@ def update_classifiers():
             out.write(b'    "%s": {\n        "' % code)
             out.write(b'",\n        "'.join(licenses))
             out.write(b'"},\n')
-        out.write(b"""}\n\n""")
+        out.write(b"""}\n""")
 
 
 if __name__ == "__main__":
