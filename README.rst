@@ -125,3 +125,5 @@ Contributors:
   * Michael Howitz
   * Florian Bruhin
   * Christopher A.M. Gerlach
+  * RuRo
+

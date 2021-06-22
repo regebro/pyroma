@@ -4,12 +4,6 @@ Changelog
 3.2 (unreleased)
 ----------------
 
-- Nothing changed yet.
-
-
-3.2b1 (2021-04-27)
-------------------
-
 - Added support for pre-commit [CAM Gerlach]
 
 - Rewrote parts of the PyPI support, to avoid using the xmlrpc API,
@@ -23,6 +17,8 @@ Changelog
 - Some more code cleanup/modernization [CAM Gerlach]
 
 - Added --quiet option to output only the rating [Hugo van Kemenade]
+
+- Pyroma is now an executable module, and can be called with `python -m pyroma` [RuRo]
 
 
 3.1 (2021-03-06)
