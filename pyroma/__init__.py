@@ -89,7 +89,7 @@ def main():
         sys.exit(1)
 
     modes = (options.auto, options.directory, options.file, options.pypi)
-    if sum([1 if x else 0 for x in modes]) > 1:
+    if sum(1 if x else 0 for x in modes) > 1:
         print("You can only select one of the options -a, -d, -f and -p")
         sys.exit(1)
 
