@@ -88,6 +88,8 @@ class ProxyStub:
         return _proxy_method
 
     def __getattr__(self, attr):
+        if attr in ("_data", "_make_proxy", "_make_unknown_proxy"):
+            raise AttributeError("Break infinite recursion chain")
         if attr in self._data:
             return self._make_proxy(attr)
         return self._make_unknown_proxy(attr)
