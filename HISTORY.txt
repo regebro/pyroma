@@ -4,7 +4,7 @@ Changelog
 3.3 (unreleased)
 ----------------
 
-- Nothing changed yet.
+- Fixed __getattr__-related crash in tests with python3.7 [Robert T. McGibbon]
 
 
 3.2 (2021-06-22)
