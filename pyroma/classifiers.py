@@ -41,6 +41,9 @@ CLASSIFIERS = {
     "Environment :: GPU :: NVIDIA CUDA :: 11.0",
     "Environment :: GPU :: NVIDIA CUDA :: 11.1",
     "Environment :: GPU :: NVIDIA CUDA :: 11.2",
+    "Environment :: GPU :: NVIDIA CUDA :: 11.3",
+    "Environment :: GPU :: NVIDIA CUDA :: 11.4",
+    "Environment :: GPU :: NVIDIA CUDA :: 11.5",
     "Environment :: Handhelds/PDA's",
     "Environment :: MacOS X",
     "Environment :: MacOS X :: Aqua",
@@ -64,6 +67,9 @@ CLASSIFIERS = {
     "Framework :: AWS CDK :: 1",
     "Framework :: AiiDA",
     "Framework :: Ansible",
+    "Framework :: AnyIO",
+    "Framework :: Apache Airflow",
+    "Framework :: Apache Airflow :: Provider",
     "Framework :: AsyncIO",
     "Framework :: BEAT",
     "Framework :: BFG",
@@ -74,11 +80,14 @@ CLASSIFIERS = {
     "Framework :: Buildout :: Recipe",
     "Framework :: CastleCMS",
     "Framework :: CastleCMS :: Theme",
+    "Framework :: Celery",
     "Framework :: Chandler",
     "Framework :: CherryPy",
     "Framework :: CubicWeb",
     "Framework :: Dash",
+    "Framework :: Datasette",
     "Framework :: Django",
+    "Framework :: Django :: 1",
     "Framework :: Django :: 1.4",
     "Framework :: Django :: 1.5",
     "Framework :: Django :: 1.6",
@@ -87,30 +96,54 @@ CLASSIFIERS = {
     "Framework :: Django :: 1.9",
     "Framework :: Django :: 1.10",
     "Framework :: Django :: 1.11",
+    "Framework :: Django :: 2",
     "Framework :: Django :: 2.0",
     "Framework :: Django :: 2.1",
     "Framework :: Django :: 2.2",
+    "Framework :: Django :: 3",
     "Framework :: Django :: 3.0",
     "Framework :: Django :: 3.1",
     "Framework :: Django :: 3.2",
+    "Framework :: Django :: 4",
+    "Framework :: Django :: 4.0",
     "Framework :: Django CMS",
     "Framework :: Django CMS :: 3.4",
     "Framework :: Django CMS :: 3.5",
     "Framework :: Django CMS :: 3.6",
     "Framework :: Django CMS :: 3.7",
     "Framework :: Django CMS :: 3.8",
+    "Framework :: Django CMS :: 3.9",
+    "Framework :: Django CMS :: 3.10",
+    "Framework :: FastAPI",
     "Framework :: Flake8",
     "Framework :: Flask",
     "Framework :: Hypothesis",
     "Framework :: IDLE",
     "Framework :: IPython",
     "Framework :: Jupyter",
+    "Framework :: Jupyter :: JupyterLab",
+    "Framework :: Jupyter :: JupyterLab :: 1",
+    "Framework :: Jupyter :: JupyterLab :: 2",
+    "Framework :: Jupyter :: JupyterLab :: 3",
+    "Framework :: Jupyter :: JupyterLab :: 4",
+    "Framework :: Jupyter :: JupyterLab :: Extensions",
+    "Framework :: Jupyter :: JupyterLab :: Extensions :: Mime Renderers",
+    "Framework :: Jupyter :: JupyterLab :: Extensions :: Prebuilt",
+    "Framework :: Jupyter :: JupyterLab :: Extensions :: Themes",
     "Framework :: Kedro",
     "Framework :: Lektor",
     "Framework :: Masonite",
     "Framework :: Matplotlib",
     "Framework :: Nengo",
     "Framework :: Odoo",
+    "Framework :: Odoo :: 8.0",
+    "Framework :: Odoo :: 9.0",
+    "Framework :: Odoo :: 10.0",
+    "Framework :: Odoo :: 11.0",
+    "Framework :: Odoo :: 12.0",
+    "Framework :: Odoo :: 13.0",
+    "Framework :: Odoo :: 14.0",
+    "Framework :: Odoo :: 15.0",
     "Framework :: Opps",
     "Framework :: Paste",
     "Framework :: Pelican",
@@ -161,6 +194,8 @@ CLASSIFIERS = {
     "Framework :: Zope :: 3",
     "Framework :: Zope :: 4",
     "Framework :: Zope :: 5",
+    "Framework :: aiohttp",
+    "Framework :: cocotb",
     "Framework :: napari",
     "Framework :: tox",
     "Intended Audience :: Customer Service",
@@ -372,6 +407,7 @@ CLASSIFIERS = {
     "Programming Language :: C++",
     "Programming Language :: Cold Fusion",
     "Programming Language :: Cython",
+    "Programming Language :: D",
     "Programming Language :: Delphi/Kylix",
     "Programming Language :: Dylan",
     "Programming Language :: Eiffel",
@@ -424,6 +460,7 @@ CLASSIFIERS = {
     "Programming Language :: Python :: 3.8",
     "Programming Language :: Python :: 3.9",
     "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
     "Programming Language :: Python :: Implementation",
     "Programming Language :: Python :: Implementation :: CPython",
     "Programming Language :: Python :: Implementation :: IronPython",
@@ -756,6 +793,7 @@ CLASSIFIERS = {
     "Topic :: Text Processing :: Markup :: XML",
     "Topic :: Text Processing :: Markup :: reStructuredText",
     "Topic :: Utilities",
+    "Typing :: Stubs Only",
     "Typing :: Typed",
 }
 
@@ -780,13 +818,13 @@ LICENSE_CODES = {
     "License :: OSI Approved :: GNU Free Documentation License (FDL)": {"FDL"},
     "License :: OSI Approved :: GNU General Public License (GPL)": {"GPL"},
     "License :: OSI Approved :: GNU General Public License v2 (GPLv2)": {"GPL", "GPLv2"},
-    "License :: OSI Approved :: GNU General Public License v2 or later (GPLv2+)": {"GPL", "GPLv2+"},
+    "License :: OSI Approved :: GNU General Public License v2 or later (GPLv2+)": {"GPLv2+", "GPL"},
     "License :: OSI Approved :: GNU General Public License v3 (GPLv3)": {"GPL", "GPLv3"},
     "License :: OSI Approved :: GNU General Public License v3 or later (GPLv3+)": {"GPL", "GPLv3+"},
     "License :: OSI Approved :: GNU Lesser General Public License v2 (LGPLv2)": {"LGPL", "LGPLv2"},
-    "License :: OSI Approved :: GNU Lesser General Public License v2 or later (LGPLv2+)": {"LGPL", "LGPLv2+"},
-    "License :: OSI Approved :: GNU Lesser General Public License v3 (LGPLv3)": {"LGPLv3", "LGPL"},
-    "License :: OSI Approved :: GNU Lesser General Public License v3 or later (LGPLv3+)": {"LGPLv3+", "LGPL"},
+    "License :: OSI Approved :: GNU Lesser General Public License v2 or later (LGPLv2+)": {"LGPLv2+", "LGPL"},
+    "License :: OSI Approved :: GNU Lesser General Public License v3 (LGPLv3)": {"LGPL", "LGPLv3"},
+    "License :: OSI Approved :: GNU Lesser General Public License v3 or later (LGPLv3+)": {"LGPL", "LGPLv3+"},
     "License :: OSI Approved :: GNU Library or Lesser General Public License (LGPL)": {"LGPL"},
     "License :: OSI Approved :: Historical Permission Notice and Disclaimer (HPND)": {"HPND"},
     "License :: OSI Approved :: ISC License (ISCL)": {"ISCL"},
@@ -808,102 +846,61 @@ LICENSE_CODES = {
 }
 
 CODE_LICENSES = {
-    "AFPL": {
-        "License :: Aladdin Free Public License (AFPL)"},
-    "CC0 1.0": {
-        "License :: CC0 1.0 Universal (CC0 1.0) Public Domain Dedication"},
-    "CECILL-B": {
-        "License :: CeCILL-B Free Software License Agreement (CECILL-B)"},
-    "CECILL-C": {
-        "License :: CeCILL-C Free Software License Agreement (CECILL-C)"},
-    "EFL": {
-        "License :: Eiffel Forum License (EFL)"},
-    "NPL": {
-        "License :: Netscape Public License (NPL)"},
-    "NOKOS": {
-        "License :: Nokia Open Source License (NOKOS)"},
-    "AFL": {
-        "License :: OSI Approved :: Academic Free License (AFL)"},
-    "BSL-1.0": {
-        "License :: OSI Approved :: Boost Software License 1.0 (BSL-1.0)"},
-    "CeCILL-2.1": {
-        "License :: OSI Approved :: CEA CNRS Inria Logiciel Libre License, version 2.1 (CeCILL-2.1)"},
-    "CDDL-1.0": {
-        "License :: OSI Approved :: Common Development and Distribution License 1.0 (CDDL-1.0)"},
-    "EPL-1.0": {
-        "License :: OSI Approved :: Eclipse Public License 1.0 (EPL-1.0)"},
-    "EPL-2.0": {
-        "License :: OSI Approved :: Eclipse Public License 2.0 (EPL-2.0)"},
-    "EUPL 1.0": {
-        "License :: OSI Approved :: European Union Public Licence 1.0 (EUPL 1.0)"},
-    "EUPL 1.1": {
-        "License :: OSI Approved :: European Union Public Licence 1.1 (EUPL 1.1)"},
-    "EUPL 1.2": {
-        "License :: OSI Approved :: European Union Public Licence 1.2 (EUPL 1.2)"},
-    "AGPLv3+": {
-        "License :: OSI Approved :: GNU Affero General Public License v3 or later (AGPLv3+)"},
-    "FDL": {
-        "License :: OSI Approved :: GNU Free Documentation License (FDL)"},
+    "AFPL": {"License :: Aladdin Free Public License (AFPL)"},
+    "CC0 1.0": {"License :: CC0 1.0 Universal (CC0 1.0) Public Domain Dedication"},
+    "CECILL-B": {"License :: CeCILL-B Free Software License Agreement (CECILL-B)"},
+    "CECILL-C": {"License :: CeCILL-C Free Software License Agreement (CECILL-C)"},
+    "EFL": {"License :: Eiffel Forum License (EFL)"},
+    "NPL": {"License :: Netscape Public License (NPL)"},
+    "NOKOS": {"License :: Nokia Open Source License (NOKOS)"},
+    "AFL": {"License :: OSI Approved :: Academic Free License (AFL)"},
+    "BSL-1.0": {"License :: OSI Approved :: Boost Software License 1.0 (BSL-1.0)"},
+    "CeCILL-2.1": {"License :: OSI Approved :: CEA CNRS Inria Logiciel Libre License, version 2.1 (CeCILL-2.1)"},
+    "CDDL-1.0": {"License :: OSI Approved :: Common Development and Distribution License 1.0 (CDDL-1.0)"},
+    "EPL-1.0": {"License :: OSI Approved :: Eclipse Public License 1.0 (EPL-1.0)"},
+    "EPL-2.0": {"License :: OSI Approved :: Eclipse Public License 2.0 (EPL-2.0)"},
+    "EUPL 1.0": {"License :: OSI Approved :: European Union Public Licence 1.0 (EUPL 1.0)"},
+    "EUPL 1.1": {"License :: OSI Approved :: European Union Public Licence 1.1 (EUPL 1.1)"},
+    "EUPL 1.2": {"License :: OSI Approved :: European Union Public Licence 1.2 (EUPL 1.2)"},
+    "AGPLv3+": {"License :: OSI Approved :: GNU Affero General Public License v3 or later (AGPLv3+)"},
+    "FDL": {"License :: OSI Approved :: GNU Free Documentation License (FDL)"},
     "GPL": {
-        "License :: OSI Approved :: GNU General Public License v3 (GPLv3)",
         "License :: OSI Approved :: GNU General Public License v3 or later (GPLv3+)",
-        "License :: OSI Approved :: GNU General Public License v2 or later (GPLv2+)",
+        "License :: OSI Approved :: GNU General Public License v3 (GPLv3)",
         "License :: OSI Approved :: GNU General Public License (GPL)",
-        "License :: OSI Approved :: GNU General Public License v2 (GPLv2)"},
-    "GPLv2": {
-        "License :: OSI Approved :: GNU General Public License v2 (GPLv2)"},
-    "GPLv2+": {
-        "License :: OSI Approved :: GNU General Public License v2 or later (GPLv2+)"},
-    "GPLv3": {
-        "License :: OSI Approved :: GNU General Public License v3 (GPLv3)"},
-    "GPLv3+": {
-        "License :: OSI Approved :: GNU General Public License v3 or later (GPLv3+)"},
-    "LGPLv2": {
-        "License :: OSI Approved :: GNU Lesser General Public License v2 (LGPLv2)"},
+        "License :: OSI Approved :: GNU General Public License v2 (GPLv2)",
+        "License :: OSI Approved :: GNU General Public License v2 or later (GPLv2+)",
+    },
+    "GPLv2": {"License :: OSI Approved :: GNU General Public License v2 (GPLv2)"},
+    "GPLv2+": {"License :: OSI Approved :: GNU General Public License v2 or later (GPLv2+)"},
+    "GPLv3": {"License :: OSI Approved :: GNU General Public License v3 (GPLv3)"},
+    "GPLv3+": {"License :: OSI Approved :: GNU General Public License v3 or later (GPLv3+)"},
+    "LGPLv2": {"License :: OSI Approved :: GNU Lesser General Public License v2 (LGPLv2)"},
     "LGPL": {
-        "License :: OSI Approved :: GNU Lesser General Public License v3 or later (LGPLv3+)",
         "License :: OSI Approved :: GNU Lesser General Public License v3 (LGPLv3)",
-        "License :: OSI Approved :: GNU Lesser General Public License v2 (LGPLv2)",
         "License :: OSI Approved :: GNU Lesser General Public License v2 or later (LGPLv2+)",
-        "License :: OSI Approved :: GNU Library or Lesser General Public License (LGPL)"},
-    "LGPLv2+": {
-        "License :: OSI Approved :: GNU Lesser General Public License v2 or later (LGPLv2+)"},
-    "LGPLv3": {
-        "License :: OSI Approved :: GNU Lesser General Public License v3 (LGPLv3)"},
-    "LGPLv3+": {
-        "License :: OSI Approved :: GNU Lesser General Public License v3 or later (LGPLv3+)"},
-    "HPND": {
-        "License :: OSI Approved :: Historical Permission Notice and Disclaimer (HPND)"},
-    "ISCL": {
-        "License :: OSI Approved :: ISC License (ISCL)"},
-    "MIT": {
-        "License :: OSI Approved :: MIT License"},
-    "MIT-0": {
-        "License :: OSI Approved :: MIT No Attribution License (MIT-0)"},
-    "CVW": {
-        "License :: OSI Approved :: MITRE Collaborative Virtual Workspace License (CVW)"},
-    "MirOS": {
-        "License :: OSI Approved :: MirOS License (MirOS)"},
-    "MPL": {
-        "License :: OSI Approved :: Mozilla Public License 1.0 (MPL)"},
-    "MPL 1.1": {
-        "License :: OSI Approved :: Mozilla Public License 1.1 (MPL 1.1)"},
-    "MPL 2.0": {
-        "License :: OSI Approved :: Mozilla Public License 2.0 (MPL 2.0)"},
-    "OSL-3.0": {
-        "License :: OSI Approved :: Open Software License 3.0 (OSL-3.0)"},
-    "CNRI Python License": {
-        "License :: OSI Approved :: Python License (CNRI Python License)"},
-    "QPL": {
-        "License :: OSI Approved :: Qt Public License (QPL)"},
-    "OFL-1.1": {
-        "License :: OSI Approved :: SIL Open Font License 1.1 (OFL-1.1)"},
-    "SISSL": {
-        "License :: OSI Approved :: Sun Industry Standards Source License (SISSL)"},
-    "Unlicense": {
-        "License :: OSI Approved :: The Unlicense (Unlicense)"},
-    "UPL": {
-        "License :: OSI Approved :: Universal Permissive License (UPL)"},
-    "ZPL": {
-        "License :: OSI Approved :: Zope Public License"},
+        "License :: OSI Approved :: GNU Lesser General Public License v3 or later (LGPLv3+)",
+        "License :: OSI Approved :: GNU Lesser General Public License v2 (LGPLv2)",
+        "License :: OSI Approved :: GNU Library or Lesser General Public License (LGPL)",
+    },
+    "LGPLv2+": {"License :: OSI Approved :: GNU Lesser General Public License v2 or later (LGPLv2+)"},
+    "LGPLv3": {"License :: OSI Approved :: GNU Lesser General Public License v3 (LGPLv3)"},
+    "LGPLv3+": {"License :: OSI Approved :: GNU Lesser General Public License v3 or later (LGPLv3+)"},
+    "HPND": {"License :: OSI Approved :: Historical Permission Notice and Disclaimer (HPND)"},
+    "ISCL": {"License :: OSI Approved :: ISC License (ISCL)"},
+    "MIT": {"License :: OSI Approved :: MIT License"},
+    "MIT-0": {"License :: OSI Approved :: MIT No Attribution License (MIT-0)"},
+    "CVW": {"License :: OSI Approved :: MITRE Collaborative Virtual Workspace License (CVW)"},
+    "MirOS": {"License :: OSI Approved :: MirOS License (MirOS)"},
+    "MPL": {"License :: OSI Approved :: Mozilla Public License 1.0 (MPL)"},
+    "MPL 1.1": {"License :: OSI Approved :: Mozilla Public License 1.1 (MPL 1.1)"},
+    "MPL 2.0": {"License :: OSI Approved :: Mozilla Public License 2.0 (MPL 2.0)"},
+    "OSL-3.0": {"License :: OSI Approved :: Open Software License 3.0 (OSL-3.0)"},
+    "CNRI Python License": {"License :: OSI Approved :: Python License (CNRI Python License)"},
+    "QPL": {"License :: OSI Approved :: Qt Public License (QPL)"},
+    "OFL-1.1": {"License :: OSI Approved :: SIL Open Font License 1.1 (OFL-1.1)"},
+    "SISSL": {"License :: OSI Approved :: Sun Industry Standards Source License (SISSL)"},
+    "Unlicense": {"License :: OSI Approved :: The Unlicense (Unlicense)"},
+    "UPL": {"License :: OSI Approved :: Universal Permissive License (UPL)"},
+    "ZPL": {"License :: OSI Approved :: Zope Public License"},
 }

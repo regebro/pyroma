@@ -50,9 +50,14 @@ def update_classifiers():
 
         out.write(b"""CODE_LICENSES = {\n""")
         for code, licenses in code_map.items():
-            out.write(b'    "%s": {\n        "' % code)
-            out.write(b'",\n        "'.join(licenses))
-            out.write(b'"},\n')
+            out.write(b'    "%s": {' % code)
+            if len(licenses) > 1:
+                out.write(b'\n        "')
+                out.write(b'",\n        "'.join(licenses))
+                out.write(b'",\n    },\n')
+            else:
+                out.write(b'"%s' % list(licenses)[0])
+                out.write(b'"},\n')
         out.write(b"""}\n""")
 
 
