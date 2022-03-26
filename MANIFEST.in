@@ -5,3 +5,4 @@ graft pyroma/testdata/distributions
 include tox.ini
 include DEVELOPMENT.rst
 include Makefile
+exclude .pre-commit-config.yaml
