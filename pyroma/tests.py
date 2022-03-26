@@ -3,9 +3,8 @@ import json
 import os
 import unittest
 import unittest.mock
-
-from xmlrpc import client as xmlrpclib
 from pkg_resources import resource_filename, resource_string
+from xmlrpc import client as xmlrpclib
 
 from pyroma import projectdata, distributiondata, pypidata
 from pyroma.ratings import rate
@@ -17,9 +16,9 @@ if not isinstance(long_description, str):
 long_description = io.StringIO(long_description, newline=None).read()
 
 COMPLETE = {
-    "_setuptools": True,
+    "metadata_version": "2.1",
     "name": "complete",
-    "version": "1.0",
+    "version": "1.0.dev1",
     "description": "This is a test package for pyroma.",
     "long_description": long_description,
     "classifiers": [
@@ -32,17 +31,18 @@ COMPLETE = {
         "Programming Language :: Python :: 3.3",
         "License :: OSI Approved :: MIT License",
     ],
-    "keywords": ["pypi", "quality", "example"],
+    "keywords": "pypi,quality,example",
     "author": "Lennart Regebro",
     "author_email": "regebro@gmail.com",
     "url": "https://github.com/regebro/pyroma",
-    "project_urls": {"Source Code": "https://github.com/regebro/pyroma"},
+    "project_urls": "Source Code, https://github.com/regebro/pyroma",
     "license": "MIT",
     "zip_safe": True,
 }
 
 
 class ProxyStub:
+
     def set_debug_context(self, dataname, real_class, developmode):
         filename = resource_filename(__name__, os.path.join("testdata", "xmlrpcdata", dataname))
         data = {}
@@ -100,6 +100,7 @@ proxystub = ProxyStub()
 
 
 class RatingsTest(unittest.TestCase):
+
     def _get_file_rating(self, dirname):
         directory = resource_filename(__name__, os.path.join("testdata", dirname))
         data = projectdata.get_data(directory)
@@ -208,6 +209,7 @@ class RatingsTest(unittest.TestCase):
 
 
 class PyPITest(unittest.TestCase):
+
     @unittest.mock.patch("xmlrpc.client.ServerProxy", proxystub)
     @unittest.mock.patch("pyroma.pypidata._get_project_data")
     def test_distribute(self, projectdatamock):
@@ -249,8 +251,6 @@ class PyPITest(unittest.TestCase):
 
 class ProjectDataTest(unittest.TestCase):
 
-    maxDiff = None
-
     def test_complete(self):
         directory = resource_filename(__name__, os.path.join("testdata", "complete"))
 
@@ -259,6 +259,7 @@ class ProjectDataTest(unittest.TestCase):
 
 
 class DistroDataTest(unittest.TestCase):
+
     def test_complete(self):
         directory = resource_filename(__name__, os.path.join("testdata", "distributions"))
 
