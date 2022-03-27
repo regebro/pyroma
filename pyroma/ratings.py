@@ -402,6 +402,39 @@ class TestSuitDeprecation(BaseTest):
         return "The `setup.py test` command and accompanying `test_suit` field has been deprecated."
 
 
+class MissingBuildSystem(BaseTest):
+    def test(self, data):
+        if "_missing_build_system" in data:
+            self.weight = 100
+            return False
+
+    def message(self):
+        return (
+            "You seem to have a setup.cfg, but neither a setup.py, nor a build-system defined. This makes "
+            "it unclear how your project should be built. You probably want to have a pyproject.toml file "
+            "with the following configuration:\n\n"
+            "    [build-system]\n"
+            "    requires = [\"setuptools>=42\"]\n"
+            "    build-backend = \"setuptools.build_meta\"\n\n"
+            "In the future this will become a hard failure and your package will be rated as \"not cheese\"."
+        )
+
+
+class StoneAgeSetupPy(BaseTest):
+    def test(self, data):
+        if "_stoneage_setuppy" in data:
+            self.weight = 200
+            return False
+
+    def message(self):
+        return (
+            "The only way to gather metadata from your package was to execute a patched setup.py. This "
+            "indicates that your package is using very old packaging techniques, (or that your setup.py isn't "
+            "executable at all), and Pyroma will soon regard that as a complete failure and rate you as not "
+            "even cheese.\nPlease modernize your packaging! If it is modern, this is a bug."
+        )
+
+
 ALL_TESTS = [
     Name(),
     Version(),
@@ -422,6 +455,8 @@ ALL_TESTS = [
     BusFactor(),
     DevStatusClassifier(),
     TestSuitDeprecation(),
+    MissingBuildSystem(),
+    StoneAgeSetupPy(),
 ]
 
 

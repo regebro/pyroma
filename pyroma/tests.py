@@ -117,7 +117,25 @@ class RatingsTest(unittest.TestCase):
 
     def test_only_config(self):
         rating = self._get_file_rating("only_config")
-        self.assertEqual(rating, (10, []))
+
+        self.assertEqual(
+            rating,
+            (8,
+             ['You seem to have a setup.cfg, but neither a setup.py, nor a build-system defined. '
+              'This makes it unclear how your project should be built. You probably want to '
+              'have a pyproject.toml file with the following configuration:\n\n'
+              '    [build-system]\n'
+              '    requires = ["setuptools>=42"]\n'
+              '    build-backend = "setuptools.build_meta"\n\n'
+              'In the future this will become a hard failure and your package will be '
+              'rated as "not cheese".'
+              ]
+             )
+        )
+
+    def test_pep517(self):
+        rating = self._get_file_rating("pep517")
+        self.assertEqual(rating, (10,[],),)
 
     def test_minimal(self):
         rating = self._get_file_rating("minimal")
@@ -222,17 +240,29 @@ class PyPITest(unittest.TestCase):
         data = pypidata.get_data("distribute")
         rating = rate(data)
 
-        self.assertEqual(
-            rating,
-            (
-                9,
-                [
-                    "The classifiers should specify what minor versions of Python "
-                    "you support as well as what major version.",
-                    "You should have three or more owners of the project on PyPI.",
-                ],
-            ),
-        )
+        # build + older versions of setuptools works, later setuptools does not, so
+        # we can get two different results here:
+        self.assertIn(rating[0], [7, 9])
+        expected = [
+            "The classifiers should specify what minor versions of Python "
+            "you support as well as what major version.",
+            "You should have three or more owners of the project on PyPI.",
+        ]
+
+        if rating[0] == 7:
+            # So this is with a more modern version of setuptools, meaning running
+            # setup py failed (in out case, because use_2to3 support is gone, but
+            # no one in their right mind is still using that). That means we also
+            # get a warning that setup.py is old.
+            expected.append(
+                "The only way to gather metadata from your package was to execute a patched "
+                "setup.py. This indicates that your package is using very old packaging "
+                "techniques, (or that your setup.py isn't executable at all), and Pyroma will "
+                "soon regard that as a complete failure and rate you as not even cheese.\n"
+                "Please modernize your packaging! If it is modern, this is a bug."
+            )
+
+        self.assertEqual(rating[1], expected)
 
     @unittest.mock.patch("xmlrpc.client.ServerProxy", proxystub)
     @unittest.mock.patch("pyroma.pypidata._get_project_data")

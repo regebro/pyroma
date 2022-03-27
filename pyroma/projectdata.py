@@ -54,18 +54,26 @@ def get_setupcfg_data(path):
 def get_data(path):
     try:
         return get_build_data(path)
-    except build.BuildException:
-        # It couldn't build the package, this happens if you only have a setup.cfg and
-        # no setup.py, which I'm testing for, but maybe it's not actually supported?
-        return get_setupcfg_data(path)
+    except build.BuildException as e:
+        if "no pyproject.toml or setup.py" in e.args[0]:
+            # It couldn't build the package, because there is no setup.py or pyproject.toml.
+            # Let's see if there is a setup.cfg:
+            try:
+
+                metadata = get_setupcfg_data(path)
+                # Yes, there's a setup.cfg. Pyroma accepted this earlier, but that was probably
+                # a mistake. For the time being, warn for it, but in a future version just fail.
+                metadata["_missing_build_system"] = True
+                return metadata
+            except Exception:
+                # No, that didn't work. Hide this second exception and raise the first:
+                pass
+        raise e
+
     except Exception:
-        logging.exception("Build failed, try falling back to monkey-patching setup.py")
+        logging.exception("Exception raised during metadata preparation")
         metadata = get_setuppy_data(path)
-        logging.exception(
-            "Fallback worked! This likely means your package is using very old packaging techniques, "
-            "and Pyroma will soon regard that as a complete failure and rate you as not even cheese.\n"
-            "Please modernize your packaging!"
-        )
+        metadata["_stoneage_setuppy"] = True
         return metadata
 
 
