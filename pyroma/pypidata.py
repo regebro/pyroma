@@ -13,9 +13,7 @@ def _get_project_data(project):
     if response.status_code == 404:
         raise ValueError(f"Did not find '{project}' on PyPI. Did you misspell it?")
     if not response.ok:
-        raise ValueError(
-            f"Unknown http error: {response.status_code} {response.reason}"
-        )
+        raise ValueError(f"Unknown http error: {response.status_code} {response.reason}")
 
     return response.json()
 

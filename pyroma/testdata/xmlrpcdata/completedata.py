@@ -68,8 +68,7 @@ imperdiet enim nec velit posuere id dignissim massa molestie.""",
                 "upload_time": datetime(2011, 3, 16, 16, 31, 39),
                 "comment_text": "",
                 "python_version": "source",
-                "url": "http://pypi.python.org/packages/source/c/complete/"
-                "complete-1.0.dev1.tar.gz",
+                "url": "http://pypi.python.org/packages/source/c/complete/" "complete-1.0.dev1.tar.gz",
                 "md5_digest": "ea52e1412e7ff560c290266ed400e216",
                 "downloads": 0,
                 "filename": "complete-1.0.dev1.tar.gz",
@@ -78,7 +77,5 @@ imperdiet enim nec velit posuere id dignissim massa molestie.""",
             }
         ]
     },
-    "package_roles": {
-        ("complete",): [["Owner", "someone"], ["Owner", "me"], ["Owner", "other"]]
-    },
+    "package_roles": {("complete",): [["Owner", "someone"], ["Owner", "me"], ["Owner", "other"]]},
 }

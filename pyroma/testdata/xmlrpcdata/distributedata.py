@@ -51,8 +51,7 @@ It doesn't need to be much longer than this, I think.
             ],
             "name": "distribute",
             "license": "PSF or ZPL",
-            "summary": "Easily download, build, install, upgrade, and "
-            "uninstall Python packages",
+            "summary": "Easily download, build, install, upgrade, and " "uninstall Python packages",
             "home_page": "http://packages.python.org/distribute",
             "stable_version": None,
             "cheesecake_installability_id": None,
@@ -65,8 +64,7 @@ It doesn't need to be much longer than this, I think.
                 "upload_time": datetime(2011, 3, 16, 16, 31, 39),
                 "comment_text": "",
                 "python_version": "source",
-                "url": "http://pypi.python.org/packages/source/d/"
-                "distribute/distribute-0.6.15.tar.gz",
+                "url": "http://pypi.python.org/packages/source/d/" "distribute/distribute-0.6.15.tar.gz",
                 "md5_digest": "ea52e1412e7ff560c290266ed400e216",
                 "downloads": 0,
                 "filename": "distribute-0.6.15.tar.gz",

@@ -23,10 +23,7 @@ def zester(data):
 
 
 def main():
-    usage = (
-        "usage: %prog [-n N] [-a|-d|-f|-p] <project directory|"
-        "distribution file|pypi package name>"
-    )
+    usage = "usage: %prog [-n N] [-a|-d|-f|-p] <project directory|" "distribution file|pypi package name>"
     parser = OptionParser(usage)
     parser.add_option(
         "-n",

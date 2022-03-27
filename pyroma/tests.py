@@ -10,9 +10,7 @@ from pkg_resources import resource_filename, resource_string
 from pyroma import projectdata, distributiondata, pypidata
 from pyroma.ratings import rate
 
-long_description = resource_string(
-    __name__, os.path.join("testdata", "complete", "README.txt")
-)
+long_description = resource_string(__name__, os.path.join("testdata", "complete", "README.txt"))
 if not isinstance(long_description, str):
     long_description = long_description.decode()
 # Translate newlines to universal format
@@ -47,9 +45,7 @@ COMPLETE = {
 
 class ProxyStub:
     def set_debug_context(self, dataname, real_class, developmode):
-        filename = resource_filename(
-            __name__, os.path.join("testdata", "xmlrpcdata", dataname)
-        )
+        filename = resource_filename(__name__, os.path.join("testdata", "xmlrpcdata", dataname))
         data = {}
         with open(filename, encoding="UTF-8") as f:
             exec(f.read(), None, data)
@@ -139,7 +135,8 @@ class RatingsTest(unittest.TestCase):
                     "Your package does not have keywords data.",
                     "Your package does not have author data.",
                     "Your package does not have author_email data.",
-                    "Your package should have a 'url' field with a link to the project home page, or a 'project_urls' field, with a dictionary of links, or both.",
+                    "Your package should have a 'url' field with a link to the project home page, or a "
+                    "'project_urls' field, with a dictionary of links, or both.",
                     "Your package does neither have a license field nor any license classifiers.",
                     "Specifying a development status in the classifiers gives users "
                     "a hint of how stable your software is.",
@@ -162,9 +159,11 @@ class RatingsTest(unittest.TestCase):
                     "Your package does not have keywords data.",
                     "Your package does not have author data.",
                     "Your package does not have author_email data.",
-                    "Your package should have a 'url' field with a link to the project home page, or a 'project_urls' field, with a dictionary of links, or both.",
+                    "Your package should have a 'url' field with a link to the project home page, or a "
+                    "'project_urls' field, with a dictionary of links, or both.",
                     "Your package does neither have a license field nor any license classifiers.",
-                    "Your long_description is not valid ReST: \n<string>:1: (WARNING/2) Inline literal start-string without end-string.",
+                    "Your long_description is not valid ReST: \n<string>:1: (WARNING/2) Inline literal "
+                    "start-string without end-string.",
                     "Specifying a development status in the classifiers gives users "
                     "a hint of how stable your software is.",
                 ],
@@ -187,7 +186,8 @@ class RatingsTest(unittest.TestCase):
                     "Your package does not have keywords data.",
                     "Your package does not have author data.",
                     "Your package does not have author_email data.",
-                    "Your package should have a 'url' field with a link to the project home page, or a 'project_urls' field, with a dictionary of links, or both.",
+                    "Your package should have a 'url' field with a link to the project home page, or a "
+                    "'project_urls' field, with a dictionary of links, or both.",
                     "Your package does neither have a license field nor any license classifiers.",
                     "Specifying a development status in the classifiers gives users "
                     "a hint of how stable your software is.",
@@ -201,24 +201,18 @@ class RatingsTest(unittest.TestCase):
         testdata["long_description"] = "# Broken ReST\n\n``Valid  Markdown\n"
         testdata["long_description_content_type"] = "text/markdown"
         rating = rate(testdata)
-        self.assertEqual(
-            rating, (9, ["The package's long_description is quite short."])
-        )
+        self.assertEqual(rating, (9, ["The package's long_description is quite short."]))
 
         testdata["long_description_content_type"] = "text/plain"
         rating = rate(testdata)
-        self.assertEqual(
-            rating, (9, ["The package's long_description is quite short."])
-        )
+        self.assertEqual(rating, (9, ["The package's long_description is quite short."]))
 
 
 class PyPITest(unittest.TestCase):
     @unittest.mock.patch("xmlrpc.client.ServerProxy", proxystub)
     @unittest.mock.patch("pyroma.pypidata._get_project_data")
     def test_distribute(self, projectdatamock):
-        datafile = resource_filename(
-            __name__, os.path.join("testdata", "jsondata", "distribute.json")
-        )
+        datafile = resource_filename(__name__, os.path.join("testdata", "jsondata", "distribute.json"))
         with open(datafile, "rt", encoding="UTF-8") as file:
             projectdatamock.return_value = json.load(file)
 
@@ -242,9 +236,7 @@ class PyPITest(unittest.TestCase):
     @unittest.mock.patch("xmlrpc.client.ServerProxy", proxystub)
     @unittest.mock.patch("pyroma.pypidata._get_project_data")
     def test_complete(self, projectdatamock):
-        datafile = resource_filename(
-            __name__, os.path.join("testdata", "jsondata", "complete.json")
-        )
+        datafile = resource_filename(__name__, os.path.join("testdata", "jsondata", "complete.json"))
         with open(datafile, "rt", encoding="UTF-8") as file:
             projectdatamock.return_value = json.load(file)
 
@@ -269,9 +261,7 @@ class ProjectDataTest(unittest.TestCase):
 
 class DistroDataTest(unittest.TestCase):
     def test_complete(self):
-        directory = resource_filename(
-            __name__, os.path.join("testdata", "distributions")
-        )
+        directory = resource_filename(__name__, os.path.join("testdata", "distributions"))
 
         for filename in os.listdir(directory):
             if filename.startswith("complete"):
