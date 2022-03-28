@@ -1,8 +1,8 @@
 Changelog
 =========
 
-4.0 (unreleased)
-----------------
+4.0b1 (2022-03-28)
+------------------
 
 - Added support for PEP517 by using `build` to build the metadata as a
   preferred build method over the old patched setuptools method.
