@@ -39,7 +39,6 @@ COMPLETE = {
     "project_urls": {"Source Code": "https://github.com/regebro/pyroma"},
     "license": "MIT",
     "zip_safe": True,
-    "test_suite": "complete",
 }
 
 
