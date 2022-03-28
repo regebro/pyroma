@@ -1,11 +1,80 @@
 # Extracts information from a project that has a distutils setup.py file.
-import os
-import sys
+import build
+import email
+import email.policy
 import logging
+import os
+import pathlib
+import sys
+import tempfile
 import tokenize
-
 from copy import copy
 from distutils import core
+from setuptools import config
+
+METADATA_MAP = {
+    "summary": "description",
+    "classifier": "classifiers",
+    "project_url": "project_urls",
+    "home_page": "url",
+    "description": "long_description",
+}
+
+
+def get_build_data(path):
+    with tempfile.TemporaryDirectory() as tempdir:
+        metadata_dir = build.ProjectBuilder(str(path)).prepare("wheel", tempdir)
+        with open(pathlib.Path(metadata_dir) / "METADATA", "rb") as metadata_file:
+            metadata = email.message_from_binary_file(metadata_file, policy=email.policy.compat32)
+
+    if 'Description' not in metadata.keys():
+        # Having the description as a payload tends to add two newlines, we clean that up here:
+        long_description = metadata.get_payload().strip() + "\n"
+        data = {'long_description': long_description}
+
+    for key in set(metadata.keys()):
+        value = metadata.get_all(key)
+        if len(value) == 1:
+            value = value[0]
+            if value.strip() == "UNKNOWN":
+                continue
+        key = key.lower().replace('-', '_')
+        if key in METADATA_MAP:
+            key = METADATA_MAP[key]
+        data[key] = value
+    return data
+
+
+def get_setupcfg_data(path):
+    data = config.read_configuration("setup.cfg")
+    metadata = data["metadata"]
+    return metadata
+
+
+def get_data(path):
+    try:
+        return get_build_data(path)
+    except build.BuildException as e:
+        if "no pyproject.toml or setup.py" in e.args[0]:
+            # It couldn't build the package, because there is no setup.py or pyproject.toml.
+            # Let's see if there is a setup.cfg:
+            try:
+
+                metadata = get_setupcfg_data(path)
+                # Yes, there's a setup.cfg. Pyroma accepted this earlier, but that was probably
+                # a mistake. For the time being, warn for it, but in a future version just fail.
+                metadata["_missing_build_system"] = True
+                return metadata
+            except Exception:
+                # No, that didn't work. Hide this second exception and raise the first:
+                pass
+        raise e
+
+    except Exception:
+        logging.exception("Exception raised during metadata preparation")
+        metadata = get_setuppy_data(path)
+        metadata["_stoneage_setuppy"] = True
+        return metadata
 
 
 class FakeContext:
@@ -138,7 +207,7 @@ def run_setup(script_name, script_args=None, stop_after="run"):
     return core._setup_distribution
 
 
-def get_data(path):
+def get_setuppy_data(path):
     """
     Returns data from a package directory.
     'path' should be an absolute path.
@@ -151,7 +220,7 @@ def get_data(path):
                 try:
                     distro = run_setup("setup.py", stop_after="config")
 
-                    metadata = {"_setuptools": sm.used_setuptools}
+                    metadata = {}
 
                     for k, v in distro.metadata.__dict__.items():
                         if k[0] == "_" or not v:

@@ -1,16 +1,19 @@
+import logging
 import os
 import sys
 from optparse import OptionParser
 from pyroma import projectdata, distributiondata, pypidata, ratings
 
-import logging
-
 logging.basicConfig(level=logging.DEBUG, stream=sys.stdout, format="%(message)s")
 
 
 def zester(data):
-    main_files = os.listdir(data["workingdir"])
-    if "setup.py" not in main_files and "setup.cfg" not in main_files:
+    main_files = set(os.listdir(data["workingdir"]))
+    config_files = {"setup.py", "setup.cfg", "pyproject.toml"}
+
+    # If there are no standard Python config files in the main files
+    # it's likely not a Python project, so just return.
+    if not config_files & main_files:
         return
 
     from zest.releaser.utils import ask

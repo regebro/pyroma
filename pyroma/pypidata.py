@@ -1,7 +1,7 @@
-import tempfile
-import os
 import logging
+import os
 import requests
+import tempfile
 import xmlrpc.client
 
 from pyroma import distributiondata
@@ -42,7 +42,6 @@ def get_data(project):
     # If there is a source download, download it, and get that data.
     # This is done mostly to do the imports check.
     data["_source_download"] = False
-    data["_setuptools"] = None  # Mark as unknown, in case no sdist is found.
     data["_has_sdist"] = False
 
     for download in urls:
