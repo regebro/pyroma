@@ -4,7 +4,12 @@ Changelog
 4.0 (unreleased)
 ----------------
 
-- Nothing changed yet.
+- Added support for PEP517 by using `build` to build the metadata as a 
+  preferred build method over the old patched setuptools method. 
+  The old way is depracated and will be removed in 5.0, which also is
+  planned to support PEP621. 
+  Thanks to Christopher A.M. Gerlach for valuable insight into the 
+  modern packaging systems.
 
 
 3.3 (2022-03-28)
