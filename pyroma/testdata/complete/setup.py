@@ -32,5 +32,4 @@ setup(
     tests_require=["six"],
     setup_requires=["setuptools"],
     zip_safe=True,
-    test_suite="complete",
 )

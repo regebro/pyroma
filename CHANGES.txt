@@ -4,7 +4,7 @@ Changelog
 3.2.2 (unreleased)
 ------------------
 
-- Nothing changed yet.
+- Add a deprecation for `test_suite`
 
 
 3.2.1 (2022-03-27)
