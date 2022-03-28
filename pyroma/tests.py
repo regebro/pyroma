@@ -36,13 +36,12 @@ COMPLETE = {
     "author_email": "regebro@gmail.com",
     "url": "https://github.com/regebro/pyroma",
     "project_urls": "Source Code, https://github.com/regebro/pyroma",
+    "requires_dist": "zope.event",
     "license": "MIT",
-    "zip_safe": True,
 }
 
 
 class ProxyStub:
-
     def set_debug_context(self, dataname, real_class, developmode):
         filename = resource_filename(__name__, os.path.join("testdata", "xmlrpcdata", dataname))
         data = {}
@@ -101,6 +100,8 @@ proxystub = ProxyStub()
 
 class RatingsTest(unittest.TestCase):
 
+    maxDiff = None
+
     def _get_file_rating(self, dirname):
         directory = resource_filename(__name__, os.path.join("testdata", dirname))
         data = projectdata.get_data(directory)
@@ -120,22 +121,30 @@ class RatingsTest(unittest.TestCase):
 
         self.assertEqual(
             rating,
-            (8,
-             ['You seem to have a setup.cfg, but neither a setup.py, nor a build-system defined. '
-              'This makes it unclear how your project should be built. You probably want to '
-              'have a pyproject.toml file with the following configuration:\n\n'
-              '    [build-system]\n'
-              '    requires = ["setuptools>=42"]\n'
-              '    build-backend = "setuptools.build_meta"\n\n'
-              'In the future this will become a hard failure and your package will be '
-              'rated as "not cheese".'
-              ]
-             )
+            (
+                8,
+                [
+                    "You seem to have a setup.cfg, but neither a setup.py, nor a build-system defined. "
+                    "This makes it unclear how your project should be built. You probably want to "
+                    "have a pyproject.toml file with the following configuration:\n\n"
+                    "    [build-system]\n"
+                    '    requires = ["setuptools>=42"]\n'
+                    '    build-backend = "setuptools.build_meta"\n\n'
+                    "In the future this will become a hard failure and your package will be "
+                    'rated as "not cheese".'
+                ],
+            ),
         )
 
     def test_pep517(self):
         rating = self._get_file_rating("pep517")
-        self.assertEqual(rating, (10,[],),)
+        self.assertEqual(
+            rating,
+            (
+                10,
+                [],
+            ),
+        )
 
     def test_minimal(self):
         rating = self._get_file_rating("minimal")
@@ -228,6 +237,8 @@ class RatingsTest(unittest.TestCase):
 
 class PyPITest(unittest.TestCase):
 
+    maxDiff = None
+
     @unittest.mock.patch("xmlrpc.client.ServerProxy", proxystub)
     @unittest.mock.patch("pyroma.pypidata._get_project_data")
     def test_distribute(self, projectdatamock):
@@ -242,27 +253,21 @@ class PyPITest(unittest.TestCase):
 
         # build + older versions of setuptools works, later setuptools does not, so
         # we can get two different results here:
-        self.assertIn(rating[0], [7, 9])
-        expected = [
-            "The classifiers should specify what minor versions of Python "
-            "you support as well as what major version.",
-            "You should have three or more owners of the project on PyPI.",
-        ]
-
-        if rating[0] == 7:
-            # So this is with a more modern version of setuptools, meaning running
-            # setup py failed (in out case, because use_2to3 support is gone, but
-            # no one in their right mind is still using that). That means we also
-            # get a warning that setup.py is old.
-            expected.append(
-                "The only way to gather metadata from your package was to execute a patched "
-                "setup.py. This indicates that your package is using very old packaging "
-                "techniques, (or that your setup.py isn't executable at all), and Pyroma will "
-                "soon regard that as a complete failure and rate you as not even cheese.\n"
-                "Please modernize your packaging! If it is modern, this is a bug."
-            )
-
-        self.assertEqual(rating[1], expected)
+        self.assertEqual(
+            rating,
+            (
+                7,
+                [
+                    "The classifiers should specify what minor versions of Python "
+                    "you support as well as what major version.",
+                    "You should have three or more owners of the project on PyPI.",
+                    "Your Cheese may have spoiled!! The only way to gather metadata from your package was to execute "
+                    "a patched setup.py. This indicates that your package is using very old packaging techniques, "
+                    "(or that your setup.py isn't executable at all), and Pyroma will soon regard that as a "
+                    "complete failure!\nPlease modernize your packaging! If it is already modern, this is a bug.",
+                ],
+            ),
+        )
 
     @unittest.mock.patch("xmlrpc.client.ServerProxy", proxystub)
     @unittest.mock.patch("pyroma.pypidata._get_project_data")
@@ -281,6 +286,8 @@ class PyPITest(unittest.TestCase):
 
 class ProjectDataTest(unittest.TestCase):
 
+    maxDiff = None
+
     def test_complete(self):
         directory = resource_filename(__name__, os.path.join("testdata", "complete"))
 
@@ -289,6 +296,8 @@ class ProjectDataTest(unittest.TestCase):
 
 
 class DistroDataTest(unittest.TestCase):
+
+    maxDiff = None
 
     def test_complete(self):
         directory = resource_filename(__name__, os.path.join("testdata", "distributions"))
