@@ -1,7 +1,7 @@
 Changelog
 =========
 
-4.0b2 (unreleased)
+4.0b2 (2022-03-29)
 ------------------
 
 - The deprecation test for test_suite is no longer needed, as the patched
