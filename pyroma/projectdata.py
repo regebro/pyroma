@@ -18,6 +18,7 @@ METADATA_MAP = {
     "project_url": "project_urls",
     "home_page": "url",
     "description": "long_description",
+    "description_content_type": "long_description_content_type",
 }
 
 
@@ -27,10 +28,10 @@ def get_build_data(path):
         with open(pathlib.Path(metadata_dir) / "METADATA", "rb") as metadata_file:
             metadata = email.message_from_binary_file(metadata_file, policy=email.policy.compat32)
 
-    if 'Description' not in metadata.keys():
+    if "Description" not in metadata.keys():
         # Having the description as a payload tends to add two newlines, we clean that up here:
         long_description = metadata.get_payload().strip() + "\n"
-        data = {'long_description': long_description}
+        data = {"long_description": long_description}
 
     for key in set(metadata.keys()):
         value = metadata.get_all(key)
@@ -38,7 +39,7 @@ def get_build_data(path):
             value = value[0]
             if value.strip() == "UNKNOWN":
                 continue
-        key = key.lower().replace('-', '_')
+        key = key.lower().replace("-", "_")
         if key in METADATA_MAP:
             key = METADATA_MAP[key]
         data[key] = value
