@@ -4,7 +4,8 @@ Changelog
 4.0b2 (unreleased)
 ------------------
 
-- Nothing changed yet.
+- The deprecation test for test_suite is no longer needed, as the patched
+  setuptools method of gathering metadata as a whole is deprecated.
 
 
 4.0b1 (2022-03-28)

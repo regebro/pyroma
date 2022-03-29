@@ -392,16 +392,6 @@ class BusFactor(BaseTest):
         return "You should have three or more owners of the project on PyPI."
 
 
-class TestSuitDeprecation(BaseTest):
-    weight = 50
-
-    def test(self, data):
-        return "test_suite" not in data
-
-    def message(self):
-        return "The `setup.py test` command and accompanying `test_suit` field has been deprecated."
-
-
 class MissingBuildSystem(BaseTest):
     def test(self, data):
         if "_missing_build_system" in data:
@@ -456,7 +446,6 @@ ALL_TESTS = [
     ValidREST(),
     BusFactor(),
     DevStatusClassifier(),
-    TestSuitDeprecation(),
     MissingBuildSystem(),
     StoneAgeSetupPy(),
 ]
