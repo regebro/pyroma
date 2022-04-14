@@ -4,7 +4,7 @@ Changelog
 4.0b3 (unreleased)
 ------------------
 
-- Nothing changed yet.
+- No changes from 4.0b2.
 
 
 4.0b2 (2022-03-29)
