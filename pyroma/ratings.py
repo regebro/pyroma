@@ -255,6 +255,15 @@ class Author(FieldTest):
     weight = 100
     field = "author"
 
+    def test(self, data):
+        """Check if author_email field contains author name."""
+        email = data.get("author_email")
+        if email is not None:
+            # For example "Author Name <author.name@email.com>".
+            return "<" in email
+        else:
+            return super().test(data)
+
 
 class AuthorEmail(FieldTest):
     weight = 100
