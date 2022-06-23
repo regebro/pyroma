@@ -258,11 +258,8 @@ class Author(FieldTest):
     def test(self, data):
         """Check if author_email field contains author name."""
         email = data.get("author_email")
-        if email is not None:
-            # For example "Author Name <author.name@email.com>".
-            return "<" in email
-        else:
-            return super().test(data)
+        # Pass if author name in email, e.g. "Author Name <author@example.com>"
+        return True if email and "<" in email else super().test(data)
 
 
 class AuthorEmail(FieldTest):
