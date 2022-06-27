@@ -1,0 +1,29 @@
+[build-system]
+requires = ["flit_core >=3.4,<4"]
+build-backend = "flit_core.buildapi"
+
+[project]
+name = "pyroma_pep621_test_pkg"
+version = "1.0"
+description = "This is a test package for pyroma"
+readme = "README.txt"
+authors = [{name = "Lennart Regebro", email = "regebro@gmail.com"}]
+classifiers = [
+    "Development Status :: 6 - Mature",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 2.6",
+    "Programming Language :: Python :: 2.7",
+    "Programming Language :: Python :: 3.1",
+    "Programming Language :: Python :: 3.2",
+    "Programming Language :: Python :: 3.3",
+    "License :: OSI Approved :: MIT License",
+]
+keywords = [
+    "pypi",
+    "quality",
+    "example",
+]
+urls = {Homepage = "https://github.com/regebro/pyroma"}
+
+[tool.setuptools]
+include-package-data = false
