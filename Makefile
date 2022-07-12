@@ -34,5 +34,3 @@ clean-pyc: ## remove Python file artifacts
 
 prepare-release:
 	python fetch_classifiers.py
-
-

@@ -14,8 +14,8 @@ For each Python version supported by Pyroma you need to make sure the
 "complete" package that is used for testing also supports that version of
 Python. The complete data supports both Python 2 and Python 3 and depends on
 the "six" package. As such it's highly unlikely you'll have to change any
-code. However, you have to mark the package as supporting the Python 
-version. 
+code. However, you have to mark the package as supporting the Python
+version.
 
 This is most easily done by searching the code for "Python :: 3.2" and
 adding the Python version that you want to support to the lists of
