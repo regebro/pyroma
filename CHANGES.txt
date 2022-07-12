@@ -4,7 +4,8 @@ Changelog
 4.1 (unreleased)
 ----------------
 
-- Nothing changed yet.
+- Moved from a custom trove classifiers list to using the trove-classifiers
+  package [hugovk]
 
 
 4.0 (2022-04-14)
