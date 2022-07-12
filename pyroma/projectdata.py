@@ -47,7 +47,7 @@ def get_build_data(path):
 
 
 def get_setupcfg_data(path):
-    data = config.read_configuration("setup.cfg")
+    data = config.setupcfg.read_configuration("setup.cfg")
     metadata = data["metadata"]
     return metadata
 
