@@ -16,9 +16,11 @@
 #                 not be counted).
 import io
 import re
+from collections import defaultdict
+
 from docutils.core import publish_parts
 from docutils.utils import SystemMessage
-from pyroma.classifiers import CLASSIFIERS, CODE_LICENSES
+from trove_classifiers import classifiers as CLASSIFIERS
 
 LEVELS = [
     "This cheese seems to contain no dairy products",
@@ -33,6 +35,31 @@ LEVELS = [
     "Cottage Cheese",
     "Your cheese is so fresh most people think it's a cream: Mascarpone",
 ]
+
+SHORT_NAME_RE = re.compile(r"\(.*?\)")
+
+
+def get_code_licenses():
+    licenses = [each for each in list(CLASSIFIERS) if each.startswith("License")]
+    code_map = defaultdict(set)
+    for license in licenses:
+        short_name = SHORT_NAME_RE.findall(license)
+        if short_name:
+            short_name = short_name[0][1:-1]
+            code_map[short_name].add(license)
+            if short_name.startswith("GPL"):
+                code_map["GPL"].add(license)
+            elif short_name.startswith("LGPL"):
+                code_map["LGPL"].add(license)
+        elif "Zope" in license:
+            code_map["ZPL"].add(license)
+        elif "MIT License" in license:
+            code_map["MIT"].add(license)
+
+    return code_map
+
+
+CODE_LICENSES = get_code_licenses()
 
 
 class BaseTest:
