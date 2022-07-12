@@ -110,7 +110,7 @@ Contributors:
 
   * Godefroid Chapelle
   * Dmitry Vakhrushev
-  * hugovk
+  * Hugo van Kemenade
   * Jeff Quast
   * Maurits van Rees
   * Hervé Beraud
