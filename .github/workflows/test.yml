@@ -5,6 +5,9 @@ name: Test package
 
 on: [pull_request, push]
 
+env:
+  FORCE_COLOR: 1
+
 jobs:
   build:
     name: Run package tests
