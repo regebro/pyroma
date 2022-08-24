@@ -108,6 +108,7 @@ The name "Pyroma" was coined by Wichert Akkerman, wichert@wiggy.net
 
 Contributors:
 
+  * David Andreoletti
   * Godefroid Chapelle
   * Dmitry Vakhrushev
   * Hugo van Kemenade

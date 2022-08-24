@@ -10,6 +10,7 @@ setup(
     version=version,
     description="This is a test package for pyroma.",
     long_description=long_description,
+    python_requires=">=2.6",
     classifiers=[
         "Development Status :: 6 - Mature",
         "Operating System :: OS Independent",
