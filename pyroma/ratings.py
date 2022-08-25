@@ -343,9 +343,7 @@ class DevStatusClassifier(BaseTest):
         return False
 
     def message(self):
-        return (
-            "Specifying a development status in the classifiers gives users a hint of how stable your software is."
-        )
+        return "Specifying a development status in the classifiers gives users a hint of how stable your software is."
 
 
 class SDist(BaseTest):
