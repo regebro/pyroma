@@ -226,102 +226,77 @@ class ClassifierVerification(BaseTest):
         return "Some of your classifiers are not standard classifiers:\n" + err
 
 
-class PythonVersion(BaseTest):
+class PythonClassifierVersion(BaseTest):
+
     def test(self, data):
-        self._checked_classifiers = False
-        self._checked_requires = False
-        self._classifier_major_version_specified = False
+        self._major_version_specified = False
 
-        def _check_python_classifiers(python_classifiers):
-            self._checked_classifiers = True
-            for classifier in python_classifiers:
-                parts = [p.strip() for p in classifier.split("::")]
-                if parts[0] == "Programming Language" and parts[1] == "Python":
-                    if len(parts) == 2:
-                        # Specified Python, but no version.
-                        continue
-                    version = parts[2]
-                    try:
-                        float(version)
-                    except ValueError:
-                        # Not a proper Python version
-                        continue
-                    try:
-                        int(version)
-                    except ValueError:
-                        # It's a valid float, but not a valid int. Hence it's
-                        # something like "2.7" or "3.3" but not just "2" or "3".
-                        # This is a good specification, and we only need one.
-                        # Set weight to 100 and finish.
-                        return (100, True)
+        classifiers = data.get('classifiers', [])
+        for classifier in classifiers:
+            parts = [p.strip() for p in classifier.split('::')]
+            if parts[0] == 'Programming Language' and parts[1] == 'Python':
+                if len(parts) == 2:
+                    # Specified Python, but no version.
+                    continue
+                version = parts[2]
+                try:
+                    float(version)
+                except ValueError:
+                    # Not a proper Python version
+                    continue
+                try:
+                    int(version)
+                except ValueError:
+                    # It's a valid float, but not a valid int. Hence it's
+                    # something like "2.7" or "3.3" but not just "2" or "3".
+                    # This is a good specification, and we only need one.
+                    # Set weight to 100 and finish.
+                    self.weight = 100
+                    return True
 
-                    # It's a valid int, meaning it specified "2" or "3".
-                    self._classifier_major_version_specified = True
+                # It's a valid int, meaning it specified "2" or "3".
+                self._major_version_specified = True
 
-            # There was some sort of failure:
-            if self._classifier_major_version_specified:
-                # Python 2 or 3 was specified but no more detail than that:
-                return (25, False)
-            else:
-                # No Python version specified at all:
-                return (100, False)
-
-
-        def _check_python_requires(requires_python) -> bool:
-            self._checked_requires = True
+        # There was some sort of failure:
+        if self._major_version_specified:
+            # Python 2 or 3 was specified but no more detail than that:
+            self.weight = 25
+        else:
+            # No Python version specified at all:
             self.weight = 100
-            if not requires_python:
-                return (100, False)
-            try:
-                packaging.specifiers.SpecifierSet(requires_python)
-            except packaging.specifiers.InvalidSpecifier:
-                return (100, False)
-            return (100, True)
-
-        python_classifiers = data.get("classifiers", None)
-        python_requires = data.get("python_requires", None)
-
-        if python_classifiers is None and python_requires is None:
-            self.weight = 100
-            return False
-
-        if python_classifiers is not None and python_requires is None:
-            # 'Legacy' behaviour: packages with 'classifiers=...' defined have unmodified rating
-            self.weight, succeeded = _check_python_classifiers(python_classifiers or [])
-            return succeeded
-
-        if python_classifiers is None and python_requires is not None:
-            # 'New' behaviour: packages with 'python_requires=...' defined only
-            self.weight, succeeded = _check_python_requires(python_requires)
-            return succeeded
-
-        # New behaviour: 'python_requires=...' and  'classifiers=...' defined
-        classifier_weight, classifier_succeeded = _check_python_classifiers(python_classifiers or [])
-        requires_weight, requires_succeeded = _check_python_requires(python_requires)
-        self.weight = classifier_weight*0.5+requires_weight*0.5
-        return classifier_succeeded and requires_succeeded
-
+        return False
 
     def message(self):
-        feedback_classifier = None
-        feedback_requires = None
-        none_defined = not self._checked_requires and not self._checked_classifiers
+        if self._major_version_specified:
+            return "The classifiers should specify what minor versions of "\
+                   "Python you support as well as what major version."
+        return "You should specify what Python versions you support."
 
-        if self._checked_classifiers or none_defined:
-            if self._classifier_major_version_specified:
-                feedback_classifier = (
-                    "The classifiers should specify what minor versions of "
-                    "Python you support as well as what major version."
-                )
-            else:
-                feedback_classifier = "You should specify what Python versions you support with 'classifiers=...'."
 
-        if self._checked_requires or none_defined:
-            feedback_requires = (
-                "You should specify what Python versions you support with 'python_requires=....'."
-            )
+class PythonRequiresVersion(BaseTest):
+    def test(self, data):
+        self.weight = 100
+        python_requires = data.get("python_requires", None)
+        requires_python = data.get("requires_python", None)
 
-        return "\n".join(filter(lambda x:x is not None, [feedback_classifier, feedback_requires]))
+        # python_requires and requires_python are turned into 'Requires-Python' header
+        # Some tools seems to report only one. So merging whichever has provided a value
+        python_requires = python_requires or requires_python
+
+        if not python_requires:
+            return False
+
+        try:
+            from packaging.specifiers import SpecifierSet
+            SpecifierSet(python_requires)
+            return True
+        except packaging.specifiers.InvalidSpecifier as e:
+            return False
+
+    def message(self):
+        return (
+            "You should specify what Python versions you support with 'python_requires=....'."
+        )
 
 
 class Keywords(FieldTest):
@@ -512,7 +487,8 @@ ALL_TESTS = [
     LongDescription(),
     Classifiers(),
     ClassifierVerification(),
-    PythonVersion(),
+    PythonClassifierVersion(),
+    PythonRequiresVersion(),
     Keywords(),
     Author(),
     AuthorEmail(),
