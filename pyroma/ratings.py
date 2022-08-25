@@ -227,14 +227,13 @@ class ClassifierVerification(BaseTest):
 
 
 class PythonClassifierVersion(BaseTest):
-
     def test(self, data):
         self._major_version_specified = False
 
-        classifiers = data.get('classifiers', [])
+        classifiers = data.get("classifiers", [])
         for classifier in classifiers:
-            parts = [p.strip() for p in classifier.split('::')]
-            if parts[0] == 'Programming Language' and parts[1] == 'Python':
+            parts = [p.strip() for p in classifier.split("::")]
+            if parts[0] == "Programming Language" and parts[1] == "Python":
                 if len(parts) == 2:
                     # Specified Python, but no version.
                     continue
@@ -268,8 +267,10 @@ class PythonClassifierVersion(BaseTest):
 
     def message(self):
         if self._major_version_specified:
-            return "The classifiers should specify what minor versions of "\
-                   "Python you support as well as what major version."
+            return (
+                "The classifiers should specify what minor versions of "
+                "Python you support as well as what major version."
+            )
         return "You should specify what Python versions you support."
 
 
@@ -280,8 +281,10 @@ class PythonRequiresVersion(BaseTest):
         requires_python = data.get("requires_python", None)
 
         # python_requires and requires_python are turned into 'Requires-Python' header
-        # https://packaging.python.org/en/latest/guides/dropping-older-python-versions/#specify-the-version-ranges-for-supported-python-distributions
-        # Some tools seems to report only one (eg: test_complete, test_markdown fail when 'requires_python' is not checked).
+        # https://packaging.python.org/en/latest/guides/dropping-older-python-versions
+        # /#specify-the-version-ranges-for-supported-python-distributions
+        # Some tools seems to report only one (eg: test_complete, test_markdown
+        # fail when 'requires_python' is not checked).
         # So using whichever has a value provided
         python_requires = python_requires or requires_python
 
@@ -290,15 +293,14 @@ class PythonRequiresVersion(BaseTest):
 
         try:
             from packaging.specifiers import SpecifierSet
+
             SpecifierSet(python_requires)
             return True
-        except packaging.specifiers.InvalidSpecifier as e:
+        except packaging.specifiers.InvalidSpecifier:
             return False
 
     def message(self):
-        return (
-            "You should specify what Python versions you support with 'python_requires=....'."
-        )
+        return "You should specify what Python versions you support with 'python_requires=....'."
 
 
 class Keywords(FieldTest):

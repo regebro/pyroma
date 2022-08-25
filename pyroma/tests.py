@@ -133,7 +133,7 @@ class RatingsTest(unittest.TestCase):
                     '    requires = ["setuptools>=42"]\n'
                     '    build-backend = "setuptools.build_meta"\n\n'
                     "In the future this will become a hard failure and your package will be "
-                    'rated as "not cheese".'
+                    'rated as "not cheese".',
                 ],
             ),
         )
