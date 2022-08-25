@@ -72,6 +72,8 @@ This is the list of checks that are currently performed:
 
 * You should have classifiers specifying the supported Python versions.
 
+* You should have 'python_requires' specifying the supported Python versions.
+
 * You should have a classifier specifying the project license.
 
 * If you are checking on a PyPI package, and not a local directory or
