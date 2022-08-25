@@ -123,8 +123,9 @@ class RatingsTest(unittest.TestCase):
         self.assertEqual(
             rating,
             (
-                8,
+                7,
                 [
+                    "You should specify what Python versions you support with 'python_requires=....'.",
                     "You seem to have a setup.cfg, but neither a setup.py, nor a build-system defined. "
                     "This makes it unclear how your project should be built. You probably want to "
                     "have a pyproject.toml file with the following configuration:\n\n"
@@ -159,7 +160,8 @@ class RatingsTest(unittest.TestCase):
                     "The package's description should be longer than 10 characters.",
                     "The package's long_description is quite short.",
                     "Your package does not have classifiers data.",
-                    "You should specify what Python versions you support with 'classifiers=...'.\nYou should specify what Python versions you support with 'python_requires=....'.",
+                    "You should specify what Python versions you support.",
+                    "You should specify what Python versions you support with 'python_requires=....'.",
                     "Your package does not have keywords data.",
                     "Your package does not have author data.",
                     "Your package does not have author_email data.",
@@ -183,7 +185,8 @@ class RatingsTest(unittest.TestCase):
                     "The package had no description!",
                     "The package's long_description is quite short.",
                     "Your package does not have classifiers data.",
-                    "You should specify what Python versions you support with 'classifiers=...'.\nYou should specify what Python versions you support with 'python_requires=....'.",
+                    "You should specify what Python versions you support.",
+                    "You should specify what Python versions you support with 'python_requires=....'.",
                     "Your package does not have keywords data.",
                     "Your package does not have author data.",
                     "Your package does not have author_email data.",
@@ -210,7 +213,8 @@ class RatingsTest(unittest.TestCase):
                     "The package's description should be longer than 10 characters.",
                     "The package's long_description is quite short.",
                     "Your package does not have classifiers data.",
-                    "You should specify what Python versions you support with 'classifiers=...'.\nYou should specify what Python versions you support with 'python_requires=....'.",
+                    "You should specify what Python versions you support.",
+                    "You should specify what Python versions you support with 'python_requires=....'.",
                     "Your package does not have keywords data.",
                     "Your package does not have author data.",
                     "Your package does not have author_email data.",
