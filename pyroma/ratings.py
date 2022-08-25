@@ -316,12 +316,12 @@ class Licensing(BaseTest):
                 licenses.add(classifier)
 
         if not license and not licenses:
-            self._message = "Your package does neither have a license field " "nor any license classifiers."
+            self._message = "Your package does neither have a license field nor any license classifiers."
             return False
 
         if license in CODE_LICENSES:
             if not CODE_LICENSES[license].intersection(licenses):
-                self._message = f"The license '{license}' specified is not listed in " "your classifiers."
+                self._message = f"The license '{license}' specified is not listed in your classifiers."
                 return False
 
         return True
@@ -344,7 +344,7 @@ class DevStatusClassifier(BaseTest):
 
     def message(self):
         return (
-            "Specifying a development status in the classifiers gives " "users a hint of how stable your software is."
+            "Specifying a development status in the classifiers gives users a hint of how stable your software is."
         )
 
 
