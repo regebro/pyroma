@@ -280,7 +280,9 @@ class PythonRequiresVersion(BaseTest):
         requires_python = data.get("requires_python", None)
 
         # python_requires and requires_python are turned into 'Requires-Python' header
-        # Some tools seems to report only one. So merging whichever has provided a value
+        # https://packaging.python.org/en/latest/guides/dropping-older-python-versions/#specify-the-version-ranges-for-supported-python-distributions
+        # Some tools seems to report only one (eg: test_complete, test_markdown fail when 'requires_python' is not checked).
+        # So using whichever has a value provided
         python_requires = python_requires or requires_python
 
         if not python_requires:
