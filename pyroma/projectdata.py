@@ -200,7 +200,7 @@ def run_setup(script_name, script_args=None, stop_after="run"):
 
     if core._setup_distribution is None:
         raise RuntimeError(
-            "'distutils.core.setup()' was never called -- " f"perhaps '{script_name}' is not a Distutils setup script?"
+            f"'distutils.core.setup()' was never called -- perhaps '{script_name}' is not a Distutils setup script?"
         )
 
     # I wonder if the setup script's namespace -- g and l -- would be of
