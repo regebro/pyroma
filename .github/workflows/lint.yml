@@ -1,0 +1,25 @@
+# Run the linting suite for the pyroma package
+# Based on https://help.github.com/actions/language-and-framework-guides/using-python-with-github-actions
+
+name: Lint package
+
+on: [pull_request, push]
+
+env:
+  FORCE_COLOR: 1
+
+jobs:
+  build:
+    name: Run pre-commit
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.x'
+      - name: Run pre-commit hooks
+        uses: pre-commit/action@v3.0.0
