@@ -19,6 +19,7 @@ METADATA_MAP = {
     "home_page": "url",
     "description": "long_description",
     "description_content_type": "long_description_content_type",
+    "requires_python": "python_requires",
 }
 
 

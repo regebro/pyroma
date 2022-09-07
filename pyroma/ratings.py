@@ -18,10 +18,11 @@ import io
 import re
 from collections import defaultdict
 
-import packaging
 from docutils.core import publish_parts
 from docutils.utils import SystemMessage
 from trove_classifiers import classifiers as CLASSIFIERS
+import packaging.specifiers
+from packaging.specifiers import SpecifierSet
 
 LEVELS = [
     "This cheese seems to contain no dairy products",
@@ -277,27 +278,18 @@ class PythonClassifierVersion(BaseTest):
 class PythonRequiresVersion(BaseTest):
     def test(self, data):
         self.weight = 100
+        # https://github.com/regebro/pyroma/pull/83#discussion_r955611236
         python_requires = data.get("python_requires", None)
-        requires_python = data.get("requires_python", None)
-
-        # python_requires and requires_python are turned into 'Requires-Python' header
-        # https://packaging.python.org/en/latest/guides/dropping-older-python-versions
-        # /#specify-the-version-ranges-for-supported-python-distributions
-        # Some tools seems to report only one (eg: test_complete, test_markdown
-        # fail when 'requires_python' is not checked).
-        # So using whichever has a value provided
-        python_requires = python_requires or requires_python
 
         if not python_requires:
             return False
 
         try:
-            from packaging.specifiers import SpecifierSet
-
             SpecifierSet(python_requires)
-            return True
         except packaging.specifiers.InvalidSpecifier:
             return False
+
+        return True
 
     def message(self):
         return (

@@ -37,7 +37,7 @@ COMPLETE = {
     "url": "https://github.com/regebro/pyroma",
     "project_urls": "Source Code, https://github.com/regebro/pyroma",
     "requires_dist": "zope.event",
-    "requires_python": ">=2.6",
+    "python_requires": ">=2.6",
     "license": "MIT",
 }
 
