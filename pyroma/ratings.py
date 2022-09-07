@@ -271,7 +271,7 @@ class PythonClassifierVersion(BaseTest):
                 "The classifiers should specify what minor versions of "
                 "Python you support as well as what major version."
             )
-        return "You should specify what Python versions you support."
+        return "The classifiers should specify what Python versions you support."
 
 
 class PythonRequiresVersion(BaseTest):
@@ -300,7 +300,10 @@ class PythonRequiresVersion(BaseTest):
             return False
 
     def message(self):
-        return "You should specify what Python versions you support with 'python_requires=....'."
+        return (
+            "You should specify what Python versions you support with "
+            "the 'requires-python'/'python_requires' metadata."
+        )
 
 
 class Keywords(FieldTest):
