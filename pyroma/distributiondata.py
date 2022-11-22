@@ -4,12 +4,23 @@ directory and then using projectdata on that.
 """
 
 import os
+import pathlib
 import shutil
 import tarfile
 import tempfile
 import zipfile
 
 from pyroma import projectdata
+
+
+def _safe_extract_tar(tar, path=".", members=None, numeric_owner=False):
+    """Safely extract a tar w/o traversing parent dirs to fix CVE-2007-4559."""
+    for member in tar.getmembers():
+        root = pathlib.Path(path).resolve()
+        member_path = (root / member.name).resolve()
+        if root not in member_path.parents:
+            raise Exception(f"Attempted path traversal in tar file {tar.name!r}")
+    tar.extractall(path, members, numeric_owner=numeric_owner)
 
 
 def get_data(path):
@@ -22,7 +33,7 @@ def get_data(path):
     try:
         if ext in (".bz2", ".tbz", "tb2", ".gz", ".tgz", ".tar"):
             with tarfile.open(name=path, mode="r:*") as tar_file:
-                tar_file.extractall(tempdir)
+                _safe_extract_tar(tar_file, path=tempdir)
 
         elif ext in (".zip", ".egg"):
             with zipfile.ZipFile(path, mode="r") as zip_file:
