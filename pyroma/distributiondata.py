@@ -15,8 +15,8 @@ from pyroma import projectdata
 
 def _safe_extract_tar(tar, path=".", members=None, numeric_owner=False):
     """Safely extract a tar w/o traversing parent dirs to fix CVE-2007-4559."""
+    root = pathlib.Path(path).resolve()
     for member in tar.getmembers():
-        root = pathlib.Path(path).resolve()
         member_path = (root / member.name).resolve()
         if root not in member_path.parents:
             raise Exception(f"Attempted path traversal in tar file {tar.name!r}")
