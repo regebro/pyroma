@@ -275,8 +275,9 @@ class PythonClassifierVersion(BaseTest):
 
 
 class PythonRequiresVersion(BaseTest):
+    weight = 100
+
     def test(self, data):
-        self.weight = 100
         # https://github.com/regebro/pyroma/pull/83#discussion_r955611236
         python_requires = data.get("python_requires", None)
 
