@@ -21,8 +21,7 @@ from collections import defaultdict
 from docutils.core import publish_parts
 from docutils.utils import SystemMessage
 from trove_classifiers import classifiers as CLASSIFIERS
-import packaging.specifiers
-from packaging.specifiers import SpecifierSet
+from packaging.specifiers import InvalidSpecifier, SpecifierSet
 
 LEVELS = [
     "This cheese seems to contain no dairy products",
