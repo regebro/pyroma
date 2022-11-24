@@ -1,7 +1,7 @@
 Changelog
 =========
 
-4.1 (unreleased)
+4.1 (2022-11-24)
 ----------------
 
 - Moved from a custom trove classifiers list to using the trove-classifiers
