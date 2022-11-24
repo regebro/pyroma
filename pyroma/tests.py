@@ -151,6 +151,16 @@ class RatingsTest(unittest.TestCase):
             ),
         )
 
+    def test_pep621(self):
+        rating = self._get_file_rating("pep621")
+        self.assertEqual(
+            rating,
+            (
+                10,
+                [],
+            ),
+        )
+
     def test_minimal(self):
         rating = self._get_file_rating("minimal")
 
