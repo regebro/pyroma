@@ -5,6 +5,7 @@ import email.policy
 import logging
 import os
 import pathlib
+import pep517
 import sys
 import tempfile
 import tokenize
@@ -24,7 +25,7 @@ METADATA_MAP = {
 
 def get_build_data(path):
     with tempfile.TemporaryDirectory() as tempdir:
-        metadata_dir = build.ProjectBuilder(str(path)).prepare("wheel", tempdir)
+        metadata_dir = build.ProjectBuilder(str(path), runner=pep517.quiet_subprocess_runner).prepare("wheel", tempdir)
         with open(pathlib.Path(metadata_dir) / "METADATA", "rb") as metadata_file:
             metadata = email.message_from_binary_file(metadata_file, policy=email.policy.compat32)
 
