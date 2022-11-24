@@ -286,7 +286,7 @@ class PythonRequiresVersion(BaseTest):
 
         try:
             SpecifierSet(python_requires)
-        except packaging.specifiers.InvalidSpecifier:
+        except InvalidSpecifier:
             return False
 
         return True
