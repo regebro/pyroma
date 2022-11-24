@@ -18,6 +18,9 @@ Changelog
 
 - Now follows black and flake8 rules
 
+- Check if author_email field contains author name [bessman]
+
+
 
 4.0 (2022-04-14)
 ----------------
