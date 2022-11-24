@@ -21,6 +21,7 @@ from collections import defaultdict
 from docutils.core import publish_parts
 from docutils.utils import SystemMessage
 from trove_classifiers import classifiers as CLASSIFIERS
+from packaging.specifiers import InvalidSpecifier, SpecifierSet
 
 LEVELS = [
     "This cheese seems to contain no dairy products",
@@ -225,7 +226,7 @@ class ClassifierVerification(BaseTest):
         return "Some of your classifiers are not standard classifiers:\n" + err
 
 
-class PythonVersion(BaseTest):
+class PythonClassifierVersion(BaseTest):
     def test(self, data):
         self._major_version_specified = False
 
@@ -270,7 +271,31 @@ class PythonVersion(BaseTest):
                 "The classifiers should specify what minor versions of "
                 "Python you support as well as what major version."
             )
-        return "You should specify what Python versions you support."
+        return "The classifiers should specify what Python versions you support."
+
+
+class PythonRequiresVersion(BaseTest):
+    weight = 100
+
+    def test(self, data):
+        # https://github.com/regebro/pyroma/pull/83#discussion_r955611236
+        python_requires = data.get("python_requires", None)
+
+        if not python_requires:
+            return False
+
+        try:
+            SpecifierSet(python_requires)
+        except InvalidSpecifier:
+            return False
+
+        return True
+
+    def message(self):
+        return (
+            "You should specify what Python versions you support with "
+            "the 'requires-python'/'python_requires' metadata."
+        )
 
 
 class Keywords(FieldTest):
@@ -461,7 +486,8 @@ ALL_TESTS = [
     LongDescription(),
     Classifiers(),
     ClassifierVerification(),
-    PythonVersion(),
+    PythonClassifierVersion(),
+    PythonRequiresVersion(),
     Keywords(),
     Author(),
     AuthorEmail(),

@@ -72,6 +72,9 @@ This is the list of checks that are currently performed:
 
 * You should have classifiers specifying the supported Python versions.
 
+* You should have ``requires-python``/``python_requires``
+  specifying the Python versions you support.
+
 * You should have a classifier specifying the project license.
 
 * If you are checking on a PyPI package, and not a local directory or
@@ -108,6 +111,7 @@ The name "Pyroma" was coined by Wichert Akkerman, wichert@wiggy.net
 
 Contributors:
 
+  * David Andreoletti
   * Godefroid Chapelle
   * Dmitry Vakhrushev
   * Hugo van Kemenade
