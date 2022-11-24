@@ -37,6 +37,7 @@ COMPLETE = {
     "url": "https://github.com/regebro/pyroma",
     "project_urls": "Source Code, https://github.com/regebro/pyroma",
     "requires_dist": "zope.event",
+    "python_requires": ">=2.6",
     "license": "MIT",
 }
 
@@ -122,8 +123,12 @@ class RatingsTest(unittest.TestCase):
         self.assertEqual(
             rating,
             (
-                8,
+                7,
                 [
+                    (
+                        "You should specify what Python versions you support with "
+                        "the 'requires-python'/'python_requires' metadata."
+                    ),
                     "You seem to have a setup.cfg, but neither a setup.py, nor a build-system defined. "
                     "This makes it unclear how your project should be built. You probably want to "
                     "have a pyproject.toml file with the following configuration:\n\n"
@@ -131,7 +136,7 @@ class RatingsTest(unittest.TestCase):
                     '    requires = ["setuptools>=42"]\n'
                     '    build-backend = "setuptools.build_meta"\n\n'
                     "In the future this will become a hard failure and your package will be "
-                    'rated as "not cheese".'
+                    'rated as "not cheese".',
                 ],
             ),
         )
@@ -168,7 +173,11 @@ class RatingsTest(unittest.TestCase):
                     "The package's description should be longer than 10 characters.",
                     "The package's long_description is quite short.",
                     "Your package does not have classifiers data.",
-                    "You should specify what Python versions you support.",
+                    "The classifiers should specify what Python versions you support.",
+                    (
+                        "You should specify what Python versions you support with "
+                        "the 'requires-python'/'python_requires' metadata."
+                    ),
                     "Your package does not have keywords data.",
                     "Your package does not have author data.",
                     "Your package does not have author_email data.",
@@ -192,7 +201,11 @@ class RatingsTest(unittest.TestCase):
                     "The package had no description!",
                     "The package's long_description is quite short.",
                     "Your package does not have classifiers data.",
-                    "You should specify what Python versions you support.",
+                    "The classifiers should specify what Python versions you support.",
+                    (
+                        "You should specify what Python versions you support with "
+                        "the 'requires-python'/'python_requires' metadata."
+                    ),
                     "Your package does not have keywords data.",
                     "Your package does not have author data.",
                     "Your package does not have author_email data.",
@@ -219,7 +232,11 @@ class RatingsTest(unittest.TestCase):
                     "The package's description should be longer than 10 characters.",
                     "The package's long_description is quite short.",
                     "Your package does not have classifiers data.",
-                    "You should specify what Python versions you support.",
+                    "The classifiers should specify what Python versions you support.",
+                    (
+                        "You should specify what Python versions you support with "
+                        "the 'requires-python'/'python_requires' metadata."
+                    ),
                     "Your package does not have keywords data.",
                     "Your package does not have author data.",
                     "Your package does not have author_email data.",

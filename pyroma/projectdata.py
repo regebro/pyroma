@@ -20,6 +20,7 @@ METADATA_MAP = {
     "home_page": "url",
     "description": "long_description",
     "description_content_type": "long_description_content_type",
+    "requires_python": "python_requires",
 }
 
 
@@ -48,7 +49,8 @@ def get_build_data(path):
 
 
 def get_setupcfg_data(path):
-    data = config.setupcfg.read_configuration("setup.cfg")
+    # Note: By default, setup.cfg will read the pyroma.git/setup.cfg - forcing explicit setup.cfg under test's file path
+    data = config.setupcfg.read_configuration(str(pathlib.Path(path) / "setup.cfg"))
     metadata = data["metadata"]
     return metadata
 
