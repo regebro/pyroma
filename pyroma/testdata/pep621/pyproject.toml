@@ -24,6 +24,7 @@ keywords = [
     "example",
 ]
 urls = {Homepage = "https://github.com/regebro/pyroma"}
+requires-python = ">3.8"
 
 [tool.setuptools]
 include-package-data = false
