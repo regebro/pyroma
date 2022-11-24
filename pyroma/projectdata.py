@@ -1,4 +1,5 @@
 # Extracts information from a project that has a distutils setup.py file.
+import build
 import build.util
 import logging
 import os
@@ -20,8 +21,20 @@ METADATA_MAP = {
 }
 
 
-def get_build_data(path):
-    metadata = build.util.project_wheel_metadata(path, isolated=True)
+def build_metadata(path, isolated=None):
+    # If explictly specified whether to use isolation, pass it directly
+    if isolated is not None:
+        return build.util.project_wheel_metadata(path, isolated=isolated)
+
+    # Otherwise, try without build isolation first for efficiency
+    try:
+        return build.util.project_wheel_metadata(path, isolated=False)
+    # If building with build isolation fails, e.g. missing build deps, try with it
+    except build.BuildBackendException:
+        return build.util.project_wheel_metadata(path, isolated=True)
+
+
+def map_metadata_keys(metadata):
     if "Description" not in metadata.keys():
         # Having the description as a payload tends to add two newlines, we clean that up here:
         long_description = metadata.get_payload().strip() + "\n"
@@ -38,6 +51,11 @@ def get_build_data(path):
             key = METADATA_MAP[key]
         data[key] = value
     return data
+
+
+def get_build_data(path, isolated=None):
+    metadata = build_metadata(path, isolated=isolated)
+    return map_metadata_keys(metadata)
 
 
 def get_setupcfg_data(path):
