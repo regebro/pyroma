@@ -7,6 +7,17 @@ Changelog
 - Moved from a custom trove classifiers list to using the trove-classifiers
   package [hugovk]
 
+- Support checking the Requires-Python metadata [davidandreoletti]
+
+- Silence noisy build backend output when building metadata
+  [CAM-Gerlach, wesleybl]
+
+- Official support for Python 3.11 [hugovk, radarhere]
+
+- Some string formatting bugs [hugovk, CAM-Gerlach]
+
+- Now follows black and flake8 rules
+
 
 4.0 (2022-04-14)
 ----------------
