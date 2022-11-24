@@ -130,3 +130,4 @@ Contributors:
   * Florian Bruhin
   * Christopher A.M. Gerlach
   * RuRo
+  * Wesley Barroso Lopes 
