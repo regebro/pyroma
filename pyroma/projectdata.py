@@ -35,10 +35,11 @@ def build_metadata(path, isolated=None):
 
 
 def map_metadata_keys(metadata):
+    data = {}
     if "Description" not in metadata.keys():
         # Having the description as a payload tends to add two newlines, we clean that up here:
         long_description = metadata.get_payload().strip() + "\n"
-        data = {"long_description": long_description}
+        data["long_description"] = long_description
 
     for key in set(metadata.keys()):
         value = metadata.get_all(key)
