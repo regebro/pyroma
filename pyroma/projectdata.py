@@ -8,7 +8,11 @@ import sys
 import tokenize
 from copy import copy
 from distutils import core
-from setuptools import config
+
+try:  # config renamed to config.setupcfg on Setuptools >=61 adding pyproject.toml support
+    from setuptools.config.setupcfg import read_configuration
+except ModuleNotFoundError:
+    from setuptools.config import read_configuration
 
 METADATA_MAP = {
     "summary": "description",
@@ -61,7 +65,7 @@ def get_build_data(path, isolated=None):
 
 def get_setupcfg_data(path):
     # Note: By default, setup.cfg will read the pyroma.git/setup.cfg - forcing explicit setup.cfg under test's file path
-    data = config.setupcfg.read_configuration(str(pathlib.Path(path) / "setup.cfg"))
+    data = read_configuration(str(pathlib.Path(path) / "setup.cfg"))
     metadata = data["metadata"]
     return metadata
 
@@ -256,9 +260,7 @@ def get_setuppy_data(path):
 
             elif os.path.isfile("setup.cfg"):
                 try:
-                    from setuptools import config
-
-                    data = config.read_configuration("setup.cfg")
+                    data = read_configuration("setup.cfg")
                     metadata = data["metadata"]
                     metadata["_setuptools"] = True
                 except Exception as e:
