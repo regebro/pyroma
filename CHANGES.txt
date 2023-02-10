@@ -4,7 +4,18 @@ Changelog
 4.2 (unreleased)
 ----------------
 
-- Nothing changed yet.
+- Fall back to installing project's build backend in an isolated environment
+  if a compatible version isn't installed in the current env [CAM-Gerlach]
+
+- Fix metadata extraction failure when project ``long_description`` is included
+  as a header rather than a payload in the ``METADTA`` file [CAM-Gerlach]
+
+- Add a fallback to restore compatibility with Setuptools <61 [CAM-Gerlach]
+
+- Fix tests failing due to invalid versions on Setuptools >=66 [CAM-Gerlach]
+
+- Add ``python_requires``, update classifiers, add implicit dependencies
+  and remove unused deps in Pyroma's own packaging metadata [CAM-Gerlach]
 
 
 4.1 (2022-11-24)
@@ -25,7 +36,6 @@ Changelog
 - Now follows black and flake8 rules
 
 - Check if author_email field contains author name [bessman]
-
 
 
 4.0 (2022-04-14)
