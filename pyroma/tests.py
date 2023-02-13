@@ -169,7 +169,6 @@ class RatingsTest(unittest.TestCase):
             (
                 2,
                 [
-                    "The package's version number does not comply with PEP-386 or PEP-440.",
                     "The package's description should be longer than 10 characters.",
                     "The package's long_description is quite short.",
                     "Your package does not have classifiers data.",
@@ -228,7 +227,6 @@ class RatingsTest(unittest.TestCase):
             (
                 2,
                 [
-                    "The package's version number does not comply with PEP-386 or PEP-440.",
                     "The package's description should be longer than 10 characters.",
                     "The package's long_description is quite short.",
                     "Your package does not have classifiers data.",

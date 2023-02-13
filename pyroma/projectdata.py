@@ -1,17 +1,18 @@
 # Extracts information from a project that has a distutils setup.py file.
 import build
-import email
-import email.policy
+import build.util
 import logging
 import os
 import pathlib
-import pep517
 import sys
-import tempfile
 import tokenize
 from copy import copy
 from distutils import core
-from setuptools import config
+
+try:  # config renamed to config.setupcfg on Setuptools >=61 adding pyproject.toml support
+    from setuptools.config.setupcfg import read_configuration
+except ModuleNotFoundError:
+    from setuptools.config import read_configuration
 
 METADATA_MAP = {
     "summary": "description",
@@ -24,16 +25,25 @@ METADATA_MAP = {
 }
 
 
-def get_build_data(path):
-    with tempfile.TemporaryDirectory() as tempdir:
-        metadata_dir = build.ProjectBuilder(str(path), runner=pep517.quiet_subprocess_runner).prepare("wheel", tempdir)
-        with open(pathlib.Path(metadata_dir) / "METADATA", "rb") as metadata_file:
-            metadata = email.message_from_binary_file(metadata_file, policy=email.policy.compat32)
+def build_metadata(path, isolated=None):
+    # If explictly specified whether to use isolation, pass it directly
+    if isolated is not None:
+        return build.util.project_wheel_metadata(path, isolated=isolated)
 
+    # Otherwise, try without build isolation first for efficiency
+    try:
+        return build.util.project_wheel_metadata(path, isolated=False)
+    # If building with build isolation fails, e.g. missing build deps, try with it
+    except build.BuildBackendException:
+        return build.util.project_wheel_metadata(path, isolated=True)
+
+
+def map_metadata_keys(metadata):
+    data = {}
     if "Description" not in metadata.keys():
         # Having the description as a payload tends to add two newlines, we clean that up here:
         long_description = metadata.get_payload().strip() + "\n"
-        data = {"long_description": long_description}
+        data["long_description"] = long_description
 
     for key in set(metadata.keys()):
         value = metadata.get_all(key)
@@ -48,9 +58,14 @@ def get_build_data(path):
     return data
 
 
+def get_build_data(path, isolated=None):
+    metadata = build_metadata(path, isolated=isolated)
+    return map_metadata_keys(metadata)
+
+
 def get_setupcfg_data(path):
     # Note: By default, setup.cfg will read the pyroma.git/setup.cfg - forcing explicit setup.cfg under test's file path
-    data = config.setupcfg.read_configuration(str(pathlib.Path(path) / "setup.cfg"))
+    data = read_configuration(str(pathlib.Path(path) / "setup.cfg"))
     metadata = data["metadata"]
     return metadata
 
@@ -245,9 +260,7 @@ def get_setuppy_data(path):
 
             elif os.path.isfile("setup.cfg"):
                 try:
-                    from setuptools import config
-
-                    data = config.read_configuration("setup.cfg")
+                    data = read_configuration("setup.cfg")
                     metadata = data["metadata"]
                     metadata["_setuptools"] = True
                 except Exception as e:

@@ -1,7 +1,7 @@
 from setuptools import setup, find_packages
 from setuptools.command.test import test
 
-version = "0.0foo"
+version = "0.0.1"
 
 
 class CustomTest(test):
