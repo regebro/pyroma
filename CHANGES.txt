@@ -1,7 +1,7 @@
 Changelog
 =========
 
-4.2 (unreleased)
+4.2 (2023-02-25)
 ----------------
 
 - Fall back to installing project's build backend in an isolated environment
