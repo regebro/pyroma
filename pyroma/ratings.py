@@ -15,6 +15,7 @@
 #                 False for fail and None for not applicable (meaning it will
 #                 not be counted).
 import io
+import os
 import re
 from collections import defaultdict
 
@@ -506,6 +507,38 @@ ALL_TESTS = [
     MissingBuildSystem(),
     StoneAgeSetupPy(),
 ]
+
+try:
+    import check_manifest
+
+    class CheckManifest(BaseTest):
+        weight = 0
+
+        def test(self, data):
+            if "_path" not in data:
+                return None
+
+            if not os.path.exists(data["_path"]):
+                import pdb
+
+                pdb.set_trace()
+            self.weight = 200
+            try:
+                return check_manifest.check_manifest(data["_path"])
+            except check_manifest.Failure:
+                # Most likely this means check-manifest didn't find any
+                # package configuration, which is the same failure as
+                # MissingBuildSystem, so this is double errors, but
+                # it does mean your setup is completely broken, so...
+                return False
+
+        def message(self):
+            return "Check-manifest returned errors"
+
+    ALL_TESTS.append(CheckManifest())
+
+except ImportError:
+    pass
 
 
 def rate(data, skip_tests=None):

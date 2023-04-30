@@ -19,7 +19,7 @@ def zester(data):
     from zest.releaser.utils import ask
 
     if ask("Run pyroma on the package before tagging?"):
-        rating = run("directory", os.path.abspath(data["workingdir"]))
+        rating = run("directory", os.path.abspath(data["workingdir"]), skip_tests="CheckManifest")
         if rating < 8:
             if not ask("Continue?"):
                 sys.exit(1)
