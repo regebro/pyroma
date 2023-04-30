@@ -1,7 +1,7 @@
 import logging
 import os
 import sys
-from optparse import OptionParser
+from argparse import ArgumentParser, ArgumentTypeError
 from pyroma import projectdata, distributiondata, pypidata, ratings
 
 logging.basicConfig(level=logging.DEBUG, stream=sys.stdout, format="%(message)s")
@@ -25,51 +25,68 @@ def zester(data):
                 sys.exit(1)
 
 
+def min_argument(arg):
+    try:
+        f = int(arg)
+    except ValueError:
+        raise ArgumentTypeError("Must be an integer between 1 and 10")
+    if f < 0:
+        raise ArgumentTypeError("Oh, it's not THAT bad, trust me.")
+    if f < 1:
+        raise ArgumentTypeError("Why run pyroma if you intend it to always pass?")
+    if f > 10:
+        raise ArgumentTypeError("Why run pyroma if you intend it to never pass?")
+    return f
+
+
 def main():
-    usage = "usage: %prog [-n N] [-a|-d|-f|-p] <project directory|distribution file|pypi package name>"
-    parser = OptionParser(usage)
-    parser.add_option(
+    parser = ArgumentParser()
+    parser.add_argument(
+        "package", help="A python package, can be a directory, a distribution file or a PyPI package name."
+    )
+    parser.add_argument(
         "-n",
         "--min",
         dest="min",
         default=8,
         action="store",
-        type=int,
-        help="Minimum rating for clean return between 0 and 10, inclusive",
+        type=min_argument,
+        help="Minimum rating for clean return between 1 and 10, inclusive.",
     )
-    parser.add_option(
+    group = parser.add_mutually_exclusive_group()
+    group.add_argument(
         "-a",
         "--auto",
-        dest="auto",
-        default=False,
-        action="store_true",
+        dest="mode",
+        action="store_const",
+        const="auto",
         help="Select mode automatically (default)",
     )
-    parser.add_option(
+    group.add_argument(
         "-d",
         "--directory",
-        dest="directory",
-        action="store_true",
-        default=False,
+        dest="mode",
+        action="store_const",
+        const="directory",
         help="Run pyroma on a module in a project directory",
     )
-    parser.add_option(
+    group.add_argument(
         "-f",
         "--file",
-        dest="file",
-        action="store_true",
-        default=False,
+        dest="mode",
+        action="store_const",
+        const="file",
         help="Run pyroma on a distribution file",
     )
-    parser.add_option(
+    group.add_argument(
         "-p",
         "--pypi",
-        dest="pypi",
-        action="store_true",
-        default=False,
+        dest="mode",
+        action="store_const",
+        const="pypi",
         help="Run pyroma on a package on PyPI",
     )
-    parser.add_option(
+    parser.add_argument(
         "-q",
         "--quiet",
         dest="quiet",
@@ -78,36 +95,19 @@ def main():
         help="Output only the rating",
     )
 
-    (options, args) = parser.parse_args()
+    args = parser.parse_args()
 
-    if len(args) < 1:
-        parser.print_help()
-        sys.exit(1)
-
-    if not (0 <= options.min <= 10):
-        parser.print_help()
-        sys.exit(1)
-
-    modes = (options.auto, options.directory, options.file, options.pypi)
-    if sum(1 if x else 0 for x in modes) > 1:
-        print("You can only select one of the options -a, -d, -f and -p")
-        sys.exit(1)
-
-    argument = args[0]
-
-    mode = "pypi"
-    if not any(modes) or options.auto:
-        if os.path.isdir(argument):
+    mode = args.mode
+    if args.mode is None or args.mode == "auto":
+        if os.path.isdir(args.package):
             mode = "directory"
-        elif os.path.isfile(argument):
+        elif os.path.isfile(args.package):
             mode = "file"
-    elif options.directory:
-        mode = "directory"
-    elif options.file:
-        mode = "file"
+        else:
+            mode = "pypi"
 
-    rating = run(mode, argument, options.quiet)
-    if rating < options.min:
+    rating = run(mode, args.package, args.quiet)
+    if rating < args.min:
         sys.exit(2)
     sys.exit(0)
 
