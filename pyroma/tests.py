@@ -103,10 +103,10 @@ class RatingsTest(unittest.TestCase):
 
     maxDiff = None
 
-    def _get_file_rating(self, dirname):
+    def _get_file_rating(self, dirname, skip_tests=None):
         directory = resource_filename(__name__, os.path.join("testdata", dirname))
         data = projectdata.get_data(directory)
-        return rate(data)
+        return rate(data, skip_tests)
 
     def test_complete(self):
         rating = self._get_file_rating("complete")
@@ -139,6 +139,14 @@ class RatingsTest(unittest.TestCase):
                     'rated as "not cheese".',
                 ],
             ),
+        )
+
+    def test_skip_tests(self):
+        rating = self._get_file_rating("only_config", skip_tests=["PythonRequiresVersion", "MissingBuildSystem"])
+
+        self.assertEqual(
+            rating,
+            (10, []),
         )
 
     def test_pep517(self):

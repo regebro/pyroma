@@ -39,6 +39,39 @@ def min_argument(arg):
     return f
 
 
+def get_all_tests():
+    return [x.__class__.__name__ for x in ratings.ALL_TESTS]
+
+
+def parse_tests(arg):
+    if not arg:
+        return
+
+    arg = [arg]
+    for sep in " ,;":
+        skips = []
+        for t in arg:
+            skips.extend(t.split(sep))
+        arg = skips
+
+    tests = get_all_tests()
+    for skip in arg:
+        if skip not in tests:
+            return
+
+    return skip
+
+
+def skip_tests(arg):
+    test_to_skip = parse_tests(arg)
+    if test_to_skip:
+        return test_to_skip
+
+    tests = ", ".join(get_all_tests())
+    message = f"Invalid tests listed. Available tests: {tests}"
+    raise ArgumentTypeError(message)
+
+
 def main():
     parser = ArgumentParser()
     parser.add_argument(
@@ -94,6 +127,11 @@ def main():
         default=False,
         help="Output only the rating",
     )
+    parser.add_argument(
+        "--skip-tests",
+        type=skip_tests,
+        help="Skip the named tests",
+    )
 
     args = parser.parse_args()
 
@@ -106,13 +144,13 @@ def main():
         else:
             mode = "pypi"
 
-    rating = run(mode, args.package, args.quiet)
+    rating = run(mode, args.package, args.quiet, args.skip_tests)
     if rating < args.min:
         sys.exit(2)
     sys.exit(0)
 
 
-def run(mode, argument, quiet=False):
+def run(mode, argument, quiet=False, skip_tests=None):
 
     if quiet:
         logger = logging.getLogger()
@@ -132,7 +170,7 @@ def run(mode, argument, quiet=False):
         data = pypidata.get_data(argument)
         logging.info("Found " + data.get("name", "nothing"))
 
-    rating = ratings.rate(data)
+    rating = ratings.rate(data, skip_tests)
 
     logging.info("-" * 30)
     for problem in rating[1]:
