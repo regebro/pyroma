@@ -9,6 +9,11 @@ Changelog
   only implemented so that I can add a test using check-manifest and
   skip it when run from the zest.releaser hook.
 
+- If you also have check-manifest installed, pyroma will run that as a test.
+  No longer do you need to call it separately! However, if Pyroma is invoked
+  from zest.releaser, it will not be run, because check-manifest has a separate
+  hook for zest.releaser, so that would run it twice.
+
 
 4.2 (2023-02-25)
 ----------------

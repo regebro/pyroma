@@ -43,7 +43,7 @@ def get_data(path):
             raise ValueError("Unknown file type: " + ext)
 
         projectpath = os.path.join(tempdir, basename)
-        data = projectdata.get_data(projectpath)
+        data = projectdata._get_data(projectpath)
     finally:
         shutil.rmtree(tempdir, ignore_errors=True)
 

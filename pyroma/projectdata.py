@@ -71,6 +71,12 @@ def get_setupcfg_data(path):
 
 
 def get_data(path):
+    data = _get_data(path)
+    data["_path"] = path
+    return data
+
+
+def _get_data(path):
     try:
         return get_build_data(path)
     except build.BuildException as e:

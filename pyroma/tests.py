@@ -123,7 +123,7 @@ class RatingsTest(unittest.TestCase):
         self.assertEqual(
             rating,
             (
-                7,
+                6,
                 [
                     (
                         "You should specify what Python versions you support with "
@@ -137,12 +137,15 @@ class RatingsTest(unittest.TestCase):
                     '    build-backend = "setuptools.build_meta"\n\n'
                     "In the future this will become a hard failure and your package will be "
                     'rated as "not cheese".',
+                    "Check-manifest returned errors",
                 ],
             ),
         )
 
     def test_skip_tests(self):
-        rating = self._get_file_rating("only_config", skip_tests=["PythonRequiresVersion", "MissingBuildSystem"])
+        rating = self._get_file_rating(
+            "only_config", skip_tests=["PythonRequiresVersion", "MissingBuildSystem", "CheckManifest"]
+        )
 
         self.assertEqual(
             rating,
@@ -193,6 +196,7 @@ class RatingsTest(unittest.TestCase):
                     "Your package does neither have a license field nor any license classifiers.",
                     "Specifying a development status in the classifiers gives users "
                     "a hint of how stable your software is.",
+                    "Check-manifest returned errors",
                 ],
             ),
         )
@@ -233,7 +237,7 @@ class RatingsTest(unittest.TestCase):
         self.assertEqual(
             rating,
             (
-                2,
+                3,
                 [
                     "The package's description should be longer than 10 characters.",
                     "The package's long_description is quite short.",
@@ -325,6 +329,7 @@ class ProjectDataTest(unittest.TestCase):
         directory = resource_filename(__name__, os.path.join("testdata", "complete"))
 
         data = projectdata.get_data(directory)
+        del data["_path"]  # This changes, so I just ignore it
         self.assertEqual(data, COMPLETE)
 
 
