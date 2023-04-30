@@ -4,7 +4,10 @@ Changelog
 4.3 (unreleased)
 ----------------
 
-- Nothing changed yet.
+- Added a --skip-tests parameter to allow skipping of certain tests.
+  You shouldn't skip tests, of course, but now you can. This is actually
+  only implemented so that I can add a test using check-manifest and
+  skip it when run from the zest.releaser hook.
 
 
 4.2 (2023-02-25)

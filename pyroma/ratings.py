@@ -508,15 +508,21 @@ ALL_TESTS = [
 ]
 
 
-def rate(data):
+def rate(data, skip_tests=None):
     if not data:
         # No data was gathered. Fail:
         return (0, ["I couldn't find any package data"])
+
+    if skip_tests is None:
+        skip_tests = []
+
     fails = []
     good = 0
     bad = 0
     fatality = False
     for test in ALL_TESTS:
+        if test.__class__.__name__ in skip_tests:
+            continue
         res = test.test(data)
         if res is False:
             fails.append(test.message())
