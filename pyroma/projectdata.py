@@ -84,7 +84,6 @@ def _get_data(path):
             # It couldn't build the package, because there is no setup.py or pyproject.toml.
             # Let's see if there is a setup.cfg:
             try:
-
                 metadata = get_setupcfg_data(path)
                 # Yes, there's a setup.cfg. Pyroma accepted this earlier, but that was probably
                 # a mistake. For the time being, warn for it, but in a future version just fail.
@@ -127,7 +126,6 @@ class FakeContext:
 
 
 class SetupMonkey:
-
     used_setuptools = False
 
     def distutils_setup_replacement(self, **kw):

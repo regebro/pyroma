@@ -151,7 +151,6 @@ def main():
 
 
 def run(mode, argument, quiet=False, skip_tests=None):
-
     if quiet:
         logger = logging.getLogger()
         logger.disabled = True

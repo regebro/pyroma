@@ -397,7 +397,6 @@ class SDist(BaseTest):
 
 
 class ValidREST(BaseTest):
-
     weight = 50
 
     def test(self, data):
