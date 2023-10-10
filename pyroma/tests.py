@@ -100,7 +100,6 @@ proxystub = ProxyStub()
 
 
 class RatingsTest(unittest.TestCase):
-
     maxDiff = None
 
     def _get_file_rating(self, dirname, skip_tests=None):
@@ -273,7 +272,6 @@ class RatingsTest(unittest.TestCase):
 
 
 class PyPITest(unittest.TestCase):
-
     maxDiff = None
 
     @unittest.mock.patch("xmlrpc.client.ServerProxy", proxystub)
@@ -322,7 +320,6 @@ class PyPITest(unittest.TestCase):
 
 
 class ProjectDataTest(unittest.TestCase):
-
     maxDiff = None
 
     def test_complete(self):
@@ -334,7 +331,6 @@ class ProjectDataTest(unittest.TestCase):
 
 
 class DistroDataTest(unittest.TestCase):
-
     maxDiff = None
 
     def test_complete(self):
