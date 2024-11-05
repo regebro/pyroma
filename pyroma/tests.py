@@ -258,6 +258,10 @@ class RatingsTest(unittest.TestCase):
             ),
         )
 
+    def test_private_classifier(self):
+        rating = self._get_file_rating("private_classifier")
+        self.assertEqual(rating, (10, []))
+
     def test_markdown(self):
         # Markdown and text shouldn't get ReST errors
         testdata = COMPLETE.copy()
