@@ -3,7 +3,7 @@
 
 name: Lint package
 
-on: [pull_request, push]
+on: [push, pull_request, workflow_dispatch]
 
 env:
   FORCE_COLOR: 1
