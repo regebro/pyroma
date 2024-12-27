@@ -278,7 +278,7 @@ class PyPITest(unittest.TestCase):
     @unittest.mock.patch("pyroma.pypidata._get_project_data")
     def test_distribute(self, projectdatamock):
         datafile = resource_filename(__name__, os.path.join("testdata", "jsondata", "distribute.json"))
-        with open(datafile, "rt", encoding="UTF-8") as file:
+        with open(datafile, encoding="UTF-8") as file:
             projectdatamock.return_value = json.load(file)
 
         proxystub.set_debug_context("distributedata.py", xmlrpclib.ServerProxy, False)
@@ -308,7 +308,7 @@ class PyPITest(unittest.TestCase):
     @unittest.mock.patch("pyroma.pypidata._get_project_data")
     def test_complete(self, projectdatamock):
         datafile = resource_filename(__name__, os.path.join("testdata", "jsondata", "complete.json"))
-        with open(datafile, "rt", encoding="UTF-8") as file:
+        with open(datafile, encoding="UTF-8") as file:
             projectdatamock.return_value = json.load(file)
 
         proxystub.set_debug_context("completedata.py", xmlrpclib.ServerProxy, False)
