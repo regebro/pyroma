@@ -216,7 +216,7 @@ class ClassifierVerification(BaseTest):
         self._incorrect = []
         classifiers = data.get("classifiers", [])
         for classifier in classifiers:
-            if classifier not in CLASSIFIERS:
+            if classifier not in CLASSIFIERS and not classifier.startswith("Private :: "):
                 self._incorrect.append(classifier)
         if self._incorrect:
             return False
