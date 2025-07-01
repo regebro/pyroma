@@ -16,7 +16,7 @@ if not isinstance(long_description, str):
 long_description = io.StringIO(long_description, newline=None).read()
 
 COMPLETE = {
-    "metadata_version": "2.1",
+    "metadata_version": "2.4",
     "name": "complete",
     "version": "1.0.dev1",
     "description": "This is a test package for pyroma.",
@@ -30,6 +30,19 @@ COMPLETE = {
         "Programming Language :: Python :: 3.2",
         "Programming Language :: Python :: 3.3",
         "License :: OSI Approved :: MIT License",
+    ],
+    "dynamic": [
+        "author",
+        "author-email",
+        "classifier",
+        "description",
+        "home-page",
+        "keywords",
+        "license",
+        "project-url",
+        "requires-dist",
+        "requires-python",
+        "summary",
     ],
     "keywords": "pypi,quality,example",
     "author": "Lennart Regebro",
