@@ -1,19 +1,35 @@
 repos:
--   repo: https://github.com/pre-commit/pre-commit-hooks
+  - repo: https://github.com/pre-commit/pre-commit-hooks
     rev: v5.0.0
     hooks:
-    -   id: check-yaml
-    -   id: end-of-file-fixer
-    -   id: trailing-whitespace
--   repo: https://github.com/psf/black-pre-commit-mirror
+      - id: check-case-conflict
+      - id: check-merge-conflict
+      - id: check-toml
+      - id: check-yaml
+      - id: end-of-file-fixer
+      - id: trailing-whitespace
+
+  - repo: https://github.com/psf/black-pre-commit-mirror
     rev: 24.10.0
     hooks:
-    -   id: black
--   repo: https://github.com/pycqa/flake8
+      - id: black
+
+  - repo: https://github.com/pycqa/flake8
     rev: 7.1.1
     hooks:
-    -   id: flake8
--   repo: https://github.com/regebro/pyroma
+      - id: flake8
+
+  - repo: https://github.com/regebro/pyroma
     rev: '4.2'
     hooks:
-    -   id: pyroma
+      - id: pyroma
+
+  - repo: https://github.com/tox-dev/tox-ini-fmt
+    rev: 1.4.1
+    hooks:
+      - id: tox-ini-fmt
+
+  - repo: meta
+    hooks:
+      - id: check-hooks-apply
+      - id: check-useless-excludes
