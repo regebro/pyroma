@@ -59,8 +59,11 @@ def map_metadata_keys(metadata):
 
 
 def get_build_data(path, isolated=None):
-    metadata = build_metadata(path, isolated=isolated)
-    return map_metadata_keys(metadata)
+    metadata = map_metadata_keys(build_metadata(path, isolated=isolated))
+    # Check if there is a pyproject_toml
+    if "pyproject.toml" not in os.listdir(path):
+        metadata["_missing_pyproject_toml"] = True
+    return metadata
 
 
 def get_setupcfg_data(path):
@@ -240,15 +243,6 @@ def get_setuppy_data(path):
     with FakeContext(path):
         with SetupMonkey() as sm:
             if os.path.isfile("setup.py"):
-                import warnings
-
-                warnings.showwarning(
-                    message="Using setup.py is deprecated, and Pyroma support for setup.py "
-                    "will be dropped in version 5.0",
-                    category=DeprecationWarning,
-                    filename=__name__ + ".py",
-                    lineno=242,
-                )
 
                 try:
                     distro = run_setup("setup.py", stop_after="config")

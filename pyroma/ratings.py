@@ -15,7 +15,6 @@
 #                 False for fail and None for not applicable (meaning it will
 #                 not be counted).
 import io
-import os
 import re
 from collections import defaultdict
 
@@ -463,7 +462,24 @@ class MissingBuildSystem(BaseTest):
             "    [build-system]\n"
             '    requires = ["setuptools>=42"]\n'
             '    build-backend = "setuptools.build_meta"\n\n'
-            'In the future this will become a hard failure and your package will be rated as "not cheese".'
+            'In the future this may become a hard failure and your package may be rated as "not cheese".'
+        )
+
+
+class MissingPyProjectToml(BaseTest):
+    def test(self, data):
+        if "_missing_pyproject_toml" in data:
+            # These sort of "negative only/deprecation" ratings only give you negative weight
+            self.weight = 100
+            return False
+
+    def message(self):
+        return (
+            "Your project does not have a pyproject.toml file, which is highly recommended.\n"
+            "You probably want to create one with the following configuration:\n\n"
+            "    [build-system]\n"
+            '    requires = ["setuptools>=42"]\n'
+            '    build-backend = "setuptools.build_meta"\n\n'
         )
 
 
@@ -505,6 +521,7 @@ ALL_TESTS = [
     DevStatusClassifier(),
     MissingBuildSystem(),
     StoneAgeSetupPy(),
+    MissingPyProjectToml(),
 ]
 
 try:
@@ -517,10 +534,6 @@ try:
             if "_path" not in data:
                 return None
 
-            if not os.path.exists(data["_path"]):
-                import pdb
-
-                pdb.set_trace()
             self.weight = 200
             try:
                 return check_manifest.check_manifest(data["_path"])

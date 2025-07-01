@@ -4,7 +4,9 @@ Changelog
 5.0 (unreleased)
 ----------------
 
-- Nothing changed yet.
+- Deprecation warnings? For the packaging configuration? What was I thinking?
+  I'm instead adding a rating telling people that they should add a
+  pyproject.toml. Much nicer.
 
 
 4.3 (2025-07-01)

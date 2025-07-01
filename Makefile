@@ -15,8 +15,7 @@ help: ## display this message
 	@python -c "$$PRINT_HELP_PYSCRIPT" < $(MAKEFILE_LIST)
 
 generate: ## generate environment for tests
-	cd pyroma/testdata/complete
-	python setup.py sdist --formats=bztar,gztar,tar,zip
+	cd pyroma/testdata/complete;python setup.py sdist --formats=bztar,gztar,tar,zip
 	cp pyroma/testdata/complete/dist/complete-1.0.dev1.* pyroma/testdata/distributions/
 
 tests: generate ## run tests
