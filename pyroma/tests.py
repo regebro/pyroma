@@ -127,7 +127,19 @@ class RatingsTest(unittest.TestCase):
 
     def test_setup_config(self):
         rating = self._get_file_rating("setup_config")
-        self.assertEqual(rating, (10, []))
+        self.assertEqual(
+            rating,
+            (
+                9,
+                [
+                    "Your project does not have a pyproject.toml file, which is highly recommended.\n"
+                    "You probably want to create one with the following configuration:\n\n"
+                    "    [build-system]\n"
+                    '    requires = ["setuptools>=42"]\n'
+                    '    build-backend = "setuptools.build_meta"\n\n',
+                ],
+            ),
+        )
 
     def test_only_config(self):
         rating = self._get_file_rating("only_config")
@@ -147,7 +159,7 @@ class RatingsTest(unittest.TestCase):
                     "    [build-system]\n"
                     '    requires = ["setuptools>=42"]\n'
                     '    build-backend = "setuptools.build_meta"\n\n'
-                    "In the future this will become a hard failure and your package will be "
+                    "In the future this may become a hard failure and your package may be "
                     'rated as "not cheese".',
                     "Check-manifest returned errors",
                 ],
@@ -158,10 +170,12 @@ class RatingsTest(unittest.TestCase):
         rating = self._get_file_rating(
             "only_config", skip_tests=["PythonRequiresVersion", "MissingBuildSystem", "CheckManifest"]
         )
-
         self.assertEqual(
             rating,
-            (10, []),
+            (
+                10,
+                [],
+            ),
         )
 
     def test_pep517(self):
@@ -239,6 +253,11 @@ class RatingsTest(unittest.TestCase):
                     "start-string without end-string.",
                     "Specifying a development status in the classifiers gives users "
                     "a hint of how stable your software is.",
+                    "Your project does not have a pyproject.toml file, which is highly recommended.\n"
+                    "You probably want to create one with the following configuration:\n\n"
+                    "    [build-system]\n"
+                    '    requires = ["setuptools>=42"]\n'
+                    '    build-backend = "setuptools.build_meta"\n\n',
                 ],
             ),
         )
@@ -323,13 +342,18 @@ class PyPITest(unittest.TestCase):
 
     @unittest.mock.patch("xmlrpc.client.ServerProxy", proxystub)
     @unittest.mock.patch("pyroma.pypidata._get_project_data")
-    def test_complete(self, projectdatamock):
+    @unittest.mock.patch("requests.get")
+    def test_complete(self, requestmock, projectdatamock):
         datafile = resource_filename(__name__, os.path.join("testdata", "jsondata", "complete.json"))
         with open(datafile, encoding="UTF-8") as file:
             projectdatamock.return_value = json.load(file)
 
-        proxystub.set_debug_context("completedata.py", xmlrpclib.ServerProxy, False)
+        srcfile = resource_filename(__name__, os.path.join("testdata", "distributions", "complete-1.0.dev1.tar.gz"))
+        with open(srcfile, "rb") as file:
+            requestmock.return_value = unittest.mock.Mock()
+            requestmock.return_value.content = file.read()
 
+        proxystub.set_debug_context("completedata.py", xmlrpclib.ServerProxy, False)
         data = pypidata.get_data("complete")
         rating = rate(data)
 

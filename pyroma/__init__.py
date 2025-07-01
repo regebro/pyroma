@@ -16,16 +16,6 @@ def zester(data):
     if not config_files & main_files:
         return
 
-    if "setup.py" in config_files & main_files:
-        import warnings
-
-        warnings.showwarning(
-            message="Using setup.py is deprecated, and Pyroma support for setup.py will be dropped in version 5.0",
-            category=DeprecationWarning,
-            filename=__name__ + ".py",
-            lineno=19,
-        )
-
     from zest.releaser.utils import ask
 
     if ask("Run pyroma on the package before tagging?"):
