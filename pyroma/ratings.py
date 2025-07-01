@@ -466,24 +466,19 @@ class MissingBuildSystem(BaseTest):
     def test(self, data):
         if "_missing_build_system" in data:
             # These sort of "negative only/deprecation" ratings only give you negative weight
-            self.weight = 200
+            self.weight = 400
             return False
 
     def message(self):
         return (
-            "You seem to have a setup.cfg, but neither a setup.py, nor a build-system defined. This makes "
-            "it unclear how your project should be built. You probably want to have a pyproject.toml file "
-            "with the following configuration:\n\n"
-            "    [build-system]\n"
-            '    requires = ["setuptools>=42"]\n'
-            '    build-backend = "setuptools.build_meta"\n\n'
-            'In the future this may become a hard failure and your package may be rated as "not cheese".'
+            "You seem to neither have a setup.py, nor a pyproject.toml, only setup.cfg.\n"
+            "This makes it unclear how your project should be built, and some packaging tools may fail.\n"
         )
 
 
 class MissingPyProjectToml(BaseTest):
     def test(self, data):
-        if "_missing_pyproject_toml" in data:
+        if "_missing_build_system" in data or "_missing_pyproject_toml" in data:
             # These sort of "negative only/deprecation" ratings only give you negative weight
             self.weight = 100
             return False
@@ -498,23 +493,9 @@ class MissingPyProjectToml(BaseTest):
         )
 
 
-class StoneAgeSetupPy(BaseTest):
-    def test(self, data):
-        if "_stoneage_setuppy" in data:
-            # These sort of "negative only/deprecation" ratings only give you negative weight
-            self.weight = 200
-            return False
-
-    def message(self):
-        return (
-            "Your Cheese may have spoiled!! The only way to gather metadata from your package was to execute "
-            "a patched setup.py. This indicates that your package is using very old packaging techniques, "
-            "(or that your setup.py isn't executable at all), and Pyroma will soon regard that as a complete "
-            "failure!\nPlease modernize your packaging! If it is already modern, this is a bug."
-        )
-
-
 ALL_TESTS = [
+    MissingBuildSystem(),
+    MissingPyProjectToml(),
     Name(),
     Version(),
     VersionIsString(),
@@ -534,9 +515,6 @@ ALL_TESTS = [
     ValidREST(),
     BusFactor(),
     DevStatusClassifier(),
-    MissingBuildSystem(),
-    StoneAgeSetupPy(),
-    MissingPyProjectToml(),
 ]
 
 try:

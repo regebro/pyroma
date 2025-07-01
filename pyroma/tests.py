@@ -142,12 +142,14 @@ class RatingsTest(unittest.TestCase):
         )
 
     def test_only_config(self):
+        # In version 5, this is now an error, as there is no legacy setup.py,
+        # nor a modern pyproject.toml.
         rating = self._get_file_rating("only_config")
 
         self.assertEqual(
             rating,
             (
-                6,
+                5,
                 [
                     (
                         "You should specify what Python versions you support with "
@@ -160,25 +162,25 @@ class RatingsTest(unittest.TestCase):
                     "have a pyproject.toml file with the following configuration:\n\n"
                     "    [build-system]\n"
                     '    requires = ["setuptools>=42"]\n'
-                    '    build-backend = "setuptools.build_meta"\n\n'
-                    "In the future this may become a hard failure and your package may be "
-                    'rated as "not cheese".',
+                    '    build-backend = "setuptools.build_meta"\n\n',
+                    "You should specify what Python versions you support with "
+                    "the 'requires-python'/'python_requires' metadata.",
                     "Check-manifest returned errors",
                 ],
             ),
         )
 
     def test_skip_tests(self):
-        rating = self._get_file_rating(
-            "only_config", skip_tests=["PythonRequiresVersion", "MissingBuildSystem", "CheckManifest", "Licensing"]
-        )
-        self.assertEqual(
-            rating,
-            (
-                10,
-                [],
-            ),
-        )
+        # Find all errors
+        all_errors = self._get_file_rating("lacking")[1]
+
+        fewer_errors = self._get_file_rating(
+            "lacking", skip_tests=["PythonRequiresVersion", "Description", "LongDescription", "Classifiers"]
+        )[1]
+
+        self.assertEqual(len(all_errors), 13)
+        # Errors have been skipped!
+        self.assertEqual(len(fewer_errors), 9)
 
     def test_pep517(self):
         rating = self._get_file_rating("pep517")
@@ -237,6 +239,11 @@ class RatingsTest(unittest.TestCase):
             (
                 0,
                 [
+                    "Your project does not have a pyproject.toml file, which is highly recommended.\n"
+                    "You probably want to create one with the following configuration:\n\n"
+                    "    [build-system]\n"
+                    '    requires = ["setuptools>=42"]\n'
+                    '    build-backend = "setuptools.build_meta"\n\n',
                     "The package had no description!",
                     "The package's long_description is quite short.",
                     "Your package does not have classifiers data.",
@@ -255,11 +262,6 @@ class RatingsTest(unittest.TestCase):
                     "start-string without end-string.",
                     "Specifying a development status in the classifiers gives users "
                     "a hint of how stable your software is.",
-                    "Your project does not have a pyproject.toml file, which is highly recommended.\n"
-                    "You probably want to create one with the following configuration:\n\n"
-                    "    [build-system]\n"
-                    '    requires = ["setuptools>=42"]\n'
-                    '    build-backend = "setuptools.build_meta"\n\n',
                 ],
             ),
         )
@@ -311,36 +313,6 @@ class RatingsTest(unittest.TestCase):
 
 class PyPITest(unittest.TestCase):
     maxDiff = None
-
-    @unittest.mock.patch("xmlrpc.client.ServerProxy", proxystub)
-    @unittest.mock.patch("pyroma.pypidata._get_project_data")
-    def test_distribute(self, projectdatamock):
-        datafile = resource_filename(__name__, os.path.join("testdata", "jsondata", "distribute.json"))
-        with open(datafile, encoding="UTF-8") as file:
-            projectdatamock.return_value = json.load(file)
-
-        proxystub.set_debug_context("distributedata.py", xmlrpclib.ServerProxy, False)
-
-        data = pypidata.get_data("distribute")
-        rating = rate(data)
-
-        # build + older versions of setuptools works, later setuptools does not, so
-        # we can get two different results here:
-        self.assertEqual(
-            rating,
-            (
-                7,
-                [
-                    "The classifiers should specify what minor versions of Python "
-                    "you support as well as what major version.",
-                    "You should have three or more owners of the project on PyPI.",
-                    "Your Cheese may have spoiled!! The only way to gather metadata from your package was to execute "
-                    "a patched setup.py. This indicates that your package is using very old packaging techniques, "
-                    "(or that your setup.py isn't executable at all), and Pyroma will soon regard that as a "
-                    "complete failure!\nPlease modernize your packaging! If it is already modern, this is a bug.",
-                ],
-            ),
-        )
 
     @unittest.mock.patch("xmlrpc.client.ServerProxy", proxystub)
     @unittest.mock.patch("pyroma.pypidata._get_project_data")
