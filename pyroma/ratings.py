@@ -338,6 +338,7 @@ class Licensing(BaseTest):
 
     def test(self, data):
         license = data.get("license")
+        license_expression = data.get("license_expression")
         classifiers = data.get("classifiers", [])
         licenses = set()
         for classifier in classifiers:
@@ -346,14 +347,27 @@ class Licensing(BaseTest):
                 # license classifier exist
                 licenses.add(classifier)
 
-        if not license and not licenses:
+        if not license and not license_expression and not licenses:
             self._message = "Your package does neither have a license field nor any license classifiers."
             return False
 
-        if license in CODE_LICENSES:
-            if not CODE_LICENSES[license].intersection(licenses):
-                self._message = f"The license '{license}' specified is not listed in your classifiers."
-                return False
+        if license and license_expression:
+            self._message = "You do not need to specify both a License and a Licence-Expression."
+            return False
+
+        if not license and license_expression:
+            specified = []
+            for short_name in CODE_LICENSES:
+                if short_name in license_expression:
+                    specified.append(short_name)
+        else:
+            specified = [license]
+
+        for license in specified:
+            if license in CODE_LICENSES:
+                if not CODE_LICENSES[license].intersection(licenses):
+                    self._message = f"The license '{license}' specified is not listed in your classifiers."
+                    return False
 
         return True
 
