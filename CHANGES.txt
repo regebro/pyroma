@@ -4,8 +4,12 @@ Changelog
 4.3.4 (unreleased)
 ------------------
 
-- Nothing changed yet.
+- Removed support for fetching data via monkey-patching setup.py.
 
+- Added a warning if you have only a setup.cfg, something that is
+  working with some tools, but is not officially supported.
+
+- Some general cleanups and simplifications thanks to those changes.
 
 4.3.3 (2025-07-03)
 ------------------
