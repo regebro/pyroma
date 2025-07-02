@@ -1,7 +1,7 @@
 Changelog
 =========
 
-4.3.3 (unreleased)
+5.0a1 (2025-07-02)
 ------------------
 
 - Removed support for fetching data via monkey-patching setup.py.
