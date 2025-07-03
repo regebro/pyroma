@@ -4,7 +4,13 @@ Changelog
 5.0a2 (unreleased)
 ------------------
 
-- Nothing changed yet.
+- Changed the internal metadata names to match Core Metadata. This brings
+  less confusion, especially since setuptools and PyPI aren't exactly the
+  same either, so let's pick the offical standard and run with it.
+
+- Added a rating for if the wheel fails to build. Unfortunately it's
+  impossible to get a proper error out of it, and it sometimes failes
+  when building externally works.
 
 
 5.0a1 (2025-07-02)

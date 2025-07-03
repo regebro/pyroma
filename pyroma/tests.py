@@ -1,7 +1,9 @@
 import io
+
 import json
 import os
 import unittest
+
 import unittest.mock
 from pkg_resources import resource_filename, resource_string
 from xmlrpc import client as xmlrpclib
@@ -16,12 +18,12 @@ if not isinstance(long_description, str):
 long_description = io.StringIO(long_description, newline=None).read()
 
 COMPLETE = {
-    "metadata_version": "2.4",
+    "metadata-version": "2.4",
     "name": "complete",
     "version": "1.0.dev1",
-    "description": "This is a test package for pyroma.",
-    "long_description": long_description,
-    "classifiers": [
+    "summary": "This is a test package for pyroma.",
+    "description": long_description,
+    "classifier": [
         "Development Status :: 6 - Mature",
         "Operating System :: OS Independent",
         "Programming Language :: Python :: 2.6",
@@ -46,11 +48,11 @@ COMPLETE = {
     ],
     "keywords": "pypi,quality,example",
     "author": "Lennart Regebro",
-    "author_email": "regebro@gmail.com",
-    "url": "https://github.com/regebro/pyroma",
-    "project_urls": "Source Code, https://github.com/regebro/pyroma",
-    "requires_dist": "zope.event",
-    "python_requires": ">=2.6",
+    "author-email": "regebro@gmail.com",
+    "home-page": "https://github.com/regebro/pyroma",
+    "project-url": "Source Code, https://github.com/regebro/pyroma",
+    "requires-dist": "zope.event",
+    "requires-python": ">=2.6",
     "license": "MIT",
 }
 
@@ -149,22 +151,17 @@ class RatingsTest(unittest.TestCase):
         self.assertEqual(
             rating,
             (
-                5,
+                6,
                 [
-                    (
-                        "You should specify what Python versions you support with "
-                        "the 'requires-python'/'python_requires' metadata."
-                    ),
-                    "Specifying both a License-Expression and license classifiers is ambiguous, "
-                    "deprecated, and may be rejected by package indices.",
-                    "You seem to have a setup.cfg, but neither a setup.py, nor a build-system defined. "
-                    "This makes it unclear how your project should be built. You probably want to "
-                    "have a pyproject.toml file with the following configuration:\n\n"
+                    "You seem to neither have a setup.py, nor a pyproject.toml, only setup.cfg.\n"
+                    "This makes it unclear how your project should be built, and some packaging "
+                    "tools may fail.\n",
+                    "Your project does not have a pyproject.toml file, which is highly "
+                    "recommended.\n"
+                    "You probably want to create one with the following configuration:\n\n"
                     "    [build-system]\n"
                     '    requires = ["setuptools>=42"]\n'
                     '    build-backend = "setuptools.build_meta"\n\n',
-                    "You should specify what Python versions you support with "
-                    "the 'requires-python'/'python_requires' metadata.",
                     "Check-manifest returned errors",
                 ],
             ),
@@ -175,7 +172,7 @@ class RatingsTest(unittest.TestCase):
         all_errors = self._get_file_rating("lacking")[1]
 
         fewer_errors = self._get_file_rating(
-            "lacking", skip_tests=["PythonRequiresVersion", "Description", "LongDescription", "Classifiers"]
+            "lacking", skip_tests=["PythonRequiresVersion", "Description", "Summary", "Classifiers"]
         )[1]
 
         self.assertEqual(len(all_errors), 13)
@@ -204,23 +201,19 @@ class RatingsTest(unittest.TestCase):
 
     def test_minimal(self):
         rating = self._get_file_rating("minimal")
-
         self.assertEqual(
             rating,
             (
                 2,
                 [
-                    "The package's description should be longer than 10 characters.",
-                    "The package's long_description is quite short.",
-                    "Your package does not have classifiers data.",
+                    "The package's Summary should be longer than 10 characters.",
+                    "The package's Description is quite short.",
+                    "Your package does not have classifier data.",
                     "The classifiers should specify what Python versions you support.",
-                    (
-                        "You should specify what Python versions you support with "
-                        "the 'requires-python'/'python_requires' metadata."
-                    ),
+                    "You should specify what Python versions you support with " "the 'Requires-Python' metadata.",
                     "Your package does not have keywords data.",
                     "Your package does not have author data.",
-                    "Your package does not have author_email data.",
+                    "Your package does not have author-email data.",
                     "Your package should have a 'url' field with a link to the project home page, or a "
                     "'project_urls' field, with a dictionary of links, or both.",
                     "Your package does neither have a license field nor any license classifiers.",
@@ -244,21 +237,18 @@ class RatingsTest(unittest.TestCase):
                     "    [build-system]\n"
                     '    requires = ["setuptools>=42"]\n'
                     '    build-backend = "setuptools.build_meta"\n\n',
-                    "The package had no description!",
-                    "The package's long_description is quite short.",
-                    "Your package does not have classifiers data.",
+                    "The package had no Summary!",
+                    "The package's Description is quite short.",
+                    "Your package does not have classifier data.",
                     "The classifiers should specify what Python versions you support.",
-                    (
-                        "You should specify what Python versions you support with "
-                        "the 'requires-python'/'python_requires' metadata."
-                    ),
+                    "You should specify what Python versions you support with " "the 'Requires-Python' metadata.",
                     "Your package does not have keywords data.",
                     "Your package does not have author data.",
-                    "Your package does not have author_email data.",
+                    "Your package does not have author-email data.",
                     "Your package should have a 'url' field with a link to the project home page, or a "
                     "'project_urls' field, with a dictionary of links, or both.",
                     "Your package does neither have a license field nor any license classifiers.",
-                    "Your long_description is not valid ReST: \n<string>:1: (WARNING/2) Inline literal "
+                    "Your Description is not valid ReST: \n<string>:1: (WARNING/2) Inline literal "
                     "start-string without end-string.",
                     "Specifying a development status in the classifiers gives users "
                     "a hint of how stable your software is.",
@@ -274,17 +264,14 @@ class RatingsTest(unittest.TestCase):
             (
                 3,
                 [
-                    "The package's description should be longer than 10 characters.",
-                    "The package's long_description is quite short.",
-                    "Your package does not have classifiers data.",
+                    "The package's Summary should be longer than 10 characters.",
+                    "The package's Description is quite short.",
+                    "Your package does not have classifier data.",
                     "The classifiers should specify what Python versions you support.",
-                    (
-                        "You should specify what Python versions you support with "
-                        "the 'requires-python'/'python_requires' metadata."
-                    ),
+                    "You should specify what Python versions you support with " "the 'Requires-Python' metadata.",
                     "Your package does not have keywords data.",
                     "Your package does not have author data.",
-                    "Your package does not have author_email data.",
+                    "Your package does not have author-email data.",
                     "Your package should have a 'url' field with a link to the project home page, or a "
                     "'project_urls' field, with a dictionary of links, or both.",
                     "Your package does neither have a license field nor any license classifiers.",
@@ -301,14 +288,15 @@ class RatingsTest(unittest.TestCase):
     def test_markdown(self):
         # Markdown and text shouldn't get ReST errors
         testdata = COMPLETE.copy()
-        testdata["long_description"] = "# Broken ReST\n\n``Valid  Markdown\n"
-        testdata["long_description_content_type"] = "text/markdown"
-        rating = rate(testdata)
-        self.assertEqual(rating, (9, ["The package's long_description is quite short."]))
+        testdata["description"] = "# Broken ReST\n\n``Valid  Markdown\n"
+        testdata["description-content-type"] = "text/markdown"
 
-        testdata["long_description_content_type"] = "text/plain"
         rating = rate(testdata)
-        self.assertEqual(rating, (9, ["The package's long_description is quite short."]))
+        self.assertEqual(rating, (9, ["The package's Description is quite short."]))
+
+        testdata["description-content-type"] = "text/plain"
+        rating = rate(testdata)
+        self.assertEqual(rating, (9, ["The package's Description is quite short."]))
 
 
 class PyPITest(unittest.TestCase):
