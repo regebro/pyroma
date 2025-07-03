@@ -1,7 +1,7 @@
 Changelog
 =========
 
-4.3.3 (unreleased)
+4.3.3 (2025-07-03)
 ------------------
 
 - Licensing specifications are less flexible than I thought.
