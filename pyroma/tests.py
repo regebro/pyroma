@@ -153,6 +153,8 @@ class RatingsTest(unittest.TestCase):
                         "You should specify what Python versions you support with "
                         "the 'requires-python'/'python_requires' metadata."
                     ),
+                    "Specifying both a License-Expression and license classifiers is ambiguous, "
+                    "deprecated, and may be rejected by package indices.",
                     "You seem to have a setup.cfg, but neither a setup.py, nor a build-system defined. "
                     "This makes it unclear how your project should be built. You probably want to "
                     "have a pyproject.toml file with the following configuration:\n\n"
@@ -168,7 +170,7 @@ class RatingsTest(unittest.TestCase):
 
     def test_skip_tests(self):
         rating = self._get_file_rating(
-            "only_config", skip_tests=["PythonRequiresVersion", "MissingBuildSystem", "CheckManifest"]
+            "only_config", skip_tests=["PythonRequiresVersion", "MissingBuildSystem", "CheckManifest", "Licensing"]
         )
         self.assertEqual(
             rating,

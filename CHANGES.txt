@@ -4,7 +4,8 @@ Changelog
 4.3.3 (unreleased)
 ------------------
 
-- Nothing changed yet.
+- Licensing specifications are less flexible than I thought.
+  Updated to reflect that.
 
 
 4.3.2 (2025-07-02)

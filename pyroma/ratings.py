@@ -352,22 +352,23 @@ class Licensing(BaseTest):
             return False
 
         if license and license_expression:
-            self._message = "You do not need to specify both a License and a Licence-Expression."
+            self._message = (
+                "Specifying both a License and a License-Expression is ambiguous, deprecated, "
+                "and may be rejected by package indices."
+            )
             return False
 
-        if not license and license_expression:
-            specified = []
-            for short_name in CODE_LICENSES:
-                if short_name in license_expression:
-                    specified.append(short_name)
-        else:
-            specified = [license]
+        if license_expression and licenses:
+            self._message = (
+                "Specifying both a License-Expression and license classifiers is ambiguous, deprecated, "
+                "and may be rejected by package indices."
+            )
+            return False
 
-        for license in specified:
-            if license in CODE_LICENSES:
-                if not CODE_LICENSES[license].intersection(licenses):
-                    self._message = f"The license '{license}' specified is not listed in your classifiers."
-                    return False
+        if license in CODE_LICENSES:
+            if not CODE_LICENSES[license].intersection(licenses):
+                self._message = f"The license '{license}' specified is not listed in your classifiers."
+                return False
 
         return True
 
