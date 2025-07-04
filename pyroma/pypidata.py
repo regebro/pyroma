@@ -1,10 +1,22 @@
 import logging
 import os
+import re
 import requests
 import tempfile
 import xmlrpc.client
 
 from pyroma import distributiondata
+
+# MAP from old PyPI `info` keys to Core Metadata keys
+INFO_MAP = {
+    "classifiers": "classifier",
+    "project-urls": "project-url",
+    "project-url": "home-page",
+}
+
+
+def normalize(name):
+    return re.sub(r"[-_.]+", "-", name).lower()
 
 
 def _get_project_data(project):
@@ -22,13 +34,16 @@ def get_data(project):
     # Pick the latest release.
     project_data = _get_project_data(project)
     releases = project_data["releases"]
-    data = project_data["info"]
+    data = {}
+
+    for key, value in project_data["info"].items():
+        key = normalize(key)
+        if key in INFO_MAP:
+            key = INFO_MAP[key]
+        data[key] = value
+
     release = data["version"]
     logging.debug(f"Found {project} version {release}")
-
-    # Map things around:
-    data["long_description"] = data["description"]
-    data["description"] = data["summary"]
 
     with xmlrpc.client.ServerProxy("https://pypi.org/pypi") as xmlrpc_client:
         roles = xmlrpc_client.package_roles(project)
