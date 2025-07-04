@@ -40,9 +40,9 @@ def wheel_metadata(path, isolated=None):
 def build_metadata(path, isolated=None):
     try:
         metadata = wheel_metadata(path, isolated)
-    except (build.BuildException, build.BuildBackendException):
+    except build.BuildBackendException:
         # The backend failed spectacularily. This happens with old packages,
-        # when we can't build a wheel. It's not a fatal error. For example, if
+        # when we can't build a wheel. It's not always a fatal error. F ex, if
         # you are getting info for a package from PyPI, we already have the
         # metadata from PyPI, we just couldn't get the additional build data.
         return {"_wheel_build_failed": True}
@@ -122,7 +122,7 @@ def _get_data(path):
                 return metadata
             except DistutilsFileError:
                 # There is no setup.cfg either, so this isn't a python package at all
-                return {}
+                return {"_no_config_found": True}
         else:
             # There's something else wrong
             raise e

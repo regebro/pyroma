@@ -9,8 +9,8 @@ Changelog
   same either, so let's pick the offical standard and run with it.
 
 - Added a rating for if the wheel fails to build. Unfortunately it's
-  impossible to get a proper error out of it, and it sometimes failes
-  when building externally works.
+  impossible to get a proper error out of it, so the message tells
+  you to run python -m build.
 
 
 5.0a1 (2025-07-02)

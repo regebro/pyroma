@@ -138,7 +138,7 @@ class RatingsTest(unittest.TestCase):
                     "You probably want to create one with the following configuration:\n\n"
                     "    [build-system]\n"
                     '    requires = ["setuptools>=42"]\n'
-                    '    build-backend = "setuptools.build_meta"\n\n',
+                    '    build-backend = "setuptools.build_meta"\n',
                 ],
             ),
         )
@@ -155,13 +155,13 @@ class RatingsTest(unittest.TestCase):
                 [
                     "You seem to neither have a setup.py, nor a pyproject.toml, only setup.cfg.\n"
                     "This makes it unclear how your project should be built, and some packaging "
-                    "tools may fail.\n",
+                    "tools may fail.",
                     "Your project does not have a pyproject.toml file, which is highly "
                     "recommended.\n"
                     "You probably want to create one with the following configuration:\n\n"
                     "    [build-system]\n"
                     '    requires = ["setuptools>=42"]\n'
-                    '    build-backend = "setuptools.build_meta"\n\n',
+                    '    build-backend = "setuptools.build_meta"\n',
                     "Check-manifest returned errors",
                 ],
             ),
@@ -236,7 +236,7 @@ class RatingsTest(unittest.TestCase):
                     "You probably want to create one with the following configuration:\n\n"
                     "    [build-system]\n"
                     '    requires = ["setuptools>=42"]\n'
-                    '    build-backend = "setuptools.build_meta"\n\n',
+                    '    build-backend = "setuptools.build_meta"\n',
                     "The package had no Summary!",
                     "The package's Description is quite short.",
                     "Your package does not have classifier data.",

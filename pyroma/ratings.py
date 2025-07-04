@@ -490,19 +490,6 @@ class MissingPyProjectToml(BaseTest):
         )
 
 
-class WheelBuildFailed(BaseTest):
-    def test(self, data):
-        if "_wheel_build_failed" in data:
-            self.weight = 100
-            return False
-
-    def message(self):
-        return (
-            "Pyroma failed to build your packages wheel metadata, which indicates an error with "
-            "your build configuration, like you not having a pyproject.toml file, or it being faulty."
-        )
-
-
 ALL_TESTS = [
     MissingBuildSystem(),
     MissingPyProjectToml(),
@@ -525,7 +512,6 @@ ALL_TESTS = [
     ValidREST(),
     BusFactor(),
     DevStatusClassifier(),
-    WheelBuildFailed(),
 ]
 
 try:
@@ -558,9 +544,20 @@ except ImportError:
 
 
 def rate(data, skip_tests=None):
-    if not data:
-        # No data was gathered. Fail:
-        return (0, ["I couldn't find any package data"])
+    if len([key for key in data if not key.startswith("_")]) == 0:
+        if "_no_config_found" in data:
+            # Are you in the correct directory?:
+            return (0, ["I couldn't find any package data. Are checking the correct directory or file?"])
+
+        if "_wheel_build_failed" in data:
+            return (
+                0,
+                [
+                    "Pyroma failed to build your packages wheel metadata, which indicates an error with "
+                    "your build configuration, like you not having a pyproject.toml file, or it being faulty.\n"
+                    "Running `python -m build` in your package directory may give more information."
+                ],
+            )
 
     if skip_tests is None:
         skip_tests = []
