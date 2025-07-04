@@ -1,7 +1,7 @@
 Changelog
 =========
 
-5.0a2 (unreleased)
+5.0b1 (2025-07-04)
 ------------------
 
 - Changed the internal metadata names to match Core Metadata. This brings
