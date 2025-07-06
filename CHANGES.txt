@@ -4,7 +4,7 @@ Changelog
 5.0b2 (unreleased)
 ------------------
 
-- Nothing changed yet.
+- Fixed a bug that failed to find license-expression fields.
 
 
 5.0b1 (2025-07-04)

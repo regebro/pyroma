@@ -151,7 +151,7 @@ class RatingsTest(unittest.TestCase):
         self.assertEqual(
             rating,
             (
-                6,
+                5,
                 [
                     "You seem to neither have a setup.py, nor a pyproject.toml, only setup.cfg.\n"
                     "This makes it unclear how your project should be built, and some packaging "
@@ -162,6 +162,8 @@ class RatingsTest(unittest.TestCase):
                     "    [build-system]\n"
                     '    requires = ["setuptools>=42"]\n'
                     '    build-backend = "setuptools.build_meta"\n',
+                    "Specifying both a License-Expression and license classifiers is ambiguous, "
+                    "deprecated, and may be rejected by package indices.",
                     "Check-manifest returned errors",
                 ],
             ),

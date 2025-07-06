@@ -335,7 +335,7 @@ class Licensing(BaseTest):
 
     def test(self, data):
         license = data.get("license")
-        license_expression = data.get("license_expression")
+        license_expression = data.get("license-expression")
         classifiers = data.get("classifier", [])
         licenses = set()
         for classifier in classifiers:
