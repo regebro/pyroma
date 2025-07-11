@@ -171,41 +171,41 @@ class PEPVersion(BaseTest):
         return "The package's version number does not comply with PEP-386 or PEP-440."
 
 
-class Description(BaseTest):
+class Summary(BaseTest):
     weight = 100
 
     def test(self, data):
-        description = data.get("description")
-        if not description:
+        summary = data.get("summary")
+        if not summary:
             # No description at all. That's fatal.
             self.fatal = True
             return False
         self.fatal = False
-        return len(description) > 10
+        return len(summary) > 10
 
     def message(self):
         if self.fatal:
-            return "The package had no description!"
+            return "The package had no Summary!"
         else:
-            return "The package's description should be longer than 10 characters."
+            return "The package's Summary should be longer than 10 characters."
 
 
-class LongDescription(BaseTest):
+class Description(BaseTest):
     weight = 50
 
     def test(self, data):
-        long_description = data.get("long_description", "")
-        if not isinstance(long_description, str):
-            long_description = ""
-        return len(long_description) > 100
+        description = data.get("description", "")
+        if not isinstance(description, str):
+            description = ""
+        return len(description) > 100
 
     def message(self):
-        return "The package's long_description is quite short."
+        return "The package's Description is quite short."
 
 
 class Classifiers(FieldTest):
     weight = 100
-    field = "classifiers"
+    field = "classifier"
 
 
 class ClassifierVerification(BaseTest):
@@ -213,7 +213,7 @@ class ClassifierVerification(BaseTest):
 
     def test(self, data):
         self._incorrect = []
-        classifiers = data.get("classifiers", [])
+        classifiers = data.get("classifier", [])
         for classifier in classifiers:
             if classifier not in CLASSIFIERS and not classifier.startswith("Private :: "):
                 self._incorrect.append(classifier)
@@ -230,7 +230,7 @@ class PythonClassifierVersion(BaseTest):
     def test(self, data):
         self._major_version_specified = False
 
-        classifiers = data.get("classifiers", [])
+        classifiers = data.get("classifier", [])
         for classifier in classifiers:
             parts = [p.strip() for p in classifier.split("::")]
             if parts[0] == "Programming Language" and parts[1] == "Python":
@@ -279,7 +279,7 @@ class PythonRequiresVersion(BaseTest):
 
     def test(self, data):
         # https://github.com/regebro/pyroma/pull/83#discussion_r955611236
-        python_requires = data.get("python_requires", None)
+        python_requires = data.get("requires-python", None)
 
         if not python_requires:
             return False
@@ -292,10 +292,7 @@ class PythonRequiresVersion(BaseTest):
         return True
 
     def message(self):
-        return (
-            "You should specify what Python versions you support with "
-            "the 'requires-python'/'python_requires' metadata."
-        )
+        return "You should specify what Python versions you support with " "the 'Requires-Python' metadata."
 
 
 class Keywords(FieldTest):
@@ -308,22 +305,22 @@ class Author(FieldTest):
     field = "author"
 
     def test(self, data):
-        """Check if author_email field contains author name."""
-        email = data.get("author_email")
+        """Check if author-email field contains author name."""
+        email = data.get("author-email")
         # Pass if author name in email, e.g. "Author Name <author@example.com>"
         return True if email and "<" in email else super().test(data)
 
 
 class AuthorEmail(FieldTest):
     weight = 100
-    field = "author_email"
+    field = "author-email"
 
 
 class Url(BaseTest):
     weight = 20
 
     def test(self, data):
-        return bool(data.get("url")) or bool(data.get("project_urls"))
+        return bool(data.get("home-page")) or bool(data.get("project-url"))
 
     def message(self):
         return (
@@ -338,13 +335,13 @@ class Licensing(BaseTest):
 
     def test(self, data):
         license = data.get("license")
-        license_expression = data.get("license_expression")
-        classifiers = data.get("classifiers", [])
+        license_expression = data.get("license-expression")
+        classifiers = data.get("classifier", [])
         licenses = set()
         for classifier in classifiers:
             parts = [p.strip() for p in classifier.split("::")]
             if parts[0] == "License":
-                # license classifier exist
+                # license classifiers exist
                 licenses.add(classifier)
 
         if not license and not license_expression and not licenses:
@@ -380,7 +377,7 @@ class DevStatusClassifier(BaseTest):
     weight = 20
 
     def test(self, data):
-        classifiers = data.get("classifiers", [])
+        classifiers = data.get("classifier", [])
         for classifier in classifiers:
             parts = [p.strip() for p in classifier.split("::")]
             if parts[0] == "Development Status":
@@ -414,14 +411,14 @@ class ValidREST(BaseTest):
     weight = 50
 
     def test(self, data):
-        content_type = data.get("long_description_content_type", None)
+        content_type = data.get("description-content-type", None)
         if content_type in ("text/plain", "text/markdown"):
             # These can't fail. Markdown will just assume everything
             # it doesn't understand is plain text.
             return True
 
         # This should be ReStructuredText
-        source = data.get("long_description", "")
+        source = data.get("description", "")
         stream = io.StringIO()
         settings = {"warning_stream": stream}
 
@@ -437,7 +434,7 @@ class ValidREST(BaseTest):
         return False
 
     def message(self):
-        return "Your long_description is not valid ReST: " + self._message
+        return "Your Description is not valid ReST: " + self._message
 
 
 class BusFactor(BaseTest):
@@ -466,24 +463,19 @@ class MissingBuildSystem(BaseTest):
     def test(self, data):
         if "_missing_build_system" in data:
             # These sort of "negative only/deprecation" ratings only give you negative weight
-            self.weight = 200
+            self.weight = 400
             return False
 
     def message(self):
         return (
-            "You seem to have a setup.cfg, but neither a setup.py, nor a build-system defined. This makes "
-            "it unclear how your project should be built. You probably want to have a pyproject.toml file "
-            "with the following configuration:\n\n"
-            "    [build-system]\n"
-            '    requires = ["setuptools>=42"]\n'
-            '    build-backend = "setuptools.build_meta"\n\n'
-            'In the future this may become a hard failure and your package may be rated as "not cheese".'
+            "You seem to neither have a setup.py, nor a pyproject.toml, only setup.cfg.\n"
+            "This makes it unclear how your project should be built, and some packaging tools may fail."
         )
 
 
 class MissingPyProjectToml(BaseTest):
     def test(self, data):
-        if "_missing_pyproject_toml" in data:
+        if "_missing_build_system" in data or "_missing_pyproject_toml" in data:
             # These sort of "negative only/deprecation" ratings only give you negative weight
             self.weight = 100
             return False
@@ -494,33 +486,19 @@ class MissingPyProjectToml(BaseTest):
             "You probably want to create one with the following configuration:\n\n"
             "    [build-system]\n"
             '    requires = ["setuptools>=42"]\n'
-            '    build-backend = "setuptools.build_meta"\n\n'
-        )
-
-
-class StoneAgeSetupPy(BaseTest):
-    def test(self, data):
-        if "_stoneage_setuppy" in data:
-            # These sort of "negative only/deprecation" ratings only give you negative weight
-            self.weight = 200
-            return False
-
-    def message(self):
-        return (
-            "Your Cheese may have spoiled!! The only way to gather metadata from your package was to execute "
-            "a patched setup.py. This indicates that your package is using very old packaging techniques, "
-            "(or that your setup.py isn't executable at all), and Pyroma will soon regard that as a complete "
-            "failure!\nPlease modernize your packaging! If it is already modern, this is a bug."
+            '    build-backend = "setuptools.build_meta"\n'
         )
 
 
 ALL_TESTS = [
+    MissingBuildSystem(),
+    MissingPyProjectToml(),
     Name(),
     Version(),
     VersionIsString(),
     PEPVersion(),
+    Summary(),
     Description(),
-    LongDescription(),
     Classifiers(),
     ClassifierVerification(),
     PythonClassifierVersion(),
@@ -534,9 +512,6 @@ ALL_TESTS = [
     ValidREST(),
     BusFactor(),
     DevStatusClassifier(),
-    MissingBuildSystem(),
-    StoneAgeSetupPy(),
-    MissingPyProjectToml(),
 ]
 
 try:
@@ -569,9 +544,20 @@ except ImportError:
 
 
 def rate(data, skip_tests=None):
-    if not data:
-        # No data was gathered. Fail:
-        return (0, ["I couldn't find any package data"])
+    if len([key for key in data if not key.startswith("_")]) == 0:
+        if "_no_config_found" in data:
+            # Are you in the correct directory?:
+            return (0, ["I couldn't find any package data. Are checking the correct directory or file?"])
+
+        if "_wheel_build_failed" in data:
+            return (
+                0,
+                [
+                    "Pyroma failed to build your packages wheel metadata, which indicates an error with "
+                    "your build configuration, like you not having a pyproject.toml file, or it being faulty.\n"
+                    "Running `python -m build` in your package directory may give more information."
+                ],
+            )
 
     if skip_tests is None:
         skip_tests = []

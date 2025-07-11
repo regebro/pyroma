@@ -30,6 +30,3 @@ clean-pyc: ## remove Python file artifacts
 	find . -name '__pycache__' -exec rm -fr {} +
 	find . -name 'pip-selfcheck.json' -exec rm -fr {} +
 	find . -name 'pyvenv.cfg' -exec rm -fr {} +
-
-prepare-release:
-	python fetch_classifiers.py
