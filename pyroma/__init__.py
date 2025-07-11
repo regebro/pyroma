@@ -74,6 +74,7 @@ def skip_tests(arg):
 
 def main():
     parser = ArgumentParser()
+    parser.color = True
     parser.add_argument(
         "package", help="A python package, can be a directory, a distribution file or a PyPI package name."
     )
