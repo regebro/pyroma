@@ -20,7 +20,7 @@ repos:
       - id: flake8
 
   - repo: https://github.com/regebro/pyroma
-    rev: '4.2'
+    rev: '5.0b2'
     hooks:
       - id: pyroma
 

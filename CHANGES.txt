@@ -4,7 +4,7 @@ Changelog
 5.0b3 (unreleased)
 ------------------
 
-- Nothing changed yet.
+- Re-releasing as final.
 
 
 5.0b2 (2025-07-10)
