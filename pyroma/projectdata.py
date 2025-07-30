@@ -4,6 +4,7 @@ import build.util
 import os
 import pathlib
 import re
+from importlib.metadata import metadata
 
 from setuptools.config.setupcfg import read_configuration
 from distutils.errors import DistutilsFileError
@@ -47,6 +48,10 @@ def build_metadata(path, isolated=None):
         # metadata from PyPI, we just couldn't get the additional build data.
         return {"_wheel_build_failed": True}
 
+    return normalize_metadata(metadata)
+
+
+def normalize_metadata(metadata):
     # As far as I can tell, we can't trust that the builders normalize the keys,
     # so we do it here. Definitely most builders do not lower case them, which
     # Core Metadata Specs recommend.
@@ -70,6 +75,11 @@ def build_metadata(path, isolated=None):
         if description:
             data["description"] = description + "\n"
     return data
+
+
+def installed_metadata(name):
+    """Retrieve the metadata for an package that is installed in the environment."""
+    return normalize_metadata(metadata(name))
 
 
 def get_build_data(path, isolated=None):
