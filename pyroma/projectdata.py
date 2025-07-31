@@ -58,7 +58,7 @@ def build_metadata(path, isolated=None):
         if len(value) == 1:
             value = value[0]
             if value.strip() == "UNKNOWN":
-                # XXX This is also old behavior that may not hjappen any more.
+                # XXX This is also old behavior that may not happen any more.
                 continue
 
         data[key] = value
