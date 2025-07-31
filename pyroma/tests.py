@@ -366,7 +366,7 @@ class ProjectDataTest(unittest.TestCase):
         self.assertEqual(data["license-file"], "LICENSE.txt")
         self.assertEqual(data["project-url"], "Source Code, https://github.com/regebro/pyroma")
         self.assertEqual(data["provides-extra"], "test")
-        self.assertEqual(data["requires-python"], "3.9")
+        self.assertEqual(data["requires-python"], ">=3.9")
 
 
 class DistroDataTest(unittest.TestCase):
