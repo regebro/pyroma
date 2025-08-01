@@ -53,7 +53,6 @@ def build_metadata(path, isolated=None):
     data = {}
     for key in set(metadata.keys()):
         value = metadata.get_all(key)
-        key = normalize(key)
 
         if len(value) == 1:
             value = value[0]
@@ -61,6 +60,7 @@ def build_metadata(path, isolated=None):
                 # XXX This is also old behavior that may not happen any more.
                 continue
 
+        key = normalize(key)
         data[key] = value
 
     if "description" not in data.keys():
