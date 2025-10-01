@@ -1,4 +1,5 @@
-.PHONY: docs
+root_dir := $(shell dirname $(realpath $(lastword $(MAKEFILE_LIST))))
+bin_dir := $(root_dir)/ve/bin
 
 define PRINT_HELP_PYSCRIPT
 import re, sys
@@ -11,6 +12,16 @@ for line in sys.stdin:
 endef
 export PRINT_HELP_PYSCRIPT
 
+all: devenv test
+
+.PHONY: docs
+
+devenv:	ve/bin/fullrelease
+
+ve/bin/fullrelease:
+	virtualenv ve
+	$(bin_dir)/pip install -e .[test]
+
 help: ## display this message
 	@python -c "$$PRINT_HELP_PYSCRIPT" < $(MAKEFILE_LIST)
 
@@ -18,8 +29,8 @@ generate: ## generate environment for tests
 	cd pyroma/testdata/complete;python setup.py sdist --formats=bztar,gztar,tar,zip
 	cp pyroma/testdata/complete/dist/complete-1.0.dev1.* pyroma/testdata/distributions/
 
-tests: generate ## run tests
-	python -m unittest pyroma.tests
+tests: devenv generate ## run tests
+	tox -e py
 
 clean: clean-pyc ## remove all
 
