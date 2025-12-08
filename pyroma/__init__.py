@@ -59,7 +59,7 @@ def parse_tests(arg):
         if skip not in tests:
             return
 
-    return skip
+    return arg
 
 
 def skip_tests(arg):
