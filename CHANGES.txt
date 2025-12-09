@@ -1,8 +1,8 @@
 Changelog
 =========
 
-5.1 (unreleased)
-----------------
+5.0.1 (2025-12-09)
+------------------
 
 - check-manifest was missing from the requirements list.
 
