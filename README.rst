@@ -132,3 +132,4 @@ Contributors:
   * RuRo
   * Wesley Barroso Lopes
   * Alexander Bessman
+  * Matt Norton

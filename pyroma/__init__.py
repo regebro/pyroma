@@ -47,6 +47,7 @@ def parse_tests(arg):
     if not arg:
         return
 
+    # Split on spaces, commas and semicolons
     arg = [arg]
     for sep in " ,;":
         skips = []
@@ -57,6 +58,7 @@ def parse_tests(arg):
     tests = get_all_tests()
     for skip in arg:
         if skip not in tests:
+            # Invalid test mentioned, fail and print valid tests
             return
 
     return arg
@@ -67,6 +69,7 @@ def skip_tests(arg):
     if test_to_skip:
         return test_to_skip
 
+    # It returned None, so there was an invalid test mentioned, or none at all
     tests = ", ".join(get_all_tests())
     message = f"Invalid tests listed. Available tests: {tests}"
     raise ArgumentTypeError(message)

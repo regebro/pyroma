@@ -6,6 +6,8 @@ Changelog
 
 - check-manifest was missing from the requirements list.
 
+- Passing in multiple tests to be skipped now actually works  [Matt Norton]
+
 
 5.0 (2025-07-15)
 ----------------
