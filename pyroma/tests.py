@@ -5,15 +5,15 @@ import os
 import unittest
 
 import unittest.mock
-from pkg_resources import resource_filename, resource_string
+from pathlib import Path
+
 from xmlrpc import client as xmlrpclib
 
 from pyroma import projectdata, distributiondata, pypidata
 from pyroma.ratings import rate
 
-long_description = resource_string(__name__, os.path.join("testdata", "complete", "README.txt"))
-if not isinstance(long_description, str):
-    long_description = long_description.decode()
+TESTDATA_DIR = Path(__file__).parent / "testdata"
+long_description = (TESTDATA_DIR / "complete" / "README.txt").read_text(encoding="UTF-8")
 # Translate newlines to universal format
 long_description = io.StringIO(long_description, newline=None).read()
 
@@ -59,7 +59,7 @@ COMPLETE = {
 
 class ProxyStub:
     def set_debug_context(self, dataname, real_class, developmode):
-        filename = resource_filename(__name__, os.path.join("testdata", "xmlrpcdata", dataname))
+        filename = TESTDATA_DIR / "xmlrpcdata" / dataname
         data = {}
         with open(filename, encoding="UTF-8") as f:
             exec(f.read(), None, data)
@@ -118,7 +118,7 @@ class RatingsTest(unittest.TestCase):
     maxDiff = None
 
     def _get_file_rating(self, dirname, skip_tests=None):
-        directory = resource_filename(__name__, os.path.join("testdata", dirname))
+        directory = TESTDATA_DIR / dirname
         data = projectdata.get_data(directory)
         return rate(data, skip_tests)
 
@@ -308,11 +308,11 @@ class PyPITest(unittest.TestCase):
     @unittest.mock.patch("pyroma.pypidata._get_project_data")
     @unittest.mock.patch("requests.get")
     def test_complete(self, requestmock, projectdatamock):
-        datafile = resource_filename(__name__, os.path.join("testdata", "jsondata", "complete.json"))
+        datafile = TESTDATA_DIR / "jsondata" / "complete.json"
         with open(datafile, encoding="UTF-8") as file:
             projectdatamock.return_value = json.load(file)
 
-        srcfile = resource_filename(__name__, os.path.join("testdata", "distributions", "complete-1.0.dev1.tar.gz"))
+        srcfile = TESTDATA_DIR / "distributions" / "complete-1.0.dev1.tar.gz"
         with open(srcfile, "rb") as file:
             requestmock.return_value = unittest.mock.Mock()
             requestmock.return_value.content = file.read()
@@ -328,7 +328,7 @@ class ProjectDataTest(unittest.TestCase):
     maxDiff = None
 
     def test_complete(self):
-        directory = resource_filename(__name__, os.path.join("testdata", "complete"))
+        directory = TESTDATA_DIR / "complete"
 
         data = projectdata.get_data(directory)
         del data["_path"]  # This changes, so I just ignore it
@@ -339,9 +339,9 @@ class DistroDataTest(unittest.TestCase):
     maxDiff = None
 
     def test_complete(self):
-        directory = resource_filename(__name__, os.path.join("testdata", "distributions"))
+        directory = TESTDATA_DIR / "distributions"
 
         for filename in os.listdir(directory):
             if filename.startswith("complete"):
-                data = distributiondata.get_data(os.path.join(directory, filename))
+                data = distributiondata.get_data(directory / filename)
                 self.assertEqual(data, COMPLETE)

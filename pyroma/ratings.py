@@ -423,7 +423,7 @@ class ValidREST(BaseTest):
         settings = {"warning_stream": stream}
 
         try:
-            publish_parts(source=source, writer_name="html4css1", settings_overrides=settings)
+            publish_parts(source=source, writer="html4css1", settings_overrides=settings)
         except SystemMessage as e:
             self._message = e.args[0]
         errors = stream.getvalue().strip()
