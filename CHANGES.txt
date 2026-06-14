@@ -1,7 +1,7 @@
 Changelog
 =========
 
-5.1b2 (unreleased)
+5.1b2 (2026-06-14)
 ------------------
 
 - Added depracation warnings for deprecated metadata.
