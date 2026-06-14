@@ -7,6 +7,7 @@ import unittest
 import unittest.mock
 from pathlib import Path
 
+import pyroma
 from xmlrpc import client as xmlrpclib
 
 from pyroma import projectdata, distributiondata, pypidata
@@ -339,6 +340,54 @@ class PyPITest(unittest.TestCase):
         rating = rate(data)
 
         self.assertEqual(rating, (10, []))
+
+    @unittest.mock.patch("pyroma.pypidata.requests.get")
+    def test_get_project_data_custom_index_url(self, requestmock):
+        requestmock.return_value = unittest.mock.Mock()
+        requestmock.return_value.ok = True
+        requestmock.return_value.status_code = 200
+        requestmock.return_value.json.return_value = {}
+
+        pypidata._get_project_data("internalpkg", index_url="https://packages.example.com")
+
+        requestmock.assert_called_once_with("https://packages.example.com/pypi/internalpkg/json")
+
+    @unittest.mock.patch("pyroma.pypidata.requests.get")
+    def test_get_project_data_custom_index_url_with_pypi_path(self, requestmock):
+        requestmock.return_value = unittest.mock.Mock()
+        requestmock.return_value.ok = True
+        requestmock.return_value.status_code = 200
+        requestmock.return_value.json.return_value = {}
+
+        pypidata._get_project_data("internalpkg", index_url="https://packages.example.com/pypi")
+
+        requestmock.assert_called_once_with("https://packages.example.com/pypi/internalpkg/json")
+
+    @unittest.mock.patch("pyroma.pypidata.xmlrpc.client.ServerProxy")
+    @unittest.mock.patch("pyroma.pypidata._get_project_data")
+    def test_get_data_custom_index_url_uses_xmlrpc_endpoint(self, projectdatamock, proxymock):
+        projectdatamock.return_value = {
+            "info": {"name": "internalpkg", "version": "1.2.3"},
+            "releases": {"1.2.3": []},
+        }
+
+        proxymock.return_value.__enter__.return_value.package_roles.return_value = [("Owner", "dev1")]
+
+        data = pypidata.get_data("internalpkg", index_url="https://packages.example.com")
+
+        self.assertEqual(data["_owners"], ["dev1"])
+        proxymock.assert_called_once_with("https://packages.example.com/pypi")
+
+    @unittest.mock.patch("pyroma.ratings.rate")
+    @unittest.mock.patch("pyroma.pypidata.get_data")
+    def test_run_forwards_custom_index_url(self, datamock, ratemock):
+        datamock.return_value = {"name": "internalpkg"}
+        ratemock.return_value = (10, [])
+
+        result = pyroma.run("pypi", "internalpkg", quiet=True, index_url="https://packages.example.com")
+
+        self.assertEqual(result, 10)
+        datamock.assert_called_once_with("internalpkg", index_url="https://packages.example.com")
 
 
 class ProjectDataTest(unittest.TestCase):

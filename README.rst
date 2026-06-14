@@ -25,6 +25,11 @@ Or you can give it a package name on CheeseShop:
 
     $ pyroma pyroma
 
+If you use an internal PyPI-compatible package index, specify it with
+``--index-url``:
+
+  $ pyroma --index-url https://packages.example.com internal-package
+
 Giving it a name on CheeseShop is the most extensive test, as it will
 test for several things isn't otherwise tested.
 

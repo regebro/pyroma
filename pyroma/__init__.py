@@ -137,6 +137,11 @@ def main():
         type=skip_tests,
         help="Skip the named tests",
     )
+    parser.add_argument(
+        "--index-url",
+        dest="index_url",
+        help="Base URL of a PyPI-compatible package index (default: https://pypi.org)",
+    )
 
     args = parser.parse_args()
 
@@ -149,13 +154,13 @@ def main():
         else:
             mode = "pypi"
 
-    rating = run(mode, args.package, args.quiet, args.skip_tests)
+    rating = run(mode, args.package, args.quiet, args.skip_tests, args.index_url)
     if rating < args.min:
         sys.exit(2)
     sys.exit(0)
 
 
-def run(mode, argument, quiet=False, skip_tests=None):
+def run(mode, argument, quiet=False, skip_tests=None, index_url=None):
     if quiet:
         logger = logging.getLogger()
         logger.disabled = True
@@ -171,7 +176,7 @@ def run(mode, argument, quiet=False, skip_tests=None):
         logging.info("Found " + data.get("name", "nothing"))
     else:
         # It's probably a package name
-        data = pypidata.get_data(argument)
+        data = pypidata.get_data(argument, index_url=index_url)
         logging.info("Found " + data.get("name", "nothing"))
 
     rating = ratings.rate(data, skip_tests)

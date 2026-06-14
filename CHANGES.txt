@@ -8,6 +8,9 @@ Changelog
 
 - Added helpful links to some error messages.
 
+- Added support for checking packages on a custom PyPI-compatible index with
+  the ``--index-url`` option.
+
 
 5.0.1 (2025-12-09)
 ------------------

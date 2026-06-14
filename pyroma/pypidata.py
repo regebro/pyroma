@@ -14,25 +14,40 @@ INFO_MAP = {
     "project-url": "home-page",
 }
 
+DEFAULT_PYPI_XMLRPC_URL = "https://pypi.org/pypi"
+
 
 def normalize(name):
     return re.sub(r"[-_.]+", "-", name).lower()
 
 
-def _get_project_data(project):
+def _get_xmlrpc_url(index_url=None):
+    if not index_url:
+        return DEFAULT_PYPI_XMLRPC_URL
+
+    base_url = index_url.rstrip("/")
+    if base_url.endswith("/pypi"):
+        return base_url
+    return f"{base_url}/pypi"
+
+
+def _get_project_data(project, index_url=None):
     # I think I should be able to monkeypatch a mock-thingy here... I think.
-    response = requests.get(f"https://pypi.org/pypi/{project}/json")
+    xmlrpc_url = _get_xmlrpc_url(index_url)
+    response = requests.get(f"{xmlrpc_url}/{project}/json")
     if response.status_code == 404:
-        raise ValueError(f"Did not find '{project}' on PyPI. Did you misspell it?")
+        if xmlrpc_url == DEFAULT_PYPI_XMLRPC_URL:
+            raise ValueError(f"Did not find '{project}' on PyPI. Did you misspell it?")
+        raise ValueError(f"Did not find '{project}' on package index {xmlrpc_url}.")
     if not response.ok:
         raise ValueError(f"Unknown http error: {response.status_code} {response.reason}")
 
     return response.json()
 
 
-def get_data(project):
+def get_data(project, index_url=None):
     # Pick the latest release.
-    project_data = _get_project_data(project)
+    project_data = _get_project_data(project, index_url=index_url)
     releases = project_data["releases"]
     data = {}
 
@@ -45,10 +60,15 @@ def get_data(project):
     release = data["version"]
     logging.debug(f"Found {project} version {release}")
 
-    with xmlrpc.client.ServerProxy("https://pypi.org/pypi") as xmlrpc_client:
-        roles = xmlrpc_client.package_roles(project)
-
-    data["_owners"] = [user for (role, user) in roles if role == "Owner"]
+    try:
+        with xmlrpc.client.ServerProxy(_get_xmlrpc_url(index_url)) as xmlrpc_client:
+            roles = xmlrpc_client.package_roles(project)
+            data["_owners"] = [user for (role, user) in roles if role == "Owner"]
+    except xmlrpc.client.ProtocolError:
+        logging.warning(
+            "Could not get package roles from XMLRPC API. Not all custom indexes "
+            "support this, and some may have it disabled. Skipping role checks."
+        )
 
     # Get download_urls:
     urls = releases[release]
