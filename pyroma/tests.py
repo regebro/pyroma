@@ -393,12 +393,62 @@ class PyPITest(unittest.TestCase):
 class ProjectDataTest(unittest.TestCase):
     maxDiff = None
 
+    class _FakeMetadata:
+        def __init__(self):
+            self._data = {
+                "Name": ["pep517"],
+                "Version": ["1.0"],
+                "Summary": ["This is a test package for pyroma"],
+            }
+
+        def keys(self):
+            return self._data.keys()
+
+        def get_all(self, key):
+            return self._data[key]
+
+        def get_payload(self):
+            return ""
+
     def test_complete(self):
         directory = TESTDATA_DIR / "complete"
 
         data = projectdata.get_data(directory)
         del data["_path"]  # This changes, so I just ignore it
         self.assertEqual(data, COMPLETE)
+
+    @unittest.mock.patch("pyroma.projectdata.wheel_metadata", side_effect=AssertionError("wheel build not expected"))
+    def test_pep621_prefers_pyproject_data(self, wheelmock):
+        directory = TESTDATA_DIR / "pep621"
+
+        data = projectdata.get_data(directory)
+
+        self.assertEqual(data["name"], "pyroma_pep621_test_pkg")
+        self.assertEqual(data["version"], "1.0")
+        self.assertIn("description", data)
+        wheelmock.assert_not_called()
+
+    @unittest.mock.patch("pyroma.projectdata.wheel_metadata")
+    def test_pep517_falls_back_to_wheel_metadata(self, wheelmock):
+        directory = TESTDATA_DIR / "pep517"
+        wheelmock.return_value = self._FakeMetadata()
+
+        data = projectdata.get_data(directory)
+
+        self.assertEqual(data["name"], "pep517")
+        self.assertEqual(data["version"], "1.0")
+        wheelmock.assert_called_once()
+
+    def test_get_pyproject_data_includes_build_backend(self):
+        data = projectdata.get_pyproject_data(TESTDATA_DIR / "pep621")
+
+        self.assertEqual(data["_build_backend"], "flit_core.buildapi")
+        self.assertEqual(data["name"], "pyroma_pep621_test_pkg")
+
+    def test_get_pyproject_data_backend_without_project_table(self):
+        data = projectdata.get_pyproject_data(TESTDATA_DIR / "pep517")
+
+        self.assertEqual(data["_build_backend"], "setuptools.build_meta")
 
 
 class DistroDataTest(unittest.TestCase):
