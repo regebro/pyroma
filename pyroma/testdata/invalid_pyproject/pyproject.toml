@@ -1,0 +1,10 @@
+[build-system]
+requires = ["setuptools>=42"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "test-package"
+version = "0.1.0"
+description = "A test package"
+# Invalid: authors should be array of tables, not a string
+authors = "Invalid Author String"

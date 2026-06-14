@@ -16,12 +16,14 @@
 #                 not be counted).
 import io
 import re
+import os
 from collections import defaultdict
 
 from docutils.core import publish_parts
 from docutils.utils import SystemMessage
 from trove_classifiers import classifiers as CLASSIFIERS
 from packaging.specifiers import InvalidSpecifier, SpecifierSet
+from setuptools.config.pyprojecttoml import read_configuration
 
 LEVELS = [
     "This cheese seems to contain no dairy products",
@@ -460,9 +462,13 @@ class BusFactor(BaseTest):
 
 
 class MissingBuildSystem(BaseTest):
+    # The build system tests give only negative weight, as they are effectively required
+    # for a working package, so passing them shouldn't give you a better rating,
+    # but failing them should give you a worse rating.
+    weight = 0
+
     def test(self, data):
         if "_missing_build_system" in data:
-            # These sort of "negative only/deprecation" ratings only give you negative weight
             self.weight = 400
             return False
 
@@ -474,9 +480,12 @@ class MissingBuildSystem(BaseTest):
 
 
 class MissingPyProjectToml(BaseTest):
+    # This may not yet be required, but it will be in the future, so we treat
+    # give it a negative rating when it fails, but not a positive rating when it succeeds.
+    weight = 0
+
     def test(self, data):
         if "_missing_build_system" in data or "_missing_pyproject_toml" in data:
-            # These sort of "negative only/deprecation" ratings only give you negative weight
             self.weight = 100
             return False
 
@@ -490,9 +499,41 @@ class MissingPyProjectToml(BaseTest):
         )
 
 
+class PyprojectTomlValid(BaseTest):
+    # The build system tests give only negative weight, as they are effectively required
+    # for a working package, so passing them shouldn't give you a better rating,
+    # but failing them should give you a worse rating.
+    weight = 0
+
+    def test(self, data):
+        # Only test if we have a path and pyproject.toml exists
+        if "_path" not in data:
+            return None
+
+        if "_missing_pyproject_toml" in data or "_missing_build_system" in data:
+            # No pyproject.toml to validate, skip this test
+            return None
+
+        pyproject_path = os.path.join(data["_path"], "pyproject.toml")
+
+        try:
+            read_configuration(pyproject_path)
+            return True
+        except Exception as e:
+            self._message = str(e)
+            self.weight = 100
+            return False
+
+    def message(self):
+        return f"Your pyproject.toml is invalid: {self._message}"
+
+
+BUILD_SYSTEM_TESTS = [MissingBuildSystem(), MissingPyProjectToml(), PyprojectTomlValid()]
+
 ALL_TESTS = [
     MissingBuildSystem(),
     MissingPyProjectToml(),
+    PyprojectTomlValid(),
     Name(),
     Version(),
     VersionIsString(),
@@ -513,6 +554,7 @@ ALL_TESTS = [
     BusFactor(),
     DevStatusClassifier(),
 ]
+
 
 try:
     import check_manifest
@@ -544,29 +586,30 @@ except ImportError:
 
 
 def rate(data, skip_tests=None):
+    fails = []
+    good = 0
+    bad = 0
+    fatality = False
+    test_list = ALL_TESTS
+
     if len([key for key in data if not key.startswith("_")]) == 0:
         if "_no_config_found" in data:
             # Are you in the correct directory?:
             return (0, ["I couldn't find any package data. Are checking the correct directory or file?"])
 
-        if "_wheel_build_failed" in data:
-            return (
-                0,
-                [
-                    "Pyroma failed to build your packages wheel metadata, which indicates an error with "
-                    "your build configuration, like you not having a pyproject.toml file, or it being faulty.\n"
-                    "Running `python -m build` in your package directory may give more information."
-                ],
-            )
+    if "_wheel_build_failed" in data:
+        fails.append(
+            "Pyroma failed to build your packages wheel metadata, which indicates an error with "
+            "your build configuration, like you not having a pyproject.toml file, or it being faulty.\n"
+            "Running `python -m build` in your package directory may give more information."
+        )
+        fatality = True
+        test_list = BUILD_SYSTEM_TESTS
 
     if skip_tests is None:
         skip_tests = []
 
-    fails = []
-    good = 0
-    bad = 0
-    fatality = False
-    for test in ALL_TESTS:
+    for test in test_list:
         if test.__class__.__name__ in skip_tests:
             continue
         res = test.test(data)

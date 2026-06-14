@@ -287,6 +287,16 @@ class RatingsTest(unittest.TestCase):
         rating = self._get_file_rating("private_classifier")
         self.assertEqual(rating, (10, []))
 
+    def test_invalid_pyproject(self):
+        # Use valid metadata so we exercise the rating check itself,
+        # then point _path to a fixture with an invalid pyproject.toml.
+        testdata = COMPLETE.copy()
+        testdata["_path"] = TESTDATA_DIR / "invalid_pyproject"
+
+        rating = rate(testdata)
+        self.assertLess(rating[0], 10)
+        self.assertTrue(any("pyproject.toml is invalid" in msg for msg in rating[1]))
+
     def test_markdown(self):
         # Markdown and text shouldn't get ReST errors
         testdata = COMPLETE.copy()
