@@ -4,7 +4,7 @@ Changelog
 5.1b2 (unreleased)
 ------------------
 
-- Nothing changed yet.
+- Added depracation warnings for deprecated metadata.
 
 
 5.1b1 (2026-06-14)
