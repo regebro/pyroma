@@ -225,7 +225,11 @@ class ClassifierVerification(BaseTest):
 
     def message(self):
         err = "\n".join(self._incorrect)
-        return "Some of your classifiers are not standard classifiers:\n" + err
+        return (
+            f"Some of your classifiers are not standard classifiers:\n{err}\n"
+            f"If you have custom classifiers, they should start with 'Private :: '\n"
+            f"You can find the list of standard classifiers here: https://pypi.org/classifiers/"
+        )
 
 
 class PythonClassifierVersion(BaseTest):
@@ -272,8 +276,14 @@ class PythonClassifierVersion(BaseTest):
             return (
                 "The classifiers should specify what minor versions of "
                 "Python you support as well as what major version."
+                "You can find the list of standard classifiers here: "
+                "https://pypi.org/classifiers/"
             )
-        return "The classifiers should specify what Python versions you support."
+        return (
+            "The classifiers should specify what Python versions you support."
+            "You can find the list of standard classifiers here: "
+            "https://pypi.org/classifiers/"
+        )
 
 
 class PythonRequiresVersion(BaseTest):
@@ -388,7 +398,11 @@ class DevStatusClassifier(BaseTest):
         return False
 
     def message(self):
-        return "Specifying a development status in the classifiers gives users a hint of how stable your software is."
+        return (
+            "Specifying a development status in the classifiers gives users a "
+            "hint of how stable your software is. See "
+            "https://pypi.org/classifiers/"
+        )
 
 
 class SDist(BaseTest):
@@ -476,6 +490,7 @@ class MissingBuildSystem(BaseTest):
         return (
             "You seem to neither have a setup.py, nor a pyproject.toml, only setup.cfg.\n"
             "This makes it unclear how your project should be built, and some packaging tools may fail."
+            "See https://packaging.python.org for more information on how to package your project."
         )
 
 
@@ -496,6 +511,7 @@ class MissingPyProjectToml(BaseTest):
             "    [build-system]\n"
             '    requires = ["setuptools>=42"]\n'
             '    build-backend = "setuptools.build_meta"\n'
+            "See https://packaging.python.org for more information on how to package your project."
         )
 
 
@@ -525,7 +541,10 @@ class PyprojectTomlValid(BaseTest):
             return False
 
     def message(self):
-        return f"Your pyproject.toml is invalid: {self._message}"
+        return (
+            f"Your pyproject.toml is invalid: {self._message}\n"
+            "See https://packaging.python.org for more information on how to package your project."
+        )
 
 
 BUILD_SYSTEM_TESTS = [MissingBuildSystem(), MissingPyProjectToml(), PyprojectTomlValid()]

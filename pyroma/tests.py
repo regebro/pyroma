@@ -138,7 +138,8 @@ class RatingsTest(unittest.TestCase):
                     "You probably want to create one with the following configuration:\n\n"
                     "    [build-system]\n"
                     '    requires = ["setuptools>=42"]\n'
-                    '    build-backend = "setuptools.build_meta"\n',
+                    '    build-backend = "setuptools.build_meta"\n'
+                    "See https://packaging.python.org for more information on how to package your project.",
                 ],
             ),
         )
@@ -155,13 +156,15 @@ class RatingsTest(unittest.TestCase):
                 [
                     "You seem to neither have a setup.py, nor a pyproject.toml, only setup.cfg.\n"
                     "This makes it unclear how your project should be built, and some packaging "
-                    "tools may fail.",
+                    "tools may fail."
+                    "See https://packaging.python.org for more information on how to package your project.",
                     "Your project does not have a pyproject.toml file, which is highly "
                     "recommended.\n"
                     "You probably want to create one with the following configuration:\n\n"
                     "    [build-system]\n"
                     '    requires = ["setuptools>=42"]\n'
-                    '    build-backend = "setuptools.build_meta"\n',
+                    '    build-backend = "setuptools.build_meta"\n'
+                    "See https://packaging.python.org for more information on how to package your project.",
                     "Specifying both a License-Expression and license classifiers is ambiguous, "
                     "deprecated, and may be rejected by package indices.",
                     "Check-manifest returned errors",
@@ -211,7 +214,8 @@ class RatingsTest(unittest.TestCase):
                     "The package's Summary should be longer than 10 characters.",
                     "The package's Description is quite short.",
                     "Your package does not have classifier data.",
-                    "The classifiers should specify what Python versions you support.",
+                    "The classifiers should specify what Python versions you support."
+                    "You can find the list of standard classifiers here: https://pypi.org/classifiers/",
                     "You should specify what Python versions you support with " "the 'Requires-Python' metadata.",
                     "Your package does not have keywords data.",
                     "Your package does not have author data.",
@@ -220,7 +224,7 @@ class RatingsTest(unittest.TestCase):
                     "'project_urls' field, with a dictionary of links, or both.",
                     "Your package does neither have a license field nor any license classifiers.",
                     "Specifying a development status in the classifiers gives users "
-                    "a hint of how stable your software is.",
+                    "a hint of how stable your software is. See https://pypi.org/classifiers/",
                     "Check-manifest returned errors",
                 ],
             ),
@@ -238,11 +242,13 @@ class RatingsTest(unittest.TestCase):
                     "You probably want to create one with the following configuration:\n\n"
                     "    [build-system]\n"
                     '    requires = ["setuptools>=42"]\n'
-                    '    build-backend = "setuptools.build_meta"\n',
+                    '    build-backend = "setuptools.build_meta"\n'
+                    "See https://packaging.python.org for more information on how to package your project.",
                     "The package had no Summary!",
                     "The package's Description is quite short.",
                     "Your package does not have classifier data.",
-                    "The classifiers should specify what Python versions you support.",
+                    "The classifiers should specify what Python versions you support."
+                    "You can find the list of standard classifiers here: https://pypi.org/classifiers/",
                     "You should specify what Python versions you support with " "the 'Requires-Python' metadata.",
                     "Your package does not have keywords data.",
                     "Your package does not have author data.",
@@ -253,7 +259,7 @@ class RatingsTest(unittest.TestCase):
                     "Your Description is not valid ReST: \n<string>:1: (WARNING/2) Inline literal "
                     "start-string without end-string.",
                     "Specifying a development status in the classifiers gives users "
-                    "a hint of how stable your software is.",
+                    "a hint of how stable your software is. See https://pypi.org/classifiers/",
                 ],
             ),
         )
@@ -269,7 +275,8 @@ class RatingsTest(unittest.TestCase):
                     "The package's Summary should be longer than 10 characters.",
                     "The package's Description is quite short.",
                     "Your package does not have classifier data.",
-                    "The classifiers should specify what Python versions you support.",
+                    "The classifiers should specify what Python versions you support."
+                    "You can find the list of standard classifiers here: https://pypi.org/classifiers/",
                     "You should specify what Python versions you support with " "the 'Requires-Python' metadata.",
                     "Your package does not have keywords data.",
                     "Your package does not have author data.",
@@ -278,7 +285,7 @@ class RatingsTest(unittest.TestCase):
                     "'project_urls' field, with a dictionary of links, or both.",
                     "Your package does neither have a license field nor any license classifiers.",
                     "Specifying a development status in the classifiers gives users "
-                    "a hint of how stable your software is.",
+                    "a hint of how stable your software is. See https://pypi.org/classifiers/",
                 ],
             ),
         )
