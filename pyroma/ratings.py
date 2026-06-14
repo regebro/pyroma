@@ -17,7 +17,6 @@
 import io
 import re
 import os
-from collections import defaultdict
 
 from docutils.core import publish_parts
 from docutils.utils import SystemMessage
@@ -38,31 +37,6 @@ LEVELS = [
     "Cottage Cheese",
     "Your cheese is so fresh most people think it's a cream: Mascarpone",
 ]
-
-SHORT_NAME_RE = re.compile(r"\(.*?\)")
-
-
-def get_code_licenses():
-    licenses = [each for each in list(CLASSIFIERS) if each.startswith("License")]
-    code_map = defaultdict(set)
-    for license in licenses:
-        short_name = SHORT_NAME_RE.findall(license)
-        if short_name:
-            short_name = short_name[0][1:-1]
-            code_map[short_name].add(license)
-            if short_name.startswith("GPL"):
-                code_map["GPL"].add(license)
-            elif short_name.startswith("LGPL"):
-                code_map["LGPL"].add(license)
-        elif "Zope" in license:
-            code_map["ZPL"].add(license)
-        elif "MIT License" in license:
-            code_map["MIT"].add(license)
-
-    return code_map
-
-
-CODE_LICENSES = get_code_licenses()
 
 
 class BaseTest:
@@ -349,15 +323,14 @@ class Licensing(BaseTest):
         license = data.get("license")
         license_expression = data.get("license-expression")
         classifiers = data.get("classifier", [])
-        licenses = set()
-        for classifier in classifiers:
-            parts = [p.strip() for p in classifier.split("::")]
-            if parts[0] == "License":
-                # license classifiers exist
-                licenses.add(classifier)
+        has_license_classifier = any(c.startswith("License") for c in classifiers)
 
-        if not license and not license_expression and not licenses:
-            self._message = "Your package does neither have a license field nor any license classifiers."
+        if not license and not license_expression and not has_license_classifier:
+            self._message = (
+                "You should specify a license for your package with the 'License-Expression' field. "
+                "See https://packaging.python.org/en/latest/specifications/core-metadata/#license-expression "
+                "for more information."
+            )
             return False
 
         if license and license_expression:
@@ -367,17 +340,16 @@ class Licensing(BaseTest):
             )
             return False
 
-        if license_expression and licenses:
+        if license_expression and has_license_classifier:
             self._message = (
                 "Specifying both a License-Expression and license classifiers is ambiguous, deprecated, "
                 "and may be rejected by package indices."
             )
             return False
 
-        if license in CODE_LICENSES:
-            if not CODE_LICENSES[license].intersection(licenses):
-                self._message = f"The license '{license}' specified is not listed in your classifiers."
-                return False
+        if has_license_classifier:
+            self._message = "Using license classifiers is deprecated in favour of the license-expression field."
+            return False
 
         return True
 
@@ -406,13 +378,13 @@ class DevStatusClassifier(BaseTest):
 
 
 class SDist(BaseTest):
-    weight = 100
-
     def test(self, data):
         if "_has_sdist" not in data:
             # We aren't checking on PyPI
             self.weight = 0
             return None
+
+        self.weight = 100
         return data["_has_sdist"]
 
     def message(self):
@@ -476,15 +448,16 @@ class BusFactor(BaseTest):
 
 
 class MissingBuildSystem(BaseTest):
-    # The build system tests give only negative weight, as they are effectively required
-    # for a working package, so passing them shouldn't give you a better rating,
-    # but failing them should give you a worse rating.
-    weight = 0
-
     def test(self, data):
         if "_missing_build_system" in data:
+            # The build system tests give only negative weight, as they are effectively required
+            # for a working package, so passing them shouldn't give you a better rating,
+            # but failing them should give you a worse rating.
             self.weight = 400
             return False
+
+        self.weight = 0
+        return True
 
     def message(self):
         return (
@@ -495,11 +468,10 @@ class MissingBuildSystem(BaseTest):
 
 
 class MissingPyProjectToml(BaseTest):
-    # This may not yet be required, but it will be in the future, so we treat
-    # give it a negative rating when it fails, but not a positive rating when it succeeds.
-    weight = 0
-
     def test(self, data):
+        # This may not yet be required, but it will be in the future, so we treat
+        # give it a negative rating when it fails, but not a positive rating when it succeeds.
+        self.weight = 0
         if "_missing_build_system" in data or "_missing_pyproject_toml" in data:
             self.weight = 100
             return False
@@ -516,12 +488,12 @@ class MissingPyProjectToml(BaseTest):
 
 
 class PyprojectTomlValid(BaseTest):
-    # The build system tests give only negative weight, as they are effectively required
-    # for a working package, so passing them shouldn't give you a better rating,
-    # but failing them should give you a worse rating.
-    weight = 0
-
     def test(self, data):
+        # The build system tests give only negative weight, as they are effectively required
+        # for a working package, so passing them shouldn't give you a better rating,
+        # but failing them should give you a worse rating.
+        self.weight = 0
+
         # Only test if we have a path and pyproject.toml exists
         if "_path" not in data:
             return None
@@ -545,6 +517,47 @@ class PyprojectTomlValid(BaseTest):
             f"Your pyproject.toml is invalid: {self._message}\n"
             "See https://packaging.python.org for more information on how to package your project."
         )
+
+
+class DeprecatedMetadataFields(BaseTest):
+    weight = 50
+
+    _deprecated = {
+        "home-page": ("project-url", "1.2"),
+        "download-url": ("project-url", "1.2"),
+        "requires": ("requires-dist", "1.2"),
+        "provides": ("provides-dist", "1.2"),
+        "obsoletes": ("obsoletes-dist", "1.2"),
+        "license": ("license-expression", "2.4"),
+    }
+
+    def _version_at_least(self, data, minimum):
+        metadata_version = data.get("metadata-version")
+        if not metadata_version:
+            return True
+
+        try:
+            current = tuple(int(p) for p in str(metadata_version).split("."))
+            required = tuple(int(p) for p in str(minimum).split("."))
+        except ValueError:
+            return True
+
+        return current >= required
+
+    def test(self, data):
+        self._warnings = []
+
+        for deprecated, (replacement, deprecated_since) in self._deprecated.items():
+            if not self._version_at_least(data, deprecated_since):
+                continue
+
+            if data.get(deprecated) and not data.get(replacement):
+                self._warnings.append(f"The metadata field '{deprecated}' is deprecated; use '{replacement}' instead.")
+
+        return not self._warnings
+
+    def message(self):
+        return "\n".join(self._warnings)
 
 
 BUILD_SYSTEM_TESTS = [MissingBuildSystem(), MissingPyProjectToml(), PyprojectTomlValid()]
@@ -572,6 +585,7 @@ ALL_TESTS = [
     ValidREST(),
     BusFactor(),
     DevStatusClassifier(),
+    DeprecatedMetadataFields(),
 ]
 
 

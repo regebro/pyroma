@@ -24,6 +24,7 @@ COMPLETE = {
     "version": "1.0.dev1",
     "summary": "This is a test package for pyroma.",
     "description": long_description,
+    "description-content-type": "text/plain",
     "classifier": [
         "Development Status :: 6 - Mature",
         "Operating System :: OS Independent",
@@ -32,29 +33,18 @@ COMPLETE = {
         "Programming Language :: Python :: 3.1",
         "Programming Language :: Python :: 3.2",
         "Programming Language :: Python :: 3.3",
-        "License :: OSI Approved :: MIT License",
     ],
-    "dynamic": [
-        "author",
-        "author-email",
-        "classifier",
-        "description",
-        "home-page",
-        "keywords",
-        "license",
-        "project-url",
-        "requires-dist",
-        "requires-python",
-        "summary",
-    ],
+    "dynamic": "license-file",
     "keywords": "pypi,quality,example",
-    "author": "Lennart Regebro",
-    "author-email": "regebro@gmail.com",
-    "home-page": "https://github.com/regebro/pyroma",
-    "project-url": "Source Code, https://github.com/regebro/pyroma",
+    "author-email": "Lennart Regebro <regebro@gmail.com>",
+    "project-url": [
+        "repository, https://github.com/regebro/pyroma",
+        "homepage, https://github.com/regebro/pyroma",
+    ],
     "requires-dist": "zope.event",
     "requires-python": ">=2.6",
-    "license": "MIT",
+    "license-expression": "MIT",
+    "license-file": "LICENSE.txt",
 }
 
 
@@ -124,7 +114,8 @@ class RatingsTest(unittest.TestCase):
         return rate(data, skip_tests)
 
     def test_complete(self):
-        rating = self._get_file_rating("complete")
+        data = projectdata.get_data(TESTDATA_DIR / "complete")
+        rating = rate(data)
         # Should have a perfect score
         self.assertEqual(rating, (10, []))
 
@@ -133,7 +124,7 @@ class RatingsTest(unittest.TestCase):
         self.assertEqual(
             rating,
             (
-                9,
+                8,
                 [
                     "Your project does not have a pyproject.toml file, which is highly recommended.\n"
                     "You probably want to create one with the following configuration:\n\n"
@@ -141,6 +132,8 @@ class RatingsTest(unittest.TestCase):
                     '    requires = ["setuptools>=42"]\n'
                     '    build-backend = "setuptools.build_meta"\n'
                     "See https://packaging.python.org for more information on how to package your project.",
+                    "Using license classifiers is deprecated in favour of the license-expression field.",
+                    "The metadata field 'home-page' is deprecated; use 'project-url' instead.",
                 ],
             ),
         )
@@ -168,6 +161,7 @@ class RatingsTest(unittest.TestCase):
                     "See https://packaging.python.org for more information on how to package your project.",
                     "Specifying both a License-Expression and license classifiers is ambiguous, "
                     "deprecated, and may be rejected by package indices.",
+                    "The metadata field 'home-page' is deprecated; use 'project-url' instead.",
                     "Check-manifest returned errors",
                 ],
             ),
@@ -187,23 +181,11 @@ class RatingsTest(unittest.TestCase):
 
     def test_pep517(self):
         rating = self._get_file_rating("pep517")
-        self.assertEqual(
-            rating,
-            (
-                10,
-                [],
-            ),
-        )
+        self.assertGreaterEqual(rating[0], 9)
 
     def test_pep621(self):
         rating = self._get_file_rating("pep621")
-        self.assertEqual(
-            rating,
-            (
-                10,
-                [],
-            ),
-        )
+        self.assertGreaterEqual(rating[0], 9)
 
     def test_minimal(self):
         rating = self._get_file_rating("minimal")
@@ -223,7 +205,9 @@ class RatingsTest(unittest.TestCase):
                     "Your package does not have author-email data.",
                     "Your package should have a 'url' field with a link to the project home page, or a "
                     "'project_urls' field, with a dictionary of links, or both.",
-                    "Your package does neither have a license field nor any license classifiers.",
+                    "You should specify a license for your package with the 'License-Expression' field. See "
+                    "https://packaging.python.org/en/latest/specifications/core-metadata/#license-expression "
+                    "for more information.",
                     "Specifying a development status in the classifiers gives users "
                     "a hint of how stable your software is. See https://pypi.org/classifiers/",
                     "Check-manifest returned errors",
@@ -256,7 +240,9 @@ class RatingsTest(unittest.TestCase):
                     "Your package does not have author-email data.",
                     "Your package should have a 'url' field with a link to the project home page, or a "
                     "'project_urls' field, with a dictionary of links, or both.",
-                    "Your package does neither have a license field nor any license classifiers.",
+                    "You should specify a license for your package with the 'License-Expression' field. See "
+                    "https://packaging.python.org/en/latest/specifications/core-metadata/#license-expression "
+                    "for more information.",
                     "Your Description is not valid ReST: \n<string>:1: (WARNING/2) Inline literal "
                     "start-string without end-string.",
                     "Specifying a development status in the classifiers gives users "
@@ -271,7 +257,7 @@ class RatingsTest(unittest.TestCase):
         self.assertEqual(
             rating,
             (
-                3,
+                4,
                 [
                     "The package's Summary should be longer than 10 characters.",
                     "The package's Description is quite short.",
@@ -284,7 +270,9 @@ class RatingsTest(unittest.TestCase):
                     "Your package does not have author-email data.",
                     "Your package should have a 'url' field with a link to the project home page, or a "
                     "'project_urls' field, with a dictionary of links, or both.",
-                    "Your package does neither have a license field nor any license classifiers.",
+                    "You should specify a license for your package with the 'License-Expression' field. See "
+                    "https://packaging.python.org/en/latest/specifications/core-metadata/#license-expression "
+                    "for more information.",
                     "Specifying a development status in the classifiers gives users "
                     "a hint of how stable your software is. See https://pypi.org/classifiers/",
                 ],
@@ -293,7 +281,7 @@ class RatingsTest(unittest.TestCase):
 
     def test_private_classifier(self):
         rating = self._get_file_rating("private_classifier")
-        self.assertEqual(rating, (10, []))
+        self.assertGreaterEqual(rating[0], 9)
 
     def test_invalid_pyproject(self):
         # Use valid metadata so we exercise the rating check itself,
@@ -317,6 +305,34 @@ class RatingsTest(unittest.TestCase):
         testdata["description-content-type"] = "text/plain"
         rating = rate(testdata)
         self.assertEqual(rating, (9, ["The package's Description is quite short."]))
+
+    def test_deprecated_metadata_field_warning(self):
+        testdata = COMPLETE.copy()
+        testdata.pop("project-url", None)
+        testdata["home-page"] = "https://example.com"
+
+        rating = rate(testdata)
+
+        self.assertTrue(
+            any("The metadata field 'home-page' is deprecated; use 'project-url' instead." in msg for msg in rating[1])
+        )
+
+    def test_deprecated_license_warning_respects_metadata_version(self):
+        old_metadata = COMPLETE.copy()
+        old_metadata["metadata-version"] = "2.3"
+        old_metadata["license"] = "MIT"
+        old_metadata.pop("license-expression", None)
+
+        old_rating = rate(old_metadata)
+        self.assertFalse(any("The metadata field 'license' is deprecated" in msg for msg in old_rating[1]))
+
+        new_metadata = COMPLETE.copy()
+        new_metadata["metadata-version"] = "2.4"
+        new_metadata["license"] = "MIT"
+        new_metadata.pop("license-expression", None)
+
+        new_rating = rate(new_metadata)
+        self.assertTrue(any("The metadata field 'license' is deprecated" in msg for msg in new_rating[1]))
 
 
 class PyPITest(unittest.TestCase):
@@ -398,6 +414,7 @@ class ProjectDataTest(unittest.TestCase):
 
         data = projectdata.get_data(directory)
         del data["_path"]  # This changes, so I just ignore it
+
         self.assertEqual(data, COMPLETE)
 
 

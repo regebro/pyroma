@@ -1,2 +1,32 @@
-[tool.black]
-line-length = 120
+[build-system]
+requires = ["setuptools>=61"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "complete"
+version = "1.0.dev1"
+description = "This is a test package for pyroma."
+readme = "README.txt"
+authors = [{name = "Lennart Regebro", email = "regebro@gmail.com"}]
+classifiers = [
+	"Development Status :: 6 - Mature",
+	"Operating System :: OS Independent",
+	"Programming Language :: Python :: 2.6",
+	"Programming Language :: Python :: 2.7",
+	"Programming Language :: Python :: 3.1",
+	"Programming Language :: Python :: 3.2",
+	"Programming Language :: Python :: 3.3",
+]
+keywords = [
+	"pypi",
+	"quality",
+	"example",
+]
+requires-python = ">=2.6"
+dependencies = ["zope.event"]
+license = "MIT"
+license-files = ["LICENSE.txt"]
+
+[project.urls]
+repository = "https://github.com/regebro/pyroma"
+homepage = "https://github.com/regebro/pyroma"
