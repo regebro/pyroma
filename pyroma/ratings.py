@@ -399,7 +399,7 @@ class ValidREST(BaseTest):
     weight = 50
 
     def test(self, data):
-        content_type = data.get("description-content-type", None)
+        content_type = (data.get("description-content-type") or "").partition(";")[0].strip().lower()
         if content_type in ("text/plain", "text/markdown"):
             # These can't fail. Markdown will just assume everything
             # it doesn't understand is plain text.
