@@ -4,7 +4,8 @@ Changelog
 5.1b3 (unreleased)
 ------------------
 
-- Nothing changed yet.
+- Recognize Markdown and plain-text descriptions with content type parameters.
+  Fixes #135.
 
 
 5.1b2 (2026-06-14)

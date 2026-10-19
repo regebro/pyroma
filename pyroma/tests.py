@@ -297,14 +297,26 @@ class RatingsTest(unittest.TestCase):
         # Markdown and text shouldn't get ReST errors
         testdata = COMPLETE.copy()
         testdata["description"] = "# Broken ReST\n\n``Valid  Markdown\n"
-        testdata["description-content-type"] = "text/markdown"
+        for content_type in (
+            "text/markdown",
+            "text/plain",
+            "text/markdown; charset=UTF-8; variant=GFM",
+            "text/plain; charset=UTF-8",
+            "Text/Markdown; charset=UTF-8",
+        ):
+            with self.subTest(content_type=content_type):
+                testdata["description-content-type"] = content_type
+                rating = rate(testdata)
+                self.assertEqual(rating, (9, ["The package's Description is quite short."]))
 
-        rating = rate(testdata)
-        self.assertEqual(rating, (9, ["The package's Description is quite short."]))
-
-        testdata["description-content-type"] = "text/plain"
-        rating = rate(testdata)
-        self.assertEqual(rating, (9, ["The package's Description is quite short."]))
+    def test_invalid_rest(self):
+        testdata = COMPLETE.copy()
+        testdata["description"] = "# Broken ReST\n\n``Unclosed literal\n"
+        for content_type in (None, "text/x-rst", "text/x-rst; charset=UTF-8"):
+            with self.subTest(content_type=content_type):
+                testdata["description-content-type"] = content_type
+                rating = rate(testdata)
+                self.assertTrue(any("Your Description is not valid ReST" in message for message in rating[1]))
 
     def test_deprecated_metadata_field_warning(self):
         testdata = COMPLETE.copy()
