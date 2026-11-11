@@ -11,7 +11,7 @@ import pyroma
 from xmlrpc import client as xmlrpclib
 
 from pyroma import projectdata, distributiondata, pypidata
-from pyroma.ratings import rate
+from pyroma.ratings import PythonClassifierVersion, rate
 
 TESTDATA_DIR = Path(__file__).parent / "testdata"
 long_description = (TESTDATA_DIR / "complete" / "README.txt").read_text(encoding="UTF-8")
@@ -404,6 +404,18 @@ class PyPITest(unittest.TestCase):
 
         self.assertEqual(result, 10)
         datamock.assert_called_once_with("internalpkg", index_url="https://packages.example.com")
+
+
+class PythonClassifierVersionTest(unittest.TestCase):
+    def test_malformed_classifier_does_not_crash(self):
+        # A classifier without a "::" separator has no version part.
+        # It must fail the test instead of raising IndexError.
+        test = PythonClassifierVersion()
+        self.assertFalse(test.test({"classifier": ["Programming Language"]}))
+        self.assertFalse(test.test({"classifier": ["Programming Language", "Python"]}))
+        self.assertTrue(
+            test.test({"classifier": ["Programming Language :: Python :: 3.11"]})
+        )
 
 
 class ProjectDataTest(unittest.TestCase):
