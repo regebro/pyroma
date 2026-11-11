@@ -213,6 +213,9 @@ class PythonClassifierVersion(BaseTest):
         classifiers = data.get("classifier", [])
         for classifier in classifiers:
             parts = [p.strip() for p in classifier.split("::")]
+            if len(parts) < 2:
+                # Malformed classifier, it can't specify a Python version.
+                continue
             if parts[0] == "Programming Language" and parts[1] == "Python":
                 if len(parts) == 2:
                     # Specified Python, but no version.
